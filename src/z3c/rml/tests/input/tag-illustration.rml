@@ -1,0 +1,35 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-illustration.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;illustration&gt;</font> Tag Demo</title>
+    <para>
+      Illustrations allow graphical elements to be located into a story.
+    </para>
+    <illustration height="3cm" width="5cm">
+      <lines>
+        0   0   0   3cm
+        0   3cm 5cm 3cm
+        5cm 3cm 5cm 0
+        5cm 0   0   0
+      </lines>
+    </illustration>
+
+    <spacer length="8cm" />
+    <para>
+      Unfortunately, the height and width of the illustration are not honored.
+    </para>
+    <illustration height="3cm" width="5cm">
+      <circle x="1.5cm" y="1.5cm" radius="2cm" />
+    </illustration>
+  </story>
+</document>

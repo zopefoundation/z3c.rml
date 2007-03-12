@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_9.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics>
+        <grid xs="1cm,2cm,3cm,4cm,5cm,10cm,20cm"
+              ys="1cm,2cm,3cm,4cm,5cm,10cm,20cm"/>
+        <place x="10.5cm" y="10.5cm" width="9cm" height="9cm">
+          <title>This is a use of <i>place</i></title>
+          <spacer length="15"/>
+          <para>
+            This is a flowable. In this case, it is in a &lt;para&gt; tag, but
+            it could be any flowable. It has been placed inside a grid, but
+            you could put it inside any graphic or pageGraphics. Using the
+            place tag, you can have complete control over where you want your
+            flowables to appear.
+          </para>
+          <spacer length="12"/>
+          <para>
+            You can include Greek: <greek>abgd</greek>.
+          </para>
+          <spacer length="12"/>
+          <blockTable>
+            <tr>
+             <td>Or</td>
+             <td>even</td>
+            </tr>
+            <tr>
+              <td>a</td>
+              <td>blockTable.</td>
+            </tr>
+          </blockTable>
+        </place>
+      </pageGraphics>
+      <frame id="first" x1="72" y1="72" width="451" height="758" />
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <paraStyle
+        name="style.Title"
+        fontName="Courier-Bold"
+        fontSize="24"
+        leading="36"
+        />
+  </stylesheet>
+
+  <!-- The story starts below this comment -->
+
+  <story>
+    <title>Example 9</title>
+    <para>
+      This is a page which shows you how illustrations, grids and the place
+      tag work.
+    </para>
+    <illustration width="90" height="90">
+      <fill color="red"/>
+      <circle x="45" y="45" radius="30" fill="yes"/>
+      <setFont name="Times-Roman" size="8"/>
+      <drawString x="0" y="0">This is an illustration</drawString>
+    </illustration>
+    <para>
+      The red circle you can see is an <i>illustration</i>, not a
+      <i>pageGraphic</i>.
+    </para>
+    <illustration width="75" height="75">
+      <fill color="teal" />
+      <circle x="30" y="30" radius="30" fill="yes" />
+      <stroke color="darkslategray" />
+      <grid xs="15,30,45" ys="5,10,15,20,25,30,35,40,45,50" />
+    </illustration>
+    <para>
+      So is the teal colored one.
+    </para>
+    <para>
+      These are all flowables in the story.
+    </para>
+
+  </story>
+
+</document>

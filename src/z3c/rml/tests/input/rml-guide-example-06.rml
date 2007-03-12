@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_6.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <h1>
+      seq in seq, seqDefault and seqReset
+    </h1>
+    <para>
+      copied: <seq id="spam"/>, <seq id="spam"/>, <seq id="spam"/>.
+      Reset<seqReset id="spam"/>. <seq id="spam"/>, <seq id="spam"/>,
+      <seq id="spam"/>.</para>
+
+    <h2>
+      <i>simple use of seq</i>
+    </h2>
+    <para>
+       First seq: <seq/>
+    </para>
+    <para>
+       Second seq: <seq/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      <seqReset/>
+       We have just done a &lt;seqReset/&gt;
+    </para>
+    <spacer length="6"/>
+    <para>
+       First seq after seqReset: <seq/>
+    </para>
+    <para>
+     second seq after seqReset: <seq/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      If you are going to use multiple seq tags, you need to use the "id"
+      attribute.
+    </para>
+
+    <h2>
+      <i>Better use of seq</i>
+    </h2>
+    <para>
+      <seqDefault id="test"/>
+       We have just done a &lt;seqDefault id="test"/&gt;
+    </para>
+    <para>
+      <seqReset id="test"/>
+      We have just done a &lt;seqReset id="test"/&gt;
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq: <seq id="test"/>
+    </para>
+    <para>
+      Second seq: <seq id="test"/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      <seqReset id="test"/>
+      We have just done a &lt;seqReset id="test"/&gt;
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq after seqReset: <seq id="test"/>
+    </para>
+    <para>
+      second seq after seqReset: <seq id="test"/>
+    </para>
+
+    <h2>
+      <i>Using two seqs independently</i>
+    </h2>
+    <para>
+      <seqReset id="testOne"/>
+      We have just done a &lt;seqReset id="testOne"/&gt;
+    </para>
+    <para>
+      <seqReset id="testTwo"/>
+      We have just done a &lt;seqReset id="testTwo"/&gt;
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq for testOne: <seq id="testOne"/>
+    </para>
+    <para>
+      Second seq for testOne: <seq id="testOne"/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq for testTwo: <seq id="testTwo"/>
+    </para>
+    <para>
+      Second seq for testTwo: <seq id="testTwo"/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      <seqReset id="testOne"/>
+      We have just done a &lt;seqReset id="testOne"/&gt;
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq after seqReset for testOne: <seq id="testOne"/>
+    </para>
+    <para>
+      second seq after seqReset for testOne: <seq id="testOne"/>
+    </para>
+    <spacer length="6"/>
+    <para>
+      First seq after seqReset for testTwo: <seq id="testTwo"/>
+    </para>
+    <para>
+      second seq after seqReset for testTwo: <seq id="testTwo"/>
+    </para>
+    <spacer length="15"/>
+    <para>
+      Notice how resetting testOne doesn't affect testTwo at all.
+    </para>
+  </story>
+
+</document>

@@ -1,0 +1,67 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-spacer.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title>
+      <font face="Courier">&lt;pto&gt;</font> Tag Demo
+    </title>
+    <para>
+      ``pto`` allows us to specify text that is rendered before and after a
+      split of a frame ver pages.
+    </para>
+    <pto>
+      <pto_header>
+        <spacer length="1cm" />
+        <para><b>... let's go on</b></para>
+      </pto_header>
+      <pto_trailer>
+        <spacer length="1cm" />
+        <para><b>... please continue on the next page.</b></para>
+      </pto_trailer>
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+      <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+      <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+      <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+      <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+      <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+    </pto>
+  </story>
+</document>

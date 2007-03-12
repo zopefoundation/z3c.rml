@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-place.pdf">
+
+  <stylesheet>
+    <paraStyle
+      name="big"
+      fontsize="14"
+      fontname="Helvetica"
+      />
+  </stylesheet>
+
+  <pageDrawing>
+
+    <drawString x="1cm" y="25cm">
+      This is a string drawn using ``drawString``.
+    </drawString>
+
+    <lineMode width="3" />
+    <path x="1cm" y="17cm" close="true">
+      14cm 17cm
+      14cm 23cm
+       1cm 23cm
+    </path>
+
+    <place x="1cm" y="17cm" width="13cm" height="6cm">
+      <title><font face="Courier">&lt;place&gt;</font> Tag Demo</title>
+      <para style="big">
+        This is the first paragraph.
+      </para>
+      <spacer length="0.3cm" />
+      <blockTable>
+        <tr>
+         <td>This</td>
+         <td>is</td>
+        </tr>
+        <tr>
+          <td>a</td>
+          <td>blockTable.</td>
+        </tr>
+      </blockTable>
+    </place>
+
+    <drawString x="1cm" y="15cm">
+      This is a string drawn using ``drawString``.
+    </drawString>
+
+  </pageDrawing>
+</document>

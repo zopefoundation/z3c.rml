@@ -1,0 +1,58 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-blockTable-4.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <blockTableStyle id="table">
+      <lineStyle start="0,0" stop="-1,-1" kind="GRID"
+                 thickness="0.5" colorName="grey" />
+      <blockBackground start="0,0" stop="1,1" colorName="palegreen" />
+      <blockSpan start="0,0" stop="1,1" />
+      <blockBackground start="-2,-2" stop="-1,-1" colorName="pink" />
+      <blockSpan start="-2,-2" stop="-1,-1" />
+    </blockTableStyle>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;blockTable&gt;</font> Tag Demo</title>
+
+    <blockTable style="table">
+      <tr>
+        <td>Top
+Left</td>
+        <td></td>
+        <td>02</td>
+        <td>03</td>
+        <td>04</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>Bottom
+Right</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>31</td>
+        <td>32</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </blockTable>
+  </story>
+
+</document>

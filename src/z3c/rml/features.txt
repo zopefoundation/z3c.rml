@@ -1,0 +1,23 @@
+============
+RML Elements
+============
+
+Attribute Types
+===============
+
+Elements
+========
+
+``document``
+------------
+
+Sub Elements: template, stylesheet story
+
+================= ========== === ==============================================
+Attribute Name    Type        Req Notes
+----------------- ----------- --- ---------------------------------------------
+filename          Text
+compression       DefaultBool
+invariant         DefaultBool
+debug
+================= =========== === =============================================

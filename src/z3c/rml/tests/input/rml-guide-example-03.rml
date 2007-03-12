@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_3.pdf">
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics>
+        <!-- set the font and fill colour for the title. -->
+        <fill color="red"/>
+        <setFont name="Helvetica" size="24"/>
+        <!-- Use drawCentredString to place a title on the page -->
+        <drawCentredString x="297.5" y="800">
+            Simple Text and Graphics with RML.
+        </drawCentredString>
+        <fill color="red"/>
+        <!-- look at the output - though a fill color is set, no fill -->
+        <!-- is produced, since fill is set to "no" for the circle    -->
+        <circle x="127.5" y="672.75" radius="1 in" fill="no"
+            stroke="yes"/>
+        <fill color="green"/>
+        <stroke color="black"/>
+        <circle x="297.5" y="672.75" radius="1 in" fill="yes"
+            stroke="no"/>
+        <fill color="blue"/>
+        <stroke color="black"/>
+        <circle x="467.5" y="672.75" radius="1 in" fill="yes"
+            stroke="yes"/>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="127.5" y="567.5">
+            Circle - with stroke, but no fill.
+        </drawCentredString>
+        <drawCentredString x="297.5" y="567.5">
+            Circle - with fill, but no stroke.
+        </drawCentredString>
+        <drawCentredString x="467.5" y="567.5">
+            Circle - with both stroke and fill.
+        </drawCentredString>
+        <fill color="red"/>
+        <ellipse x="77" y="382.25" width="100" height="170"
+            fill="no" stroke="yes"/>
+        <fill color="green"/>
+        <stroke color="black"/>
+        <ellipse x="247" y="382.25" width="100" height="170"
+            fill="yes" stroke="no"/>
+        <fill color="blue"/>
+        <stroke color="black"/>
+        <ellipse x="417" y="382.25" width="100" height="170"
+            fill="yes" stroke="yes"/>
+        <fill color="black"/>
+        <drawCentredString x="127.5" y="357">
+            Ellipse - with stroke, but no fill.
+        </drawCentredString>
+        <drawCentredString x="297.5" y="357">
+            Ellipse - with fill, but no stroke.
+        </drawCentredString>
+        <drawCentredString x="467.5" y="357">
+            Ellipse - with both stroke and fill.
+        </drawCentredString>
+        <rect x="84.5" y="214.3" width="1 in" height="1.15 in"
+            fill="no" stroke="yes"/>
+        <fill color="green"/>
+        <stroke color="black"/>
+        <rect x="254.5" y="214.3" width="1 in" height="1.15 in"
+            fill="yes" stroke="no"/>
+        <fill color="blue"/>
+        <stroke color="black"/>
+        <rect x="424.5" y="214.3" width="1 in" height="1.15 in"
+            fill="yes" stroke="yes"/>
+        <fill color="black"/>
+        <drawCentredString x="127.5" y="199.1">
+            Rect - with stroke, but no fill.
+        </drawCentredString>
+        <drawCentredString x="297.5" y="199.1">
+            Rect - with fill, but no stroke.
+        </drawCentredString>
+        <drawCentredString x="467.5" y="199.1">
+            Rect - with both stroke and fill.
+        </drawCentredString>
+        <rect x="84.5" y="56.5" width="1 in" height="1.15 in"
+            fill="no" stroke="yes" round="0.15 in"/>
+        <fill color="green"/>
+        <stroke color="black"/>
+        <rect x="254.5" y="56.5" width="1 in" height="1.15 in"
+            fill="yes" stroke="no" round="0.15 in"/>
+        <fill color="blue"/>
+        <stroke color="black"/>
+        <rect x="424.5" y="56.5" width="1 in" height="1.15 in"
+            fill="yes" stroke="yes" round="0.15 in"/>
+         <fill color="black"/>
+         <drawCentredString x="127.5" y="41.25">
+             Rect - with stroke and round, but no fill.
+         </drawCentredString>
+         <drawCentredString x="297.5" y="41.25">
+             Rect - with fill and round, but no stroke.
+         </drawCentredString>
+         <drawCentredString x="467.5" y="41.25">
+             Rect - with stroke, fill and round.
+         </drawCentredString>
+      </pageGraphics>
+      <frame id="first" x1="0.5in" y1="0.5in"
+             width="20cm" height="28cm"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+  </stylesheet>
+  <story>
+    <para></para>
+  </story>
+</document>

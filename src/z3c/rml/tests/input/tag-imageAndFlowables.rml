@@ -1,0 +1,47 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-spacer.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title>
+      <font face="Courier">&lt;imageAndFlowables&gt;</font> Tag Demo
+    </title>
+    <para>
+      This tag sets and image an flowables around it. This paragraph clearly
+      still goes accross the entire frame width. We need some more text to
+      demonstrate that.
+    </para>
+    <imageAndFlowables
+        imageName="images/replogo.gif"
+        imageWidth="200"
+        imageMask="white"
+        imageLeftPadding="20"
+        imageRightPadding="20"
+        imageTopPadding="20"
+        imageBottomPadding="20"
+        imageSide="left">
+      <h1>Wrap around</h1>
+      <para>This text should wrap around the image.</para>
+      <para>
+        A lot more text goes here. A lot more text goes here. A lot more text
+        goes here. A lot more text goes here. A lot more text goes here. A lot
+        more text goes here.
+      </para>
+      <para>
+        A lot more text goes here. A lot more text goes here. A lot more text
+        goes here. A lot more text goes here. A lot more text goes here. A lot
+        more text goes here. A lot more text goes here. A lot more text goes
+        here. A lot more text goes here. A lot more text goes here. A lot more
+        text goes here. A lot more text goes here.
+      </para>
+    </imageAndFlowables>
+  </story>
+</document>

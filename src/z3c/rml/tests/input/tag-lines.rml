@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="grid.pdf">
+  <pageDrawing>
+
+    <lines>
+      1in 7in 6in 7in
+      1in 5in 6in 4in
+      1in 3in 1in 1in
+    </lines>
+
+  </pageDrawing>
+</document>

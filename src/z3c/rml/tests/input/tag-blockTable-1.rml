@@ -1,0 +1,28 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pre.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+
+    <title><font face="Courier">&lt;blockTable&gt;</font> Tag Demo</title>
+    <blockTable>
+      <tr>
+       <td>This</td>
+       <td>is</td>
+      </tr>
+      <tr>
+        <td>a</td>
+        <td>blockTable.</td>
+      </tr>
+    </blockTable>
+
+  </story>
+</document>

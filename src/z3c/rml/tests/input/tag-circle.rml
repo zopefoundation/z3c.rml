@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="circle.pdf">
+  <pageDrawing>
+
+    <circle x="10cm" y="25cm" radius="2cm"
+            fill="false" stroke="false" />
+
+    <circle x="10cm" y="20cm" radius="2cm"
+            fill="true" stroke="false" />
+
+    <circle x="10cm" y="15cm" radius="2cm"
+            fill="false" stroke="true" />
+
+    <circle x="10cm" y="10cm" radius="2cm"
+            fill="true" stroke="true" />
+
+  </pageDrawing>
+</document>

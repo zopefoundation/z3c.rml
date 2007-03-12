@@ -1,0 +1,52 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-blockTable-4.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;blockTable&gt;</font> Tag Demo</title>
+    <para>
+      This demo demonstrates setting styles via
+      <font face="courier">&lt;td&gt;</font> attributes.
+    </para>
+
+    <blockTable>
+      <tr>
+        <td fontName="Helvetica">00</td>
+        <td fontSize="14">01</td>
+        <td leading="10">02</td>
+        <td leftPadding="15">03</td>
+        <td rightPadding="10">04</td>
+      </tr>
+      <tr>
+        <td topPadding="10">10</td>
+        <td bottomPadding="10">11</td>
+        <td background="pink">12</td>
+        <td lineBelowThickness="2" lineBelowColor="red">13</td>
+        <td lineAboveThickness="2" lineAboveColor="red">14</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td lineLeftThickness="2" lineLeftColor="red">23</td>
+        <td lineRightThickness="2" lineRightColor="red">24</td>
+      </tr>
+      <tr>
+        <td>30</td>
+        <td>31</td>
+        <td>32</td>
+        <td>33</td>
+        <td>34</td>
+      </tr>
+    </blockTable>
+  </story>
+
+</document>

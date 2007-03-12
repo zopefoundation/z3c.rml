@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="rml-guide-example-10.pdf">
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics />
+      <frame id="first" x1="72" y1="72" width="451" height="698" />
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="myBlockTableStyle">
+        <!-- This sets a font for every cell from the start of the -->
+        <!-- second row down to the bottom right hand corner       -->
+        <blockFont name="Courier-Bold" start="0,1" stop="-1,-1"/>
+        <!-- This sets a font for the first row -->
+        <blockFont name="Helvetica-BoldOblique" size="24"
+                   start="0,0" stop="3,0"/>
+        <!-- This sets a textColor for all the text in the table -->
+        <blockTextColor colorName="black"/>
+        <!-- This sets a textColor for the first row -->
+        <!-- (Since it comes after the above setting, -->
+        <!-- it overides it for this row) -->
+        <blockTextColor colorName="white" start="0,0" stop="3,0"/>
+        <!-- This sets a textColor a column - also overiding -->
+        <!-- the first textColor setting for this row         -->
+        <blockTextColor colorName="blue" start="1,1" stop="1,6"/>
+        <!-- This sets a background color for the first row -->
+        <blockBackground colorName="red" start="0,0" stop="3,0"/>
+        <!-- This sets a background color for the rest of the table -->
+        <blockBackground colorName="cornsilk" start="0,1" stop="-1,-1"/>
+        <!-- This sets a background color for an individual cell     -->
+        <!-- This has to go AFTER the above blockBackground,         -->
+        <!-- otherwise it would be overpainted by the cornsilk color -->
+        <blockBackground colorName="lightcoral" start="3,3" stop="3,3"/>
+    </blockTableStyle>
+  </stylesheet>
+  <story>
+    <title>Example 10 - colors and fonts in tables</title>
+    <spacer length="1cm"/>
+    <blockTable
+        style="myBlockTableStyle"
+        rowHeights="3.5cm,2cm,2cm,2cm,2cm,2cm,2cm"
+        colWidths="4cm,4cm,4cm,4cm"
+        >
+      <tr>
+        <td>Cell 0,0</td>
+        <td>Cell 1,0</td>
+        <td>Cell 2,0</td>
+        <td>Cell 3,0</td>
+      </tr>
+      <tr>
+        <td>Cell 0,1</td>
+        <td>Cell 1,1</td>
+        <td>Cell 2,1</td>
+        <td>Cell 3,1</td>
+      </tr>
+      <tr>
+        <td>Cell 0,2</td>
+        <td>Cell 1,2</td>
+        <td>Cell 2,2</td>
+        <td>Cell 3,2</td>
+      </tr>
+      <tr>
+        <td>Cell 0,3</td>
+        <td>Cell 1,3</td>
+        <td>Cell 2,3</td>
+        <td>Cell 3,3</td>
+      </tr>
+      <tr>
+        <td>Cell 0,4</td>
+        <td>Cell 1,4</td>
+        <td>Cell 2,4</td>
+        <td>Cell 3,4</td>
+      </tr>
+      <tr>
+        <td>Cell 0,5</td>
+        <td>Cell 1,5</td>
+        <td>Cell 2,5</td>
+        <td>Cell 3,5</td>
+      </tr>
+      <tr>
+        <td>Cell 0,6</td>
+        <td>Cell 1,6</td>
+        <td>Cell 2,6</td>
+        <td>Cell 3,6</td>
+      </tr>
+    </blockTable>
+  </story>
+</document>

@@ -1,0 +1,47 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pre.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+
+    <title><font face="Courier">&lt;blockTable&gt;</font> Tag Demo</title>
+    <blockTable
+        rowHeights="1.25cm,1.25cm"
+        colWidths="4cm,4cm">
+      <tr>
+        <td>
+          <para>
+            This is a <b>more</b> complex <font color="red">blocktable</font>.
+          </para>
+        </td>
+        <td>
+          <para>
+            This is a more <i>complex</i> blocktable.
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para>
+            <font face="Helvetica">This is a more complex blockTable.</font>
+          </para>
+        </td>
+        <td>
+          <para>
+            This is <greek>a</greek> more
+            <font color="blue"><i>complex</i></font> blockta<greek>b</greek>le.
+          </para>
+        </td>
+      </tr>
+   </blockTable>
+
+  </story>
+</document>

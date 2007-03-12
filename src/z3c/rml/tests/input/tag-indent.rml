@@ -1,0 +1,53 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-indent.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698" />
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;indent&gt;</font> Tag Demo</title>
+    <para>
+      This tag allows you to indent a text as much as you like. This is
+      particularly interesting for block quotes and tree-like layouts.
+    </para>
+    <indent left="4cm" right="4cm">
+      <para>
+        This is indented text. However, you can have other flowables as
+        well.
+      </para>
+      <blockTable>
+        <tr>
+          <td>This</td>
+          <td>is</td>
+        </tr>
+        <tr>
+          <td>a</td>
+          <td>table</td>
+        </tr>
+      </blockTable>
+    </indent>
+    <para>
+      Back from the indentation, everything is normal. You can also nest
+      indents of course:
+    </para>
+    <indent left="2cm">
+      <para>Item 1-1</para>
+      <indent left="2cm">
+        <para>Item 2-1</para>
+        <indent left="2cm">
+          <para>Item 3-1</para>
+          <para>Item 3-2</para>
+        </indent>
+        <para>Item 2-2</para>
+        <para>Item 2-3</para>
+      </indent>
+      <para>Item 1-2</para>
+    </indent>
+  </story>
+</document>

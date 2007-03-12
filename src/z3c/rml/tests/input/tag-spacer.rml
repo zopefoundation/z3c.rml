@@ -1,0 +1,31 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-spacer.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;spacer&gt;</font> Tag Demo</title>
+    <para>
+      This is the first paragraph.
+    </para>
+   <spacer length="1in" />
+    <para>
+      This paragraph appears <b>1 inch</b> lower.
+    </para>
+    <para>
+      You can also specify the width.
+    </para>
+    <spacer length="0.5in" width="3in" />
+    <para>
+      As you can see the width does not do anything. The documentation says it
+      is not implemented yet.
+    </para>
+  </story>
+</document>

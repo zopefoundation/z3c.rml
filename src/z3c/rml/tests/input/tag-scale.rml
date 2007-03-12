@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="drawString.pdf">
+  <pageDrawing>
+
+    <drawString x="4.1in" y="8in">
+      Hello World.
+    </drawString>
+
+    <scale sx="1" sy="1.5" />
+    <drawString x="4.1in" y="6in">
+      Hello World.
+    </drawString>
+
+  </pageDrawing>
+</document>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_7a.pdf">
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics>
+        <fill color="red"/>
+        <stroke color="black"/>
+        <path x="247" y="72" fill="yes" stroke="yes" close="yes">
+          247 172
+          147 172
+          147 272
+          247 272
+          247 372
+          347 372
+          347 372
+          347 272
+          447 272
+          447 172
+          347 172
+          347 72
+          <!-- This completes the first shape: a red cross.-->
+          <moveto>267 572</moveto>
+          <!-- This moves the "pen position"                              -->
+          <!-- Notice that because we have used a "moveto", the           -->
+          <!-- final line at the base of the cross is not completed, even -->
+          <!-- though the "close" attribute of the "path" tag is set to   -->
+          <!-- "yes"                                                      -->
+          277 612
+          <!-- this acts as the start point for the Bezier curves below  -->
+          <curvesto>
+            147 585 147 687 297 792
+            447 687 447 585 317 612
+          </curvesto>
+          327 572
+          <!-- We don't need to give the last point because close is -->
+          <!-- set to "yes"                                          -->
+        </path>
+      </pageGraphics>
+      <frame id="first" x1="72" y1="72" width="451" height="698" />
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <para></para>
+  </story>
+</document>

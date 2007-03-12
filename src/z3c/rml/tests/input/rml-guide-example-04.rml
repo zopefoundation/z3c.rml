@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_4.pdf">
+  <template>
+    <pageTemplate id="main">
+    <pageGraphics>
+        <fill color="red"/>
+
+        <setFont name="Helvetica" size="24"/>
+        <drawCentredString x="297.5" y="800">
+            Lines in RML.
+        </drawCentredString>
+
+        <!-- notice that each of these "empty" tags are teminated -->
+        <!-- with a slash                                         -->
+        <lineMode width="1"/>
+        <lines>
+          1in 10.5in 2in 10.5in
+          2in 10.5in 1.5in 10in
+          1.5in 10in 1.5in 10.75in
+        </lines>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="1.5 in" y="9.75 in">
+            width=1
+        </drawCentredString>
+        <lineMode width="5"/>
+        <lines>
+          2.5in 10.5in 3.5in 10.5in
+          3.5in 10.5in 3in 10in
+          3in 10in 3in 10.75in
+        </lines>
+        <drawCentredString x="3 in" y="9.75 in">
+            width=5
+        </drawCentredString>
+        <lineMode width="10"/>
+        <lines>
+          4in 10.5in 5in 10.5in
+          5in 10.5in 4.5in 10in
+          4.5in 10in 4.5in 10.75in
+        </lines>
+        <drawCentredString x="4.5 in" y="9.75 in">
+            width=10
+        </drawCentredString>
+        <lineMode width="15"/>
+        <lines>
+          5.5in 10.5in 6.5in 10.5in
+          6.5in 10.5in 6in 10in
+          6in 10in 6in 10.75in
+        </lines>
+        <drawCentredString x="6 in" y="9.75 in">
+            width=15
+        </drawCentredString>
+        <!-- examples for the 'join' attribute to 'LineMode' -->
+        <lineMode width="5"/>
+        <lines>
+          1in 9in 2in 9in
+          2in 9in 1.5in 8.5in
+          1.5in 8.5in 1.5in 9.25in
+        </lines>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="1.5 in" y="8.25 in">
+            width=10
+        </drawCentredString>
+        <!-- options for 'join' are "round", "mitered", or "bevelled" -->
+        <lineMode width="5" join="round"/>
+        <lines>
+          2.5in 9in 3.5in 9in
+          3.5in 9in 3in 8.5in
+          3in 8.5in 3in 9.25in
+        </lines>
+        <drawCentredString x="3 in" y="8.25 in">
+            width=5, join=round
+        </drawCentredString>
+        <lineMode width="5" join="mitered"/>
+        <lines>
+          4in 9in 5in 9in
+          5in 9in 4.5in 8.5in
+          4.5in 8.5in 4.5in 9.25in
+        </lines>
+        <drawCentredString x="4.5 in" y="8.25 in">
+            width=5, join=mitered
+        </drawCentredString>
+        <lineMode width="5" join="bevelled"/>
+        <lines>
+          5.5in 9in 6.5in 9in
+          6.5in 9in 6in 8.5in
+          6in 8.5in 6in 9.25in
+        </lines>
+        <drawCentredString x="6 in" y="8.25 in">
+            width=5, join=bevelled
+        </drawCentredString>
+        <!-- examples for the 'cap' attribute to 'LineMode' -->
+        <lineMode width="10"/>
+        <lines>
+          1in 7.5in 2in 7.5in
+          2in 7.5in 1.5in 7in
+          1.5in 7in 1.5in 7.75in
+        </lines>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="1.5 in" y="6.75 in">
+            width=10
+        </drawCentredString>
+        <!-- options for 'cap' are "default", "round", or "square" -->
+        <lineMode width="10" cap="default"/>
+        <lines>
+          2.5in 7.5in 3.5in 7.5in
+          3.5in 7.5in 3in 7in
+          3in 7in 3in 7.75in
+        </lines>
+        <drawCentredString x="3 in" y="6.75 in">
+            width=10, cap=default
+        </drawCentredString>
+        <lineMode width="10" cap="round"/>
+        <lines>
+          4in 7.5in 5in 7.5in
+          5in 7.5in 4.5in 7in
+          4.5in 7in 4.5in 7.75in
+        </lines>
+        <drawCentredString x="4.5 in" y="6.75 in">
+            width=10, cap=round
+        </drawCentredString>
+        <lineMode width="10" cap="square"/>
+        <lines>
+          5.5in 7.5in 6.5in 7.5in
+          6.5in 7.5in 6in 7in
+          6in 7in 6in 7.75in
+        </lines>
+        <drawCentredString x="6 in" y="6.75 in">
+            width=10, cap=square
+        </drawCentredString>
+        <lineMode width="5" cap="default"/>
+        <!-- examples for the 'miterLimit' attribute to 'LineMode' -->
+        <lineMode width="5" join="mitered"/>
+        <lines>
+          1in 6in 2in 6in
+          2in 6in 1.5in 5.5in
+          1.5in 5.5in 1.5in 6.25in
+        </lines>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="1.5 in" y="5.25 in">
+            width=5, join=mitered
+        </drawCentredString>
+        <lineMode width="5" join="mitered" miterLimit="10"/>
+        <lines>
+          2.5in 6in 3.5in 6in
+          3.5in 6in 3in 5.5in
+          3in 5.5in 3in 6.25in
+        </lines>
+        <drawCentredString x="3 in" y="5.25 in">
+            width=5, join=mitered
+        </drawCentredString>
+        <drawCentredString x="3 in" y="5.1 in">
+            miterLimit=10
+        </drawCentredString>
+        <lineMode width="10" join="mitered"/>
+        <lines>
+          4in 6in 5in 6in
+          5in 6in 4.5in 5.5in
+          4.5in 5.5in 4.5in 6.25in
+        </lines>
+        <drawCentredString x="4.5 in" y="5.25 in">
+            width=10, join=mitered
+        </drawCentredString>
+        <lineMode width="10" join="mitered" miterLimit="20"/>
+        <lines>
+          5.5in 6in 6.5in 6in
+          6.5in 6in 6in 5.5in
+          6in 5.5in 6in 6.25in
+        </lines>
+        <drawCentredString x="6 in" y="5.25 in">
+            width=10, join=mitered
+        </drawCentredString>
+        <drawCentredString x="6 in" y="5.1 in">
+            miterLimit=20
+        </drawCentredString>
+        <!-- examples for the 'dash' attribute to 'LineMode' -->
+        <lineMode width="2"/>
+        <lines>
+          1in 4.5in 2in 4.5in
+          2in 4.5in 1.5in 4in
+          1.5in 4in 1.5in 4.75in
+        </lines>
+        <fill color="black"/>
+        <setFont name="Helvetica" size="9"/>
+        <drawCentredString x="1.5 in" y="3.75 in">
+            width=2
+        </drawCentredString>
+        <!-- options for 'dash' are sequences of numbers -->
+        <lineMode width="2" dash="5,5"/>
+        <lines>
+          2.5in 4.5in 3.5in 4.5in
+          3.5in 4.5in 3in 4in
+          3in 4in 3in 4.75in
+        </lines>
+        <drawCentredString x="3 in" y="3.75 in">
+            width=2, dash=5,5
+        </drawCentredString>
+        <lineMode width="2" dash="2,10"/>
+        <lines>
+          4in 4.5in 5in 4.5in
+          5in 4.5in 4.5in 4in
+          4.5in 4in 4.5in 4.75in
+        </lines>
+        <drawCentredString x="4.5 in" y="3.75 in">
+            width=2, dash=2,10
+        </drawCentredString>
+        <lineMode width="2" dash="5,5,2,10"/>
+        <lines>
+          5.5in 4.5in 6.5in 4.5in
+          6.5in 4.5in 6in 4in
+          6in 4in 6in 4.75in
+        </lines>
+        <drawCentredString x="6 in" y="3.75 in">
+            width=2, dash=5,5,2,10
+        </drawCentredString>
+      </pageGraphics>
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+  </stylesheet>
+  <story>
+    <para></para>
+  </story>
+</document>

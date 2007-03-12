@@ -1,0 +1,34 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pre.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;xpre&gt;</font> Tag Demo</title>
+    <para>
+      The X-preformatting supports paragraph-level formatting.
+    </para>
+    <xpre>
+      This allows <i>preformatted text</i> with <b>markup</b>.
+
+      ASCII ART
+
+      <font face="Courier">
+          *** ***
+         *   *   *
+          *     *
+           *   *
+            * *
+             *
+      </font>
+    </xpre>
+
+  </story>
+</document>

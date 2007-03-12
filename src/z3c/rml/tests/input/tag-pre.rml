@@ -1,0 +1,24 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pre.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;pre&gt;</font> Tag Demo</title>
+    <para>
+      This allows <i>preformatted text</i>.
+    </para>
+    <pre>
+      <para>
+        This allows <i>preformatted text</i>.
+      </para>
+    </pre>
+  </story>
+</document>

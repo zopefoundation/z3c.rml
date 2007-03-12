@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-place.pdf">
+
+  <stylesheet>
+  </stylesheet>
+
+  <pageDrawing>
+
+    <barCode x="5cm" y="25cm" code="MSI">
+      23465092892
+    </barCode>
+
+    <barCode x="5cm" y="21cm" code="Standard93">
+      217829804
+    </barCode>
+
+  </pageDrawing>
+</document>

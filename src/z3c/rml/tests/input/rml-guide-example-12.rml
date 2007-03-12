@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="example_12.pdf"
+          pagesize="(8.5in, 11in)">
+
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics>
+      </pageGraphics>
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <blockTableStyle id="myBlockTableStyle">
+      <blockBackground colorName="silver" start="0,0" stop="-1,0"/>
+      <blockBackground colorName="darkslategray" start="0,1" stop="-1,1"/>
+      <blockBackground colorName="silver" start="0,2" stop="-1,2"/>
+      <blockBackground colorName="darkslategray" start="0,3" stop="-1,3"/>
+      <blockBackground colorName="silver" start="0,4" stop="-1,4"/>
+      <blockBackground colorName="darkslategray" start="0,5" stop="-1,5"/>
+      <blockAlignment value="CENTER"/>
+      <blockValign value="MIDDLE"/>
+
+      <!-- Set fonts -->
+      <blockFont name="Helvetica-BoldOblique" size="10"/>
+
+      <!-- set the left and right padding for cells in first and third      -->
+      <!-- columns remember, cell numbering starts from ZERO, not ONE       -->
+      <blockLeftPadding length="20" start="0,0" stop="0,-1"/>
+      <blockRightPadding length="20" start="2,0" stop="2,-1"/>
+
+      <!-- set the top and bottom padding for cells in first and third rows -->
+      <blockBottomPadding length="40" start="0,0" stop="-1,0"/>
+      <blockTopPadding length="40" start="1,2" stop="-1,2"/>
+
+      <!-- set the top and bottom padding for the last row -->
+      <blockBottomPadding length="40" start="-1,4" stop="-1,4"/>
+      <blockTopPadding length="40" start="1,4" stop="1,4"/>
+
+      <!-- Use of linestyles -->
+      <lineStyle kind="GRID" colorName="darkblue"/>
+    </blockTableStyle>
+
+    <paraStyle
+        name="paddingTableStyle"
+        fontName="Helvetica-BoldOblique"
+        fontSize="10"
+        textColor="white"
+        alignment="CENTER"
+        />
+  </stylesheet>
+  <story>
+    <title>Example 12 - images and padding in tables</title>
+    <spacer length="1cm"/>
+    <blockTable
+        style="myBlockTableStyle"
+        rowHeights="166,28,166,28,166,28"
+        colWidths="161,161,161">
+      <tr>
+        <td>
+          <illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="paddingTableStyle">
+            <b>blockLeftPadding</b> with <b>blockBottomPadding</b>
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            just blockBottomPadding
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            <b>blockRightPadding</b> with <b>blockBottomPadding</b>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="paddingTableStyle">
+            <b>blockLeftPadding</b> with <b>blockTopPadding</b>
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            just blockTopPadding
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            <b>blockRightPadding</b> with <b>blockTopPadding</b>
+          </para>
+        </td>
+      </tr>
+      <tr>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+        <td><illustration width="141" height="90">
+            <image file="images/replogo.gif"
+                   x="0" y="0" width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+              0 0 141 0
+              141 0 141 90
+              141 90 0 90
+              0 90 0 0
+            </lines>
+          </illustration>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <para style="paddingTableStyle">
+            blockLeftPadding with blockTopPadding
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            no padding
+          </para>
+        </td>
+        <td>
+          <para style="paddingTableStyle">
+            blockRightPadding with blockBottomPadding
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+  </story>
+</document>

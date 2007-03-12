@@ -1,0 +1,159 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R
+ /F3 4 0 R
+ /F4 5 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFType1Font 
+3 0 obj
+% Font Courier-Bold
+<< /BaseFont /Courier-Bold
+ /Encoding /WinAnsiEncoding
+ /Name /F2
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F3': class PDFType1Font 
+4 0 obj
+% Font Times-Bold
+<< /BaseFont /Times-Bold
+ /Encoding /WinAnsiEncoding
+ /Name /F3
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F4': class PDFType1Font 
+5 0 obj
+% Font Times-Roman
+<< /BaseFont /Times-Roman
+ /Encoding /WinAnsiEncoding
+ /Name /F4
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+6 0 obj
+% Page dictionary
+<< /Contents 10 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 9 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R7': class PDFCatalog 
+7 0 obj
+% Document Root
+<< /Outlines 11 0 R
+ /PageMode /UseNone
+ /Pages 9 0 R
+ /Type /Catalog >>
+endobj
+% 'R8': class PDFInfo 
+8 0 obj
+<< /Author (anonymous)
+ /CreationDate (20070312113016)
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (unspecified)
+ /Title (untitled) >>
+endobj
+% 'R9': class PDFPages 
+9 0 obj
+% page tree
+<< /Count 1
+ /Kids [ 6 0 R ]
+ /Type /Pages >>
+endobj
+% 'R10': class PDFStream 
+10 0 obj
+% page stream
+<< /Length 872 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+BT 1 0 0 1 28.34646 708.6614 Tm (This is a string drawn using ``drawString``.) Tj T* ET
+3 w
+n 28.34646 481.8898 m 396.8504 481.8898 l 396.8504 651.9685 l 28.34646 651.9685 l h S
+q
+1 0 0 1 28.34646 629.9685 cm
+q
+BT 1 0 0 1 0 4 Tm 22 TL 104.458 0 Td /F2 18 Tf 0 0 0 rg (<) Tj (place) Tj (>) Tj /F3 18 Tf ( Tag Demo) Tj T* -104.458 0 Td ET
+Q
+Q
+q
+1 0 0 1 28.34646 617.9685 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F4 10 Tf 12 TL (This is the first paragraph.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 28.34646 609.4646 cm
+Q
+q
+1 0 0 1 28.34646 573.4646 cm
+0 0 0 rg
+BT /F4 10 Tf 12 TL ET
+BT 1 0 0 1 6 23 Tm (This) Tj T* ET
+BT 1 0 0 1 35.78 23 Tm (is) Tj T* ET
+BT 1 0 0 1 6 5 Tm (a) Tj T* ET
+BT 1 0 0 1 35.78 5 Tm (blockTable.) Tj T* ET
+q
+Q
+Q
+BT 1 0 0 1 28.34646 425.1969 Tm (This is a string drawn using ``drawString``.) Tj T* ET
+ 
+endstream
+
+endobj
+% 'R11': class PDFOutlines 
+11 0 obj
+<< /Count 0
+ /Type /Outlines >>
+endobj
+xref
+0 12
+0000000000 65535 f
+0000000113 00000 n
+0000000245 00000 n
+0000000410 00000 n
+0000000581 00000 n
+0000000748 00000 n
+0000000915 00000 n
+0000001193 00000 n
+0000001328 00000 n
+0000001524 00000 n
+0000001630 00000 n
+0000002604 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\323k\351\027q\347\032m\244\273\307\306\356\317\305^) (\323k\351\027q\347\032m\244\273\307\306\356\317\305^)] 
+
+ /Info 8 0 R
+ /Root 7 0 R
+ /Size 12 >>
+startxref
+2656
+%%EOF

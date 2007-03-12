@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="template.pdf">
+
+  <stylesheet>
+    <paraStyle
+        name="large"
+        fontSize="3cm"
+        textColor="red"
+        />
+  </stylesheet>
+
+  <template
+      pageSize="(21cm, 29cm)"
+      rotation="180"
+      leftMargin="1cm"
+      rightMargin="2cm"
+      topMargin="3cm"
+      bottomMargin="4cm"
+      showBoundary="true"
+      allowSplitting="true"
+      title="Test Template Document"
+      author="Stephan Richter">
+
+    <pageTemplate id="main">
+      <frame id="main" x1="1.5cm" y1="3.5cm" width="18cm" height="22cm" />
+    </pageTemplate>
+
+  </template>
+
+  <story>
+    <para style="large">Hello <b>World</b>!</para>
+  </story>
+
+</document>

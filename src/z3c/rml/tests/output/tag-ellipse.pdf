@@ -1,0 +1,119 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+3 0 obj
+% Page dictionary
+<< /Contents 7 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 6 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R4': class PDFCatalog 
+4 0 obj
+% Document Root
+<< /Outlines 8 0 R
+ /PageMode /UseNone
+ /Pages 6 0 R
+ /Type /Catalog >>
+endobj
+% 'R5': class PDFInfo 
+5 0 obj
+<< /Author (anonymous)
+ /CreationDate (20070312113016)
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (unspecified)
+ /Title (untitled) >>
+endobj
+% 'R6': class PDFPages 
+6 0 obj
+% page tree
+<< /Count 1
+ /Kids [ 3 0 R ]
+ /Type /Pages >>
+endobj
+% 'R7': class PDFStream 
+7 0 obj
+% page stream
+<< /Length 1053 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
+n 425.1969 751.1811 m
+425.1969 774.6641 393.469 793.7008 354.3307 793.7008 c
+315.1924 793.7008 283.4646 774.6641 283.4646 751.1811 c
+283.4646 727.6981 315.1924 708.6614 354.3307 708.6614 c
+393.469 708.6614 425.1969 727.6981 425.1969 751.1811 c
+n
+n 425.1969 609.4488 m
+425.1969 632.9318 393.469 651.9685 354.3307 651.9685 c
+315.1924 651.9685 283.4646 632.9318 283.4646 609.4488 c
+283.4646 585.9658 315.1924 566.9291 354.3307 566.9291 c
+393.469 566.9291 425.1969 585.9658 425.1969 609.4488 c
+f*
+n 340.1575 481.8898 m
+340.1575 513.2004 327.4663 538.5827 311.811 538.5827 c
+296.1557 538.5827 283.4646 513.2004 283.4646 481.8898 c
+283.4646 450.5791 296.1557 425.1969 311.811 425.1969 c
+327.4663 425.1969 340.1575 450.5791 340.1575 481.8898 c
+S
+n 340.1575 325.9843 m
+340.1575 349.4672 327.4663 368.5039 311.811 368.5039 c
+296.1557 368.5039 283.4646 349.4672 283.4646 325.9843 c
+283.4646 302.5013 296.1557 283.4646 311.811 283.4646 c
+327.4663 283.4646 340.1575 302.5013 340.1575 325.9843 c
+B*
+ 
+endstream
+
+endobj
+% 'R8': class PDFOutlines 
+8 0 obj
+<< /Count 0
+ /Type /Outlines >>
+endobj
+xref
+0 9
+0000000000 65535 f
+0000000113 00000 n
+0000000209 00000 n
+0000000372 00000 n
+0000000649 00000 n
+0000000783 00000 n
+0000000979 00000 n
+0000001084 00000 n
+0000002238 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\323k\351\027q\347\032m\244\273\307\306\356\317\305^) (\323k\351\027q\347\032m\244\273\307\306\356\317\305^)] 
+
+ /Info 5 0 R
+ /Root 4 0 R
+ /Size 9 >>
+startxref
+2289
+%%EOF

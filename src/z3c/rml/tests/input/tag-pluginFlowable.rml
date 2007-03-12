@@ -1,0 +1,25 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pre.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+
+    <title><font face="Courier">&lt;pluginFlowable&gt;</font> Tag Demo</title>
+    <para>
+      You can also integrate arbitrary flowables.
+    </para>
+    <spacer length="20" />
+    <pluginFlowable module="z3c.rml.tests.flowable" function="TestFlowable">
+      Some text.
+    </pluginFlowable>
+
+  </story>
+</document>

@@ -1,0 +1,44 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-spacer.pdf">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="20cm" width="19cm" height="7cm"/>
+      <frame id="second" x1="3cm" y1="19cm" width="10cm" height="3cm"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title><font face="Courier">&lt;fixedSize&gt;</font> Tag Demo</title>
+    <para>
+      This tag allows keeping a set of flowables in a confined space. Actually
+      I have no clue what this tag is supposed to dol I did not find any
+      documentation on it.
+    </para>
+    <para>
+      Lot's of text goes here. Lot's of text goes here. Lot's of text goes
+      here. Lot's of text goes here. Lot's of text goes here. Lot's of text
+      goes here. Lot's of text goes here. Lot's of text goes here. Lot's of
+      text goes here. Lot's of text goes here. Lot's of text goes here. Lot's
+      of text goes here.
+    </para>
+    <nextFrame name="second" />
+
+    <fixedSize width="3cm" height="2cm">
+      <title><font face="Courier">&lt;fixedSize&gt;</font> Tag Demo</title>
+      <para>
+        This tag allows keeping a set of flowables in a confined space.
+      </para>
+      <para>
+        Lot's of text goes here. Lot's of text goes here. Lot's of text goes
+        here. Lot's of text goes here. Lot's of text goes here. Lot's of text
+        goes here. Lot's of text goes here. Lot's of text goes here. Lot's of
+        text goes here. Lot's of text goes here. Lot's of text goes here. Lot's
+        of text goes here.
+      </para>
+    </fixedSize>
+  </story>
+</document>

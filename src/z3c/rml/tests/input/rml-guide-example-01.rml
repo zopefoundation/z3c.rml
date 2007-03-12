@@ -1,0 +1,10 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="rml-guide-example-01.pdf">
+  <stylesheet>
+  </stylesheet>
+  <pageDrawing>
+    <drawCentredString x="4.1in" y="5.8in">
+      Hello World.
+    </drawCentredString>
+  </pageDrawing>
+</document>

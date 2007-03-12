@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_5.pdf">
+  <template pageSize="(21cm, 29.7cm)"
+        leftMargin="2.5cm"
+        rightMargin="2.5cm"
+        topMargin="2.5cm"
+        bottomMargin="2.5cm"
+        title="Example 5 - templates and pageTemplates"
+        author="Reportlab Inc (Documentation Team)"
+        showBoundary="1"
+        allowSplitting="1"
+        >
+        <!-- showBoundary means that we will be able to see the   -->
+        <!-- limits of frames                                     -->
+
+    <pageTemplate id="main">
+      <pageGraphics>
+      </pageGraphics>
+      <frame id="titleBox" x1="2.5cm" y1="27.7cm" width="16cm"
+             height="1cm"/>
+      <frame id="columnOne" x1="2.5cm" y1="2.5cm" width="7.5cm"
+             height="24.7cm"/>
+      <frame id="columnTwo" x1="11cm" y1="2.5cm" width="7.5cm"
+             height="24.7cm"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <initialize>
+      <name id="FileTitle" value="Example 5 - templates and
+            pageTemplates"/>
+      <name id="ColumnOneHeader" value="This is Column One"/>
+      <name id="ColumnTwoHeader" value="This is Column Two"/>
+    </initialize>
+
+    <paraStyle
+        name="titleBox"
+        fontName="Helvetica-Bold"
+        fontSize="18"
+        spaceBefore="0.4 cm"
+        alignment="CENTER"
+        />
+
+    <paraStyle
+        name="body"
+        fontName="Helvetica"
+        fontSize="10"
+        leftIndent="5"
+        spaceAfter="5"
+        />
+  </stylesheet>
+  <story>
+    <para style="titleBox">
+      <b><getName id="FileTitle"/></b>
+    </para>
+    <nextFrame/>
+    <condPageBreak height="144"/>
+    <h2>
+      <getName id="ColumnOneHeader"/>
+    </h2>
+    <para>
+        This is the contents for <b>column one</b>.
+    </para>
+    <para>
+        It uses the default style for paragraph.
+    </para>
+    <para>
+        Does it come out OK?
+    </para>
+    <para>
+        There now follows some random text to see how these paragraphs
+        look with longer content:
+    </para>
+    <para>
+        Blah blah morale blah benchmark blah blah blah blah blah blah
+        communication blah blah blah blah blah blah blah blah blah
+        blah stretch the envelope blah blah blah.
+    </para>
+    <para>
+        Blah blah blah blah blah blah blah blah blah blah blah blah
+        architect blah inter active backward-compatible blah blah blah
+        blah blah. Blah blah blah blah value-added.
+    </para>
+    <para>
+        Blah blah blah blah blah blah blah blah blah re-factoring
+        phase blah knowledge management blah blah. Blah blah blah blah
+        interactive blah vision statement blah.
+    </para>
+    <para>
+        Blah blah blah blah blah blah conceptualize blah downsize blah
+        blah blah blah. Blah blah blah blah blah blah blah blah blah
+        blah blah blah synergy client-centered vision statement.
+    </para>
+    <para>
+        Blah blah dysfunctional blah blah blah blah blah blah blah
+        appropriate blah blah blah blah blah blah blah blah
+        re-factoring go the extra mile blah blah blah blah.
+    </para>
+    <nextFrame/>
+    <condPageBreak height="144"/>
+    <h2>
+      <getName id="ColumnTwoHeader"/>
+    </h2>
+    <para style="body">
+        This is the contents for <i>column two</i>.
+    </para>
+    <para style="body">
+        It uses the paragraph style we have called "body".
+    </para>
+    <para style="body">
+        Does it come out OK?
+    </para>
+    <para style="body">
+        There now follows some random text to see how these paragraphs
+        look with longer content:
+    </para>
+    <para style="body">
+        Blah OS/2 blah blah blah blah coffee blah blah blah blah
+        Windows blah blah blah blah blah blah blah. Blah blah blah
+        blah blah blah blah Modula-3 blah blah blah. Blah blah bug
+        report blah blah blah blah blah memory blah blah TeX TCP/IP
+        SMTP blah blah.
+    </para>
+    <para style="body">
+        Blah blah blah blah blah Em blah letterform blah blah blah
+        blah blah blah blah blah blah letterform blah blah. Blah blah
+        blah blah leader blah blah blah blah.
+    </para>
+    <para style="body">
+        Blah blah blah blah blah uppercase blah blah right justified
+        blah blah blah flush-right blah blah blah. Blah blah blah blah
+        blah blah spot-colour blah Em.
+    </para>
+    <para style="body">
+        Blah dingbat blah blah blah blah blah blah blah blah blah blah
+        blah blah blah blah blah. Blah blah blah blah blah drop-cap
+        blah blah blah blah blah blah blah.
+    </para>
+  </story>
+</document>
