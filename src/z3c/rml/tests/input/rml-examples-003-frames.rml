@@ -1,0 +1,111 @@
+<document filename="test_003_frames.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #3</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="5.845in" width="3in" height="4.645in"/>
+	<frame id="second" x1="4.27in" y1="5.845in" width="3in" height="4.645in"/>
+	<frame id="third" x1="1in" y1="1in" width="3in" height="4.645in"/>
+	<frame id="fourth" x1="4.27in" y1="1in" width="3in" height="4.645in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle
+	name="h1"
+	fontName="Helvetica-BoldOblique"
+	fontSize="20"
+	leading="36"
+	/>
+	
+	<paraStyle
+	name="normal"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	/>
+
+	<paraStyle
+	name="space below"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	spaceAfter="10"
+	/>
+
+	<paraStyle name="bugReport"
+	parent="h1"
+	spaceBefore = "0"
+	textColor = "red"
+	/>
+		
+</stylesheet>
+
+
+<story>
+<para style="h1">This is frame 1</para>
+<para style="space below"><b>This page tests to see that multiple frames display on one page. It also checks to see that the "nextFrame" tag works correctly to split the text in the story correctly between those frames.</b></para>
+<para style="normal">This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+</para>
+<nextFrame/>
+
+<para style="h1">This is frame 2</para>
+<para style="space below"><b>This page tests to see that multiple frames display on one page. It also checks to see that the "nextFrame" tag works correctly to split the text in the story correctly between those frames.</b></para>
+<para style="normal">This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+</para>
+<nextFrame/>
+
+<para style="h1">This is frame 3</para>
+<para style="space below"><b>This page tests to see that multiple frames display on one page. It also checks to see that the "nextFrame" tag works correctly to split the text in the story correctly between those frames.</b></para>
+<para style="normal">This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+</para>
+<nextFrame/>
+
+<para style="h1">This is frame 4</para>
+<para style="space below"><b>This page tests to see that multiple frames display on one page. It also checks to see that the "nextFrame" tag works correctly to split the text in the story correctly between those frames.</b></para>
+<para style="normal">This is the text for frame 4. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four. This is the text for frame four. This is the text for frame four. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four. This is the text for frame four. This is the text for frame four. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four.
+This is the text for frame 4. This is the text for frame four. This is the text for frame four.
+</para>
+
+</story>
+
+</document>

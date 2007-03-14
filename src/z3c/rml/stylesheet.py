@@ -34,7 +34,7 @@ class ParagraphStyle(element.Element):
     attrs = (
         attr.Text('name'),
         attr.Text('alias'),
-        attr.Text('parent'),
+        attr.Style('parent'),
         attr.Text('fontName'),
         attr.Measurement('fontSize'),
         attr.Measurement('leading'),
@@ -48,25 +48,21 @@ class ParagraphStyle(element.Element):
              'right':reportlab.lib.enums.TA_RIGHT,
              'center':reportlab.lib.enums.TA_CENTER,
              'justify':reportlab.lib.enums.TA_JUSTIFY}),
-        attr.Text('bulletFontname'),
-        attr.Measurement('bulletFontsize'),
+        attr.Text('bulletFontName'),
+        attr.Measurement('bulletFontSize'),
         attr.Measurement('bulletIndent'),
         attr.Color('textColor'),
         attr.Color('backColor')
         )
 
-    def baseStyle(self, name=None):
-        name = name or 'Normal'
-        styles = reportlab.lib.styles.getSampleStyleSheet()
-        return copy.deepcopy(styles[name])
-
     def process(self):
         attrs = element.extractKeywordArguments(
-            [(attr.name, attr) for attr in self.attrs], self.element)
+            [(attr.name, attr) for attr in self.attrs], self.element,
+            self.parent)
 
-        style = self.baseStyle(attrs.get('parent'))
-        if 'parent' in attrs:
-            del attrs['parent']
+        parent = attrs.pop(
+            'parent', reportlab.lib.styles.getSampleStyleSheet()['Normal'])
+        style = copy.deepcopy(parent)
 
         for name, value in attrs.items():
             setattr(style, name, value)

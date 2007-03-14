@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_004_fpt_templates.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1" >
+	<pageTemplate id="secondary">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #4</drawRightString>
+		<setFont name="Helvetica-BoldOblique" size="36"/>
+		<drawCentredString x="297.5" y="755">Test #4: PAGE TWO</drawCentredString>
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="deepskyblue"/>
+		<drawCentredString x="297.5" y="539">2</drawCentredString>
+	</pageGraphics>
+	<frame id="p2-first" x1="1in" y1="1in" width="3in" height="4.645in"/>
+	<frame id="p2-second" x1="4.27in" y1="1in" width="3in" height="4.645in"/>
+	</pageTemplate>
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #4</drawRightString>
+		<setFont name="Helvetica-BoldOblique" size="36"/>
+		<drawCentredString x="297.5" y="755">Test #4: PAGE ONE</drawCentredString>
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="teal"/>
+		<drawCentredString x="297.5" y="539">1</drawCentredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="4.645in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle
+	name="h1"
+	fontName="Helvetica-BoldOblique"
+	fontSize="20"
+	leading="36"
+	/>
+
+	<paraStyle
+	name="normal"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	/>
+
+	<paraStyle
+	name="space below"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	spaceAfter="10"
+	/>
+
+	<paraStyle name="bugReport"
+	parent="h1"
+	spaceBefore = "0"
+	textColor = "red"
+	/>
+		
+</stylesheet>
+
+
+<story firstPageTemplate="main">
+<para style="h1">This is page 1 - frame 1</para>
+<para style="space below"><b>This test spans two pages (this should be on page 1). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have a single frame at the bottom of the page displaying this text, a big teal-coloured number "1" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+</para>
+<setNextTemplate name="secondary"/>
+<nextFrame/>
+
+
+<para style="h1">This is page2 - frame1</para>
+<para style="space below"><b>This test spans two pages (this should be on page 2). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have two different frames at the bottom of the page displaying text, a big deepskyblue-coloured number "2" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+</para>
+<nextFrame/>
+
+<para style="h1">This is page2 - frame2</para>
+<para style="space below"><b>This test spans two pages (this should be on page 2). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have two different frames at the bottom of the page displaying text, a big deepskyblue-coloured number "2" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+</para>
+
+</story>
+
+</document>

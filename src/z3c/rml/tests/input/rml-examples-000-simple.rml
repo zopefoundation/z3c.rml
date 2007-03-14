@@ -1,0 +1,16 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_000_simple.pdf" invariant="1">
+<stylesheet/>
+
+<pageDrawing>
+<drawCentredString x="4.1in" y="5.8in">
+Hello World. First Page Drawing
+</drawCentredString>
+</pageDrawing>
+<pageDrawing>
+<drawCentredString x="3.1in" y="4.8in">
+Hello World. Second Page Drawing
+</drawCentredString>
+</pageDrawing>
+
+</document>

@@ -16,7 +16,7 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
-from z3c.rml import attr, element
+from z3c.rml import attr, element, interfaces
 
 
 class Name(element.FunctionElement):
@@ -49,12 +49,15 @@ class GetName(element.Element):
         parent.remove(self.element)
 
 
-class Alias(element.Element):
+class Alias(element.FunctionElement):
+    args = (
+        attr.Style('id'),
+        attr.Text('value'), )
 
     def process(self):
-        id = attr.Text('id').get(self.element)
-        value = attr.Text('value').get(self.element)
+        id, value = self.getPositionalArguments()
         elem = self
-        while not hasattr(elem, 'styles') and elem is not None:
+        while (not interfaces.IStylesManager.providedBy(elem) and
+               elem is not None):
             elem = elem.parent
-        elem.styles[value] = elem.styles[id]
+        elem.styles[value] = id

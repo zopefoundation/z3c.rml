@@ -85,6 +85,7 @@ class PluginFlowable(Flowable):
 class Paragraph(Flowable):
     klass = platypus.Paragraph
     args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Normal') )
+    kw = ( ('bulletText', attr.Attribute('bulletText')), )
 
 class Title(Paragraph):
     args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Title'), )

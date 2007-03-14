@@ -168,6 +168,32 @@ class Place(element.FunctionElement):
                 raise ValueError("Not enough space")
 
 
+class Param(element.FunctionElement):
+    args = (attr.Attribute('name'), attr.TextNode() )
+
+    def process(self):
+        name, value = self.getPositionalArguments()
+        self.context[name] = value
+
+class TextAnnotation(element.ContainerElement, element.FunctionElement):
+    args = (attr.FirstLevelTextNode(), )
+
+    paramTypes = {
+        'escape': attr.Int(),
+        }
+
+    subElements = {'param': Param}
+
+    def process(self):
+        contents = self.getPositionalArguments()[0]
+        params = {}
+        self.processSubElements(params)
+        for name, type in self.paramTypes.items():
+            if name in params:
+                params[name] = type.convert(params[name])
+        self.context.textAnnotation(contents, **params)
+
+
 class MoveTo(element.FunctionElement):
     args = (
         attr.TextNodeSequence(attr.Measurement(), length=2),
@@ -317,6 +343,7 @@ class Drawing(element.ContainerElement):
         'curves': Curves,
         'image': Image,
         'place': Place,
+        'textAnnotation': TextAnnotation,
         'path': Path,
         # Form Field Elements
         'barCode': form.BarCode,

@@ -23,7 +23,15 @@ from z3c.rml import attr, canvas, element, flowable, interfaces, stylesheet
 
 
 class Story(flowable.Flow):
-    pass
+
+    def getFirstPageTemplateIndex(self, doc):
+        fpt = attr.Text('firstPageTemplate').get(self.element, None)
+        if fpt is None:
+            return 0
+        for idx, pageTemplate in enumerate(doc.pageTemplates):
+            if pageTemplate.id == fpt:
+                return idx
+        raise ValueError('%r is not a correct page template id.' %fpt)
 
 class Frame(element.FunctionElement):
     args = (
@@ -33,10 +41,10 @@ class Frame(element.FunctionElement):
     kw = (
         ('id', attr.Text('id')),
         # Non-RML compliant extensions
-        ('leftPadding', attr.Measurement('leftPadding')),
-        ('rightPadding', attr.Measurement('rightPadding')),
-        ('topPadding', attr.Measurement('topPadding')),
-        ('bottomPadding', attr.Measurement('bottomPadding')),
+        ('leftPadding', attr.Measurement('leftPadding', 0)),
+        ('rightPadding', attr.Measurement('rightPadding', 0)),
+        ('topPadding', attr.Measurement('topPadding', 0)),
+        ('bottomPadding', attr.Measurement('bottomPadding', 0)),
         ('showBoundary', attr.Bool('showBoundary')),
         )
 
@@ -62,7 +70,7 @@ class PageGraphics(element.Element):
 class PageTemplate(element.FunctionElement, element.ContainerElement):
     args = (attr.Text('id'),)
     kw = (
-        ('pagesize', attr.Sequence('pageSize', attr.Measurement(), length=2)),
+        ('pagesize', attr.PageSize('pageSize',)),
         ('rotation', attr.Int('rotation')) )
 
     subElements = {
@@ -72,7 +80,9 @@ class PageTemplate(element.FunctionElement, element.ContainerElement):
 
     def process(self):
         args = self.getPositionalArguments()
-        pt = platypus.PageTemplate(*args)
+        # Pass in frames explicitely, since they have it as a keyword argument
+        # using an empty list; Sigh!
+        pt = platypus.PageTemplate(frames=[], *args)
 
         kw = self.getKeywordArguments()
         if 'pagesize' in kw:
@@ -86,7 +96,7 @@ class Template(element.ContainerElement):
     zope.interface.implements(interfaces.IStylesManager)
 
     templateArgs = (
-        ('pagesize', attr.Sequence('PageSize', attr.Measurement(), length=2)),
+        ('pagesize', attr.PageSize('pageSize',)),
         ('rotation', attr.Int('rotation')),
         ('leftMargin', attr.Measurement('leftMargin')),
         ('rightMargin', attr.Measurement('rightMargin')),
@@ -125,5 +135,8 @@ class Template(element.ContainerElement):
 
         self.processSubElements(doc)
 
-        story = Story(docElement.find('story'), self, doc).process()
-        doc.build(story)
+        story = Story(docElement.find('story'), self, doc)
+        flowables = story.process()
+
+        doc._firstPageTemplateIndex = story.getFirstPageTemplateIndex(doc)
+        doc.build(flowables)

@@ -23,9 +23,11 @@ import reportlab.lib.colors
 import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
+import reportlab.lib.pagesizes
 import reportlab.graphics.widgets.markers
 import urllib
 from lxml import etree
+from xml.sax import saxutils
 
 from z3c.rml import interfaces
 
@@ -50,7 +52,6 @@ class Attribute(object):
                 return self.default
             return default
         return self.convert(value, context)
-
 
 class Text(Attribute):
 
@@ -141,7 +142,8 @@ class Bool(BaseChoice):
 
 
 class DefaultBool(Bool):
-    choices = Bool.choices.copy().update({'default': None})
+    choices = Bool.choices.copy()
+    choices.update({'default': None})
 
 
 class Measurement(Attribute):
@@ -158,7 +160,7 @@ class Measurement(Attribute):
             res = unit[0].search(value, 0)
             if res:
                 return unit[1]*float(res.group(1))
-
+        raise ValueError('The value %r is not a valid measurement.' %value)
 
 class Image(Text):
 
@@ -197,28 +199,30 @@ class Style(Text):
         super(Style, self).__init__(name, default)
         self.type = type
 
-    def convert(self, value, context=None, isDefault=False):
+    def convert(self, value, context=None):
         # First, get the custom styles
         proc = context
         while (not interfaces.IStylesManager.providedBy(proc) and
                proc is not None):
             proc = proc.parent
-        styles = proc.styles.get(self.type, {})
-        # Now look up default values
-        if isDefault:
-            if 'style.' + value in styles:
+        for styles in (proc.styles.get(self.type, {}),
+                       reportlab.lib.styles.getSampleStyleSheet().byName):
+            if value in styles:
+                return styles[value]
+            elif 'style.' + value in styles:
                 return styles['style.' + value]
-            return reportlab.lib.styles.getSampleStyleSheet()[value]
-        return styles[value]
+            elif value.startswith('style.') and value[6:] in styles:
+                return styles[value[6:]]
+        raise ValueError('Style %r could not be found.' %value)
 
     def get(self, element, default=DEFAULT, context=None):
         value = element.get(self.name, DEFAULT)
         if value is DEFAULT:
             if default is DEFAULT:
-                return self.convert(self.default, context, True)
+                return self.convert(self.default, context)
             elif default is None:
                 return None
-            return self.convert(default, context, True)
+            return self.convert(default, context)
         return self.convert(value, context)
 
 
@@ -226,6 +230,34 @@ class Symbol(Text):
 
     def convert(self, value, context=None):
         return reportlab.graphics.widgets.markers.makeMarker(value)
+
+class PageSize(Attribute):
+
+    sizePair = Sequence(valueType=Measurement())
+    words = Sequence(valueType=Attribute())
+
+    def convert(self, value, context=None):
+        # First try to get a pair
+        try:
+            return self.sizePair.convert(value, context)
+        except ValueError:
+            pass
+        # Now we try to lookup a name. The following type of combinations must
+        # work: "Letter" "LETTER" "A4 landscape" "letter portrait"
+        words = self.words.convert(value, context)
+        words = [word.lower() for word in words]
+        # First look for the orientation
+        orienter = None
+        for orientation in ('landscape', 'portrait'):
+            if orientation in words:
+                orienter = getattr(reportlab.lib.pagesizes, orientation)
+                words.remove(orientation)
+        # We must have exactely one value left that matches a paper size
+        pagesize = getattr(reportlab.lib.pagesizes, words[0].upper())
+        # Now do the final touches
+        if orienter:
+            pagesize = orienter(pagesize)
+        return pagesize
 
 
 class TextNode(Attribute):
@@ -236,6 +268,18 @@ class TextNode(Attribute):
 
     def get(self, element, default=DEFAULT, context=None):
         return unicode(element.text).strip()
+
+class FirstLevelTextNode(TextNode):
+    """Text ndoes are not really attributes, but behave mostly like it."""
+
+    def __init__(self):
+        super(TextNode, self).__init__('TEXT')
+
+    def get(self, element, default=DEFAULT, context=None):
+        text = element.text or u''
+        for child in element.getchildren():
+            text += child.tail or u''
+        return text
 
 
 class TextNodeSequence(Sequence):
@@ -280,7 +324,7 @@ class RawXMLContent(Attribute):
                     subElement, context, None)
                 substitute.process()
         # Now create the text
-        text = element.text or u''
+        text = saxutils.escape(element.text or u'')
         for child in element.getchildren():
             text += etree.tounicode(child)
         if text is None:

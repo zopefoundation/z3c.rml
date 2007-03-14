@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by Andy Robinson (ReportLab Inc.) -->
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_005_fonts.pdf">
+	<docinit>
+		<registerType1Face afmFile="LeERC___.AFM" pfbFile="LeERC___.PFB"/>
+		<registerFont name="LettErrorRobot-Chrome" faceName="LettErrorRobot-Chrome" encName="WinAnsiEncoding"/>
+		<registerTTFont faceName="rina" fileName="rina.ttf"/>
+	</docinit>
+	<template>
+		<pageTemplate id="main">
+			<frame id="first" x1="72" y1="72" width="451" height="698"/>
+		</pageTemplate>
+	</template>
+	<stylesheet>
+		<paraStyle name="robot" fontName="LettErrorRobot-Chrome" fontSize="12" spaceBefore="0.5 cm"/>
+		<paraStyle name="rina" fontName="rina" fontSize="12" spaceBefore="0.5 cm"/>
+	</stylesheet>
+	<story>
+		<para>
+		This paragraph is an ordinary font style, but switches font. 
+		<font face="LettErrorRobot-Chrome">This is in a custom font</font>
+		and <font face="rina">this is in a custom TTF font</font>.
+			<!-- doesn't work <font face="LettErrorRobot-Chrome"> -->
+<!--        Yahoo! Rooms 
+  Asian Markets - Discuss the latest market activity. 
+  Biotechnology - Discuss the latest research and advances in this field. 
+  Bond Market - Come here to chat live about the bond market! 
+  Career Corner - Find career tips and advice at http://careers.yahoo.com/ 
+  Small Business - Where professionals meet. Visit http://smallbusiness.yahoo.com/ 
+  StockWatch - Discuss the latest on Wall St. Visit http://finance.yahoo.com/  -->
+<!-- </font> -->
+		</para>
+		<para style="robot">This is a whole paragraph in the 'robot' style.</para>
+		<para style="rina">This is a whole paragraph in the 'rina' style.</para>
+		<illustration height="100" width="1">
+			<setFont name="LettErrorRobot-Chrome" size="25"/>
+			<drawString x="25" y="25">"LettErrorRobot-Chrome"</drawString>
+			<setFont name="rina" size="25"/>
+			<drawString x="25" y="50">"rina"</drawString>
+			<setFont name="Helvetica" size="16"/>
+			<drawString x="25" y="75">This is drawn directly in an illustration</drawString>
+		</illustration>
+    <para>
+	
+        <font face="Helvetica" size="9">This is Helvetica (plain).</font>
+        <font face="Helvetica" size="9"><i>This is Helvetica + italics.</i></font>
+		<font face="Helvetica-Oblique" size="9">This is Helvetica-Oblique.</font>
+		<font face="Helvetica-Oblique" size="9"><b>This is Helvetica-Oblique + BOLD.</b></font>
+    </para>
+
+    <para>
+        <i>This is plain text (no font face given) + italic.</i>
+    </para>
+
+		
+	</story>
+</document>

@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_002_paras.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #2</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.Normal" value="style.normal"/>
+	</initialize>
+
+	<paraStyle name="h1"
+	fontName="Courier-Bold"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+	
+	<paraStyle name="style1"
+	fontName="Courier"
+	fontSize="10"
+	/>
+
+	<paraStyle name="style2"
+	parent="style1"
+	leftIndent = "1in"
+	/>
+
+	<paraStyle name="style3"
+	parent="style1"
+	rightIndent = "1in"
+	/>
+
+	<paraStyle name="style4"
+	parent="style1"
+	spaceBefore = "2cm"
+	/>
+
+	<paraStyle name="style5"
+	parent="style1"
+	spaceAfter = "2cm"
+	/>
+
+	<paraStyle name="style6"
+	parent="style1"
+	firstLineIndent = "2cm"
+	/>
+
+	<paraStyle name="style7"
+	parent="style1"
+	leading = "15"
+	/>
+	<!-- NB Leading isn't just the space between lines - it is
+	expressed as the height of the line PLUS the space between
+	lines. This leading of 15 is equal to a space of 5 pts between
+	lines.-->
+
+	<paraStyle name="style8"
+	parent="style1"
+	bulletFontName = "ZapfDingbats"
+	bulletFontSize = "5"
+	/>
+
+	<paraStyle name="style9"
+	parent="style8"
+	bulletFontSize = "10"
+	bulletIndent = "20"
+	/>
+
+	<paraStyle name="style10"
+	parent="style9"
+	bulletIndent = "20"
+	leftIndent = "35"
+	/>
+
+	<paraStyle name="style11"
+	parent="style1"
+	alignment = "left"
+	/>
+
+	<paraStyle name="style12"
+	parent="style1"
+	alignment = "right"
+	/>
+
+	<paraStyle name="style13"
+	parent="style1"
+	alignment = "center"
+	/>
+
+	<paraStyle name="style14"
+	parent="style1"
+	alignment = "justify"
+	/>
+
+	<paraStyle name="style15"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "left"
+	/>
+
+	<paraStyle name="style16"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "right"
+	/>
+
+	<paraStyle name="style17"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "center"
+	/>
+
+	<paraStyle name="style18"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "justify"
+	/>
+
+	<paraStyle name="style20"
+	parent="style1"
+	textColor = "red"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+	
+	<paraStyle name="style21"
+	parent="style1"
+	textColor = "green"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+
+	<paraStyle name="style22"
+	parent="style1"
+	textColor = "blue"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+
+
+    <!-- Colours by Hex value -->
+    <!-- NB THIS CURRENTLY DOESN'T WORK! -->
+    <!--
+    <paraStyle name="style23"
+	parent="style1"
+	textColor = "#FF0000"
+	/>
+	
+	<paraStyle name="style24"
+	parent="style1"
+	textColor = "#00FF00"
+	/>
+
+	<paraStyle name="style25"
+	parent="style1"
+	textColor = "#0000FF"
+	/>
+	-->
+
+
+    <!-- Colours by RGB value -->
+    <!-- NB THIS CURRENTLY DOESN'T WORK! -->
+    <!--
+    <paraStyle name="style26"
+	parent="style1"
+	textColor = "1,0,0"
+	/>
+	
+	<paraStyle name="style27"
+	parent="style1"
+	textColor = "0,1,0"
+	/>
+
+	<paraStyle name="style28"
+	parent="style1"
+	textColor = "0,0,1"
+	/>
+	-->
+
+	<paraStyle name="bugReport"
+	parent="h1"
+	spaceBefore = "0"
+	textColor = "red"
+	/>
+		
+</stylesheet>
+
+
+<story>
+<nextPage suppressFirst="1"/>
+
+
+<para style="style1">
+    This checks for all the possible quotes: &amp;amp; = &amp;, 
+    &amp;lt; = &lt;, &amp;gt; = &gt;, &amp;apos; = &apos;, &amp;quot; = &quot;, 
+    &amp;pound; = &pound;.
+</para>
+
+
+<para style="h1">Paragraph 1: About this page</para>
+<para style="style1">This page tests out a number of attributes of the <b>paraStyle</b> tag.
+This paragraph is in a style we have called "style1". It should be a normal paragraph, set in Courier 12 pt.
+It should be a normal paragraph, set in Courier (not bold).
+It should be a normal paragraph, set in Courier 12 pt.</para>
+
+<para style="h1">Paragraph 2: Indent Left</para>
+<para style="style2">This paragraph is in a style we have called "style2". It should be indented on the left. 
+It should be indented on the left by 1 inch. 
+It should be indented on the left. </para>
+
+<para style="h1">Paragraph 3: Indent Right</para>
+<para style="style3">This paragraph is in a style we have called "style3". It should be indented on the right. It should be indented on the right by 1 inch. It should be indented on the right. </para>
+
+<para style="h1">Paragraph 4: Space Before</para>
+<para style="style4">This paragraph is in a style we have called "style4". It should be have a space before it.  It should be have a space before it of 2 centimeters. It should be have a space before it.</para>
+
+<para style="h1">Paragraph 5: Space After</para>
+<para style="style5">This paragraph is in a style we have called "style5". It should be have a space after it.  It should be have a space after it of 2 centimeters. It should be have a space after it.</para>
+
+<para style="h1">Paragraph 6: First Line Indent</para>
+<para style="style6">This paragraph is in a style we have called "style6".It should be have an indented first line.  It should be have an first line indented by 2 centimeters. It should be have an indented first line.</para>
+<para style="h1">Paragraph 7: Leading</para>
+<para style="style7">This paragraph is in a style we have called "style7". It should be using leading. It should have a gap of 5 points between each line. It should be using leading. It should have a gap of 5 pt between each line. It should be using leading. The gap between lines should be half of the height of a line. This paragraph should look like it has a line spacing of "1.5 lines" </para>
+
+<para style="h1">Paragraphs 8-12: Simple Bullet Points</para>
+<para style="style8" bulletText="l"><b>Parastyle name="style8" parent="style1" bulletFontName = "ZapfDingbats" bulletFontSize = "5"</b></para>
+<para style="style8" bulletText="l">These paragraphs are in a style we have called "style8"</para>
+<para style="style8" bulletText="l">These five lines should have bullet points.</para>
+<para style="style8" bulletText="l">The bullet font is ZapfDingbats.</para>
+<para style="style8" bulletText="l">The bullet size is 5 points</para>
+<para style="style8" bulletText="l">This is a long line to see how multi-line bullets look: These paragraphs are in a style we have called "style8". These four lines should have bullet points. The bullet font is ZapfDingbats. The bullet size is 5 points</para>
+
+<para style="h1">Paragraph 13-18: Indented Bullet Points</para>
+<para style="style9" bulletText="*"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "10" bulletIndent = "20"</b></para>
+<para style="style9" bulletText="*">These paragraphs are in a style we have called "style9"</para>
+<para style="style9" bulletText="*">These five lines should have <i>indented</i> bullet points.</para>
+<para style="style9" bulletText="*">Bullet points should look like a pointing hand.</para>
+<para style="style9" bulletText="*">Bullet font is still ZapfDingbats, and bullet size is 10 points.</para>
+<para style="style9" bulletText="*">The bullet indent is 20 points</para>
+<para style="style9" bulletText="*">This is a long line to see how multi-line bullets look: These paragraphs are in a style we have called "style9". These four lines should have <i>indented</i> bullet points. Bullet points should look like a pointing hand. Bullet font is still ZapfDingbats, and bullet size is 10 points. The bullet indent is 20 points</para>
+
+<para style="h1">Paragraph 19-24: Indented Bullet Points with a Left Indent for the Text</para>
+<para style="style10" bulletText="*"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "10" bulletIndent = "20" leftIndent = "35"</b></para>
+<para style="style10" bulletText="*">These paragraphs are in a style we have called "style10"</para>
+<para style="style10" bulletText="*">These four lines should have <i>indented</i> bullet points, with the text indented as well.</para>
+<para style="style10" bulletText="*">Bullet points should look like a pointing hand.</para>
+<para style="style10" bulletText="*">Bullet font is still ZapfDingbats, and bullet size is 10 points.</para>
+<para style="style10" bulletText="*">The bullet indent is 20 points, and the text indent is 35 points</para>
+<para style="style10" bulletText="*">This is a long line to see how multi-line bullets look: These paragraphs are in a style we have called "style10". These four lines should have <i>indented</i> bullet points, with the text indented as well. Bullet points should look like a pointing hand. Bullet font is still ZapfDingbats, and bullet size is 10 points.</para>
+
+<para style="h1">Paragraph 25: Left Justified Paragraphs</para>
+<para style="style11">This paragraph is in a style we have called "style11". It should be left justified. It has an argument which states 'alignment = "left"'. It should be left justified.  It should be aligned to the left. </para>
+
+<para style="h1">Paragraph 26: Right Justified Paragraphs</para>
+<para style="style12">This paragraph is in a style we have called "style12". It should be right justified. It has an argument which states 'alignment = "right"'. It should be right justified.  It should be aligned to the right.</para>
+
+<para style="h1">Paragraph 27: Centered Paragraphs</para>
+<para style="style13">This paragraph is in a style we have called "style13".It should be center justified. It has an argument which states 'alignment = "center"'. It should be centered.  It should be aligned to the center.</para>
+
+<para style="h1">Paragraph 28: Justified Paragraphs</para>
+<para style="style14">This paragraph is in a style we have called "style14". It should be justified. It has an argument which states 'alignment = "justify"'. It should be justified. This paragraph doesn't contain any bold text though.</para>
+<para style="h1">Paragraph 28.1: Justified Paragraphs With Bold Text</para>
+<para style="style14">This paragraph is in a style we have called "style14". It should be <b>justified</b>. It has an argument which states <b>'alignment = "justify"'</b>. It should be justified. This paragraph doesn't contain any bold text though.</para>
+
+<para style="h1">Paragraphs 29-32: Bullets using left align, right align, centered and justify.</para>
+<para style="style15" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "left"</b></para>
+<para style="style15" bulletText="l">This is "style15", bullets with a left alignment. (The bullets in this style are based on "style10")</para>
+<para style="style16" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "right"</b></para>
+<para style="style16" bulletText="l">This is "style16", bullets with a right alignment.(The bullets in this style are based on "style10")</para>
+<para style="style17" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "center"</b></para>
+<para style="style17" bulletText="l">This is "style17", bullets with a center alignment.(The bullets in this style are based on "style10")</para>
+<para style="style18" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "justify"</b></para>
+<para style="style18" bulletText="l">This is "style18", bullets with a justified paragraph.(The bullets in this style are based on "style10")</para>
+<para style="style1">These all look wierd, but most people do not actually use these styles because they look so wrong.</para>
+
+<para style="h1">Paragraph 33-35: Using Colours by Colour Name</para>
+<para style="style20">This text should be <b>RED</b></para>
+<para style="style21">This text should be <b>GREEN</b></para>
+<para style="style22">This text should be <b>BLUE</b></para>
+
+<!-- THESE CURRENTLY DON'T WORK - SEE THE STYLES SECTION -->
+<!--
+<para style="h1">Paragraph 36-38: Using Colours by Hex Value</para>
+<para style="style23">This text should be <b>RED</b></para>
+<para style="style24">This text should be <b>GREEN</b></para>
+<para style="style25">This text should be <b>BLUE</b></para>
+
+<para style="h1">Paragraph 39-41: Using Colours by RGB Value</para>
+<para style="style26">This text should be <b>RED</b></para>
+<para style="style27">This text should be <b>GREEN</b></para>
+<para style="style28">This text should be <b>BLUE</b></para>
+-->
+
+<para style="bugReport">You <b>SHOULD</b> be able to specify colours
+by all the means available to reportlab.lib.colours. Currently, you
+<b>cannot</b> use RGB or HEX values...</para>
+
+<para style="h1">Last Paragraph: Para Tags and Paragraph Content</para>
+<para style="style1">
+    This should <i>not</i> have any extra spaces at the start of <b>this</b>
+    line (though there should be at the start of the heading). RML should ignore
+    additional whitespace, and you should be able to format the actual paragraphs
+    as you like. <u>This should be underlined</u>.   There should be line break after the colon:<br/>The text in this paragraph starts on a different line to the
+    actual "para" tag.
+</para>
+
+
+<para style="h1">Quoting and escaping</para>
+<para style="style1">
+    This checks for all the possible quotes: &amp;amp; = &amp;, 
+    &amp;lt; = &lt;, &amp;gt; = &gt;, &amp;apos; = &apos;, &amp;quot; = &quot;, 
+    &amp;pound; = &pound;.
+</para>
+<para style="style1">
+<i>If this is not italic</i>, <b>and this is not bold</b>, even normal angle brackets are broken.
+</para>
+<nextPage/>
+<imageAndFlowables imageName="images/replogo.gif" imageWidth="141" imageHeight="90">
+<para style="h1">Test imageAndFlowables tag with paras</para>
+<para style="style1">We should have an image on the <b>right</b> side of the paragraphs here. The imageAndFlowables
+tag can take an arbitrarary number of flowables and try to flow them round an image sepcified by attributes
+<i>imageName</i>
+<i>imageWidth</i>
+<i>imageHeight</i>
+<i>imageMask</i>; other attributes allow for padding and which side the image goes eg
+<i>imageTopPadding</i>
+<i>imageBottomPadding</i>
+<i>imageLeftPadding</i>
+<i>imageRightPadding</i>
+<i>imageSide</i>. Of course we hope that a single paragraph will flow properly round the image and that the <b>leading</b> should not appear to change during the process.
+On our assumptions, this selectionally introduced contextual feature is
+unspecified with respect to irrelevant intervening contexts in
+selectional rules.  To characterize a linguistic level L, a
+descriptively adequate grammar appears to correlate rather closely with
+a descriptive fact.  A consequence of the approach just outlined is that
+a case of semigrammaticalness of a different sort suffices to account
+for the system of base rules exclusive of the lexicon.  A majority  of
+informed linguistic specialists agree that the speaker-hearer's
+linguistic intuition raises serious doubts about the traditional
+practice of grammarians.  For one thing, the descriptive power of the
+base component does not readily tolerate problems of phonemic and
+morphological analysis.
+</para>
+</imageAndFlowables>
+<imageAndFlowables imageName="images/replogo.gif" imageWidth="141" imageHeight="90" imageSide="left">
+<para style="h1">Test imageAndFlowables tag with paras</para>
+<para style="style1">We should have an image on the <b>right</b> side of the paragraphs here.
+</para>
+<para style="style1">
+Summarizing, then, we assume that the fundamental error of regarding
+functional notions as categorial may remedy and, at the same time,
+eliminate the levels of acceptability from fairly high (e.g. (99a)) to
+virtual gibberish (e.g. (98d)).  This suggests that the theory of
+syntactic features developed earlier delimits a descriptive fact.  We
+have already seen that any associated supporting element is not quite
+equivalent to the traditional practice of grammarians.  From C1, it
+follows that the theory of syntactic features developed earlier can be
+defined in such a way as to impose irrelevant intervening contexts in
+selectional rules.  So far, a descriptively adequate grammar is rather
+different from a general convention regarding the forms of the grammar.
+</para>
+</imageAndFlowables>
+
+
+<para style="h1">Intra-paragraph &lt;br/&gt;</para>
+<para style="style1">
+And now for a break...<br/>
+here we should be one line two. <br/>
+Summarizing, then, we assume that the fundamental error of regarding
+functional notions as categorial may remedy and, at the same time,
+eliminate the levels of acceptability from fairly high (e.g. (99a)) to
+virtual gibberish (e.g. (98d)).  Now let's fake a bullet list:
+<br/>- bullet 1
+<br/>- bullet 2
+<br/>- bullet 3
+<br/>- bullet 4
+<br/>- bullet 15
+
+</para>
+
+
+</story>
+
+</document>

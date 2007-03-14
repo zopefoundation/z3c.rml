@@ -1,0 +1,57 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_001_hello.pdf" invariant="1">
+
+<template pageSize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="letter portrait">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite</drawRightString>
+		<textAnnotation><param name="Rect">0,0,1,1</param><param name="F">3</param><param name="escape">6</param>X::PDF
+PX(S)
+MT(PINK)
+</textAnnotation>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.Normal" value="style.normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12" 
+		spaceBefore="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+	<para style="normal">Hello World.  This is a normal paragraph. Blah <font color="red">IPO</font> blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah. Here are some common characters &amp;#x92; = &#x92; 
+	</para>
+	<para style="normal">This is another normal paragraph. Blah IPO blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah.
+	</para>
+	<para style="normal">
+	I should NOT have a tiny leading space in front of me!
+	</para>
+	<para style="spaced">This is spaced.  There should be 12 points before and after.</para>
+	<para style="normal">Hello World.  This is a normal paragraph. Blah IPO blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah.
+	</para>
+	
+</story>
+
+</document>
