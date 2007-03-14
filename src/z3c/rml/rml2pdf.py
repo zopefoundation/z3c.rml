@@ -16,6 +16,7 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import cStringIO
 import os
 import sys
 import zope.interface
@@ -23,6 +24,15 @@ from lxml import etree
 from z3c.rml import document, interfaces
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
+
+
+def parseString(xml):
+    root = etree.fromstring(xml)
+    doc = document.Document(root)
+    output = cStringIO.StringIO()
+    doc.process(output)
+    output.seek(0)
+    return output
 
 
 def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):

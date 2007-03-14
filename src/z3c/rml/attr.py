@@ -17,6 +17,7 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import cStringIO
+import os
 import re
 import reportlab
 import reportlab.lib.colors
@@ -164,17 +165,35 @@ class Measurement(Attribute):
 
 class Image(Text):
 
-    open = urllib.urlopen
+    open = staticmethod(urllib.urlopen)
+    packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
     def __init__(self, name=None, default=DEFAULT, onlyOpen=False):
         super(Image, self).__init__(name, default)
         self.onlyOpen = onlyOpen
 
     def convert(self, value, context=None):
+        # Check whether the value is of the form:
+        #    [<module.path>]/rel/path/image.gif"
+        if value.startswith('['):
+            result = self.packageExtract.match(value)
+            if result is None:
+                raise ValueError(
+                    'The package-path-pair you specified was incorrect')
+            modulepath, path = result.groups()
+            module = __import__(modulepath, {}, {}, (modulepath))
+            value = os.path.join(os.path.dirname(module.__file__), path)
+        # Open/Download the file
         fileObj = self.open(value)
         if self.onlyOpen:
             return fileObj
-        return reportlab.lib.utils.ImageReader(fileObj)
+        # ImageReader wants to be able to seek, but URL info objects can only
+        # be read, so we make a string IO object out of it
+        sio = cStringIO.StringIO()
+        sio.write(fileObj.read())
+        fileObj.close()
+        sio.seek(0)
+        return reportlab.lib.utils.ImageReader(sio)
 
 
 class Color(Text):
@@ -184,12 +203,12 @@ class Color(Text):
         if value in ALL_COLORS:
             return ALL_COLORS[value]
         # Decimal triplet
-        rgb = value.split(',')
+        rgb = Sequence(valueType=Float(), length=3).convert(value)
         if len(rgb) == 3:
-            return (float(num) for num in rgb)
+            return [float(num) for num in rgb]
         # Hexdecimal triplet
         if value.startswith('#'):
-            return (float(int(value[i:i+1], 16)) for i in range(1, 7, 2))
+            return [float(int(value[i:i+1], 16)) for i in range(1, 7, 2)]
         raise ValueError('%r not a valid color.' %value)
 
 
@@ -267,6 +286,8 @@ class TextNode(Attribute):
         super(TextNode, self).__init__('TEXT')
 
     def get(self, element, default=DEFAULT, context=None):
+        if element.text is None:
+            return u''
         return unicode(element.text).strip()
 
 class FirstLevelTextNode(TextNode):

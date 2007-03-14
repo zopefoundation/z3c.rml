@@ -247,9 +247,8 @@ class Path(element.FunctionElement):
             if subElement.tail is not None:
                 self.processPoints(subElement.tail)
 
-        if kw.get('close', False):
+        if kw.pop('close', False):
             self.path.close()
-            del kw['close']
 
         self.context.drawPath(self.path, **kw)
 

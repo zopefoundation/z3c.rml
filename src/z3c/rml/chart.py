@@ -267,7 +267,7 @@ class ValueAxis(Axis):
         attr.Bool('forceZero'), # TODO: Support 'near'
         attr.Measurement('minimumTickSpacing'),
         attr.Int('maximumTicks'),
-        attr.Text('labelTextFormat'),
+        attr.Attribute('labelTextFormat'),
         attr.Text('labelTextPostFormat'),
         attr.Float('labelTextScale'),
         attr.Float('valueMin'),
