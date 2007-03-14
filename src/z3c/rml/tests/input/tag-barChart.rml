@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-barChart.pdf">
+
+  <stylesheet>
+  </stylesheet>
+
+  <pageDrawing>
+
+    <setFont name="Helvetica-Bold" size="16" />
+    <drawCenteredString x="4.1in" y="11in">
+      Bar Chart Demo
+    </drawCenteredString>
+
+    <barChart
+        dx="2in" dy="7in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="3in"
+        barSpacing="7"
+        groupSpacing="15">
+      <bars>
+        <bar fillColor="blue" strokeColor="red" strokeWidth="0.5" />
+        <bar fillColor="yellow" strokeColor="green" strokeWidth="1" />
+      </bars>
+      <categoryAxis strokeColor="black" strokeWidth="1">
+        <labels fontName="Helvetica" />
+        <categoryNames>
+          <name>Category 1</name>
+          <name>Category 2</name>
+          <name>Category 3</name>
+          <name>Category 4</name>
+        </categoryNames>
+      </categoryAxis>
+      <valueAxis valueMin="0" valueMax="150" valueStep="30"
+                 visibleTicks="true" visibleLabels="true">
+        <labels fontName="Helvetica" />
+      </valueAxis>
+      <data>
+        <series>100 110 120 130</series>
+        <series> 70  80  85  90</series>
+      </data>
+    </barChart>
+
+    <barChart
+        dx="2in" dy="4in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="2in"
+        direction="vertical">
+      <categoryAxis strokeColor="black" strokeWidth="1"
+                    visibleGrid="true">
+        <labels fontName="Helvetica" />
+        <categoryNames>
+          <name>Category 1</name>
+          <name>Category 2</name>
+          <name>Category 3</name>
+          <name>Category 4</name>
+        </categoryNames>
+      </categoryAxis>
+      <valueAxis valueMin="0" valueMax="150" valueStep="30"
+                 visibleTicks="true" visibleLabels="true"
+                 visibleGrid="true">
+        <labels fontName="Helvetica" />
+      </valueAxis>
+      <data>
+        <series>100 110 120 130</series>
+        <series> 70  80  85  90</series>
+      </data>
+    </barChart>
+
+  </pageDrawing>
+</document>

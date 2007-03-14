@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-pieChart3d.pdf">
+
+  <stylesheet>
+  </stylesheet>
+
+  <pageDrawing>
+
+    <setFont name="Helvetica-Bold" size="16" />
+    <drawCenteredString x="4.1in" y="11in">
+      3-D Pie Chart Demo
+    </drawCenteredString>
+
+    <pieChart3D
+        dx="2in" dy="7in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="3in"  height="3in">
+      <labels>
+        <label>a</label>
+        <label>b</label>
+        <label>c</label>
+        <label>d</label>
+        <label>e</label>
+        <label>f</label>
+      </labels>
+      <slices strokeWidth="0.5">
+        <slice fillColor="darkcyan" />
+        <slice fillColor="blueviolet" />
+        <slice fillColor="blue" />
+        <slice fillColor="cyan" popout="10"
+               strokeWidth="2" strokeDashArray="2 2"/>
+        <slice fillColor="aquamarine" />
+        <slice fillColor="cadetblue" />
+        <slice fillColor="lightcoral" />
+      </slices>
+      <data>
+        <series>10 20 30 40 50 60</series>
+      </data>
+    </pieChart3D>
+
+    <pieChart3D
+        dx="2in" dy="3in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="3in"
+         orderMode="fixed" pointerLabelMode="LeftAndRight"
+         sameRadii="true" perspective="50" angle_3d="170">
+      <labels>
+        <label>Age  1-10</label>
+        <label>Age 11-20</label>
+        <label>Age 21-30</label>
+        <label>Age 31-40</label>
+        <label>Age 41-50</label>
+        <label>Age 51-60</label>
+      </labels>
+      <slices strokeWidth="0.5">
+        <slice fillColor="red" fillColorShaded="darkred" />
+        <slice fillColor="lightgreen" fillColorShaded="darkgreen" />
+        <slice fillColor="blue" fillColorShaded="darkblue" />
+        <slice fillColor="khaki" fillColorShaded="darkkhaki"
+               popout="10"
+               strokeWidth="2" strokeDashArray="2 2" />
+        <slice fillColor="orange" fillColorShaded="darkorange" />
+        <slice fillColor="magenta" fillColorShaded="darkmagenta" />
+        <slice fillColor="orchid" fillColorShaded="darkorchid" />
+      </slices>
+      <data>
+        <series>10 20 30 40 50 60</series>
+      </data>
+    </pieChart3D>
+
+  </pageDrawing>
+</document>

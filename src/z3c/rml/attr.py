@@ -23,6 +23,7 @@ import reportlab.lib.colors
 import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
+import reportlab.graphics.widgets.markers
 import urllib
 from lxml import etree
 
@@ -39,7 +40,7 @@ class Attribute(object):
         self.name = name
         self.default = default
 
-    def convert(self, value):
+    def convert(self, value, context=None):
         return value
 
     def get(self, element, default=DEFAULT, context=None):
@@ -101,7 +102,6 @@ class Sequence(Attribute):
         if value.startswith('(') and value.endswith(')'):
             value = value[1:-1]
         value = value.strip()
-        v = value
         values = self.splitre.split(value)
         result = [self.valueType.convert(value.strip(), context)
                   for value in values]
@@ -220,6 +220,12 @@ class Style(Text):
                 return None
             return self.convert(default, context, True)
         return self.convert(value, context)
+
+
+class Symbol(Text):
+
+    def convert(self, value, context=None):
+        return reportlab.graphics.widgets.markers.makeMarker(value)
 
 
 class TextNode(Attribute):

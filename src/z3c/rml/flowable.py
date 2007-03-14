@@ -11,7 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Style Related Element Processing
+"""Flowable Element Processing
 
 $Id$
 """

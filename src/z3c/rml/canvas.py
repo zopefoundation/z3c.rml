@@ -18,7 +18,8 @@ $Id$
 __docformat__ = "reStructuredText"
 import zope.interface
 import reportlab.pdfgen.canvas
-from z3c.rml import attr, element, error, flowable, form, interfaces, stylesheet
+from z3c.rml import attr, element, flowable, interfaces, stylesheet
+from z3c.rml import chart, form
 
 
 class DrawString(element.FunctionElement):
@@ -329,10 +330,19 @@ class Drawing(element.ContainerElement):
         'skew': Skew,
         'transform': Transform,
         'lineMode': LineMode,
+        # Charts
+        'barChart': chart.BarChart,
+        'barChart3D': chart.BarChart3D,
+        'linePlot': chart.LinePlot,
+        'pieChart': chart.PieChart,
+        'pieChart3D': chart.PieChart3D,
+        'spiderChart': chart.SpiderChart
         }
 
 
 class PageDrawing(Drawing):
+
+    subElements = Drawing.subElements.copy()
 
     def process(self):
         super(Drawing, self).process()

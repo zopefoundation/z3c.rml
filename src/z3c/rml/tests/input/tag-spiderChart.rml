@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-spiderChart.pdf">
+
+  <stylesheet>
+  </stylesheet>
+
+  <pageDrawing>
+
+    <setFont name="Helvetica-Bold" size="16" />
+    <drawCenteredString x="4.1in" y="11in">
+      Spider Chart Demo
+    </drawCenteredString>
+
+    <spiderChart
+        dx="2in" dy="7in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="3in"  height="3in">
+      <labels>
+        <label>a</label>
+        <label>b</label>
+        <label>c</label>
+        <label>d</label>
+        <label>e</label>
+        <label>f</label>
+      </labels>
+      <strands>
+        <strand strokeColor="cornsilk" fillColor="cornsilk" />
+        <strand strokeColor="cyan" fillColor="cyan" />
+        <strand strokeColor="palegreen" fillColor="palegreen" />
+      </strands>
+      <spokes strokeDashArray="2 2" />
+      <data>
+        <series>12 14 16 14 12</series>
+        <series>6 8 10 12 9 15</series>
+        <series>7 8 17 4 12 8</series>
+      </data>
+    </spiderChart>
+
+    <spiderChart
+        dx="2in" dy="4in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="3in"  height="3in">
+      <spokeLabels fontName="Helvetica-Bold">
+        <label>U</label>
+        <label>V</label>
+        <label>W</label>
+        <label>X</label>
+        <label>Y</label>
+        <label>Z</label>
+      </spokeLabels>
+      <strands symbol="FilledDiamond" symbolSize="6">
+        <strand strokeColor="red" fillColor="pink" />
+        <strand strokeColor="blue" fillColor="yellow"
+                symbol="Circle" strokeWidth="0.5" />
+        <strand strokeColor="green" fillColor="palegreen" />
+      </strands>
+      <strandLabels dR="-5" format="values">
+        <label row="0" col="3" dx="-10">special</label>
+        <label row="0" col="1" dy="5">one</label>
+        <label row="0" col="0" dy="5">zero</label>
+        <label row="1" col="0" dy="10">Earth</label>
+        <label row="2" col="2" dx="10">Mars</label>
+      </strandLabels>
+      <spokes strokeDashArray="2 2" />
+      <data>
+        <series>12 14 16 14 12</series>
+        <series>6 8 10 12 9 15</series>
+        <series>7 8 17 4 12 8</series>
+      </data>
+    </spiderChart>
+
+  </pageDrawing>
+</document>

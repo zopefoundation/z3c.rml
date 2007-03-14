@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="pdf-template.pdf">
+  <pageDrawing>
+    <!--mergeWith filename="data/w-2.pdf" page="0" /-->
+
+  </pageDrawing>
+</document>

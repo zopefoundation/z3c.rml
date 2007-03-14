@@ -38,11 +38,23 @@ class ContainerElement(Element):
         else:
             for subElement in self.element.getchildren():
                 if subElement.tag in self.subElements:
-                    self.subElements[subElement.tag](
-                        subElement, self, context).process()
+                    elem = self.subElements[subElement.tag](
+                        subElement, self, context)
+                    elem.__name__ = subElement.tag
+                    elem.process()
+
 
     def process(self):
         self.processSubElements(self.context)
+
+
+def extractAttributes(attrs, element, context=None):
+    values = {}
+    for Attr in attrs:
+        value = Attr.get(element, context=context)
+        if value is not attr.DEFAULT:
+            values[Attr.name] = value
+    return values
 
 
 def extractPositionalArguments(argsList, element, context=None):
