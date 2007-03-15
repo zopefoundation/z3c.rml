@@ -163,14 +163,15 @@ class Measurement(Attribute):
                 return unit[1]*float(res.group(1))
         raise ValueError('The value %r is not a valid measurement.' %value)
 
-class Image(Text):
+
+class File(Text):
 
     open = staticmethod(urllib.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
-    def __init__(self, name=None, default=DEFAULT, onlyOpen=False):
-        super(Image, self).__init__(name, default)
-        self.onlyOpen = onlyOpen
+    def __init__(self, name=None, default=DEFAULT):
+        super(File, self).__init__(name, default)
+
 
     def convert(self, value, context=None):
         # Check whether the value is of the form:
@@ -185,15 +186,23 @@ class Image(Text):
             value = os.path.join(os.path.dirname(module.__file__), path)
         # Open/Download the file
         fileObj = self.open(value)
-        if self.onlyOpen:
-            return fileObj
-        # ImageReader wants to be able to seek, but URL info objects can only
-        # be read, so we make a string IO object out of it
-        sio = cStringIO.StringIO()
-        sio.write(fileObj.read())
+        sio = cStringIO.StringIO(fileObj.read())
         fileObj.close()
         sio.seek(0)
-        return reportlab.lib.utils.ImageReader(sio)
+        return sio
+
+
+class Image(File):
+
+    def __init__(self, name=None, default=DEFAULT, onlyOpen=False):
+        super(Image, self).__init__(name, default)
+        self.onlyOpen = onlyOpen
+
+    def convert(self, value, context=None):
+        fileObj = super(Image, self).convert(value, context)
+        if self.onlyOpen:
+            return fileObj
+        return reportlab.lib.utils.ImageReader(fileObj)
 
 
 class Color(Text):

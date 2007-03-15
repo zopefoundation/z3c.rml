@@ -16,10 +16,11 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import cStringIO
 import zope.interface
 import reportlab.pdfgen.canvas
 from z3c.rml import attr, element, flowable, interfaces, stylesheet
-from z3c.rml import chart, form
+from z3c.rml import chart, form, page
 
 
 class DrawString(element.FunctionElement):
@@ -36,6 +37,12 @@ class DrawRightString(DrawString):
 
 class DrawCenteredString(DrawString):
     functionName = 'drawCentredString'
+
+
+class DrawAlignedString(DrawString):
+    functionName = 'drawAlignedString'
+    args = DrawString.args + (
+        attr.Text('pivotChar', '.'), )
 
 
 class Shape(element.FunctionElement):
@@ -333,6 +340,7 @@ class Drawing(element.ContainerElement):
         'drawRightString': DrawRightString,
         'drawCenteredString': DrawCenteredString,
         'drawCentredString': DrawCenteredString,
+        'drawAlignedString': DrawAlignedString,
         # Drawing Operations
         'ellipse': Ellipse,
         'circle': Circle,
@@ -369,6 +377,9 @@ class Drawing(element.ContainerElement):
 class PageDrawing(Drawing):
 
     subElements = Drawing.subElements.copy()
+    subElements.update({
+        'mergePage': page.MergePage
+        })
 
     def process(self):
         super(Drawing, self).process()
@@ -378,13 +389,13 @@ class PageDrawing(Drawing):
 class PageInfo(element.Element):
 
     def process(self):
-        pageSize = attr.Sequence(
-            'pageSize', attr.Measurement(), length=2).get(self.element)
+        pageSize = attr.PageSize('pageSize').get(self.element)
         self.context.setPageSize(pageSize)
 
 
 class Canvas(element.ContainerElement):
-    zope.interface.implements(interfaces.IStylesManager)
+    zope.interface.implements(
+        interfaces.IStylesManager, interfaces.IPostProcessorManager)
 
     subElements = {
         'stylesheet': stylesheet.Stylesheet,
@@ -395,15 +406,28 @@ class Canvas(element.ContainerElement):
     def __init__(self, element):
         self.element = element
         self.styles = {}
+        self.postProcessors = []
 
     def process(self, outputFile):
         verbosity = attr.Bool('verbosity').get(self.element, 0)
         compression = attr.DefaultBool('compression').get(self.element, 0)
 
+        # Create a temporary output file, so that post-processors can massage
+        # the output
+        tempOutput = cStringIO.StringIO()
+
         canvas = reportlab.pdfgen.canvas.Canvas(
-            outputFile,
+            tempOutput,
             pageCompression=compression,
             verbosity=verbosity)
         self.processSubElements(canvas)
-
         canvas.save()
+
+        # Process all post processors
+        for name, processor in self.postProcessors:
+            tempOutput.seek(0)
+            tempOutput = processor.process(tempOutput)
+
+        # Save the result into our real output file
+        tempOutput.seek(0)
+        outputFile.write(tempOutput.getvalue())

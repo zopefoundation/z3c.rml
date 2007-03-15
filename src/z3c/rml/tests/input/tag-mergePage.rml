@@ -1,0 +1,84 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="rml-guide-example-01.pdf">
+  <docinit>
+    <registerFont name="ZapfDingbats" faceName="ZapfDingbats"
+                  encName="StandardEncoding"/>
+  </docinit>
+
+  <stylesheet>
+    <paraStyle
+        name="Normal"
+        parent="style.Normal"
+        fontSize="12"
+        />
+  </stylesheet>
+
+  <pageDrawing>
+    <mergePage filename="[z3c.rml.tests]/input/data/fw2.pdf" page="1" />
+    <setFont name="Times-Roman" size="12" />
+
+    <!-- Field a -->
+    <drawString x="62.0mm" y="265.0mm">
+      555-55-5555
+    </drawString>
+
+    <!-- Field b -->
+    <drawString x="24mm" y="256.5mm">
+      MA 123-9424-90
+    </drawString>
+
+    <!-- Field c -->
+    <place x="24mm" y="225.0mm" width="75.0mm" height="25mm">
+      <para>Future Corporation</para>
+      <para>1 Belltower Place</para>
+      <para>Maynard, MA 01754</para>
+      <para>USA</para>
+    </place>
+
+    <!-- Field d -->
+    <drawString x="24mm" y="223mm">
+      CTRL-FC-2982
+    </drawString>
+
+    <!-- Field e -->
+    <drawString x="24mm" y="214.5mm">
+      Jonathan
+    </drawString>
+    <drawString x="68.5mm" y="214.5mm">
+      Duddley
+    </drawString>
+
+    <!-- Field f -->
+    <place x="24mm" y="184.0mm" width="75.0mm" height="25mm">
+      <para>10 Main Street</para>
+      <para>Maynard, MA 01754</para>
+      <para>USA</para>
+    </place>
+
+    <!-- Field 1 -->
+    <drawRightString x="161mm" y="256.5mm">
+      78,000
+    </drawRightString>
+
+    <!-- Field 2 -->
+    <drawRightString x="203mm" y="256.5mm">
+      13,260
+    </drawRightString>
+
+    <!-- Field 15 -->
+    <drawString x="20mm" y="175.5mm">
+      MA
+    </drawString>
+    <drawString x="32.4mm" y="175.5mm">
+      MA-FC-23410
+    </drawString>
+
+    <drawRightString x="101.3mm" y="175.5mm">
+      78,000
+    </drawRightString>
+    <drawRightString x="128mm" y="175.5mm">
+      6,240
+    </drawRightString>
+
+  </pageDrawing>
+</document>

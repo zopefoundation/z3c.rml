@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="drawString.pdf">
+  <pageDrawing>
+
+    <drawAlignedString x="4.1in" y="9.8in">
+      $ 13.63
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="9.6in">
+      $ 121.01
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="9.4in">
+      $ 7.13
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="9.2in">
+      $ -97.45
+    </drawAlignedString>
+
+    <drawAlignedString x="4.1in" y="7.8in">
+      12,345.67
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="7.6in">
+         987.15
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="7.4in">
+          42
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="7.2in">
+      -1,234.56
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="7.0in">
+        (456.78)
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="6.8in">
+        (456)
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="6.6in">
+          27 inches
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="6.4in">
+          13cm
+    </drawAlignedString>
+
+    <drawAlignedString x="4.1in" y="5.8in" pivotChar="=">
+      a = 2b + 3
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="5.6in" pivotChar="=">
+      a - 3 = 2b
+    </drawAlignedString>
+    <drawAlignedString x="4.1in" y="5.4in" pivotChar="=">
+      (a - 3)/2 = b
+    </drawAlignedString>
+
+  </pageDrawing>
+</document>

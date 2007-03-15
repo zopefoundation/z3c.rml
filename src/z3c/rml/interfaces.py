@@ -32,3 +32,10 @@ class IStylesManager(zope.interface.Interface):
     """Manages custom styles"""
 
     styles = zope.interface.Attribute("Styles dict")
+
+
+class IPostProcessorManager(zope.interface.Interface):
+    """Manages all post processors"""
+
+    postProcessors = zope.interface.Attribute(
+        "List of tuples of the form: (name, processor)")
