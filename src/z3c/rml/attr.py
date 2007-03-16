@@ -32,8 +32,6 @@ from xml.sax import saxutils
 
 from z3c.rml import interfaces
 
-ALL_COLORS = reportlab.lib.colors.getAllNamedColors()
-
 DEFAULT = object()
 
 
@@ -53,6 +51,20 @@ class Attribute(object):
                 return self.default
             return default
         return self.convert(value, context)
+
+class Combination(Attribute):
+
+    def __init__(self, name=None, valueTypes=(), default=DEFAULT):
+        super(Combination, self).__init__(name, default)
+        self.valueTypes = valueTypes
+
+    def convert(self, value, context=None):
+        for valueType in self.valueTypes:
+            try:
+                return valueType.convert(value, context)
+            except ValueError:
+                pass
+        raise ValueError(value)
 
 class Text(Attribute):
 
@@ -83,7 +95,7 @@ class StringOrInt(Attribute):
 
 class Sequence(Attribute):
 
-    splitre = re.compile('[ \t\n,]*')
+    splitre = re.compile('[ \t\n,;]*')
     minLength = None
     maxLength = None
 
@@ -149,6 +161,12 @@ class DefaultBool(Bool):
 
 class Measurement(Attribute):
 
+    def __init__(self, name=None, default=DEFAULT,
+                 allowPercentage=False, allowStar=False):
+        super(Measurement, self).__init__(name, default)
+        self.allowPercentage = allowPercentage
+        self.allowStar = allowStar
+
     units = [
 	(re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
 	(re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
@@ -156,13 +174,21 @@ class Measurement(Attribute):
 	(re.compile('^(-?[0-9\.]+)\s*$'), 1)
         ]
 
+    allowPercentage = False
+    allowStar = False
+
     def convert(self, value, context=None):
+        if value == 'None':
+            return None
+        if value == '*' and self.allowStar:
+            return value
+        if value.endswith('%') and self.allowPercentage:
+            return value
 	for unit in self.units:
             res = unit[0].search(value, 0)
             if res:
                 return unit[1]*float(res.group(1))
         raise ValueError('The value %r is not a valid measurement.' %value)
-
 
 class File(Text):
 
@@ -208,17 +234,9 @@ class Image(File):
 class Color(Text):
 
     def convert(self, value, context=None):
-        # Color name
-        if value in ALL_COLORS:
-            return ALL_COLORS[value]
-        # Decimal triplet
-        rgb = Sequence(valueType=Float(), length=3).convert(value)
-        if len(rgb) == 3:
-            return [float(num) for num in rgb]
-        # Hexdecimal triplet
-        if value.startswith('#'):
-            return [float(int(value[i:i+1], 16)) for i in range(1, 7, 2)]
-        raise ValueError('%r not a valid color.' %value)
+        if value == 'None':
+            return None
+        return reportlab.lib.colors.toColor(value)
 
 
 class Style(Text):
@@ -331,7 +349,6 @@ class TextNodeGrid(TextNodeSequence):
     def convert(self, value, context=None):
         result = super(TextNodeGrid, self).convert(value, context)
         if len(result) % self.cols != 0:
-            import pdb; pdb.set_trace()
             raise ValueError(
                 'Number of elements must be divisible by %i.' %self.cols)
         return [result[i*self.cols:(i+1)*self.cols]

@@ -17,12 +17,13 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import copy
+import re
 import reportlab.platypus
 import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 from reportlab.lib import styles
-from z3c.rml import attr, element, form, platypus, special
+from z3c.rml import attr, element, form, platypus, special, stylesheet
 
 try:
     import reportlab.graphics.barcode
@@ -39,7 +40,6 @@ class Flowable(element.FunctionElement):
         args = self.getPositionalArguments()
         kw = self.getKeywordArguments()
         self.parent.flow.append(self.klass(*args, **kw))
-
 
 class Spacer(Flowable):
     klass = reportlab.platypus.Spacer
@@ -98,6 +98,7 @@ class TableCell(element.Element):
     styleAttrs = (
         ('FONTNAME', (attr.Text('fontName'),)),
         ('FONTSIZE', (attr.Measurement('fontSize'),)),
+        ('TEXTCOLOR', (attr.Color('fontColor'),)),
         ('LEADING', (attr.Measurement('leading'),)),
         ('LEFTPADDING', (attr.Measurement('leftPadding'),)),
         ('RIGHTPADDING', (attr.Measurement('rightPadding'),)),
@@ -168,14 +169,37 @@ class TableRow(element.ContainerElement):
         self.processSubElements(None)
         self.parent.rows.append(self.cols)
 
+class TableBulkData(element.Element):
+
+    def process(self):
+        attribute = attr.TextNodeSequence(
+            splitre=re.compile('\n'),
+            valueType=attr.Sequence(
+                splitre=re.compile(','),
+                valueType=attr.Text()
+                ))
+        self.parent.rows = attribute.get(self.element)
+
+class BlockTableStyle(stylesheet.BlockTableStyle):
+
+    def setStyle(self, id, style):
+        self.parent.style = style
+
 class BlockTable(element.ContainerElement, Flowable):
     klass = reportlab.platypus.Table
     kw = (
         ('rowHeights', attr.Sequence('rowHeights', attr.Measurement())),
-        ('colWidths', attr.Sequence('colWidths', attr.Measurement())),
+        ('colWidths', attr.Sequence('colWidths',
+             attr.Measurement(allowPercentage=True, allowStar=True))),
         )
 
-    subElements = {'tr': TableRow}
+    attrs = ( ('repeatRows', attr.Int('repeatRows')), )
+
+
+    subElements = {
+        'tr': TableRow,
+        'bulkData': TableBulkData,
+        'blockTableStyle': BlockTableStyle}
 
     def process(self):
         # Get the table style; create a new one, if none is found
@@ -187,7 +211,12 @@ class BlockTable(element.ContainerElement, Flowable):
         self.processSubElements(None)
         # Create the table
         kw = self.getKeywordArguments()
+
         table = self.klass(self.rows, style=self.style, **kw)
+
+        attrs = element.extractKeywordArguments(self.attrs, self.element)
+        for name, value in attrs.items():
+            setattr(table, name, value)
 
         self.parent.flow.append(table)
 
@@ -322,6 +351,33 @@ class FixedSize(Flowable):
         frame = self.klass(content=flow.flow, mode='shrink', *args)
         self.parent.flow.append(frame)
 
+class Bookmark(Flowable):
+    klass = platypus.BookmarkPage
+    args = ( attr.Text('name'), )
+    kw = (
+        ('fitType', attr.Choice('fitType', ('Fit', 'FitH', 'FitV', 'FitR'))),
+        ('left', attr.Measurement('left')),
+        ('right', attr.Measurement('right')),
+        ('top', attr.Measurement('top')),
+        ('bottom', attr.Measurement('bottom')),
+        ('zoom', attr.Float('zoom')),
+        )
+
+class HorizontalRow(Flowable):
+    klass = reportlab.platypus.flowables.HRFlowable
+    kw = (
+        ('width', attr.Measurement('width', allowPercentage=True)),
+        ('thickness', attr.Measurement('thickness')),
+        ('color', attr.Color('color')),
+        ('lineCap', attr.Choice('lineCap', ('butt', 'round', 'square') )),
+        ('spaceBefore', attr.Measurement('spaceBefore')),
+        ('spaceAfter', attr.Measurement('spaceAfter')),
+        ('hAlign', attr.Choice(
+             'align', ('left', 'right', 'center', 'centre', 'decimal') )),
+        ('vAlign', attr.Choice('vAlign', ('top', 'middle', 'bottom') )),
+        ('dash', attr.Sequence('dash', attr.Measurement())),
+        )
+
 
 class Flow(element.ContainerElement):
 
@@ -352,6 +408,8 @@ class Flow(element.ContainerElement):
         'pto': PTO,
         'indent': Indent,
         'fixedSize': FixedSize,
+        'bookmark': Bookmark,
+        'hr': HorizontalRow,
         # Special Elements
         'name': special.Name,
         }

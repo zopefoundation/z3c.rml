@@ -36,3 +36,14 @@ class Illustration(reportlab.platypus.flowables.Flowable):
         drawing.process()
         self.canv.restoreState()
 
+
+class BookmarkPage(reportlab.platypus.flowables.Flowable):
+    def __init__(self, *args, **kw):
+        self.args = args
+        self.kw = kw
+
+    def wrap(self, *args):
+        return (0, 0)
+
+    def draw(self):
+        self.canv.bookmarkPage(*self.args, **self.kw)

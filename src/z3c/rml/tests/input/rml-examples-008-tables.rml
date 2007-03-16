@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_008_tables.pdf">
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+		<pageTemplate id="main">
+			<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+		</pageTemplate>
+	</template>
+	<stylesheet>
+		<blockTableStyle id="temp001">
+			<blockAlignment value="left"/>
+			<blockFont name="Helvetica-Oblique"/>
+			<lineStyle kind="GRID" colorName="black"/>
+			<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+			<blockBackground colorName="pink" start="0,0" stop="-1,0"/>
+			<blockBackground colorName="yellow" start="0,0" stop="-1,0"/>
+		</blockTableStyle>
+		<blockTableStyle id="span001">
+			<blockAlignment value="center"/>
+			<blockValign value="middle" start="-1,0" stop="-1,-1"/>
+			<blockSpan start="0,0" stop="2,0"/>
+			<blockSpan start="-1,0" stop="-1,-1"/>
+			<lineStyle kind="GRID" colorName="black" start="0,1" stop="-2,-1"/>
+			<lineStyle kind="GRID" colorName="black" start="3,0" stop="3,0"/>
+			<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+		</blockTableStyle>
+		<blockTableStyle id="numeric">
+			<!--top row - centre and bold, easy-->
+			<blockFont name="Times-Bold" start="0,0" stop="-1,0"/>
+			<blockAlignment value="center" start="0,0" stop="-1,0"/>
+			<lineStyle kind="LINEABOVE" colorName="purple" start="0,0" stop="-1,0"/>
+			<lineStyle kind="LINEBELOW" colorName="purple" start="0,0" stop="-1,0"/>
+			<!--numeric region - decimal align and set right padding-->
+			<blockAlignment value="right" start="1,1" stop="-1,-1"/>
+			<!--bottom row - double underline-->
+			<blockFont name="Times-Bold" start="0,-1" stop="-1,-1"/>
+			<lineStyle kind="LINEABOVE" colorName="purple" start="0,-1" stop="-1,-1"/>
+			<lineStyle kind="LINEBELOW" colorName="purple" start="0,-1" stop="-1,-1" count="2"/>
+		</blockTableStyle>
+	</stylesheet>
+	<story>
+		<para>The email address should be a clickable mailto link built by creating a plugin within the cell.  And Robin's job title
+        should be on a separate line to his name.  In the third row, we use the newer and easier table cell properties "href" and "destination".</para>
+		<spacer length="24"/>
+		<blockTable colWidths="5cm,5cm" style="temp001">
+			<tr>
+				<td>Name</td>
+				<td>Email</td>
+			</tr>
+			<tr>
+				<td>Robin Becker
+(chief propellerhead)</td>
+				<td>
+					<plugInFlowable module="mymodule" function="linkURL">("mailto:robin@reportlab.com",)</plugInFlowable>
+				</td>
+			</tr>
+			<tr>
+				<td destination="BACK_PAGE">Internal link to back page</td>
+				<td href="http://www.reportlab.com/">Hyperlink to www.reportlab.com</td>
+
+			</tr>
+		</blockTable>
+		<spacer length="24"/>
+		<para>This should be a 5x5 table where some ranges span.  Note that the grid and background
+        commands still work on the "underlying" grid; if you grid the whole table, it will show through
+        your 'spanned cells' </para>
+		<spacer length="12"/>
+		<blockTable colWidths="3cm,3cm,3cm,3cm,3cm" rowHeights="1cm,1cm,1cm,1cm,1cm" style="span001">
+			<tr>
+				<td>
+					<para>This should span the first 3 cells in the top row. It's ordinary left aligned
+                text but could be centred if you want.</para>
+				</td>
+				<td>B</td>
+				<td>C</td>
+				<td>D</td>
+				<td>
+					<para>This should span all five cells in the right column.  We vertically centred the
+                text to make it look sensible using a separate stylesheet command.</para>
+					<hr spaceBefore="5"/>
+					<para>some more text</para>
+				</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+		</blockTable>
+		<spacer length="24"/>
+		<para>This should be a 5x5 table where some ranges span. The column widths have been set as
+		3cm,10%,10%,10%,30%. The percentage refers to unallocated width only.
+        </para>
+		<spacer length="12"/>
+		<blockTable colWidths="3cm,10%,10%,10%,30%" rowHeights="2cm,1cm,1cm,1cm,None" style="span001">
+			<tr>
+				<td vAlign="middle">
+					<para>This should span the first 3 cells in the top row. It's ordinary left aligned
+                text but could be centred if you want.</para>
+				</td>
+				<td>B</td>
+				<td>C</td>
+				<td>D</td>
+				<td leftPadding="0" rightPadding="0">
+					<para>This should span all five cells in the right column.  We vertically centred the
+                text to make it look sensible using a separate stylesheet command.</para>
+					<hr spaceBefore="1" width="100%" thickness="1.5" color="pink"/>
+					<hr spaceBefore="1" width="100%" thickness="1.5" color="pink" lineCap="butt"/>
+					<hr spaceBefore="1" width="100%" thickness="1.5" color="pink" lineCap="square"/>
+					<hr spaceBefore="1" width="50%" thickness="1.5" color="pink" lineCap="square" align="right"/>
+					<hr spaceBefore="1" width="50%" thickness="1.5" color="pink" lineCap="square" align="left"/>
+					<hr spaceBefore="1" width="50%" thickness="1.5" color="pink" lineCap="square" align="centre"/>
+					<para>some more text</para>
+				</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+				<td>DB</td>
+				<td>E</td>
+			</tr>
+		</blockTable>
+		<spacer length="24"/>
+		<nextPage/>
+		<bookmark name="PAGE_TWO"/>
+		<para>This shows some pointers on doing financial tables.  It demonstrates the decimal alignment and
+        multiple lines.  We also used a local &lt;td color="red"&gt; attribute for the negative cell; ideally one wants to make the data drive the colour, 
+        so that generator apps don't need to make para tags in every cell if they want red negatives.
+        If we move to dynamic RML, then a number-and-cell-formatting function is possible, but static RML
+        sees everything as text.
+        
+        Note that when the value does not contain the decimal character but there are non-digit characters at the
+        end, it tries to align the rightmost digits with other rows.
+        </para>
+		<spacer length="12"/>
+		<blockTable colWidths="8cm,4cm">
+			<blockTableStyle id="temp003">
+				<!--top row - centre and bold, easy-->
+				<blockFont name="Times-Bold" start="0,0" stop="-1,0"/>
+				<blockAlignment value="center" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEABOVE" colorName="purple" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEBELOW" colorName="purple" start="0,0" stop="-1,0"/>
+				<!--numeric region - decimal align and set right padding-->
+				<blockAlignment value="decimal" start="1,1" stop="-1,-1"/>
+				<blockRightPadding length="1.5cm" start="1,1" stop="-1,-1"/>
+				<blockTextColor colorName="red" start="1,-2" stop="1,-2"/>
+				<!--bottom row - double underline-->
+				<blockFont name="Times-Bold" start="0,-1" stop="-1,-1"/>
+				<lineStyle kind="LINEABOVE" colorName="purple" start="0,-1" stop="-1,-1"/>
+				<lineStyle kind="LINEBELOW" colorName="purple" start="0,-1" stop="-1,-1" count="2"/>
+			</blockTableStyle>
+			<tr>
+				<td>Corporate Assets</td>
+				<td>Amount</td>
+			</tr>
+			<tr>
+				<td>Fixed Assets</td>
+				<td>1,234,567.89</td>
+			</tr>
+			<tr>
+				<td>Legal Offense Fund</td>
+				<td>86,000,000</td>
+			</tr>
+			<tr>
+				<td>Company Vehicle</td>
+				<td>1,234.8901</td>
+			</tr>
+			<tr>
+				<td>Petty Cash</td>
+				<td>42</td>
+			</tr>
+			<tr>
+				<td>Intellectual Property</td>
+				<td>Questionable</td>
+			</tr>
+			<tr>
+				<td>Bank Overdraft</td>
+				<td fontColor="red">(13,029)</td>
+			</tr>
+			<tr>
+				<td>Goodwill</td>
+				<td fontColor="red">(742,078,231.56)</td>
+			</tr>
+			<tr>
+				<td>Flat Screen TV</td>
+				<td fontColor="red">27 inches</td>
+			</tr>
+			<tr>
+				<td>Net Position</td>
+				<td>Doomed. Really!</td>
+			</tr>
+		</blockTable>
+		<nextFrame/>
+		<para>Individual &lt;td&gt; tags that contain pure strings can override the following attributes:
+        <font face="Courier-Bold" size="9">fontName, fontSize, fontColor, leading, leftPadding, rightPadding, 
+			topPadding, bottomPadding, background, align, vAlign,
+			lineBelowThickness, lineBelowColor, lineBelowCap, lineBelowCount, lineBelowSpace,
+			lineAboveThickness, lineAboveColor, lineAboveCap, lineAboveCount, lineAboveSpace,
+			lineLeftThickness, lineLeftColor, lineLeftCap, lineLeftCount, lineLeftSpace,
+			lineRightThickness, lineRightColor, lineRightCap, lineRightCount, lineRightSpace
+</font>.</para>
+		<spacer length="24"/>
+		<blockTable colWidths="5cm,5cm" style="temp001">
+			<tr>
+				<td>fontName</td>
+				<td fontName="Courier">Courier</td>
+			</tr>
+			<tr>
+				<td>fontName</td>
+				<td fontName="Helvetica">Helvetica</td>
+			</tr>
+			<tr>
+				<td>fontSize</td>
+				<td fontSize="8">8</td>
+			</tr>
+			<tr>
+				<td>fontSize</td>
+				<td fontSize="14">14</td>
+			</tr>
+			<tr>
+				<td>fontColor</td>
+				<td fontColor="red">red</td>
+			</tr>
+			<tr>
+				<td>fontColor</td>
+				<td fontColor="blue">blue</td>
+			</tr>
+			<tr>
+				<td>leading</td>
+				<td leading="16">leading
+is
+16</td>
+			</tr>
+			<tr>
+				<td>leading</td>
+				<td leading="12">leading
+is
+12</td>
+			</tr>
+			<tr>
+				<td>leftPadding</td>
+				<td leftPadding="10">10</td>
+			</tr>
+			<tr>
+				<td>leftPadding</td>
+				<td leftPadding="16">16</td>
+			</tr>
+			<tr>
+				<td>rightPadding</td>
+				<td rightPadding="10" align="right">10</td>
+			</tr>
+			<tr>
+				<td>rightPadding</td>
+				<td rightPadding="24" align="right">24</td>
+			</tr>
+			<tr>
+				<td>topPadding</td>
+				<td topPadding="10">10</td>
+			</tr>
+			<tr>
+				<td>topPadding</td>
+				<td topPadding="24">24</td>
+			</tr>
+			<tr>
+				<td>bottomPadding</td>
+				<td bottomPadding="10">10</td>
+			</tr>
+			<tr>
+				<td>bottomPadding</td>
+				<td bottomPadding="24">24</td>
+			</tr>
+			<tr>
+				<td>background</td>
+				<td background="pink">pink</td>
+			</tr>
+			<tr>
+				<td>background</td>
+				<td background="lightblue">lightblue</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="left">left</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="center">center</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="right">right</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="top">top</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="middle">middle</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="bottom">bottom</td>
+			</tr>
+			<tr>
+				<td>lineBelow</td>
+				<td lineBelowThickness="1" lineBelowColor="red">right</td>
+			</tr>
+		</blockTable>
+		<nextFrame/>
+		<para>This table is using <b>&lt;xpre&gt;</b> tags around the contents of the right hand column.</para>
+		<spacer length="24"/>
+		<blockTable colWidths="5cm,5cm" style="temp001">
+			<tr>
+				<td>fontName</td>
+				<td fontName="Courier">
+					<xpre>Courier</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>fontName</td>
+				<td fontName="Helvetica">
+					<xpre>Helvetica</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>fontSize</td>
+				<td fontSize="8">
+					<xpre>8</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>fontSize</td>
+				<td fontSize="14">
+					<xpre>14</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>fontColor</td>
+				<td fontColor="red">
+					<xpre>red</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>fontColor</td>
+				<td fontColor="blue">
+					<xpre>blue</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>leading</td>
+				<td leading="16">
+					<xpre>leading
+is
+16</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>leading</td>
+				<td leading="12">
+					<xpre>leading
+is
+12</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>leftPadding</td>
+				<td leftPadding="10">
+					<xpre>10</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>leftPadding</td>
+				<td leftPadding="16">
+					<xpre>16</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>rightPadding</td>
+				<td rightPadding="10" align="right">
+					<xpre>10</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>rightPadding</td>
+				<td rightPadding="24" align="right">
+					<xpre>24</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>topPadding</td>
+				<td topPadding="10">
+					<xpre>10</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>topPadding</td>
+				<td topPadding="24">
+					<xpre>24</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>bottomPadding</td>
+				<td bottomPadding="10">
+					<xpre>10</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>bottomPadding</td>
+				<td bottomPadding="24">
+					<xpre>24</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>background</td>
+				<td background="pink">
+					<xpre>pink</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>background</td>
+				<td background="lightblue">
+					<xpre>lightblue</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="left">
+					<xpre>left</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="center">
+					<xpre>center</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>align</td>
+				<td align="right">
+					<xpre>right</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="top">
+					<xpre>top</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="middle">
+					<xpre>middle</xpre>
+				</td>
+			</tr>
+			<tr>
+				<td>-
+vAlign
+-</td>
+				<td vAlign="bottom">
+					<xpre>bottom</xpre>
+				</td>
+			</tr>
+		</blockTable>
+		<nextFrame/>
+		<h2>Bulk Data Support</h2>
+		<para>Very often one wants to get quite a lot of text or numeric data into a table - for
+    example from a database query or imported data file.  Quoting all of this correctly as
+    XML and wrapping in in td and tr tags is time and memory consumuing, unquoting and parsing it
+    all back even more so.  Therefore, instead of explicitly creating row and cell tags, you
+    can now use a new <b>bulkData</b> tag.  This lets you specify a delimiter for fields (default
+    is comma) and for records (default is newline), and rml2pdf will break this up.</para>
+		<para>If you want to avoid having to quote ampersands, wrap this in a CDATA escape sequence.</para>
+		<para>Of course if you want per-cell formatting or to put arbitrary flowables in a cell, you
+    must use the other tags.</para>
+		<spacer length="24"/>
+		<blockTable style="numeric">
+                       <bulkData><![CDATA[
+Product,Profit
+Sprockets,26
+Widgets,34
+Thingummies,217
+Bits & Bobs,23
+Total,277
+        ]]></bulkData>
+		</blockTable>
+		<spacer length="24"/>
+		<para>You can specify a tab with <b>fieldDelim="\t"</b>, but we generally advise against using any
+        whitespace character as a delimiter if you have a choice.  You can also specify fine-grained 
+        "stripping" control; the default behaviour
+        is to strip whitespace off the top and bottom of the overall data block, so blank lines are
+        excluded, and off the ends of each row so line endings and indentation don't matter, but not off each 
+        cell.  Note that the strings in the cells may contain spaces
+        and these spaces will be respected in formatting.  You are also advised to use a CDATA
+        escape sequence around your data so that "&amp;","&lt;" and "&gt;",  characters don't
+        need special handling.</para>
+		<h2>Excel Bulk Data Support</h2>
+		<para>The <b>excelData</b> tag is very similar to the bulk data support, but reads the bulk
+		data from an Excel file instead of from delimited textual data.  The <b>range</b> attribute is
+		optional.</para>
+		<spacer length="24"/>
+                <h3><font color="red">
+                  Sorry Ecel Bulk Support is not yet here
+                </font></h3>
+<!--
+		<blockTable style="numeric">
+			<excelData fileName="exceldata.xls" sheetName="Sheet1" range="A1:B7" />
+		</blockTable>
+-->
+		<spacer length="24"/>
+		<h2>Colour cycles by rows and columns</h2>
+		<para>It's sometimes nice to alternate colours by row (e.g. a pale color then
+		white) to visually break up a long table.  The style lets you specify <b>cycles</b> as
+		well as single colours.  Here we have created a style command which cycles through
+		pale green and white, like old stacks of fanfold paper...</para>
+		<blockTable align="LEFT">
+			<blockTableStyle id="repeater" spaceBefore="12">
+				<lineStyle kind="OUTLINE" colorName="black" thickness="0.5"/>
+				<blockFont name="Times-Bold" size="6" leading="7" start="0,0" stop="-1,0"/>
+				<blockBottomPadding length="1"/>
+				<blockBackground colorName="0xD0D0D0" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEBELOW" colorName="black" start="0,0" stop="-1,0" thickness="0.5"/>
+				<!--body section-->
+				<blockFont name="Times-Roman" size="6" leading="7" start="0,1" stop="-1,-1"/>
+				<blockTopPadding length="1" start="0,1" stop="-1,-1"/>
+				<blockBackground colorsByRow="0xD0FFD0;None" start="0,1" stop="-1,-1"/>
+			</blockTableStyle>
+			<tr>
+				<td>Date</td>
+				<td>Item</td>
+				<td>Debit</td>
+				<td>Credit</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Bottom row should be greem</td>
+				<td>110</td>
+				<td>-</td>
+			</tr>
+		</blockTable>
+		<nextFrame/>
+		<para>Try again by column, with three colors this time.  Also ensure some row heights
+		vary to check accuracy of drawing.</para>
+		<blockTable align="RIGHT">
+			<blockTableStyle id="repeater2" spaceBefore="12">
+				<lineStyle kind="OUTLINE" colorName="black" thickness="0.5"/>
+				<lineStyle kind="GRID" colorName="gray" thickness="0.25"/>
+				<blockFont name="Times-Bold" size="6" leading="7" start="0,0" stop="-1,0"/>
+				<blockBottomPadding length="1"/>
+				<blockBackground colorName="0xD0D0D0" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEBELOW" colorName="black" start="0,0" stop="-1,0" thickness="0.5"/>
+				<!--body section-->
+				<blockFont name="Times-Roman" size="6" leading="7" start="0,1" stop="-1,-1"/>
+				<blockTopPadding length="1" start="0,1" stop="-1,-1"/>
+				<blockBackground colorsByRow="0xD0FFD0;0xFFD0FF;None" start="0,1" stop="-1,-1"/>
+			</blockTableStyle>
+			<tr>
+				<td>Date</td>
+				<td>Item</td>
+				<td>Debit</td>
+				<td>Credit</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients
+plus magnum of champagne</td>
+				<td>400</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>28-09-2004</td>
+				<td>Expensive lunch with clients</td>
+				<td>100</td>
+				<td>-</td>
+			</tr>
+		</blockTable>
+		<para>And now by column (although this may be used less...)</para>
+		<blockTable>
+			<blockTableStyle id="repeater3" spaceBefore="12">
+				<lineStyle kind="OUTLINE" colorName="black" thickness="0.5"/>
+				<lineStyle kind="GRID" colorName="gray" thickness="0.25"/>
+				<blockFont name="Times-Bold" size="6" leading="7" start="0,0" stop="-1,0"/>
+				<blockBottomPadding length="1"/>
+				<blockBackground colorName="0xD0D0D0" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEBELOW" colorName="black" start="0,0" stop="-1,0" thickness="0.5"/>
+				<!--body section-->
+				<blockFont name="Times-Roman" size="6" leading="7" start="0,1" stop="-1,-1"/>
+				<blockTopPadding length="1" start="0,1" stop="-1,-1"/>
+				<blockBackground colorsByCol="0xD0FFD0;None" start="0,1" stop="-1,-1"/>
+			</blockTableStyle>
+			<tr>
+				<td>Date</td>
+				<td>Item</td>
+				<td>Jan</td>
+				<td>Feb</td>
+				<td>Mar</td>
+				<td>Apr</td>
+				<td>May</td>
+				<td>Jun</td>
+				<td>Jul</td>
+				<td>Aug</td>
+				<td>Sep</td>
+				<td>Oct</td>
+				<td>Nov</td>
+				<td>Dec</td>
+				<td>Total</td>
+			</tr>
+			<tr>
+				<td>Expenses</td>
+				<td>Entertainment</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>1200</td>
+			</tr>
+			<tr>
+				<td>Expenses</td>
+				<td>Entertainment</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>1200</td>
+			</tr>
+			<tr>
+				<td>Expenses</td>
+				<td>Entertainment</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>1200</td>
+			</tr>
+			<tr>
+				<td>Expenses</td>
+				<td>Entertainment</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>1200</td>
+			</tr>
+			<tr>
+				<td>Expenses</td>
+				<td>Entertainment</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>100</td>
+				<td>1200</td>
+			</tr>
+		</blockTable>
+
+
+		<h2>Splitting over pages - top and bottom rows</h2>
+		<para>Sometimes a table splits over a page and you don't have a grid, so the bottom part (and top of the
+		new page) have no line boxing them in.  The splitfirst and splilast magic coordinates can be used to insert
+		a line drawing routine into the style for this. I used an ugly thick purple line!</para>
+		<blockTable repeatRows="1">
+			<blockTableStyle id="repeater" spaceBefore="12">
+				<lineStyle kind="OUTLINE" colorName="black" thickness="0.5"/>
+				<blockFont name="Times-Bold" size="6" leading="7" start="0,0" stop="-1,0"/>
+				<blockBottomPadding length="1"/>
+				<blockBackground colorName="0xD0D0D0" start="0,0" stop="-1,0"/>
+				<lineStyle kind="LINEBELOW" colorName="black" start="0,0" stop="-1,0" thickness="0.5"/>
+				<!--body section-->
+				<blockFont name="Times-Roman" size="6" leading="7" start="0,1" stop="-1,-1"/>
+				<blockTopPadding length="1" start="0,1" stop="-1,-1"/>
+				<blockBackground colorsByRow="0xD0FFD0;None" start="0,1" stop="-1,-1"/>
+				<blockAlignment value="right" start="1,1" stop="-1,-1"/>
+				
+				<!-- ensure the bottom of the table is 'closed off' during the split.  I've used an ugly red dashed line -->
+				<lineStyle kind="LINEBELOW" colorName="purple" start="0,splitlast" stop="-1,splitlast" thickness="3"/>
+				
+				
+			</blockTableStyle>
+			<tr>	<td>Date</td><td>Item</td><td>Debit</td><td>Credit</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>
+			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100  </td><td>-</td></tr>
+
+		</blockTable>
+
+		<bookmark name="BACK_PAGE"/>
+	</story>
+</document>

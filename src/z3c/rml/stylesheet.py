@@ -73,8 +73,14 @@ class ParagraphStyle(element.Element):
 class TableStyleCommand(element.Element):
     name = None
     attrs = (
-        attr.Sequence('start', attr.Int(), [0, 0], length=2),
-        attr.Sequence('stop', attr.Int(), [-1, -1], length=2) )
+        attr.Sequence('start', attr.Combination(
+            valueTypes=(attr.Int(),
+                        attr.Choice(choices=('splitfirst', 'splitlast')) )),
+            [0, 0], length=2),
+        attr.Sequence('stop', attr.Combination(
+            valueTypes=(attr.Int(),
+                        attr.Choice(choices=('splitfirst', 'splitlast')) )),
+            [-1, -1], length=2) )
 
     def process(self):
         args = [self.name]
@@ -124,7 +130,23 @@ class BlockTopPadding(TableStyleCommand):
 
 class BlockBackground(TableStyleCommand):
     name = 'BACKGROUND'
-    attrs = TableStyleCommand.attrs + (attr.Color('colorName'), )
+    attrs = TableStyleCommand.attrs + (
+        attr.Color('colorName'),
+        attr.Sequence('colorsByRow', attr.Color()),
+        attr.Sequence('colorsByCol', attr.Color()) )
+
+    def process(self):
+        args = [self.name]
+        if 'colorsByRow' in self.element.keys():
+            args = [BlockRowBackground.name]
+        elif 'colorsByCol' in self.element.keys():
+            args = [BlockColBackground.name]
+
+        for attribute in self.attrs:
+            value = attribute.get(self.element)
+            if value is not attr.DEFAULT:
+                args.append(value)
+        self.context.add(*args)
 
 class BlockRowBackground(TableStyleCommand):
     name = 'ROWBACKGROUNDS'
@@ -147,8 +169,13 @@ class BlockSpan(TableStyleCommand):
 
 class LineStyle(TableStyleCommand):
     attrs = TableStyleCommand.attrs + (
-        attr.Measurement('thickness', 1),
-        attr.Color('colorName'), )
+        attr.Measurement('thickness', default=1),
+        attr.Color('colorName', default=None),
+        attr.Choice('cap', ('butt', 'round', 'square'), default=1),
+        attr.Sequence('dash', attr.Measurement(), default=None),
+        attr.Bool('join', default=1),
+        attr.Int('count', default=1),
+        )
 
     @property
     def name(self):
@@ -157,6 +184,14 @@ class LineStyle(TableStyleCommand):
         return attr.Choice(
             'kind', dict([(cmd.lower(), cmd) for cmd in cmds])
             ).get(self.element)
+
+    def process(self):
+        args = [self.name]
+        for attribute in self.attrs:
+            value = attribute.get(self.element)
+            if value is not attr.DEFAULT:
+                args.append(value)
+        self.context.add(*args)
 
 class BlockTableStyle(element.ContainerElement):
 
@@ -177,11 +212,14 @@ class BlockTableStyle(element.ContainerElement):
         'lineStyle': LineStyle,
         }
 
+    def setStyle(self, id, style):
+        self.parent.parent.styles.setdefault('table', {})[id] = style
+
     def process(self):
         id = attr.Text('id').get(self.element)
         style = reportlab.platypus.tables.TableStyle()
         self.processSubElements(style)
-        self.parent.parent.styles.setdefault('table', {})[id] = style
+        self.setStyle(id, style)
 
 
 class Stylesheet(element.ContainerElement):
