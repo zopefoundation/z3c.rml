@@ -79,6 +79,7 @@ class PluginFlowable(Flowable):
             flowables = [flowables]
         self.parent.flow += list(flowables)
 
+
 class Paragraph(Flowable):
     klass = reportlab.platypus.Paragraph
     args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Normal') )

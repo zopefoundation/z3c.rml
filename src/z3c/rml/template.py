@@ -141,4 +141,4 @@ class Template(element.ContainerElement):
         flowables = story.process()
 
         doc._firstPageTemplateIndex = story.getFirstPageTemplateIndex(doc)
-        doc.build(flowables)
+        doc.multiBuild(flowables)
