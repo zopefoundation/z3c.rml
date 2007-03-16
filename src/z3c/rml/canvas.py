@@ -394,8 +394,7 @@ class PageInfo(element.Element):
 
 
 class Canvas(element.ContainerElement):
-    zope.interface.implements(
-        interfaces.IStylesManager, interfaces.IPostProcessorManager)
+    zope.interface.implements(interfaces.IPostProcessorManager)
 
     subElements = {
         'stylesheet': stylesheet.Stylesheet,
@@ -403,9 +402,8 @@ class Canvas(element.ContainerElement):
         'pageInfo': PageInfo,
         }
 
-    def __init__(self, element):
-        self.element = element
-        self.styles = {}
+    def __init__(self, element, parent, context):
+        super(Canvas, self).__init__(element, parent, context)
         self.postProcessors = []
 
     def process(self, outputFile):

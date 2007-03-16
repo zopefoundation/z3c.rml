@@ -1,0 +1,80 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_034_cmyk.pdf" invariant="1">
+<docinit>
+	<color id="CMYK_WHITE" RGB="PCMYKColor(100, 100, 100, 0)"/>
+	<color id="CMYK_BLACK" RGB="PCMYKColor(0, 0, 0, 100)"/>
+</docinit>
+
+<template pageSize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="A4">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite</drawRightString>
+		<fill color="[1,0,0,0]"/>
+		<rect x="100" y="600" width="50" height="50" fill="1"/>
+		<fill color="[0,1,0,0]"/>
+		<rect x="200" y="600" width="50" height="50" fill="1"/>
+		<fill color="[0,0,1,0]"/>
+		<rect x="300" y="600" width="50" height="50" fill="1"/>
+		<fill color="PCMYKColor(0,50,85,20,spotName='PANTONE 288 CV')"/>
+		<rect x="400" y="600" width="50" height="50" fill="1"/>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="3in" width="6.27in" height="3in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" textColor="[0,0,0,1]"/>
+	<paraStyle name="h1" parent="normal" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+	<paraStyle name="spaced" parent="normal" spaceBefore="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+	<para style="normal">This is a test of CMYK support.
+	</para>
+	<para style="normal">The four swatches above should be in the CMYK primaries, and the paragraph carefully
+	declares the text color to be process black (k=1).
+	</para>
+	<spacer length="6"/>
+	<para style="normal">This is cmyk white text on cmyk black rectangle</para>
+	<spacer length="6"/>
+	<illustration height="15" width="144">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="CMYK_BLACK"/>
+		<rect x="0" y="0" width="144" height="15" fill="yes" stroke="no"/>
+		<fill color="CMYK_WHITE"/>
+		<drawString x="1" y="4">Hello World</drawString>
+	</illustration>
+	<spacer length="6"/>
+	<para style="normal">This is rgb white text on rgb black rectangle</para>
+	<spacer length="6"/>
+	<illustration height="15" width="144">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="black"/>
+		<rect x="0" y="0" width="144" height="15" fill="yes" stroke="no"/>
+		<fill color="white"/>
+		<drawString x="1" y="4">Hello World</drawString>
+	</illustration>
+	<spacer length="6"/>
+	<para style="normal">This is rgb white text on cmyk black rectangle</para>
+	<spacer length="6"/>
+	<illustration height="15" width="144">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="CMYK_BLACK"/>
+		<rect x="0" y="0" width="144" height="15" fill="yes" stroke="no"/>
+		<fill color="white"/>
+		<drawString x="1" y="4">Hello World</drawString>
+	</illustration>
+	<spacer length="6"/>
+	<para style="normal">This is cmyk white text on rgb black rectangle</para>
+	<spacer length="6"/>
+	<illustration height="15" width="144">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="black"/>
+		<rect x="0" y="0" width="144" height="15" fill="yes" stroke="no"/>
+		<fill color="CMYK_WHITE"/>
+		<drawString x="1" y="4">Hello World</drawString>
+	</illustration>
+</story>
+
+</document>

@@ -28,10 +28,21 @@ class IRML2PDF(zope.interface.Interface):
         ``outputFileName``.
         """
 
+class INamesManager(zope.interface.Interface):
+    """Manages custom names"""
+
+    names = zope.interface.Attribute("Names dict")
+
 class IStylesManager(zope.interface.Interface):
     """Manages custom styles"""
 
     styles = zope.interface.Attribute("Styles dict")
+
+
+class IColorsManager(zope.interface.Interface):
+    """Manages custom colors"""
+
+    colors = zope.interface.Attribute("Colors dict")
 
 
 class IPostProcessorManager(zope.interface.Interface):

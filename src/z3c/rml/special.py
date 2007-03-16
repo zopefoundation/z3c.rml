@@ -25,21 +25,17 @@ class Name(element.FunctionElement):
         attr.Text('value'), )
 
     def process(self):
-        args = self.getPositionalArguments()
-        elem = self
-        while not hasattr(elem, 'names') and elem is not None:
-            elem = elem.parent
-        elem.names[args[0]] = args[1]
+        id, value = self.getPositionalArguments()
+        manager = attr.getManager(self, interfaces.INamesManager)
+        manager.names[id] = value
 
 
 class GetName(element.Element):
 
     def process(self):
         id = attr.Text('id').get(self.element)
-        elem = self
-        while not hasattr(elem, 'names') and elem is not None:
-            elem = elem.parent
-        text = elem.names[id] + (self.element.tail or u'')
+        manager = attr.getManager(self, interfaces.INamesManager)
+        text = manager.names[id] + (self.element.tail or u'')
         # Now replace the element with the text
         parent = self.element.getparent()
         if parent.text is None:
@@ -56,9 +52,5 @@ class Alias(element.FunctionElement):
 
     def process(self):
         id, value = self.getPositionalArguments()
-        elem = self
-        while (not interfaces.IStylesManager.providedBy(elem) and
-               elem is not None):
-            elem = elem.parent
-        styles = elem.styles.setdefault('para', {})
-        styles[id] = value
+        manager = attr.getManager(self, interfaces.IStylesManager)
+        manager.styles[id] = value

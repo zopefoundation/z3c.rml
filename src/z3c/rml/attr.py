@@ -35,6 +35,15 @@ from z3c.rml import interfaces
 DEFAULT = object()
 
 
+def getManager(context, interface):
+    while (not interface.providedBy(context) and context is not None):
+        context = context.parent
+    if context is None:
+        raise ValueError(
+            'Manager for %s could not be found.' %interface.getName())
+    return context
+
+
 class Attribute(object):
 
     def __init__(self, name=None, default=DEFAULT):
@@ -236,22 +245,20 @@ class Color(Text):
     def convert(self, value, context=None):
         if value == 'None':
             return None
+        manager = getManager(context, interfaces.IColorsManager)
+        if value in manager.colors:
+            return manager.colors[value]
         return reportlab.lib.colors.toColor(value)
 
 
 class Style(Text):
 
-    def __init__(self, name=None, type='para', default='Normal'):
+    def __init__(self, name=None, default='Normal'):
         super(Style, self).__init__(name, default)
-        self.type = type
 
     def convert(self, value, context=None):
-        # First, get the custom styles
-        proc = context
-        while (not interfaces.IStylesManager.providedBy(proc) and
-               proc is not None):
-            proc = proc.parent
-        for styles in (proc.styles.get(self.type, {}),
+        manager = getManager(context, interfaces.IStylesManager)
+        for styles in (manager.styles,
                        reportlab.lib.styles.getSampleStyleSheet().byName):
             if value in styles:
                 return styles[value]
@@ -385,4 +392,4 @@ class XMLContent(RawXMLContent):
 
     def get(self, element, default=DEFAULT, context=None):
         result = super(XMLContent, self).get(element, default, context)
-        return result.strip()
+        return result.strip().replace('\t', ' ')

@@ -38,7 +38,7 @@ class PropertyItem(element.Element):
     attrs = None
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         self.context.append(attrs)
 
 
@@ -50,7 +50,7 @@ class PropertyCollection(element.ContainerElement):
     def processAttributes(self):
         prop = getattr(self.context, self.propertyName)
         # Get global properties
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         for name, value in attrs.items():
             setattr(prop, name, value)
 
@@ -80,7 +80,7 @@ class Text(element.Element):
         )
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         string = shapes.String(
             attrs.pop('x'), attrs.pop('y'), attrs.pop('TEXT'))
         angle = attrs.pop('angle')
@@ -100,7 +100,8 @@ class Series(element.Element):
     attrList = None
 
     def process(self):
-        attrs = element.extractPositionalArguments(self.attrList, self.element)
+        attrs = element.extractPositionalArguments(
+            self.attrList, self.element, self)
         self.context.append(attrs[0])
 
 class Data(element.ContainerElement):
@@ -219,7 +220,7 @@ class Name(element.Element):
     attrs = (attr.TextNode(),)
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         self.context.append(attrs['TEXT'])
 
 
@@ -320,7 +321,7 @@ class SliceLabel(Label):
     attrs = Label.attrs[2:]
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         for name, value in attrs.items():
             self.context['label_'+name] = value
         # Now we do not have simple labels anymore
@@ -336,7 +337,7 @@ class SlicePointer(element.Element):
         )
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         for name, value in attrs.items():
             self.context['label_pointer_'+name] = value
 
@@ -358,7 +359,7 @@ class Slice(element.ContainerElement):
         'pointer': SlicePointer}
 
     def process(self):
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         self.processSubElements(attrs)
         self.context.append(attrs)
 
@@ -377,7 +378,7 @@ class Slices(element.ContainerElement):
 
     def process(self):
         # Get global slice properties
-        attrs = element.extractAttributes(self.attrs, self.element)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
         for name, value in attrs.items():
             setattr(self.context.slices, name, value)
         # Get slice specific properties
@@ -498,7 +499,7 @@ class Chart(element.ContainerElement):
 
     def getAttributes(self):
         attrs = [(attr.name, attr) for attr in self.attrs]
-        return element.extractKeywordArguments(attrs, self.element)
+        return element.extractKeywordArguments(attrs, self.element, self)
 
     def createChart(self, attributes):
         raise NotImplementedError

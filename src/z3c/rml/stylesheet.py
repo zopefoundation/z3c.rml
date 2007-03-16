@@ -20,7 +20,7 @@ import copy
 import reportlab.lib.styles
 import reportlab.lib.enums
 import reportlab.platypus
-from z3c.rml import attr, element, error, special
+from z3c.rml import attr, element, error, interfaces, special
 
 
 class Initialize(element.ContainerElement):
@@ -57,7 +57,7 @@ class ParagraphStyle(element.Element):
 
     def process(self):
         attrs = element.extractKeywordArguments(
-            [(attr.name, attr) for attr in self.attrs], self.element,
+            [(attrib.name, attrib) for attrib in self.attrs], self.element,
             self.parent)
 
         parent = attrs.pop(
@@ -67,7 +67,8 @@ class ParagraphStyle(element.Element):
         for name, value in attrs.items():
             setattr(style, name, value)
 
-        self.parent.parent.styles.setdefault('para', {})[style.name] = style
+        manager = attr.getManager(self, interfaces.IStylesManager)
+        manager.styles[style.name] = style
 
 
 class TableStyleCommand(element.Element):
@@ -85,7 +86,7 @@ class TableStyleCommand(element.Element):
     def process(self):
         args = [self.name]
         for attribute in self.attrs:
-            value = attribute.get(self.element)
+            value = attribute.get(self.element, context=self)
             if value is not attr.DEFAULT:
                 args.append(value)
         self.context.add(*args)
@@ -143,7 +144,7 @@ class BlockBackground(TableStyleCommand):
             args = [BlockColBackground.name]
 
         for attribute in self.attrs:
-            value = attribute.get(self.element)
+            value = attribute.get(self.element, context=self)
             if value is not attr.DEFAULT:
                 args.append(value)
         self.context.add(*args)
@@ -183,12 +184,12 @@ class LineStyle(TableStyleCommand):
                 'LINEBELOW', 'LINEABOVE', 'LINEBEFORE', 'LINEAFTER']
         return attr.Choice(
             'kind', dict([(cmd.lower(), cmd) for cmd in cmds])
-            ).get(self.element)
+            ).get(self.element, context=self)
 
     def process(self):
         args = [self.name]
         for attribute in self.attrs:
-            value = attribute.get(self.element)
+            value = attribute.get(self.element, context=self)
             if value is not attr.DEFAULT:
                 args.append(value)
         self.context.add(*args)
@@ -212,14 +213,12 @@ class BlockTableStyle(element.ContainerElement):
         'lineStyle': LineStyle,
         }
 
-    def setStyle(self, id, style):
-        self.parent.parent.styles.setdefault('table', {})[id] = style
-
     def process(self):
-        id = attr.Text('id').get(self.element)
+        id = attr.Text('id').get(self.element, context=self)
         style = reportlab.platypus.tables.TableStyle()
         self.processSubElements(style)
-        self.setStyle(id, style)
+        manager = attr.getManager(self, interfaces.IStylesManager)
+        manager.styles[id] = style
 
 
 class Stylesheet(element.ContainerElement):

@@ -52,14 +52,11 @@ class MergePage(element.FunctionElement):
     args = ( attr.File('filename'), attr.Int('page') )
 
     def getProcessor(self):
-        elem = self.parent
-        while (not interfaces.IPostProcessorManager.providedBy(elem)
-               and elem is not None):
-            elem = elem.parent
-        procs = dict(elem.postProcessors)
+        manager = attr.getManager(self, interfaces.IPostProcessorManager)
+        procs = dict(manager.postProcessors)
         if 'MERGE' not in procs:
             proc = MergePostProcessor()
-            elem.postProcessors.append(('MERGE', proc))
+            manager.postProcessors.append(('MERGE', proc))
             return proc
         return procs['MERGE']
 

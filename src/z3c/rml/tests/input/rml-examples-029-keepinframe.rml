@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_029_keepinframe.pdf" debug="0" invariant="0" compression="1">
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #029 keepInFrame</drawRightString>
+	</pageGraphics>
+	<frame id="F1" x1="2.5cm" y1="15.5cm" width="170" height="284"/>
+	<frame id="F2" x1="11.5cm" y1="15.5cm" width="170" height="284"/>
+	<frame id="F3" x1="2.5cm" y1="2.5cm" width="170" height="284"/>
+	<frame id="F4" x1="11.5cm" y1="2.5cm" width="170" height="284"/>
+	</pageTemplate>
+
+	<pageTemplate id="newsletter">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #029 keepInFrame</drawRightString>
+	</pageGraphics>
+	<frame id="top" x1="10%" y1="80%" width="80%" height="10%"/>
+	<frame id="upper" x1="10%" y1="60%" width="55%" height="15%"/>
+	<frame id="middle" x1="10%" y1="35%" width="55%" height="20%"/>
+	<frame id="lowerleft" x1="10%" y1="10%" width="25%" height="20%"/>
+	<frame id="lowerright" x1="40%" y1="10%" width="25%" height="20%"/>
+	<frame id="sidebar" x1="70%" y1="10%" width="20%" height="65%"/>
+	</pageTemplate>
+
+
+</template>
+
+<stylesheet>
+	<initialize>
+		<alias id="bt" value="style.BodyText"/>
+	</initialize>
+	<paraStyle
+		name="h1"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="18"
+		leading="22"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+
+	<paraStyle
+		name="h2"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="16"
+		leading="18"
+		spaceAfter="3"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+
+	<paraStyle
+		name="keepInFrame"
+		parent="bt"
+		fontSize="9"
+		alignment="right"
+		/>
+
+	<!--this style used for a tablerow example later on in document-->
+		<blockTableStyle id="simple">
+			<blockValign start="0,0" stop="-1,-1" value="TOP"/>
+			<blockFont name="Helvetica" size="6" leading="7"/>
+			<blockBottomPadding length="1"/>
+			<blockTopPadding length="1"/>
+			<lineStyle kind="INNERGRID" colorName="gray" start="0,0" stop="-1,-1" thickness="0.25"/>
+			<lineStyle kind="BOX" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="summary" parent="simple">
+			<blockBackground colorName="cyan"/>
+			<blockFont name="Helvetica-Bold" size="6" leading="7"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="continuation" parent="simple">
+			<blockBackground colorName="silver"/>
+			<blockFont name="Helvetica-Oblique" size="6" leading="7"/>
+		</blockTableStyle>
+
+</stylesheet>
+
+
+<story>
+	<keepInFrame onOverflow = "shrink" id="ff1">
+		<para style="h1">First Try at a keepInFrame</para>
+		<para style="bt">
+			This will behave just like part of a story, as long as it all
+			fits.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. <font color="red">Notice</font>, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</keepInFrame>
+	<nextFrame/>
+	<keepInFrame onOverflow = "shrink" id="ff2">
+		<para style="h1">keepInFrame with a table inside</para>
+		<blockTable>
+			<blockTableStyle id="tablestyle_000">
+				<blockValign start="0,0" stop="-1,-1" value="TOP"/>
+				<lineStyle kind="INNERGRID" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+				<lineStyle kind="BOX" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+			</blockTableStyle>
+			<tr><td>alignment</td><td>align
+alignment</td></tr>
+			<tr><td>bulletColor</td><td>bulletcolor
+bcolor</td></tr>
+			<tr><td>bulletFontName</td><td>bfont
+bulletfontname</td></tr>
+			<tr><td>bulletFontSize</td><td>bfontsize
+bulletfontsize</td></tr>
+			<tr><td>bulletIndent</td><td>bindent
+bulletindent</td></tr>
+			<tr><td>firstLineIndent</td><td>findent
+firstlineindent</td></tr>
+			<tr><td>fontName</td><td>face
+fontname
+font</td></tr>
+			<tr><td>fontSize</td><td>size
+fontsize</td></tr>
+			<tr><td>leading</td><td>leading</td></tr>
+			<tr><td>leftIndent</td><td>leftindent
+lindent</td></tr>
+			<tr><td>rightIndent</td><td>rightindent
+rindent</td></tr>
+			<tr><td>spaceAfter</td><td>spaceafter
+spacea</td></tr>
+			<tr><td>spaceBefore</td><td>spacebefore
+spaceb</td></tr>
+			<tr><td>textColor</td><td>fg
+textcolor
+color</td></tr>
+		</blockTable>
+	</keepInFrame>
+	<nextFrame/>
+	<keepInFrame onOverflow = "shrink" id="ff3">
+		<para style="h1">A long keepInFrame, shrinks</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+			On our assumptions, a descriptively adequate grammar delimits the strong
+			generative capacity of the theory.	For one thing, the fundamental error
+			of regarding functional notions as categorial is to be regarded as a
+			corpus of utterance tokens upon which conformity has been defined by the
+			paired utterance test.	A majority	of informed linguistic specialists
+			agree that the appearance of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction is necessary to impose an
+			interpretation on the requirement that branching is not tolerated within
+			the dominance scope of a complex symbol.  It may be, then, that the
+			speaker-hearer's linguistic intuition appears to correlate rather
+			closely with the ultimate standard that determines the accuracy of any
+			proposed grammar.  Analogously, the notion of level of grammaticalness
+			may remedy and, at the same time, eliminate a general convention
+			regarding the forms of the grammar.
+		</para>
+	</keepInFrame>
+	<nextFrame/>
+	<keepInFrame onOverflow = "shrink" id="ff4">
+		<para style="h1">2 keepInFrame (inner split)</para>
+		<para style="bt" textColor="pink">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<keepInFrame maxHeight="100" onOverflow = "shrink" id="ff5">
+			<para style="h1">Inner Starts</para>
+			<para style="bt" textColor="yellow">
+				On our assumptions, a descriptively adequate grammar delimits the strong
+				generative capacity of the theory.	For one thing, the fundamental error
+				of regarding functional notions as categorial is to be regarded as a
+				corpus of utterance tokens upon which conformity has been defined by the
+				paired utterance test.	A majority	of informed linguistic specialists
+				agree that the appearance of parasitic gaps in domains relatively
+				inaccessible to ordinary extraction is necessary to impose an
+				interpretation on the requirement that branching is not tolerated within
+				the dominance scope of a complex symbol.  It may be, then, that the
+				speaker-hearer's linguistic intuition appears to correlate rather
+				closely with the ultimate standard that determines the accuracy of any
+				proposed grammar.  Analogously, the notion of level of grammaticalness
+				may remedy and, at the same time, eliminate a general convention
+				regarding the forms of the grammar.
+			</para>
+			<para style="h1">Inner Ends</para>
+		</keepInFrame>
+		<para style="bt" textColor="magenta">
+			We have already seen that the natural general principle that will
+			subsume this case cannot be arbitrary in the requirement that branching
+			is not tolerated within the dominance scope of a complex symbol.
+			Notice, incidentally, that the speaker-hearer's linguistic intuition is
+			to be regarded as the strong generative capacity of the theory.  A
+			consequence of the approach just outlined is that the descriptive power
+			of the base component does not affect the structure of the levels of
+			acceptability from fairly high (e.g. (99a)) to virtual gibberish (e.g.
+			(98d)).  By combining adjunctions and certain deformations, a
+			descriptively adequate grammar cannot be arbitrary in the strong
+			generative capacity of the theory.
+		</para>
+	</keepInFrame>
+	<nextPage/>
+	<nextFrame name="F4"/>
+	<keepInFrame onOverflow = "overflow" id="ff6">
+		<para style="h1">onOverflow = "overflow" in Frame F4</para>
+		<para style="bt">
+			This will behave just like part of a story, as long as it all
+			fits.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. <font color="red">Notice</font>, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</keepInFrame>
+	<keepInFrame onOverflow = "truncate" id="ff7" frame="F1">
+		<para style="h1">onOverflow = "truncate" in frame F1</para>
+		<para style="bt">
+			This will behave just like part of a story, as long as it all
+			fits.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. <font color="red">Notice</font>, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</keepInFrame>
+
+	<setNextTemplate name="newsletter"/>
+	<nextPage/>
+
+	<!-- from now on we can explore a totally different style of coding -
+	story says explicitly what goes where-->
+	<para style="h2">
+		A new way to lay things out....
+	</para>
+	<para>
+		This tag lets us handle layouts like newsletters and factsheets in a much more
+		natural style.  In documents like this, one does not want stuff to leak out of the
+		intended box into the next one.  You wrap your content in &lt;keepInFrame&gt; tags
+		and explicitly tell it where to go.  The order of this page naturally goes top, upper, middle,
+		bottomleft, bottomright, sidebar.
+	</para>
+
+	<keepInFrame frame="sidebar" onOverflow="error">
+		<para>
+			I drew this stuff second, out of the natural order, putting it within a tag saying
+			&lt;keepInFrame frame="sidebar" overflow="error"&gt;.
+		</para>
+		<para>
+			Havng done this, if I had too much content, there would an error warning me.  I can put
+			an ID in to identify it if I want.  I can also specify other behaviours for full frames - shrink, truncate,
+			overflow.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="upper" onOverflow="error">
+		<para>
+			I drew this stuff third, out of the natural order.  This should be in the upper frame, below the top.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="middle" onOverflow="error">
+		<para>
+			this goes in the middle frame.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="lowerright" onOverflow="error">
+		<para>
+			this goes in the bottom right, and was drawn before the stuff on the left..
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="lowerleft" onOverflow="error">
+		<para>
+			and finally the bottom left.
+		</para>
+	</keepInFrame>
+
+	<nextPage/>
+	<para style="h2">
+		The Nonsense Journal
+	</para>
+	<para>
+		We now overfill with rubbish etc etc and use onOverflow="shrink"
+	</para>
+
+	<keepInFrame frame="sidebar" onOverflow="shrink">
+		<para>
+			I drew this stuff second, out of the natural order, putting it within a tag saying
+			&lt;keepInFrame frame="sidebar" overflow="shrink"&gt;.
+		</para>
+		<para>
+Of course, this analysis of a formative as a pair of sets of features
+can be defined in such a way as to impose an important distinction in
+language use.  Nevertheless, the speaker-hearer's linguistic intuition
+may remedy and, at the same time, eliminate the levels of acceptability
+from fairly high (e.g. (99a)) to virtual gibberish (e.g. (98d)).  By
+combining adjunctions and certain deformations, the notion of level of
+grammaticalness is rather different from a descriptive fact.  I
+suggested that these results would follow from the assumption that the
+speaker-hearer's linguistic intuition is to be regarded as the levels of
+acceptability from fairly high (e.g. (99a)) to virtual gibberish (e.g.
+(98d)).  A consequence of the approach just outlined is that this
+selectionally introduced contextual feature is not to be considered in
+determining irrelevant intervening contexts in selectional rules.
+		</para>
+		<spacer length="10"/>
+		<para>
+So far, the systematic use of complex symbols is necessary to impose an
+interpretation on nondistinctness in the sense of distinctive feature
+theory.  It must be emphasized, once again, that most of the
+methodological work in modern linguistics is rather different from the
+requirement that branching is not tolerated within the dominance scope
+of a complex symbol.  Conversely, a descriptively adequate grammar can
+be defined in such a way as to impose a stipulation to place the
+constructions into these various categories.  If the position of the
+trace in (99c) were only relatively inaccessible to movement, relational
+information does not affect the structure of the traditional practice of
+grammarians.  Summarizing, then, we assume that most of the
+methodological work in modern linguistics appears to correlate rather
+closely with the strong generative capacity of the theory.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="upper" onOverflow="shrink">
+		<para>
+Suppose, for instance, that the natural general principle that will
+subsume this case is to be regarded as the ultimate standard that
+determines the accuracy of any proposed grammar.  On our assumptions,
+the notion of level of grammaticalness delimits the strong generative
+capacity of the theory.  Furthermore, the fundamental error of regarding
+functional notions as categorial is to be regarded as an abstract
+underlying order.  I suggested that these results would follow from the
+assumption that most of the methodological work in modern linguistics
+raises serious doubts about the requirement that branching is not
+tolerated within the dominance scope of a complex symbol.  Let us
+continue to suppose that the speaker-hearer's linguistic intuition does
+not affect the structure of a corpus of utterance tokens upon which
+conformity has been defined by the paired utterance test.
+		</para>
+		<spacer length="10"/>
+		<para>
+It must be emphasized, once again, that the earlier discussion of
+deviance raises serious doubts about a corpus of utterance tokens upon
+which conformity has been defined by the paired utterance test.  I
+suggested that these results would follow from the assumption that the
+systematic use of complex symbols does not affect the structure of the
+strong generative capacity of the theory.  To provide a constituent
+structure for T(Z,K), most of the methodological work in modern
+linguistics is not quite equivalent to the requirement that branching is
+not tolerated within the dominance scope of a complex symbol.  On our
+assumptions, the fundamental error of regarding functional notions as
+categorial is to be regarded as nondistinctness in the sense of
+distinctive feature theory.  A consequence of the approach just outlined
+is that this analysis of a formative as a pair of sets of features
+raises serious doubts about the system of base rules exclusive of the
+lexicon.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="middle" onOverflow="shrink">
+		<para>
+If the position of the trace in (99c) were only relatively inaccessible
+to movement, the theory of syntactic features developed earlier delimits
+a corpus of utterance tokens upon which conformity has been defined by
+the paired utterance test.  By combining adjunctions and certain
+deformations, a case of semigrammaticalness of a different sort is not
+subject to an important distinction in language use.  Note that this
+selectionally introduced contextual feature delimits the strong
+generative capacity of the theory.  Analogously, a subset of English
+sentences interesting on quite independent grounds is not quite
+equivalent to an important distinction in language use.  To characterize
+a linguistic level L, a case of semigrammaticalness of a different sort
+is, apparently, determined by a descriptive fact.
+		</para>
+		<spacer length="10"/>
+
+		<para>
+Clearly, the descriptive power of the base component is necessary to
+impose an interpretation on the levels of acceptability from fairly high
+(e.g. (99a)) to virtual gibberish (e.g. (98d)).  Thus most of the
+methodological work in modern linguistics cannot be arbitrary in the
+requirement that branching is not tolerated within the dominance scope
+of a complex symbol.  We will bring evidence in favor of the following
+thesis:  this analysis of a formative as a pair of sets of features is
+unspecified with respect to nondistinctness in the sense of distinctive
+feature theory.  Nevertheless, this selectionally introduced contextual
+feature can be defined in such a way as to impose the ultimate standard
+that determines the accuracy of any proposed grammar.  To provide a
+constituent structure for T(Z,K), a case of semigrammaticalness of a
+different sort is not quite equivalent to the system of base rules
+exclusive of the lexicon.
+	</para>
+	</keepInFrame>
+
+	<keepInFrame frame="lowerright" onOverflow="shrink">
+		<para>
+Clearly, the descriptive power of the base component is not subject to
+the system of base rules exclusive of the lexicon.  It appears that the
+appearance of parasitic gaps in domains relatively inaccessible to
+ordinary extraction does not readily tolerate the traditional practice
+of grammarians.  To provide a constituent structure for T(Z,K), a subset
+of English sentences interesting on quite independent grounds is
+necessary to impose an interpretation on an abstract underlying order.
+Presumably, the notion of level of grammaticalness delimits a corpus of
+utterance tokens upon which conformity has been defined by the paired
+utterance test.  For one thing, the theory of syntactic features
+developed earlier cannot be arbitrary in an abstract underlying order.
+		</para>
+		<spacer length="10"/>
+		<para>
+To provide a constituent structure for T(Z,K), the systematic use of
+complex symbols does not readily tolerate nondistinctness in the sense
+of distinctive feature theory.  This suggests that the natural general
+principle that will subsume this case is not quite equivalent to the
+levels of acceptability from fairly high (e.g. (99a)) to virtual
+gibberish (e.g. (98d)).  With this clarification, relational information
+is not subject to a general convention regarding the forms of the
+grammar.  In the discussion of resumptive pronouns following (81), the
+speaker-hearer's linguistic intuition can be defined in such a way as to
+impose nondistinctness in the sense of distinctive feature theory.  On
+the other hand, the appearance of parasitic gaps in domains relatively
+inaccessible to ordinary extraction is not quite equivalent to a
+stipulation to place the constructions into these various categories.
+		</para>
+	</keepInFrame>
+
+	<keepInFrame frame="lowerleft" onOverflow="shrink">
+		<para>
+Note that this selectionally introduced contextual feature can be
+defined in such a way as to impose the ultimate standard that determines
+the accuracy of any proposed grammar.  To provide a constituent
+structure for T(Z,K), the theory of syntactic features developed earlier
+is rather different from an important distinction in language use.  On
+our assumptions, the descriptive power of the base component does not
+readily tolerate problems of phonemic and morphological analysis.
+Summarizing, then, we assume that most of the methodological work in
+modern linguistics does not affect the structure of the ultimate
+standard that determines the accuracy of any proposed grammar.  It must
+be emphasized, once again, that the systematic use of complex symbols
+is, apparently, determined by the system of base rules exclusive of the
+lexicon.
+		</para>
+		<spacer length="10"/>
+		<para>
+A consequence of the approach just outlined is that the notion of level
+of grammaticalness is not to be considered in determining the system of
+base rules exclusive of the lexicon.  If the position of the trace in
+(99c) were only relatively inaccessible to movement, the systematic use
+of complex symbols appears to correlate rather closely with
+nondistinctness in the sense of distinctive feature theory.  With this
+clarification, the appearance of parasitic gaps in domains relatively
+inaccessible to ordinary extraction is not subject to a parasitic gap
+construction.  Conversely, the systematic use of complex symbols is
+unspecified with respect to a corpus of utterance tokens upon which
+conformity has been defined by the paired utterance test.  In the
+discussion of resumptive pronouns following (81), the earlier discussion
+of deviance does not affect the structure of problems of phonemic and
+morphological analysis.
+		</para>
+	</keepInFrame>
+</story>
+
+</document>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_031_japanese.pdf" invariant="1">
+  <docinit>
+    <registerCidFont faceName="HeiseiMin-W3" />
+  </docinit>
+
+<template pageSize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="(595,842)">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="504" y="800">RML2PDF Test Suite #31 - Japanese Output</drawRightString>
+		<setFont name="HeiseiMin-W3" size="18"/>
+		<drawRightString x="504" y="750">日本語は難しいですね！</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6in" height="9in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="32" leading="36"/>
+	<paraStyle name="h2" fontName="Helvetica-Bold" fontSize="16" leading="20" spaceBefore="12"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" spaceBefore="6"/>
+	<paraStyle name="jbody" fontName="HeiseiMin-W3" fontSize="10" leading="12" spaceBefore="6" wordWrap="CJK"/>
+	<paraStyle name="jbackright" fontName="HeiseiMin-W3" fontSize="10" leading="12" spaceBefore="6" alignment="RIGHT" backColor="yellow"/>
+
+	<blockTableStyle id="jnumeric">
+		<!--top row - centre and bold, easy-->
+		<blockFont name="HeiseiMin-W3"/>
+		<blockAlignment value="center" start="0,0" stop="-1,0"/>
+		<lineStyle kind="LINEABOVE" colorName="purple" start="0,0" stop="-1,0"/>
+		<lineStyle kind="LINEBELOW" colorName="purple" start="0,0" stop="-1,0"/>
+		<!--numeric region - decimal align and set right padding-->
+		<blockAlignment value="right" start="1,1" stop="-1,-1"/>
+		<!--bottom row - double underline-->
+		<blockFont name="Times-Bold" start="0,-1" stop="-1,-1"/>
+		<lineStyle kind="LINEABOVE" colorName="purple" start="0,-1" stop="-1,-1"/>
+		<lineStyle kind="LINEBELOW" colorName="purple" start="0,-1" stop="-1,-1" count="2"/>
+	</blockTableStyle>
+
+
+</stylesheet>
+
+<story>
+<para style="h1">Japanese Language Tests</para>
+<para style="normal">This test tries to display Japanese characters in several realistic situations.  We'll start with a paragraph:</para>
+
+<para style="h2">Basic output and text alignment</para>
+
+<para style="jbody">says "Hilton Tokyo:" ヒルトン東京</para>
+
+<para style="jbody">Gatwick Name: ヒルトン・ロンドン・ガトウィック・エアポート</para>
+
+
+
+
+<para style="normal">
+The words below the title at the top should be right-aligned with the frame border.
+If not, we've got our string widths wrong.  If too far into the page, likelihood is
+we are counting bytes not characters.  Similar things apply to the paragraph below
+whose Japanese portion should be underlined and right-aligned; if the underline is different in length
+and text does not run to edge, we goofed.
+</para>
+
+<para style="jbackright">begin <u>日本語は難しいですね</u> end</para>
+
+
+<para style="h2">Text wrapping</para>
+
+<para style="jbody">
+Gatwick Description: ガトウィック空港と連絡通路で直結されている唯一のホテルである当ホテルは、街の中心部から30分の場所にございます。全客室に高速インターネット環境を完備しております。ファミリールームは5名様までお泊りいただけます。また、エグゼクティブルームのお客様は、エグゼクティブラウンジをご利用いただけます。事前にご予約いただけるタイムトゥフライ・パッケージには、空港の駐車料金が含まれております。
+</para>
+
+<para style="h2">Other contexts</para>
+
+<para style="normal">There are some other non-paragraph contexts for text display -
+drawing strings directly, and placing strings (not paragraphs) in table cells.  The title
+at the top should have a &#174; symbol at the right, and all three should appear in
+the table below:</para>
+<spacer length="24"/>
+
+<blockTable>
+    <blockTableStyle id="0001">
+	<lineStyle kind="GRID" colorName="black"/>
+	<blockFont name="HeiseiMin-W3"/>
+    </blockTableStyle>
+    <tr><td>Symbol Name</td><td>Displays</td></tr>
+    <tr><td>Copyright</td><td>&#169;</td></tr>
+    <tr><td>Registered</td><td>&#174;</td></tr>
+    <tr><td>Trademark</td><td>&#x2122;</td></tr>
+    <tr><td>Tokyo (as entities)</td><td>&#x6771;&#x4EAC;</td></tr>
+    <tr><td>Tokyo (au naturelle)</td><td>東京</td></tr>
+</blockTable>
+
+
+<para style="h2">Charts</para>
+<para style="normal">Drawing source should be Nikkei</para>
+
+<drawing module="test_014_slidebox" function="SlideBoxDrawing">
+  <param name="SlideBox.sourceLabelFontName">HeiseiMin-W3</param>
+  <param name="SlideBox.sourceLabelText">source: 日本経済新聞</param>
+</drawing>
+
+
+<para style="normal">This should split over the page break onto page two</para>
+
+<para style="jbody">
+ガトウィック空港と連絡通路で直結されている唯一のホテルである当ホテルは、街の中心部から30分の場所にございます。全客室に高速インターネット環境を完備しております。ファミリールームは5名様までお泊りいただけます。また、エグゼクティブルームのお客様は、エグゼクティブラウンジをご利用いただけます。事前にご予約いただけるタイムトゥフライ・パッケージには、空港の駐車料金が含まれております。
+</para> 
+<para style="normal">Text After</para>
+
+
+<para style="h2">Table</para>
+		<blockTable style="jnumeric">
+                       <bulkData><![CDATA[
+日本語は難しいですね！,Profit
+Sprockets,26
+場所,34
+Thingummies,217
+何でも,23
+Total,277
+        ]]></bulkData>
+		</blockTable>
+
+
+
+
+
+</story>
+</document>

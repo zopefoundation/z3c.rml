@@ -17,7 +17,7 @@ MT(PINK)
 
 <stylesheet>
 	<initialize>
-	<alias id="style.Normal" value="style.normal"/>
+	<alias id="style.normal" value="style.Normal"/>
 	</initialize>
 	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
 	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>

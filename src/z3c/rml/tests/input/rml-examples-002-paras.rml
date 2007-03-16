@@ -15,7 +15,7 @@
 
 <stylesheet>
 	<initialize>
-	<alias id="style.Normal" value="style.normal"/>
+	<alias id="style.normal" value="style.Normal"/>
 	</initialize>
 
 	<paraStyle name="h1"

@@ -16,10 +16,8 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
-import zope.interface
 from reportlab import platypus
 from z3c.rml import attr, canvas, element, flowable, interfaces, stylesheet
-
 
 
 class Story(flowable.Flow):
@@ -35,10 +33,10 @@ class Story(flowable.Flow):
 
 class Frame(element.FunctionElement):
     args = (
-        attr.Measurement('x1'),
-        attr.Measurement('y1'),
-        attr.Measurement('width'),
-        attr.Measurement('height'),
+        attr.Measurement('x1', allowPercentage=True),
+        attr.Measurement('y1', allowPercentage=True),
+        attr.Measurement('width', allowPercentage=True),
+        attr.Measurement('height', allowPercentage=True),
         )
     kw = (
         ('id', attr.Text('id')),
@@ -51,10 +49,24 @@ class Frame(element.FunctionElement):
         )
 
     def process(self):
+        # get the page size
+        size = self.context.pagesize
+        if size is None:
+            size = self.parent.context.pagesize
+        # Get the arguments
         args = self.getPositionalArguments()
         kw = self.getKeywordArguments()
+        # Deal with percentages
+        if isinstance(args[0], basestring) and args[0].endswith('%'):
+            args[0] = float(args[0][:-1])/100*size[0]
+        if isinstance(args[1], basestring) and args[1].endswith('%'):
+            args[1] = float(args[1][:-1])/100*size[1]
+        if isinstance(args[2], basestring) and args[2].endswith('%'):
+            args[2] = float(args[2][:-1])/100*size[0]
+        if isinstance(args[3], basestring) and args[3].endswith('%'):
+            args[3] = float(args[3][:-1])/100*size[1]
         frame = platypus.Frame(*args, **kw)
-        self.context.frames.append(frame)
+        self.parent.frames.append(frame)
 
 
 class PageGraphics(element.Element):
@@ -82,20 +94,19 @@ class PageTemplate(element.FunctionElement, element.ContainerElement):
 
     def process(self):
         args = self.getPositionalArguments()
-        # Pass in frames explicitely, since they have it as a keyword argument
-        # using an empty list; Sigh!
-        pt = platypus.PageTemplate(frames=[], *args)
+        self.frames = []
+        pt = platypus.PageTemplate(*args)
+        self.processSubElements(pt)
+        pt.frames = self.frames
 
         kw = self.getKeywordArguments()
         if 'pagesize' in kw:
             pt.pagesize = kw['pagesize']
 
-        self.processSubElements(pt)
         self.context.addPageTemplates(pt)
 
 
 class Template(element.ContainerElement):
-    zope.interface.implements(interfaces.IStylesManager)
 
     templateArgs = (
         ('pagesize', attr.PageSize('pageSize',)),
@@ -119,20 +130,16 @@ class Template(element.ContainerElement):
         'stylesheet': stylesheet.Stylesheet,
         }
 
-    def __init__(self, element):
-        self.element = element
-        self.names = {}
-        self.styles = {}
-
     def process(self, outputFile):
         docElement = self.element
         self.processSubElements(None)
 
         self.element = self.element.find('template')
 
-        kw = element.extractKeywordArguments(self.documentArgs, docElement)
+        kw = element.extractKeywordArguments(
+            self.documentArgs, docElement, self)
         kw.update(element.extractKeywordArguments(
-            self.templateArgs, self.element))
+            self.templateArgs, self.element, self))
         doc = platypus.BaseDocTemplate(outputFile, **kw)
 
         self.processSubElements(doc)

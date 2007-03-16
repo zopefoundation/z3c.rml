@@ -61,11 +61,11 @@ class BarCodeFlowable(Flowable):
 
 class Preformatted(Flowable):
     klass = reportlab.platypus.Preformatted
-    args = ( attr.RawXMLContent(u''), attr.Style('style', 'para', 'Normal') )
+    args = ( attr.RawXMLContent(u''), attr.Style('style', 'Normal') )
 
 class XPreformatted(Flowable):
     klass = reportlab.platypus.XPreformatted
-    args = ( attr.RawXMLContent(u''), attr.Style('style', 'para', 'Normal') )
+    args = ( attr.RawXMLContent(u''), attr.Style('style', 'Normal') )
 
 class PluginFlowable(Flowable):
     args = ( attr.Text('module'), attr.Text('function'), attr.TextNode())
@@ -82,20 +82,36 @@ class PluginFlowable(Flowable):
 
 class Paragraph(Flowable):
     klass = reportlab.platypus.Paragraph
-    args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Normal') )
+    args = ( attr.XMLContent(u''), attr.Style('style', 'Normal') )
     kw = ( ('bulletText', attr.Attribute('bulletText')), )
 
+    styleAttrs = stylesheet.ParagraphStyle.attrs[3:]
+
+    def processStyle(self, style):
+        attrs = element.extractAttributes(self.styleAttrs, self.element, self)
+        if attrs:
+            style = copy.deepcopy(style)
+            for name, value in attrs.items():
+                setattr(style, name, value)
+        return style
+
+    def process(self):
+        args = self.getPositionalArguments()
+        kw = self.getKeywordArguments()
+        args[1] = self.processStyle(args[1])
+        self.parent.flow.append(self.klass(*args, **kw))
+
 class Title(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Title'), )
+    args = ( attr.XMLContent(u''), attr.Style('style', 'Title'), )
 
 class Heading1(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Heading1'), )
+    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading1'), )
 
 class Heading2(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Heading2'), )
+    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading2'), )
 
 class Heading3(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Heading3'), )
+    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading3'), )
 
 class TableCell(element.Element):
 
@@ -147,12 +163,13 @@ class TableCell(element.Element):
         for styleName, attrs in self.styleAttrs:
             args = []
             for attribute in attrs:
-                value = attribute.get(self.element)
+                value = attribute.get(self.element, context=self)
                 if value is not attr.DEFAULT:
                     args.append(value)
             if args or len(attrs) == 0:
                 self.parent.parent.style.add(
                     styleName, [col, row], [col, row], *args)
+
     def process(self):
         # Produce style
         self.processStyle()
@@ -184,10 +201,13 @@ class TableBulkData(element.Element):
                 ))
         self.parent.rows = attribute.get(self.element)
 
+
 class BlockTableStyle(stylesheet.BlockTableStyle):
 
-    def setStyle(self, id, style):
-        self.parent.style = style
+    def process(self):
+        self.parent.style = copy.deepcopy(self.parent.style)
+        self.processSubElements(self.parent.style)
+
 
 class BlockTable(element.ContainerElement, Flowable):
     klass = reportlab.platypus.Table
@@ -250,20 +270,28 @@ class ConditionalPageBreak(Flowable):
 class KeepInFrame(Flowable):
     klass = reportlab.platypus.flowables.KeepInFrame
     args = (
-        attr.Measurement('maxWidth'),
-        attr.Measurement('maxHeight'), )
+        attr.Measurement('maxWidth', None),
+        attr.Measurement('maxHeight', None), )
     kw = (
         ('mergeSpace', attr.Bool('mergeSpace')),
         ('mode', attr.Choice('onOverflow',
                              ('error', 'overflow', 'shrink', 'truncate'))),
-        ('name', attr.Text('id')) )
+        ('name', attr.Text('id')),
+        ('frame', attr.StringOrInt('frame')), )
 
     def process(self):
-        flow = Flow(self.element, self.parent, self.context)
-        flow.process()
         args = self.getPositionalArguments()
         kw = self.getKeywordArguments()
+        # If the frame was specifed, get us there
+        frame = kw.pop('frame', None)
+        if frame:
+            self.parent.flow.append(
+                reportlab.platypus.doctemplate.FrameBreak(frame))
+        # Create the content of the container
+        flow = Flow(self.element, self.parent, self.context)
+        flow.process()
         kw['content'] = flow.flow
+        # Create the keep in frame container
         frame = self.klass(*args, **kw)
         self.parent.flow.append(frame)
 

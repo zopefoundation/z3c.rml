@@ -17,9 +17,9 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import sys
-
-from reportlab.pdfbase import pdfmetrics, ttfonts
-from z3c.rml import attr, element, error
+import zope.interface
+from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
+from z3c.rml import attr, element, error, interfaces
 from z3c.rml import canvas, stylesheet, template
 
 
@@ -27,7 +27,7 @@ class RegisterType1Face(element.Element):
     args = ( attr.Attribute('afmFile'), attr.Attribute('pfbFile') )
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element)
+        args = element.extractPositionalArguments(self.args, self.element, self)
         face = pdfmetrics.EmbeddedType1Face(*args)
         pdfmetrics.registerTypeFace(face)
 
@@ -39,7 +39,7 @@ class RegisterFont(element.Element):
         attr.Attribute('encName') )
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element)
+        args = element.extractPositionalArguments(self.args, self.element, self)
         font = pdfmetrics.Font(*args)
         pdfmetrics.registerFont(font)
 
@@ -50,9 +50,28 @@ class RegisterTTFont(element.Element):
         attr.Attribute('fileName') )
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element)
+        args = element.extractPositionalArguments(self.args, self.element, self)
         font = ttfonts.TTFont(*args)
         pdfmetrics.registerFont(font)
+
+
+class RegisterCidFont(element.Element):
+    args = ( attr.Attribute('faceName'), )
+
+    def process(self):
+        args = element.extractPositionalArguments(self.args, self.element, self)
+        pdfmetrics.registerFont(cidfonts.UnicodeCIDFont(*args))
+
+
+class ColorDefinition(element.FunctionElement):
+    args = (
+        attr.Text('id'),
+        attr.Color('RGB'), )
+
+    def process(self):
+        id, value = self.getPositionalArguments()
+        manager = attr.getManager(self, interfaces.IColorsManager)
+        manager.colors[id] = value
 
 
 class DocInit(element.ContainerElement):
@@ -61,10 +80,16 @@ class DocInit(element.ContainerElement):
         'registerType1Face': RegisterType1Face,
         'registerFont': RegisterFont,
         'registerTTFont': RegisterTTFont,
+        'registerCidFont': RegisterCidFont,
+        'color': ColorDefinition,
         }
 
 
 class Document(element.ContainerElement):
+    zope.interface.implements(
+        interfaces.INamesManager,
+        interfaces.IStylesManager,
+        interfaces.IColorsManager)
 
     subElements = {
         'docinit': DocInit
@@ -72,6 +97,9 @@ class Document(element.ContainerElement):
 
     def __init__(self, element):
         self.element = element
+        self.names = {}
+        self.styles = {}
+        self.colors = {}
 
     def process(self, outputFile=None):
         """Process document"""
@@ -82,7 +110,7 @@ class Document(element.ContainerElement):
         self.processSubElements(None)
 
         if self.element.find('pageDrawing') is not None:
-            canvas.Canvas(self.element).process(outputFile)
+            canvas.Canvas(self.element, self, None).process(outputFile)
 
         if self.element.find('template') is not None:
-            template.Template(self.element).process(outputFile)
+            template.Template(self.element, self, None).process(outputFile)
