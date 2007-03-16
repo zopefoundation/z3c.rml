@@ -51,8 +51,8 @@ class GetName(element.Element):
 
 class Alias(element.FunctionElement):
     args = (
-        attr.Style('id'),
-        attr.Text('value'), )
+        attr.Text('id'),
+        attr.Style('value'), )
 
     def process(self):
         id, value = self.getPositionalArguments()
@@ -60,4 +60,5 @@ class Alias(element.FunctionElement):
         while (not interfaces.IStylesManager.providedBy(elem) and
                elem is not None):
             elem = elem.parent
-        elem.styles[value] = id
+        styles = elem.styles.setdefault('para', {})
+        styles[id] = value

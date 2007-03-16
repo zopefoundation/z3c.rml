@@ -230,4 +230,4 @@ class Stylesheet(element.ContainerElement):
         'blockTableStyle': BlockTableStyle,
         # TODO: 'boxStyle': BoxStyle,
         }
-    order = ('paraStyle', 'blockTableStyle', 'initialize')
+    order = ('initialize', 'paraStyle', 'blockTableStyle')

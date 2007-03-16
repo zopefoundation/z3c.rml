@@ -35,8 +35,10 @@ class Story(flowable.Flow):
 
 class Frame(element.FunctionElement):
     args = (
-        attr.Measurement('x1'), attr.Measurement('y1'),
-        attr.Measurement('width'), attr.Measurement('height'),
+        attr.Measurement('x1'),
+        attr.Measurement('y1'),
+        attr.Measurement('width'),
+        attr.Measurement('height'),
         )
     kw = (
         ('id', attr.Text('id')),
