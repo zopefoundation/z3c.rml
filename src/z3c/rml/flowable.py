@@ -17,13 +17,20 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import copy
+import reportlab.platypus
 import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
-from reportlab import platypus
 from reportlab.lib import styles
-from z3c.rml import attr, element, special
+from z3c.rml import attr, element, form, platypus, special
 
+try:
+    import reportlab.graphics.barcode
+except ImportError:
+    # barcode package has not been installed
+    import reportlab.graphics
+    reportlab.graphics.barcode = types.ModuleType('barcode')
+    reportlab.graphics.barcode.getCodeNames = lambda : ()
 
 class Flowable(element.FunctionElement):
     klass=None
@@ -35,42 +42,29 @@ class Flowable(element.FunctionElement):
 
 
 class Spacer(Flowable):
-    klass = platypus.Spacer
+    klass = reportlab.platypus.Spacer
     args = ( attr.Measurement('width', 100), attr.Measurement('length'), )
 
 
-class PlatypusIllustration(platypus.flowables.Flowable):
-    def __init__(self, processor, width, height):
-        self.processor = processor
-        self.width = width
-        self.height = height
-
-    def wrap(self, *args):
-        return (self.width, self.height)
-
-    def draw(self):
-        # Import here to avoid recursive imports
-        from z3c.rml import canvas
-        self.canv.saveState()
-        drawing = canvas.Drawing(
-            self.processor.element, self.processor, self.canv)
-        drawing.process()
-        self.canv.restoreState()
-
 class Illustration(Flowable):
-    klass = PlatypusIllustration
+    klass = platypus.Illustration
     args = ( attr.Measurement('width'), attr.Measurement('height', 100))
 
     def process(self):
         args = self.getPositionalArguments()
         self.parent.flow.append(self.klass(self, *args))
 
+class BarCodeFlowable(Flowable):
+    klass = staticmethod(reportlab.graphics.barcode.createBarcodeDrawing)
+    args = form.BarCode.args[:-1]
+    kw = form.BarCode.kw[2:] + ( ('value', attr.Attribute('value')), )
+
 class Preformatted(Flowable):
-    klass = platypus.Preformatted
+    klass = reportlab.platypus.Preformatted
     args = ( attr.RawXMLContent(u''), attr.Style('style', 'para', 'Normal') )
 
 class XPreformatted(Flowable):
-    klass = platypus.XPreformatted
+    klass = reportlab.platypus.XPreformatted
     args = ( attr.RawXMLContent(u''), attr.Style('style', 'para', 'Normal') )
 
 class PluginFlowable(Flowable):
@@ -83,7 +77,7 @@ class PluginFlowable(Flowable):
         self.parent.flow.append(function(text))
 
 class Paragraph(Flowable):
-    klass = platypus.Paragraph
+    klass = reportlab.platypus.Paragraph
     args = ( attr.XMLContent(u''), attr.Style('style', 'para', 'Normal') )
     kw = ( ('bulletText', attr.Attribute('bulletText')), )
 
@@ -175,7 +169,7 @@ class TableRow(element.ContainerElement):
         self.parent.rows.append(self.cols)
 
 class BlockTable(element.ContainerElement, Flowable):
-    klass = platypus.Table
+    klass = reportlab.platypus.Table
     kw = (
         ('rowHeights', attr.Sequence('rowHeights', attr.Measurement())),
         ('colWidths', attr.Sequence('colWidths', attr.Measurement())),
@@ -193,31 +187,30 @@ class BlockTable(element.ContainerElement, Flowable):
         self.processSubElements(None)
         # Create the table
         kw = self.getKeywordArguments()
-        table = self.klass(self.rows, **kw)
-        table.setStyle(self.style)
+        table = self.klass(self.rows, style=self.style, **kw)
 
         self.parent.flow.append(table)
 
 
 class NextFrame(Flowable):
-    klass = platypus.doctemplate.FrameBreak
+    klass = reportlab.platypus.doctemplate.FrameBreak
     kw = (
         ('ix', attr.StringOrInt('name')), )
 
 class SetNextFrame(Flowable):
-    klass = platypus.doctemplate.NextFrameFlowable
+    klass = reportlab.platypus.doctemplate.NextFrameFlowable
     kw = (
         ('ix', attr.StringOrInt('name')), )
 
 class NextPage(Flowable):
-    klass = platypus.PageBreak
+    klass = reportlab.platypus.PageBreak
 
 class SetNextTemplate(Flowable):
-    klass = platypus.doctemplate.NextPageTemplate
+    klass = reportlab.platypus.doctemplate.NextPageTemplate
     args = ( attr.StringOrInt('name'), )
 
 class ConditionalPageBreak(Flowable):
-    klass = platypus.CondPageBreak
+    klass = reportlab.platypus.CondPageBreak
     args = ( attr.Measurement('height'), )
 
 
@@ -339,6 +332,7 @@ class Flow(element.ContainerElement):
         'pre': Preformatted,
         'xpre': XPreformatted,
         'pluginFlowable': PluginFlowable,
+        'barCodeFlowable': BarCodeFlowable,
         # Paragraph-Like Flowables
         'title': Title,
         'h1': Heading1,

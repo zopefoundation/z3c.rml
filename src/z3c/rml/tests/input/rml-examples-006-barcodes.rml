@@ -33,7 +33,7 @@
 		<barCode x="1cm" y="0" code="Code11">01234545634563</barCode>
 	</illustration>
 	
-<!--	<spacer length="1cm"/>
+	<spacer length="1cm"/>
 	<para style="normal">Code128</para>
 	<illustration width="10cm" height="1cm">
 		<barCode x="1cm" y="0" code="Code128">AB-12345678</barCode>
@@ -44,7 +44,7 @@
 	<illustration width="10cm" height="1cm">
 		<barCode x="1cm" y="0" code="Code128" barHeight="0.5in" barWidth="0.009in">AB-12345678</barCode>
 	</illustration>
--->	<blockTable style="temp001">
+	<blockTable style="temp001">
 		<tr><td>barChartFlowable</td>
 			<td><barCodeFlowable code="Standard39" value="PFWZF" barWidth="0.01in" quiet="no"/></td>
 		</tr>

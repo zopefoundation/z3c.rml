@@ -1,0 +1,177 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-spacer.pdf">
+  <template>
+    <pageTemplate id="main">
+      <frame id="header" x1="2cm" y1="26cm" width="17cm" height="2cm"/>
+      <frame id="first" x1="2cm" y1="2cm" width="8cm" height="24cm"/>
+      <frame id="second" x1="11cm" y1="2cm" width="8cm" height="24cm"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <paraStyle
+        name="style.Normal"
+        fontName="Helvetica-Bold"
+        fontSize="12"
+        />
+  </stylesheet>
+
+  <story>
+    <title>"barCodeFlowable" Tag Demo</title>
+    <nextFrame />
+    <para>Code 128</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Code128" value="PFWZF" />
+    <spacer length="10mm" />
+
+    <para>Code 128 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Code128" value="PFWZF" humanReadable="true"
+                     fontName="Helvetica" fontSize="10"
+                     barFillColor="red" barStrokeColor="red"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Standard 93</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Standard93" value="98882137" />
+    <spacer length="10mm" />
+
+    <para>Standard 93 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Standard93" value="98882137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Extended 93</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Extended93" value="988-CD=137" />
+    <spacer length="10mm" />
+
+    <para>Extended 93 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Extended93" value="988-CD=137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Standard 39</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Standard39" value="98882137" />
+    <spacer length="10mm" />
+
+    <para>Standard 39 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Standard39" value="98882137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+
+    <nextFrame />
+
+    <para>Extended 39</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Extended39" value="988-CD-137" />
+    <spacer length="10mm" />
+
+    <para>Extended 39 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Extended39" value="988-CD-137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     checksum="1" bearers="2"  ratio="3"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>MSI</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="MSI" value="988137" />
+    <spacer length="10mm" />
+
+    <para>MSI with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="MSI" value="988137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     checksum="1" bearers="2"  ratio="3"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Codabar</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Codabar" value="988137" />
+    <spacer length="10mm" />
+
+    <para>Codabar with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Codabar" value="988137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     checksum="1" bearers="2"  ratio="3"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Code 11</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Code11" value="988137" />
+    <spacer length="10mm" />
+
+    <para>Code 11 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Code11" value="988137" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     checksum="1" bearers="2"  ratio="3"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+
+    <nextFrame />
+
+    <para>FIM</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="FIM" value="B" />
+    <spacer length="10mm" />
+
+    <para>FIM with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="FIM" value="B" humanReadable="true"
+                     fontName="Helvetica" fontSize="10" stop="true"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Ean13</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Ean13" value="123456789012" />
+    <spacer length="10mm" />
+
+    <para>Ean13 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Ean13" value="123456789012"
+                     humanReadable="true" fontName="Helvetica" fontSize="7"
+                     barStrokeColor="blue" barFillColor="blue" textColor="blue"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+    <para>Ean8</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Ean8" value="1234567" />
+    <spacer length="10mm" />
+
+    <para>Ean8 with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="Ean8" value="1234567"
+                     humanReadable="true" fontName="Helvetica" fontSize="7"
+                     barStrokeColor="blue" barFillColor="blue" textColor="blue"
+                     quiet="false" barHeight="0.4in" barWidth="0.009in" />
+
+    <nextFrame />
+
+    <para>POSTNET</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="POSTNET" value="38104-0001" />
+    <spacer length="10mm" />
+
+    <para>POSTNET with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="POSTNET" value="38104-0001" humanReadable="true"
+                     fontName="Helvetica" fontSize="10"
+                     barHeight="0.4in" barWidth="0.009in" />
+    <spacer length="10mm" />
+
+  </story>
+</document>

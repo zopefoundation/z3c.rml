@@ -16,3 +16,23 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import reportlab.platypus.flowables
+
+class Illustration(reportlab.platypus.flowables.Flowable):
+    def __init__(self, processor, width, height):
+        self.processor = processor
+        self.width = width
+        self.height = height
+
+    def wrap(self, *args):
+        return (self.width, self.height)
+
+    def draw(self):
+        # Import here to avoid recursive imports
+        from z3c.rml import canvas
+        self.canv.saveState()
+        drawing = canvas.Drawing(
+            self.processor.element, self.processor, self.canv)
+        drawing.process()
+        self.canv.restoreState()
+
