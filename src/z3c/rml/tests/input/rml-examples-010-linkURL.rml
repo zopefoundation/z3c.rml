@@ -1,0 +1,29 @@
+<!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by Andy Robinson (Reportlab Inc.) -->
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_010_linkURL.pdf">
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+		<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+	</template>
+	<stylesheet>
+	</stylesheet>
+	<story>
+		<para>These should have links.</para>
+		<blockTable colWidths="5cm,5cm">
+			<blockTableStyle id="temp001">
+				<blockAlignment value="left"/>
+				<blockFont name="Helvetica-Oblique"/>
+				<lineStyle kind="GRID" colorName="black"/>
+				<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+				<blockBackground colorName="pink" start="0,0" stop="-1,0"/>
+				<blockBackground colorName="yellow" start="0,0" stop="-1,0"/>
+			</blockTableStyle>
+			<tr><td>Name</td><td>Email</td></tr>
+			<tr>
+				<td>Robin</td>	
+				<td><plugInFlowable module="mymodule" function="linkURL">("mailto:robin@reportlab.com",)</plugInFlowable></td>
+			</tr>
+		</blockTable>
+	</story>
+</document>

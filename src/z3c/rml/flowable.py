@@ -74,7 +74,10 @@ class PluginFlowable(Flowable):
         modulePath, functionName, text = self.getPositionalArguments()
         module = __import__(modulePath, {}, {}, [modulePath])
         function = getattr(module, functionName)
-        self.parent.flow.append(function(text))
+        flowables = function(text)
+        if not isinstance(flowables, (tuple, list)):
+            flowables = [flowables]
+        self.parent.flow += list(flowables)
 
 class Paragraph(Flowable):
     klass = reportlab.platypus.Paragraph
@@ -387,7 +390,7 @@ class Flow(element.ContainerElement):
         'illustration': Illustration,
         'pre': Preformatted,
         'xpre': XPreformatted,
-        'pluginFlowable': PluginFlowable,
+        'plugInFlowable': PluginFlowable,
         'barCodeFlowable': BarCodeFlowable,
         # Paragraph-Like Flowables
         'title': Title,

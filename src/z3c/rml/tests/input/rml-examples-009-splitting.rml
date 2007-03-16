@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_009_splitting.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #9</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="5.845in" width="6.27in" height="4in"/>
+	<frame id="second" x1="1in" y1="1in" width="6.27in" height="4in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize></initialize>
+
+	<paraStyle name="h1"
+	fontName="Courier-Bold"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+	
+	<paraStyle name="style1"
+	fontName="Courier"
+	fontSize="10"
+	/>
+
+
+	<paraStyle name="heading"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	/>
+
+	<paraStyle name="head_keep"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	keepWithNext="1"
+	/>
+
+	<paraStyle name="head_nokeep"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	keepWithNext="0"
+	/>
+	
+	<paraStyle name="body"
+	fontName="Helvetica"
+	fontSize="12"
+	leading="14"
+	spaceBefore = "3"
+	/>
+	
+
+    <blockTableStyle id="myStyle">
+        <blockAlignment value="center"/>
+        <blockFont name="Helvetica-Oblique"/>
+        <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+
+</stylesheet>
+
+
+<story>
+<spacer length="3.65in"/>
+<para style="style1">This page tests splitting - this PARAGRAPH in style 'style1' should
+split between the two frames on this page. This page tests splitting -
+this paragraph should split between the two frames on this page. This
+page tests splitting - this paragraph should split between the two
+frames on this page. This page tests splitting - this paragraph should
+split between the two frames on this page. This page tests splitting -
+this paragraph should split between the two frames on this page.
+</para>
+
+<nextFrame/>
+
+<spacer length="3.65in"/>
+<pre style="style1">This page tests splitting - this PRE in style
+'style1' should split between the two frames on this page. These
+frames should be ON PAGE TWO, otherwise this test has FAILED. This
+page tests splitting - this preformatted paragraph should split between the
+two -- (proves this is a pre)
+frames on this page. This page tests splitting - this pre should
+split between the two frames on this page. This page tests splitting -
+this pre should split between the two frames on this page. This
+page tests splitting - this pre should split between the two
+frames on this page. </pre>
+
+<nextFrame/>
+
+<spacer length="3.65in"/>
+
+<blockTable colWidths="3cm, 3cm,3cm" style="myStyle">
+    <tr>	<td>This tests </td>	<td>how a </td><td>simple table</td></tr>
+    <tr>	<td>splits</td>	<td>across</td><td>frames</td></tr>
+    <tr>	<td>blah</td>	<td>blah</td><td>blah</td></tr>
+</blockTable>
+
+<nextFrame/>
+
+<spacer length="3.65in"/>
+
+<plugInFlowable module="module" function="myPreformatted"/>
+
+
+
+</story>
+
+</document>

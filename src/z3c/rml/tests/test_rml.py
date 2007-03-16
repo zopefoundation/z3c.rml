@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2002 Zope Corporation and Contributors.
+# Copyright (c) 2007 Zope Corporation and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -17,6 +17,7 @@ $Id$
 """
 import os
 import unittest
+import sys
 import z3c.rml.tests
 from z3c.rml import rml2pdf, attr
 
@@ -34,9 +35,14 @@ class RMLRenderingTestCase(unittest.TestCase):
             path = os.path.join(os.path.dirname(self._inPath), filename)
             return open(path)
         attr.Image.open = testOpen
+        import z3c.rml.tests.module
+        sys.modules['module'] = z3c.rml.tests.module
+        sys.modules['mymodule'] = z3c.rml.tests.module
 
     def tearDown(self):
         attr.Image.open = self._imageOpen
+        del sys.modules['module']
+        del sys.modules['mymodule']
 
     def runTest(self):
         rml2pdf.go(self._inPath, self._outPath)
