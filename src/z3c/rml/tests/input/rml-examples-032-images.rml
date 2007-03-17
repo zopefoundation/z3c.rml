@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_032_images.pdf" invariant="1">
+
+<template pageSize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="(595,842)">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="504" y="800">RML2PDF Test Suite #32 - Image Functionality</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6in" height="9in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="32" leading="36"/>
+	<paraStyle name="h2" fontName="Helvetica-Bold" fontSize="16" leading="20" spaceBefore="12"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" spaceBefore="6"/>
+	<blockTableStyle id="simple">
+		<blockAlignment value="center"/>
+		<blockValign value="middle"/>
+		<blockFont name="Helvetica"/>
+		<lineStyle kind="GRID" colorName="black"/>
+		<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+	</blockTableStyle>
+	<blockTableStyle id="spartan">
+		<blockAlignment value="center"/>
+		<blockValign value="middle"/>
+		<blockFont name="Helvetica"/>
+	</blockTableStyle>
+</stylesheet>
+
+<story>
+<para style="h1">Image Functionality</para>
+<para style="normal">This tries out some new features of images.</para>
+
+<para style="h2">PDF files as images</para>
+
+
+<para style="normal">PDF files (or their pagecatcherised pals, .data files) can be used just like images. Below
+you should see a few little internet access icons; zoom in and you'll see they are vector.  The original
+PDF is 1296x1296, so the rubbish at top right of the page is the unscaled one being drawn in the illustration below at (0,0).</para>
+
+<spacer length="12"/>
+
+<illustration height="100" width="432">	
+	<rect x="0" y="0" width="432" height="100" fill="0" stroke="1"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="0" y="0"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="0" y="0" width="50" height="50" showBoundary="yes"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="100" y="0" width="100" height="50" showBoundary="yes"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="220" y="0" width="50" height="100" showBoundary="yes"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="300" y="25" width="100" height="60" showBoundary="yes" preserveAspectRatio="yes"/>
+	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="55" y="25" width="40" height="60" showBoundary="yes" preserveAspectRatio="yes"/>
+</illustration>
+
+<para style="normal">The <b>preserveAspectRatio</b> flag lets you place your image in a box and it will be centered intelligently,
+touching either the sides or the top depending on its own aspect ratio.</para>
+<nextPage/>
+<para style="normal">The anchor attribute lets you determine which part of the image corresponds to the given x and y.
+You can choose an anchor from the standard compass points.</para>
+		<blockTable style="simple">
+			<tr>
+				<td><blockTable style="spartan"><tr><td>nw</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="nw"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>n</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="n"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>ne</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="ne"/></illustration></td></tr></blockTable></td>
+				</tr>
+			<tr>
+				<td><blockTable style="spartan"><tr><td>w</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="w"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>c</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="c"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>e</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="e"/></illustration></td></tr></blockTable></td>
+				</tr>
+			<tr>
+				<td><blockTable style="spartan"><tr><td>sw</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="sw"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>s</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="s"/></illustration></td></tr></blockTable></td>
+				<td><blockTable style="spartan"><tr><td>se</td></tr><tr><td><illustration height="90" width="90"><stroke color="red" width="2"/><lines>43 43 47 47    43 47 47 43</lines><image file="[z3c.rml.tests]/input/images/cylinder.eps" x="45" y="45" width="30" height="40" showBoundary="yes" preserveAspectRatio="yes" anchor="se"/></illustration></td></tr></blockTable></td>
+				</tr>
+		</blockTable>
+
+
+<nextPage/>
+<para style="normal">First attempt to place an image which has an artbox.  We have created a PDF with MediaBox (the usual size measure) approx 300x400 points, 
+and a 100x100 circle in top right corner, and instructed RML to draw it in a box of half size.  This seems to work.</para>
+<!--
+<illustration height="200" width="150">	
+  <image file="art_box_test.eps" x="0" y="0" width="150" height="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="MediaBox"/>
+</illustration>
+-->
+<para style="normal">Now we try to place it with the art box.  The blue should leak out horribly to left and below, but the red circle should
+end up elliptical within the box.  (In real life, the art box defines the 'area of interest' and there would be no stuff outside it).  This isn't working yet.  Also, 
+we get an extraneous boundary box from drawPdfImage appearing at top right - shifted the wrong way.</para>
+<!--
+<illustration height="200" width="150">	
+  <image file="art_box_test.eps" x="0" y="0" width="150" height="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="ArtBox"/>
+</illustration>
+-->
+<!--imageFigure imageName="art_box_test.eps" imageWidth="150" imageHeight="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="ArtBox"/>
+<imageFigure imageName="art_box_test.eps" imageWidth="150" imageHeight="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="MediaBox"/-->
+<imageFigure imageName="art_box_test.eps" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Left" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="LEFT"/>
+<imageFigure imageName="art_box_test.eps" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Right" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="RIGHT"/>
+<imageFigure imageName="art_box_test.eps" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Center" captionSize="11" captionColor="red" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="CENTER"/>
+<imageFigure imageName="replogo.gif" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Left" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="LEFT"/>
+<imageFigure imageName="replogo.gif" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Right" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="RIGHT"/>
+<imageFigure imageName="replogo.gif" imageWidth="150" imageHeight="200" showBoundary="yes" caption="Align Center" captionSize="11" captionColor="red" preserveAspectRatio="yes" pdfBoxType="MediaBox" align="CENTER"/>
+
+</story>
+</document>

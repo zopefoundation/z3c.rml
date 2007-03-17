@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="eucjp" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_017_outlines.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+	<pageTemplate id="main">
+		<pageGraphics>
+			<setFont name="Helvetica-BoldOblique" size="18"/>
+		</pageGraphics>
+		<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+          <alias id="h1" value="style.Heading1" />
+	</initialize>
+</stylesheet>
+
+
+<story>
+<setNextTemplate name="main"/>
+<outlineAdd>TOP Level</outlineAdd>
+<para style="h1">Top Level Outline</para>
+<nextFrame/>
+
+<setNextTemplate name="main"/>
+<outlineAdd level="1">Level 1</outlineAdd>
+<para style="h1">Level 1 Outline</para>
+<nextFrame/>
+
+<setNextTemplate name="main"/>
+<outlineAdd level="2">Level 2</outlineAdd>
+<para style="h1">Level 2 Outline</para>
+<nextFrame/>
+
+<setNextTemplate name="main"/>
+<outlineAdd level="1">Level 1 Again</outlineAdd>
+<para style="h1">Level 1 Again</para>
+<outlineAdd level="1">Ampersand (&amp;) and Japanese (またはご希望のホテルを1つ選択してください) Test</outlineAdd>
+<para>Check that the ampersand (&amp;) appears correctly in the outline/bookmark list.</para>
+<nextFrame/>
+
+</story>
+</document>

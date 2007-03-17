@@ -206,6 +206,9 @@ class BlockTableStyle(stylesheet.BlockTableStyle):
 
     def process(self):
         self.parent.style = copy.deepcopy(self.parent.style)
+        attrs = element.extractAttributes(self.attrs, self.element, self)
+        for name, value in attrs.items():
+            setattr(self.parent.style, name, value)
         self.processSubElements(self.parent.style)
 
 
@@ -242,6 +245,9 @@ class BlockTable(element.ContainerElement, Flowable):
         for name, value in attrs.items():
             setattr(table, name, value)
 
+        # Must set keepWithNExt on table, since the style is not stored corr.
+        if hasattr(self.style, 'keepWithNext'):
+            table.keepWithNext = self.style.keepWithNext
         self.parent.flow.append(table)
 
 
@@ -410,6 +416,13 @@ class HorizontalRow(Flowable):
         ('dash', attr.Sequence('dash', attr.Measurement())),
         )
 
+class OutlineAdd(Flowable):
+    klass = platypus.OutlineAdd
+    args = ( attr.TextNode(), attr.Text('key', None) )
+    kw = (
+        ('level', attr.Int('level')),
+        ('closed', attr.Bool('closed')),
+        )
 
 class Flow(element.ContainerElement):
 
@@ -421,6 +434,7 @@ class Flow(element.ContainerElement):
         'xpre': XPreformatted,
         'plugInFlowable': PluginFlowable,
         'barCodeFlowable': BarCodeFlowable,
+        'outlineAdd': OutlineAdd,
         # Paragraph-Like Flowables
         'title': Title,
         'h1': Heading1,

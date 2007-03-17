@@ -204,8 +204,11 @@ class File(Text):
     open = staticmethod(urllib.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
-    def __init__(self, name=None, default=DEFAULT):
+    doNotOpen = False
+
+    def __init__(self, name=None, default=DEFAULT, doNotOpen=False):
         super(File, self).__init__(name, default)
+        self.doNotOpen = doNotOpen
 
 
     def convert(self, value, context=None):
@@ -219,6 +222,8 @@ class File(Text):
             modulepath, path = result.groups()
             module = __import__(modulepath, {}, {}, (modulepath))
             value = os.path.join(os.path.dirname(module.__file__), path)
+        if self.doNotOpen:
+            return value
         # Open/Download the file
         fileObj = self.open(value)
         sio = cStringIO.StringIO(fileObj.read())

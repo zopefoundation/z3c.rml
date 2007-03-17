@@ -1,0 +1,190 @@
+<!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by Andy Robinson (Reportlab Inc.) -->
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_011_keepwithnext.pdf">
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+		<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+
+<pageTemplate id="twoparts">
+	<pageGraphics>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="800">RML2PDF Test Suite - Test #9</drawRightString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="5.845in" width="6.27in" height="4in"/>
+	<frame id="second" x1="1in" y1="1in" width="6.27in" height="4in"/>
+	</pageTemplate>
+	</template>
+	<stylesheet>
+	
+	
+	<paraStyle name="heading"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	/>
+
+	<paraStyle name="head_keep"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	keepWithNext="1"
+	/>
+
+	<paraStyle name="head_nokeep"
+	fontName="Helvetica-Bold"
+	fontSize="24"
+	leading="28"
+	spaceBefore = "24"
+	keepWithNext="0"
+	/>
+	
+	<paraStyle name="body"
+	fontName="Helvetica"
+	fontSize="12"
+	leading="14"
+	spaceBefore = "3"
+	/>
+	
+	</stylesheet>
+	<story>
+		<para>There should be a table on this page</para>
+		<blockTable colWidths="5cm">
+			<blockTableStyle id="temp000" keepWithNext="1"/>
+			<tr><td><para>These should have links.</para></td></tr>
+		</blockTable>
+		<blockTable colWidths="5cm,5cm">
+			<blockTableStyle id="temp001">
+				<blockAlignment value="left"/>
+				<blockFont name="Helvetica-Oblique"/>
+				<lineStyle kind="GRID" colorName="black"/>
+				<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+				<blockBackground colorName="pink" start="0,0" stop="-1,0"/>
+				<blockBackground colorName="yellow" start="0,0" stop="-1,0"/>
+			</blockTableStyle>
+			<tr><td>Name</td><td>Email</td></tr>
+			<tr>
+				<td>Robin</td>
+				<td><plugInFlowable module="mymodule" function="linkURL">("mailto:robin@reportlab.com",)</plugInFlowable></td>
+			</tr>
+			<tr>
+				<td><spacer length="4in"/><para>xxx</para></td><td></td>
+			</tr>
+		</blockTable>
+		<nextFrame/>
+		<para>There should be a table on the next page</para>
+		<spacer length="5in"/>
+		<blockTable colWidths="5cm">
+			<blockTableStyle id="temp000" keepWithNext="1"/>
+			<tr><td><para>These should have links.</para></td></tr>
+		</blockTable>
+		<blockTable colWidths="5cm,5cm">
+			<blockTableStyle id="temp001">
+				<blockAlignment value="left"/>
+				<blockFont name="Helvetica-Oblique"/>
+				<lineStyle kind="GRID" colorName="black"/>
+				<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+				<blockBackground colorName="pink" start="0,0" stop="-1,0"/>
+				<blockBackground colorName="yellow" start="0,0" stop="-1,0"/>
+			</blockTableStyle>
+			<tr><td>Name</td><td>Email</td></tr>
+			<tr>
+				<td>Robin</td>
+				<td><plugInFlowable module="mymodule" function="linkURL">("mailto:robin@reportlab.com",)</plugInFlowable></td>
+			</tr>
+			<tr>
+				<td><spacer length="4in"/><para>xxx</para></td><td></td>
+			</tr>
+		</blockTable>
+			<setNextTemplate name="twoparts"/>
+			<nextPage/>
+<nextPage/>
+<para style="heading">
+	keepWithNext and paragraph splitting = #1.
+</para>
+<para style="body">
+	This tests the ability to make headings 'stick to' the paragraphs after them.  The heading style
+	used is supposed to be kept with the next paragraph, even if this involves flopping onto the
+	next page.  We have sized this text so that there is enough space for the heading below to
+	fit into the top frame.  However, its style has a <i>keepWithNext</i> attribute set to 1, so it
+	should flop down into the bottom half.  Cross your fingers....
+</para>
+
+<para style="head_keep">This should be on the bottom half</para>
+<para style="body">
+
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+
+</para>
+
+<nextPage/>
+<para style="heading">
+	keepWithNext and paragraph splitting - #2.
+</para>
+<para style="body">
+	This time the style has keepWithNext turned OFF. The paragraph below should
+	be in the top half.
+</para>
+
+<para style="head_nokeep">This should be on the top half</para>
+<para style="body">
+
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+
+</para>
+
+
+<nextPage/>
+
+			
+			
+	</story>
+</document>

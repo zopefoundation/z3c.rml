@@ -52,7 +52,8 @@ class ParagraphStyle(element.Element):
         attr.Measurement('bulletFontSize'),
         attr.Measurement('bulletIndent'),
         attr.Color('textColor'),
-        attr.Color('backColor')
+        attr.Color('backColor'),
+        attr.Bool('keepWithNext')
         )
 
     def process(self):
@@ -196,6 +197,10 @@ class LineStyle(TableStyleCommand):
 
 class BlockTableStyle(element.ContainerElement):
 
+    attrs = (
+        attr.Bool('keepWithNext'),
+        )
+
     subElements = {
         'blockFont': BlockFont,
         'blockLeading': BlockLeading,
@@ -215,8 +220,14 @@ class BlockTableStyle(element.ContainerElement):
 
     def process(self):
         id = attr.Text('id').get(self.element, context=self)
+        # Create Style
         style = reportlab.platypus.tables.TableStyle()
+        attrs = element.extractAttributes(self.attrs, self.element, self)
+        for name, value in attrs.items():
+            setattr(style, name, value)
+        # Fill style
         self.processSubElements(style)
+        # Add style to the manager
         manager = attr.getManager(self, interfaces.IStylesManager)
         manager.styles[id] = style
 
