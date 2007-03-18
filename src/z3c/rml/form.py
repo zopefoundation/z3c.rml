@@ -23,6 +23,7 @@ try:
     import reportlab.graphics.barcode
 except ImportError:
     # barcode package has not been installed
+    import types
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.getCodeNames = lambda : ()
