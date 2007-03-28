@@ -18,14 +18,14 @@ $Id$
 __docformat__ = "reStructuredText"
 import zope.interface
 from reportlab import platypus
-from z3c.rml import attrng, directive, interfaces, occurence
+from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import canvas, flowable, stylesheet
 
 
 class IStory(flowable.IFlow):
     """The story of the PDF file."""
 
-    firstPageTemplate = attrng.Text(
+    firstPageTemplate = attr.Text(
         title=u'First Page Template',
         description=u'The first page template to be used.',
         default=None,
@@ -52,60 +52,60 @@ class Story(flowable.Flow):
 class IFrame(interfaces.IRMLDirectiveSignature):
     """A frame on a page."""
 
-    x1 = attrng.Measurement(
+    x1 = attr.Measurement(
         title=u'X-Position',
         description=u'The X-Position of the lower-left corner of the frame.',
         allowPercentage=True,
         required=True)
 
-    y1 = attrng.Measurement(
+    y1 = attr.Measurement(
         title=u'Y-Position',
         description=u'The Y-Position of the lower-left corner of the frame.',
         allowPercentage=True,
         required=True)
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width of the frame.',
         allowPercentage=True,
         required=True)
 
-    height = attrng.Measurement(
+    height = attr.Measurement(
         title=u'Height',
         description=u'The height of the frame.',
         allowPercentage=True,
         required=True)
 
-    id = attrng.Text(
+    id = attr.Text(
         title=u'Id',
         description=u'The id of the frame.',
         required=False)
 
-    leftPadding = attrng.Measurement(
+    leftPadding = attr.Measurement(
         title=u'Left Padding',
         description=u'The left padding of the frame.',
         default=0,
         required=False)
 
-    rightPadding = attrng.Measurement(
+    rightPadding = attr.Measurement(
         title=u'Right Padding',
         description=u'The right padding of the frame.',
         default=0,
         required=False)
 
-    topPadding = attrng.Measurement(
+    topPadding = attr.Measurement(
         title=u'Top Padding',
         description=u'The top padding of the frame.',
         default=0,
         required=False)
 
-    bottomPadding = attrng.Measurement(
+    bottomPadding = attr.Measurement(
         title=u'Bottom Padding',
         description=u'The bottom padding of the frame.',
         default=0,
         required=False)
 
-    showBoundary = attrng.Boolean(
+    showBoundary = attr.Boolean(
         title=u'Show Boundary',
         description=u'A flag to show the boundary of the frame.',
         required=False)
@@ -154,17 +154,17 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrOne('pageGraphics', IPageGraphics),
         )
 
-    id = attrng.Text(
+    id = attr.Text(
         title=u'Id',
         description=u'The id of the template.',
         required=True)
 
-    pagesize = attrng.PageSize(
+    pagesize = attr.PageSize(
         title=u'Page Size',
         description=u'The Page Size.',
         required=False)
 
-    rotation = attrng.Integer(
+    rotation = attr.Integer(
         title=u'Rotation',
         description=u'The rotation of the page in multiples of 90 degrees.',
         required=False)
@@ -200,56 +200,56 @@ class ITemplate(interfaces.IRMLDirectiveSignature):
         occurence.OneOrMore('pagetemplate', IPageTemplate),
         )
 
-    pagesize = attrng.PageSize(
+    pagesize = attr.PageSize(
         title=u'Page Size',
         description=u'The Page Size.',
         required=False)
 
-    rotation = attrng.Integer(
+    rotation = attr.Integer(
         title=u'Rotation',
         description=u'The rotation of the page in multiples of 90 degrees.',
         required=False)
 
-    leftMargin = attrng.Measurement(
+    leftMargin = attr.Measurement(
         title=u'Left Margin',
         description=u'The left margin of the template.',
         default=0,
         required=False)
 
-    rightMargin = attrng.Measurement(
+    rightMargin = attr.Measurement(
         title=u'Right Margin',
         description=u'The right margin of the template.',
         default=0,
         required=False)
 
-    topMargin = attrng.Measurement(
+    topMargin = attr.Measurement(
         title=u'Top Margin',
         description=u'The top margin of the template.',
         default=0,
         required=False)
 
-    bottomMargin = attrng.Measurement(
+    bottomMargin = attr.Measurement(
         title=u'Bottom Margin',
         description=u'The bottom margin of the template.',
         default=0,
         required=False)
 
-    showBoundary = attrng.Boolean(
+    showBoundary = attr.Boolean(
         title=u'Show Boundary',
         description=u'A flag to show the boundary of the template.',
         required=False)
 
-    allowSplitting = attrng.Boolean(
+    allowSplitting = attr.Boolean(
         title=u'Allow Splitting',
         description=u'A flag to allow splitting over multiple templates.',
         required=False)
 
-    title = attrng.Text(
+    title = attr.Text(
         title=u'Title',
         description=u'The title of the PDF document.',
         required=False)
 
-    author = attrng.Text(
+    author = attr.Text(
         title=u'Author',
         description=u'The author of the PDF document.',
         required=False)

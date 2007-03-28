@@ -20,7 +20,7 @@ import reportlab.lib.formatters
 from reportlab.graphics import shapes
 from reportlab.graphics.charts import barcharts, lineplots, piecharts
 from reportlab.graphics.charts import spider, doughnut
-from z3c.rml import attrng, directive, interfaces, occurence
+from z3c.rml import attr, directive, interfaces, occurence
 
 # Patches against Reportlab 2.0
 lineplots.Formatter = reportlab.lib.formatters.Formatter
@@ -56,44 +56,44 @@ class PropertyCollection(directive.RMLDirective):
 class IText(interfaces.IRMLDirectiveSignature):
     """Draw a text on the chart."""
 
-    x = attrng.Measurement(
+    x = attr.Measurement(
         title=u'X-Coordinate',
         description=(u'The X-coordinate of the lower-left position of the '
                      u'text.'),
         required=True)
 
-    y = attrng.Measurement(
+    y = attr.Measurement(
         title=u'Y-Coordinate',
         description=(u'The Y-coordinate of the lower-left position of the '
                      u'text.'),
         required=True)
 
-    angle = attrng.Float(
+    angle = attr.Float(
         title=u'Rotation Angle',
         description=(u'The angle about which the text will be rotated.'),
         required=False)
 
-    text = attrng.TextNode(
+    text = attr.TextNode(
         title=u'Text',
         description=u'The text to be printed.',
         required=True)
 
-    fontName = attrng.String(
+    fontName = attr.String(
         title=u'Font Name',
         description=u'The name of the font.',
         required=False)
 
-    fontSize = attrng.Measurement(
+    fontSize = attr.Measurement(
         title=u'Font Size',
         description=u'The font size for the text.',
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         title=u'Fill Color',
         description=u'The color in which the text will appear.',
         required=False)
 
-    textAnchor = attrng.Choice(
+    textAnchor = attr.Choice(
         title=u'Text Anchor',
         description=u'The position in the text to which the coordinates refer.',
         choices=('start', 'middle', 'end', 'boxauto'),
@@ -147,10 +147,10 @@ class Data(directive.RMLDirective):
 class ISeries1D(interfaces.IRMLDirectiveSignature):
     """A one-dimensional series."""
 
-    values = attrng.TextNodeSequence(
+    values = attr.TextNodeSequence(
         title=u'Values',
         description=u"Numerical values representing the series' data.",
-        value_type=attrng.Float(),
+        value_type=attr.Float(),
         required=True)
 
 class Series1D(Series):
@@ -171,10 +171,10 @@ class SingleData1D(Data1D):
 class ISeries2D(interfaces.IRMLDirectiveSignature):
     """A two-dimensional series."""
 
-    values = attrng.TextNodeGrid(
+    values = attr.TextNodeGrid(
         title=u'Values',
         description=u"Numerical values representing the series' data.",
-        value_type=attrng.Float(),
+        value_type=attr.Float(),
         columns=2,
         required=True)
 
@@ -188,17 +188,17 @@ class Data2D(Data):
 class IBar(interfaces.IRMLDirectiveSignature):
     """Define the look of a bar."""
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         title=u'Stroke Color',
         description=u'The color in which the bar border is drawn.',
         required=False)
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         title=u'Stroke Width',
         description=u'The width of the bar border line.',
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         title=u'Fill Color',
         description=u'The color with which the bar is filled.',
         required=False)
@@ -220,120 +220,120 @@ class Bars(PropertyCollection):
 
 class ILabelBase(interfaces.IRMLDirectiveSignature):
 
-    dx = attrng.Measurement(
+    dx = attr.Measurement(
         title=u'Horizontal Extension',
         description=(u'The width of the label.'),
         required=False)
 
-    dy = attrng.Measurement(
+    dy = attr.Measurement(
         title=u'Vertical Extension',
         description=(u'The height of the label.'),
         required=False)
 
-    angle = attrng.Float(
+    angle = attr.Float(
         title=u'Angle',
         description=(u'The angle to rotate the label.'),
         required=False)
 
-    boxAnchor = attrng.Choice(
+    boxAnchor = attr.Choice(
         title=u'Box Anchor',
         description=(u'The position relative to the label.'),
         choices=('nw','n','ne','w','c','e','sw','s','se', 'autox', 'autoy'),
         required=False)
 
-    boxStrokeColor = attrng.Color(
+    boxStrokeColor = attr.Color(
         title=u'Box Stroke Color',
         description=(u'The color of the box border line.'),
         required=False)
 
-    boxStrokeWidth = attrng.Measurement(
+    boxStrokeWidth = attr.Measurement(
         title=u'Box Stroke Width',
         description=u'The width of the box border line.',
         required=False)
 
-    boxFillColor = attrng.Color(
+    boxFillColor = attr.Color(
         title=u'Box Fill Color',
         description=(u'The color in which the box is filled.'),
         required=False)
 
-    boxTarget = attrng.Text(
+    boxTarget = attr.Text(
         title=u'Box Target',
         description=u'The box target.',
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         title=u'Fill Color',
         description=(u'The color in which the label is filled.'),
         required=False)
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         title=u'Stroke Color',
         description=(u'The color of the label.'),
         required=False)
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         title=u'Stroke Width',
         description=u'The width of the label line.',
         required=False)
 
-    frontName = attrng.String(
+    frontName = attr.String(
         title=u'Font Name',
         description=u'The font used to print the value.',
         required=False)
 
-    frontSize = attrng.Measurement(
+    frontSize = attr.Measurement(
         title=u'Font Size',
         description=u'The size of the value text.',
         required=False)
 
-    leading = attrng.Measurement(
+    leading = attr.Measurement(
         title=u'Leading',
         description=(u'The height of a single text line. It includes '
                      u'character height.'),
         required=False)
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width the label.',
         required=False)
 
-    maxWidth = attrng.Measurement(
+    maxWidth = attr.Measurement(
         title=u'Maximum Width',
         description=u'The maximum width the label.',
         required=False)
 
-    height = attrng.Measurement(
+    height = attr.Measurement(
         title=u'Height',
         description=u'The height the label.',
         required=False)
 
-    textAnchor = attrng.Choice(
+    textAnchor = attr.Choice(
         title=u'Text Anchor',
         description=u'The position in the text to which the coordinates refer.',
         choices=('start', 'middle', 'end', 'boxauto'),
         required=False)
 
-    visible = attrng.Boolean(
+    visible = attr.Boolean(
         title=u'Visible',
         description=u'A flag making the label text visible.',
         required=False)
 
-    leftPadding = attrng.Measurement(
+    leftPadding = attr.Measurement(
         title=u'Left Padding',
         description=u'The size of the padding on the left side.',
         required=False)
 
-    rightPadding = attrng.Measurement(
+    rightPadding = attr.Measurement(
         title=u'Right Padding',
         description=u'The size of the padding on the right side.',
         required=False)
 
-    topPadding = attrng.Measurement(
+    topPadding = attr.Measurement(
         title=u'Top Padding',
         description=u'The size of the padding on the top.',
         required=False)
 
-    bottomPadding = attrng.Measurement(
+    bottomPadding = attr.Measurement(
         title=u'Bottom Padding',
         description=u'The size of the padding on the bottom.',
         required=False)
@@ -341,13 +341,13 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
 
 class IPositionLabelBase(ILabelBase):
 
-    x = attrng.Measurement(
+    x = attr.Measurement(
         title=u'X-Coordinate',
         description=(u'The X-coordinate of the lower-left position of the '
                      u'label.'),
         required=False)
 
-    y = attrng.Measurement(
+    y = attr.Measurement(
         title=u'Y-Coordinate',
         description=(u'The Y-coordinate of the lower-left position of the '
                      u'label.'),
@@ -357,7 +357,7 @@ class IPositionLabelBase(ILabelBase):
 class ILabel(IPositionLabelBase):
     """A label for the chart."""
 
-    text = attrng.TextNode(
+    text = attr.TextNode(
         title=u'Text',
         description=u'The label text to be displayed.',
         required=True)
@@ -383,48 +383,48 @@ class IAxis(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('labels', ILabels)
         )
 
-    visible = attrng.Boolean(
+    visible = attr.Boolean(
         required=False)
 
-    visibleAxis = attrng.Boolean(
+    visibleAxis = attr.Boolean(
         required=False)
 
-    visibleTicks = attrng.Boolean(
+    visibleTicks = attr.Boolean(
         required=False)
 
-    visibleLabels = attrng.Boolean(
+    visibleLabels = attr.Boolean(
         required=False)
 
-    visibleGrid = attrng.Boolean(
+    visibleGrid = attr.Boolean(
         required=False)
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         required=False)
 
-    strokeDashArray = attrng.Sequence(
-        value_type=attrng.Float(),
+    strokeDashArray = attr.Sequence(
+        value_type=attr.Float(),
         required=False)
 
-    gridStrokeWidth = attrng.Measurement(
+    gridStrokeWidth = attr.Measurement(
         required=False)
 
-    gridStrokeColor = attrng.Color(
+    gridStrokeColor = attr.Color(
         required=False)
 
-    gridStrokeDashArray = attrng.Sequence(
-        value_type=attrng.Float(),
+    gridStrokeDashArray = attr.Sequence(
+        value_type=attr.Float(),
         required=False)
 
-    gridStart = attrng.Measurement(
+    gridStart = attr.Measurement(
         required=False)
 
-    gridEnd = attrng.Measurement(
+    gridEnd = attr.Measurement(
         required=False)
 
-    style = attrng.Choice(
+    style = attr.Choice(
         choices=('parallel', 'stacked', 'parallel_3d'),
         required=False)
 
@@ -443,7 +443,7 @@ class Axis(directive.RMLDirective):
 
 class IName(interfaces.IRMLDirectiveSignature):
 
-    text = attrng.TextNode(
+    text = attr.TextNode(
         title=u'Text',
         required=True)
 
@@ -466,24 +466,24 @@ class CategoryNames(directive.RMLDirective):
 
 class ICategoryAxis(IAxis):
 
-    categoryNames = attrng.Sequence(
-        value_type=attrng.Text(),
+    categoryNames = attr.Sequence(
+        value_type=attr.Text(),
         required=False)
 
-    joinAxis = attrng.Boolean(
+    joinAxis = attr.Boolean(
         required=False)
 
-    joinAxisPos = attrng.Measurement(
+    joinAxisPos = attr.Measurement(
         required=False)
 
-    reverseDirection = attrng.Boolean(
+    reverseDirection = attr.Boolean(
         required=False)
 
-    labelAxisMode = attrng.Choice(
+    labelAxisMode = attr.Choice(
         choices=('high', 'low', 'axis'),
         required=False)
 
-    tickShift = attrng.Boolean(
+    tickShift = attr.Boolean(
         required=False)
 
 class CategoryAxis(Axis):
@@ -497,13 +497,13 @@ class CategoryAxis(Axis):
 
 class IXCategoryAxis(ICategoryAxis):
 
-    tickUp = attrng.Measurement(
+    tickUp = attr.Measurement(
         required=False)
 
-    tickDown = attrng.Measurement(
+    tickDown = attr.Measurement(
         required=False)
 
-    joinAxisMode = attrng.Choice(
+    joinAxisMode = attr.Choice(
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -513,13 +513,13 @@ class XCategoryAxis(CategoryAxis):
 
 class IYCategoryAxis(ICategoryAxis):
 
-    tickLeft = attrng.Measurement(
+    tickLeft = attr.Measurement(
         required=False)
 
-    tickRight = attrng.Measurement(
+    tickRight = attr.Measurement(
         required=False)
 
-    joinAxisMode = attrng.Choice(
+    joinAxisMode = attr.Choice(
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -529,40 +529,40 @@ class YCategoryAxis(CategoryAxis):
 
 class IValueAxis(IAxis):
 
-    forceZero = attrng.Boolean(
+    forceZero = attr.Boolean(
         required=False)
 
-    minimumTickSpacing = attrng.Measurement(
+    minimumTickSpacing = attr.Measurement(
         required=False)
 
-    maximumTicks = attrng.Integer(
+    maximumTicks = attr.Integer(
         required=False)
 
-    labelTextFormat = attrng.String(
+    labelTextFormat = attr.String(
         required=False)
 
-    labelTextPostFormat = attrng.Text(
+    labelTextPostFormat = attr.Text(
         required=False)
 
-    labelTextScale = attrng.Float(
+    labelTextScale = attr.Float(
         required=False)
 
-    valueMin = attrng.Float(
+    valueMin = attr.Float(
         required=False)
 
-    valueMax = attrng.Float(
+    valueMax = attr.Float(
         required=False)
 
-    valueStep = attrng.Float(
+    valueStep = attr.Float(
         required=False)
 
-    valueSteps = attrng.Measurement(
+    valueSteps = attr.Measurement(
         required=False)
 
-    rangeRound = attrng.Text(
+    rangeRound = attr.Text(
         required=False)
 
-    zrangePref = attrng.Float(
+    zrangePref = attr.Float(
         required=False)
 
 class ValueAxis(Axis):
@@ -572,20 +572,20 @@ class ValueAxis(Axis):
 
 class IXValueAxis(IValueAxis):
 
-    tickUp = attrng.Measurement(
+    tickUp = attr.Measurement(
         required=False)
 
-    tickDown = attrng.Measurement(
+    tickDown = attr.Measurement(
         required=False)
 
-    joinAxis = attrng.Boolean(
+    joinAxis = attr.Boolean(
         required=False)
 
-    joinAxisMode = attrng.Choice(
+    joinAxisMode = attr.Choice(
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
-    joinAxisPos = attrng.Measurement(
+    joinAxisPos = attr.Measurement(
         required=False)
 
 class XValueAxis(ValueAxis):
@@ -596,20 +596,20 @@ class LineXValueAxis(XValueAxis):
 
 class IYValueAxis(IValueAxis):
 
-    tickLeft = attrng.Measurement(
+    tickLeft = attr.Measurement(
         required=False)
 
-    tickRight = attrng.Measurement(
+    tickRight = attr.Measurement(
         required=False)
 
-    joinAxis = attrng.Boolean(
+    joinAxis = attr.Boolean(
         required=False)
 
-    joinAxisMode = attrng.Choice(
+    joinAxisMode = attr.Choice(
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
-    joinAxisPos = attrng.Measurement(
+    joinAxisPos = attr.Measurement(
         required=False)
 
 class YValueAxis(ValueAxis):
@@ -621,22 +621,22 @@ class LineYValueAxis(YValueAxis):
 
 class ILineBase(interfaces.IRMLDirectiveSignature):
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         required=False)
 
-    strokeDashArray = attrng.Sequence(
-        value_type = attrng.Float(),
+    strokeDashArray = attr.Sequence(
+        value_type = attr.Float(),
         required=False)
 
-    symbol = attrng.Symbol(
+    symbol = attr.Symbol(
         required=False)
 
 class ILine(ILineBase):
 
-    name = attrng.Text(
+    name = attr.Text(
         required=False)
 
 class Line(PropertyItem):
@@ -653,7 +653,7 @@ class Lines(PropertyCollection):
 
 class ISliceLabel(ILabelBase):
 
-    text = attrng.TextNode(
+    text = attr.TextNode(
         title=u'Text',
         description=u'The label text to be displayed.',
         required=True)
@@ -670,19 +670,19 @@ class SliceLabel(Label):
 
 class ISlicePointer(interfaces.IRMLDirectiveSignature):
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         required=False)
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    elbowLength = attrng.Measurement(
+    elbowLength = attr.Measurement(
         required=False)
 
-    edgePad = attrng.Measurement(
+    edgePad = attr.Measurement(
         required=False)
 
-    piePad = attrng.Measurement(
+    piePad = attr.Measurement(
         required=False)
 
 class SlicePointer(directive.RMLDirective):
@@ -695,34 +695,34 @@ class SlicePointer(directive.RMLDirective):
 
 class ISliceBase(interfaces.IRMLDirectiveSignature):
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         required=False)
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         required=False)
 
-    strokeDashArray = attrng.Sequence(
-        value_type=attrng.Float(),
+    strokeDashArray = attr.Sequence(
+        value_type=attr.Float(),
         required=False)
 
-    popout = attrng.Measurement(
+    popout = attr.Measurement(
         required=False)
 
-    fontName = attrng.String(
+    fontName = attr.String(
         required=False)
 
-    fontSize = attrng.Measurement(
+    fontSize = attr.Measurement(
         required=False)
 
-    labelRadius = attrng.Measurement(
+    labelRadius = attr.Measurement(
         required=False)
 
 class ISlice(ISliceBase):
 
-    swatchMarker = attrng.Symbol(
+    swatchMarker = attr.Symbol(
         required=False)
 
 
@@ -740,7 +740,7 @@ class Slice(directive.RMLDirective):
 
 class ISlice3D(ISlice):
 
-    fillColorShaded = attrng.Color(
+    fillColorShaded = attr.Color(
         required=False)
 
 class Slice3D(Slice):
@@ -771,7 +771,7 @@ class Slices(directive.RMLDirective):
 
 class ISlices3D(ISliceBase):
 
-    fillColorShaded = attrng.Color(
+    fillColorShaded = attr.Color(
         required=False)
 
 class Slices3D(Slices):
@@ -790,28 +790,28 @@ class SimpleLabels(directive.RMLDirective):
 
 class IStrandBase(interfaces.IRMLDirectiveSignature):
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         required=False)
 
-    strokeColor= attrng.Color(
+    strokeColor= attr.Color(
         required=False)
 
-    strokeDashArray = attrng.Sequence(
-        value_type=attrng.Float(),
+    strokeDashArray = attr.Sequence(
+        value_type=attr.Float(),
         required=False)
 
-    symbol = attrng.Symbol(
+    symbol = attr.Symbol(
         required=False)
 
-    symbolSize = attrng.Measurement(
+    symbolSize = attr.Measurement(
         required=False)
 
 class IStrand(IStrandBase):
 
-     name = attrng.Text(
+     name = attr.Text(
         required=False)
 
 class Strand(PropertyItem):
@@ -826,21 +826,21 @@ class Strands(PropertyCollection):
 
 class IStrandLabelBase(ILabelBase):
 
-    _text = attrng.TextNode(
+    _text = attr.TextNode(
         required=False)
 
-    row = attrng.Integer(
+    row = attr.Integer(
         required=False)
 
-    col = attrng.Integer(
+    col = attr.Integer(
         required=False)
 
-    format = attrng.String(
+    format = attr.String(
         required=False)
 
 class IStrandLabel(IStrandLabelBase):
 
-    dR = attrng.Float(
+    dR = attr.Float(
         required=False)
 
 class StrandLabel(Label):
@@ -866,23 +866,23 @@ class StrandLabels(PropertyCollection):
 
 class ISpoke(interfaces.IRMLDirectiveSignature):
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         required=False)
 
-    strokeColor= attrng.Color(
+    strokeColor= attr.Color(
         required=False)
 
-    strokeDashArray = attrng.Sequence(
-        value_type=attrng.Float(),
+    strokeDashArray = attr.Sequence(
+        value_type=attr.Float(),
         required=False)
 
-    labelRadius = attrng.Measurement(
+    labelRadius = attr.Measurement(
         required=False)
 
-    visible = attrng.Measurement(
+    visible = attr.Measurement(
         required=False)
 
 class Spoke(PropertyItem):
@@ -899,7 +899,7 @@ class ISpokeLabelBase(ILabelBase):
 
 class ISpokeLabel(ISpokeLabelBase):
 
-    _text = attrng.TextNode(
+    _text = attr.TextNode(
         required=False)
 
 class SpokeLabel(Label):
@@ -915,45 +915,45 @@ class IChart(interfaces.IRMLDirectiveSignature):
 
     # Drawing Options
 
-    dx = attrng.Measurement(
+    dx = attr.Measurement(
         required=False)
 
-    dy = attrng.Measurement(
+    dy = attr.Measurement(
         required=False)
 
-    dwidth = attrng.Measurement(
+    dwidth = attr.Measurement(
         required=False)
 
-    dheight = attrng.Measurement(
+    dheight = attr.Measurement(
         required=False)
 
-    angle = attrng.Float(
+    angle = attr.Float(
         required=False)
 
     # Plot Area Options
 
-    x = attrng.Measurement(
+    x = attr.Measurement(
         required=False)
 
-    y = attrng.Measurement(
+    y = attr.Measurement(
         required=False)
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         required=False)
 
-    height = attrng.Measurement(
+    height = attr.Measurement(
         required=False)
 
-    strokeColor = attrng.Color(
+    strokeColor = attr.Color(
         required=False)
 
-    strokeWidth = attrng.Measurement(
+    strokeWidth = attr.Measurement(
         required=False)
 
-    fillColor = attrng.Color(
+    fillColor = attr.Color(
         required=False)
 
-    debug = attrng.Boolean(
+    debug = attr.Boolean(
         required=False)
 
 class Chart(directive.RMLDirective):
@@ -976,30 +976,30 @@ class Chart(directive.RMLDirective):
         group.translate(0,0)
         group.rotate(angle)
         self.drawing.add(group)
-        manager = attrng.getManager(self, interfaces.ICanvasManager)
+        manager = attr.getManager(self, interfaces.ICanvasManager)
         self.drawing.drawOn(manager.canvas, x, y)
 
 
 class IBarChart(IChart):
 
-    direction = attrng.Choice(
+    direction = attr.Choice(
         choices=('horizontal', 'vertical'),
         default='horizontal',
         required=False)
 
-    useAbsolute = attrng.Boolean(
+    useAbsolute = attr.Boolean(
         default=False,
         required=False)
 
-    barWidth = attrng.Measurement(
+    barWidth = attr.Measurement(
         default=10,
         required=False)
 
-    groupSpacing = attrng.Measurement(
+    groupSpacing = attr.Measurement(
         default=5,
         required=False)
 
-    barSpacing = attrng.Measurement(
+    barSpacing = attr.Measurement(
         default=0,
         required=False)
 
@@ -1031,16 +1031,16 @@ class BarChart(Chart):
 
 class IBarChart3D(IBarChart):
 
-    theta_x = attrng.Float(
+    theta_x = attr.Float(
         required=False)
 
-    theta_y = attrng.Float(
+    theta_y = attr.Float(
         required=False)
 
-    zDepth = attrng.Measurement(
+    zDepth = attr.Measurement(
         required=False)
 
-    zSpace = attrng.Measurement(
+    zSpace = attr.Measurement(
         required=False)
 
 class BarChart3D(BarChart):
@@ -1050,16 +1050,16 @@ class BarChart3D(BarChart):
 
 class ILinePlot(IChart):
 
-    reversePlotOrder = attrng.Boolean(
+    reversePlotOrder = attr.Boolean(
         required=False)
 
-    lineLabelNudge = attrng.Measurement(
+    lineLabelNudge = attr.Measurement(
         required=False)
 
-    lineLabelFormat = attrng.String(
+    lineLabelFormat = attr.String(
         required=False)
 
-    joinedLines = attrng.Boolean(
+    joinedLines = attr.Boolean(
         required=False)
 
 class LinePlot(Chart):
@@ -1084,33 +1084,33 @@ class LinePlot(Chart):
 
 class IPieChart(IChart):
 
-    startAngle = attrng.Integer(
+    startAngle = attr.Integer(
         required=False)
 
-    direction = attrng.Choice(
+    direction = attr.Choice(
         choices=('clockwise', 'anticlockwise'),
         required=False)
 
-    checkLabelOverlap = attrng.Boolean(
+    checkLabelOverlap = attr.Boolean(
         required=False)
 
-    pointerLabelMode = attrng.Choice(
+    pointerLabelMode = attr.Choice(
         choices={'none': None,
                  'leftright': 'LeftRight',
                  'leftandright': 'LeftAndRight'},
         required=False)
 
-    sameRadii = attrng.Boolean(
+    sameRadii = attr.Boolean(
         required=False)
 
-    orderMode = attrng.Choice(
+    orderMode = attr.Choice(
         choices=('fixed', 'alternate'),
         required=False)
 
-    xradius = attrng.Measurement(
+    xradius = attr.Measurement(
         required=False)
 
-    yradius = attrng.Measurement(
+    yradius = attr.Measurement(
         required=False)
 
 
@@ -1135,13 +1135,13 @@ class PieChart(Chart):
 
 class IPieChart3D(IPieChart):
 
-    perspective = attrng.Float(
+    perspective = attr.Float(
         required=False)
 
-    depth_3d = attrng.Measurement(
+    depth_3d = attr.Measurement(
         required=False)
 
-    angle_3d = attrng.Float(
+    angle_3d = attr.Float(
         required=False)
 
 class PieChart3D(PieChart):
@@ -1156,10 +1156,10 @@ class PieChart3D(PieChart):
 
 class ISpiderChart(IChart):
 
-    startAngle = attrng.Integer(
+    startAngle = attr.Integer(
         required=False)
 
-    direction = attrng.Choice(
+    direction = attr.Choice(
         choices=('clockwise', 'anticlockwise'),
         required=False)
 

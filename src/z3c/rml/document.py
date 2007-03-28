@@ -21,19 +21,19 @@ import sys
 import zope.interface
 import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
-from z3c.rml import attrng, directive, interfaces, occurence
+from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import canvas, stylesheet, template
 
 
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
     """Register a new Type 1 font face."""
 
-    afmFile = attrng.String(
+    afmFile = attr.String(
         title=u'AFM File',
         description=u'Path to AFM file used to register the Type 1 face.',
         required=True)
 
-    pfbFile = attrng.String(
+    pfbFile = attr.String(
         title=u'PFB File',
         description=u'Path to PFB file used to register the Type 1 face.',
         required=True)
@@ -50,19 +50,19 @@ class RegisterType1Face(directive.RMLDirective):
 class IRegisterFont(interfaces.IRMLDirectiveSignature):
     """Register a new font based on a face and encoding."""
 
-    name = attrng.String(
+    name = attr.String(
         title=u'Name',
         description=(u'The name under which the font can be used in style '
                      u'declarations or other parameters that lookup a font.'),
         required=True)
 
-    faceName = attrng.String(
+    faceName = attr.String(
         title=u'Face Name',
         description=(u'The name of the face the font uses. The face has to '
                      u'be previously registered.'),
         required=True)
 
-    encName = attrng.String(
+    encName = attr.String(
         title=u'Encoding Name',
         description=(u'The name of the encdoing to be used.'),
         required=True)
@@ -79,13 +79,13 @@ class RegisterFont(directive.RMLDirective):
 class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
     """Register a new TrueType font given the TT file and face name."""
 
-    faceName = attrng.String(
+    faceName = attr.String(
         title=u'Face Name',
         description=(u'The name of the face the font uses. The face has to '
                      u'be previously registered.'),
         required=True)
 
-    fileName = attrng.String(
+    fileName = attr.String(
         title=u'File Name',
         description=u'File path of the of the TrueType font.',
         required=True)
@@ -102,7 +102,7 @@ class RegisterTTFont(directive.RMLDirective):
 class IRegisterCidFont(interfaces.IRMLDirectiveSignature):
     """Register a new CID font given the face name."""
 
-    faceName = attrng.String(
+    faceName = attr.String(
         title=u'Face Name',
         description=(u'The name of the face the font uses. The face has to '
                      u'be previously registered.'),
@@ -120,14 +120,14 @@ class RegisterCidFont(directive.RMLDirective):
 class IColorDefinition(interfaces.IRMLDirectiveSignature):
     """Define a new color and give it a name to be known under."""
 
-    id = attrng.String(
+    id = attr.String(
         title=u'Id',
         description=(u'The id/name the color will be available under.'),
         required=True)
 
     # XXX: This is really disgusting; need to rename to "color"!
     #      This is only here for compatibility with the original RML.
-    RGB = attrng.Color(
+    RGB = attr.Color(
         title=u'Color',
         description=(u'The color value that is represented.'),
         required=True)
@@ -137,7 +137,7 @@ class ColorDefinition(directive.RMLDirective):
 
     def process(self):
         id, value = self.getAttributeValues(valuesOnly=True)
-        manager = attrng.getManager(self)
+        manager = attr.getManager(self)
         manager.colors[id] = value
 
 
@@ -166,24 +166,24 @@ class IDocument(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrOne('docinit', IDocInit),
         )
 
-    filename = attrng.String(
+    filename = attr.String(
         title=u'File Name',
         description=(u'The default name of the output file, if no output '
                      u'file was provided.'),
         required=True)
 
-    debug = attrng.Boolean(
+    debug = attr.Boolean(
         title=u'Debug',
         description=u'A flag to activate the debug output.',
         required=False)
 
-    compression = attrng.BooleanWithDefault(
+    compression = attr.BooleanWithDefault(
         title=u'Compression',
         description=(u'A flag determining whether page compression should '
                      u'be used.'),
         required=False)
 
-    invariant = attrng.BooleanWithDefault(
+    invariant = attr.BooleanWithDefault(
         title=u'Invariant',
         description=(u'A flag that determines whether the produced PDF '
                      u'should be invariant with respect to the date and '

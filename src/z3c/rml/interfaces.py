@@ -20,7 +20,6 @@ import reportlab.lib.enums
 import zope.interface
 import zope.schema
 
-from z3c.rml import attrng
 from z3c.rml.occurence import ZeroOrMore, ZeroOrOne, OneOrMore
 
 JOIN_CHOICES = {'round': 1, 'mitered': 0, 'bevelled': 2}

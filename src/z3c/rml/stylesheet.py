@@ -20,7 +20,7 @@ import copy
 import reportlab.lib.styles
 import reportlab.lib.enums
 import reportlab.platypus
-from z3c.rml import attrng, directive, interfaces, occurence, special
+from z3c.rml import attr, directive, interfaces, occurence, special
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):
@@ -40,79 +40,79 @@ class Initialize(directive.RMLDirective):
 
 class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
 
-    fontName = attrng.String(
+    fontName = attr.String(
         title=u'Font Name',
         description=u'The name of the font for the paragraph.',
         required=False)
 
-    fontSize = attrng.Measurement(
+    fontSize = attr.Measurement(
         title=u'Font Size',
         description=u'The font size for the text of the paragraph.',
         required=False)
 
-    leading = attrng.Measurement(
+    leading = attr.Measurement(
         title=u'Leading',
         description=(u'The height of a single paragraph line. It includes '
                      u'character height.'),
         required=False)
 
-    leftIndent = attrng.Measurement(
+    leftIndent = attr.Measurement(
         title=u'Left Indentation',
         description=u'General indentation on the left side.',
         required=False)
 
-    rightIndent = attrng.Measurement(
+    rightIndent = attr.Measurement(
         title=u'Right Indentation',
         description=u'General indentation on the right side.',
         required=False)
 
-    firstLineIndent = attrng.Measurement(
+    firstLineIndent = attr.Measurement(
         title=u'First Line Indentation',
         description=u'The indentation of the first line in the paragraph.',
         required=False)
 
-    spaceBefore = attrng.Measurement(
+    spaceBefore = attr.Measurement(
         title=u'Space Before',
         description=u'The vertical space before the paragraph.',
         required=False)
 
-    spaceAfter = attrng.Measurement(
+    spaceAfter = attr.Measurement(
         title=u'Space After',
         description=u'The vertical space after the paragraph.',
         required=False)
 
-    alignment = attrng.Choice(
+    alignment = attr.Choice(
         title=u'Alignment',
         description=u'The text alignment.',
         choices=interfaces.ALIGN_CHOICES,
         required=False)
 
-    bulletFontName = attrng.String(
+    bulletFontName = attr.String(
         title=u'Bullet Font Name',
         description=u'The font in which the bullet character will be rendered.',
         required=False)
 
-    bulletFontSize = attrng.Measurement(
+    bulletFontSize = attr.Measurement(
         title=u'Bullet Font Size',
         description=u'The font size of the bullet character.',
         required=False)
 
-    bulletIndent = attrng.Measurement(
+    bulletIndent = attr.Measurement(
         title=u'Bullet Indentation',
         description=u'The indentation that is kept for a bullet point.',
         required=False)
 
-    textColor = attrng.Color(
+    textColor = attr.Color(
         title=u'Text Color',
         description=u'The color in which the text will appear.',
         required=False)
 
-    backColor = attrng.Color(
+    backColor = attr.Color(
         title=u'Background Color',
         description=u'The background color of the paragraph.',
         required=False)
 
-    keepWithNext = attrng.Boolean(
+    keepWithNext = attr.Boolean(
         title=u'Keep with Next',
         description=(u'When set, this paragraph will always be in the same '
                      u'frame as the following flowable.'),
@@ -122,17 +122,17 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""
 
-    name = attrng.String(
+    name = attr.String(
         title=u'Name',
         description=u'The name of the style.',
         required=True)
 
-    alias = attrng.String(
+    alias = attr.String(
         title=u'Alias',
         description=u'An alias under which the style will also be known as.',
         required=False)
 
-    parent = attrng.Style(
+    parent = attr.Style(
         title=u'Parent',
         description=(u'The apragraph style that will be used as a base for '
                      u'this one.'),
@@ -151,30 +151,30 @@ class ParagraphStyle(directive.RMLDirective):
         for name, value in kwargs.items():
             setattr(style, name, value)
 
-        manager = attrng.getManager(self)
+        manager = attr.getManager(self)
         manager.styles[style.name] = style
 
 
 class ITableStyleCommand(interfaces.IRMLDirectiveSignature):
 
-    start = attrng.Sequence(
+    start = attr.Sequence(
         title=u'Start Coordinates',
         description=u'The start table coordinates for the style instruction',
-        value_type=attrng.Combination(
-            value_types=(attrng.Integer(),
-                         attrng.Choice(choices=interfaces.SPLIT_CHOICES))
+        value_type=attr.Combination(
+            value_types=(attr.Integer(),
+                         attr.Choice(choices=interfaces.SPLIT_CHOICES))
             ),
         default=[0, 0],
         min_length=2,
         max_length=2,
         required=True)
 
-    end = attrng.Sequence(
+    end = attr.Sequence(
         title=u'End Coordinates',
         description=u'The end table coordinates for the style instruction',
-        value_type=attrng.Combination(
-            value_types=(attrng.Integer(),
-                         attrng.Choice(choices=interfaces.SPLIT_CHOICES))
+        value_type=attr.Combination(
+            value_types=(attr.Integer(),
+                         attr.Choice(choices=interfaces.SPLIT_CHOICES))
             ),
         default=[-1, -1],
         min_length=2,
@@ -193,17 +193,17 @@ class TableStyleCommand(directive.RMLDirective):
 class IBlockFont(ITableStyleCommand):
     """Set the font properties for the texts."""
 
-    name = attrng.String(
+    name = attr.String(
         title=u'Font Name',
         description=u'The name of the font for the cell.',
         required=False)
 
-    size = attrng.Measurement(
+    size = attr.Measurement(
         title=u'Font Size',
         description=u'The font size for the text of the cell.',
         required=False)
 
-    leading = attrng.Measurement(
+    leading = attr.Measurement(
         title=u'Leading',
         description=(u'The height of a single text line. It includes '
                      u'character height.'),
@@ -216,7 +216,7 @@ class BlockFont(TableStyleCommand):
 class IBlockLeading(ITableStyleCommand):
     """Set the text leading."""
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=(u'The height of a single text line. It includes '
                      u'character height.'),
@@ -229,7 +229,7 @@ class BlockLeading(TableStyleCommand):
 class IBlockTextColor(ITableStyleCommand):
     """Set the text color."""
 
-    colorName = attrng.Color(
+    colorName = attr.Color(
         title=u'Color Name',
         description=u'The color in which the text will appear.',
         required=True)
@@ -241,7 +241,7 @@ class BlockTextColor(TableStyleCommand):
 class IBlockAlignment(ITableStyleCommand):
     """Set the text alignment."""
 
-    value = attrng.Choice(
+    value = attr.Choice(
         title=u'Text Alignment',
         description=u'The text alignment within the cell.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
@@ -254,7 +254,7 @@ class BlockAlignment(TableStyleCommand):
 class IBlockLeftPadding(ITableStyleCommand):
     """Set the left padding of the cells."""
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=u'The size of the padding.',
         required=True)
@@ -266,7 +266,7 @@ class BlockLeftPadding(TableStyleCommand):
 class IBlockRightPadding(ITableStyleCommand):
     """Set the right padding of the cells."""
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=u'The size of the padding.',
         required=True)
@@ -278,7 +278,7 @@ class BlockRightPadding(TableStyleCommand):
 class IBlockBottomPadding(ITableStyleCommand):
     """Set the bottom padding of the cells."""
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=u'The size of the padding.',
         required=True)
@@ -290,7 +290,7 @@ class BlockBottomPadding(TableStyleCommand):
 class IBlockTopPadding(ITableStyleCommand):
     """Set the top padding of the cells."""
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=u'The size of the padding.',
         required=True)
@@ -305,21 +305,21 @@ class IBlockBackground(ITableStyleCommand):
     It also supports alternating colors.
     """
 
-    colorName = attrng.Color(
+    colorName = attr.Color(
         title=u'Color Name',
         description=u'The color to use as the background for every cell.',
         required=False)
 
-    colorsByRow = attrng.Sequence(
+    colorsByRow = attr.Sequence(
         title=u'Colors By Row',
         description=u'A list of colors to be used circularly for rows.',
-        value_type=attrng.Color(acceptNone=True),
+        value_type=attr.Color(acceptNone=True),
         required=False)
 
-    colorsByCol = attrng.Sequence(
+    colorsByCol = attr.Sequence(
         title=u'Colors By Column',
         description=u'A list of colors to be used circularly for columns.',
-        value_type=attrng.Color(acceptNone=True),
+        value_type=attr.Color(acceptNone=True),
         required=False)
 
 class BlockBackground(TableStyleCommand):
@@ -339,10 +339,10 @@ class BlockBackground(TableStyleCommand):
 class IBlockRowBackground(ITableStyleCommand):
     """Define the background colors for rows."""
 
-    colorNames = attrng.Sequence(
+    colorNames = attr.Sequence(
         title=u'Colors By Row',
         description=u'A list of colors to be used circularly for rows.',
-        value_type=attrng.Color(),
+        value_type=attr.Color(),
         required=True)
 
 class BlockRowBackground(TableStyleCommand):
@@ -352,10 +352,10 @@ class BlockRowBackground(TableStyleCommand):
 class IBlockColBackground(ITableStyleCommand):
     """Define the background colors for columns."""
 
-    colorNames = attrng.Sequence(
+    colorNames = attr.Sequence(
         title=u'Colors By Row',
         description=u'A list of colors to be used circularly for rows.',
-        value_type=attrng.Color(),
+        value_type=attr.Color(),
         required=True)
 
 class BlockColBackground(TableStyleCommand):
@@ -365,7 +365,7 @@ class BlockColBackground(TableStyleCommand):
 class IBlockValign(ITableStyleCommand):
     """Define the vertical alignment of the cells."""
 
-    value = attrng.Choice(
+    value = attr.Choice(
         title=u'Vertical Alignment',
         description=u'The vertical alignment of the text with the cells.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
@@ -385,47 +385,47 @@ class BlockSpan(TableStyleCommand):
 class ILineStyle(ITableStyleCommand):
     """Define the border line style of each cell."""
 
-    kind = attrng.Choice(
+    kind = attr.Choice(
         title=u'Kind',
         description=u'The kind of line actions to be taken.',
         choices=('GRID', 'BOX', 'OUTLINE', 'INNERGRID',
                  'LINEBELOW', 'LINEABOVE', 'LINEBEFORE', 'LINEAFTER'),
         required=True)
 
-    thickness = attrng.Measurement(
+    thickness = attr.Measurement(
         title=u'Thickness',
         description=u'Line Thickness',
         default=1,
         required=True)
 
-    colorName = attrng.Color(
+    colorName = attr.Color(
         title=u'Color',
         description=u'The color of the border line.',
         default=None,
         required=True)
 
-    cap = attrng.Choice(
+    cap = attr.Choice(
         title=u'Cap',
         description=u'The cap at the end of a border line.',
         choices=interfaces.CAP_CHOICES,
         default=1,
         required=True)
 
-    dash = attrng.Sequence(
+    dash = attr.Sequence(
         title=u'Dash-Pattern',
         description=u'The dash-pattern of a line.',
-        value_type=attrng.Measurement(),
+        value_type=attr.Measurement(),
         default=None,
         required=False)
 
-    join = attrng.Choice(
+    join = attr.Choice(
         title=u'Join',
         description=u'The way lines are joined together.',
         choices=interfaces.JOIN_CHOICES,
         default=1,
         required=False)
 
-    count = attrng.Integer(
+    count = attr.Integer(
         title=u'Count',
         description=(u'Describes whether the line is a single (1) or '
                      u'double (2) line.'),
@@ -460,12 +460,12 @@ class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('lineStyle', ILineStyle)
         )
 
-    id = attrng.String(
+    id = attr.String(
         title=u'Id',
         description=u'The name/id of the style.',
         required=True)
 
-    keepWithNext = attrng.Boolean(
+    keepWithNext = attr.Boolean(
         title=u'Keep with Next',
         description=(u'When set, this paragraph will always be in the same '
                      u'frame as the following flowable.'),
@@ -501,7 +501,7 @@ class BlockTableStyle(directive.RMLDirective):
         # Fill style
         self.processSubDirectives()
         # Add style to the manager
-        manager = attrng.getManager(self)
+        manager = attr.getManager(self)
         manager.styles[id] = self.style
 
 

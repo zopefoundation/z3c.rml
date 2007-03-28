@@ -25,7 +25,7 @@ import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
 from reportlab.lib import styles
-from z3c.rml import attrng, directive, interfaces, occurence
+from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import form, platypus, special, stylesheet
 
 try:
@@ -49,13 +49,13 @@ class Flowable(directive.RMLDirective):
 class ISpacer(interfaces.IRMLDirectiveSignature):
     """Creates a vertical space in the flow."""
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width of the spacer. Currently not implemented.',
         default=100,
         required=False)
 
-    length = attrng.Measurement(
+    length = attr.Measurement(
         title=u'Length',
         description=u'The height of the spacer.',
         required=True)
@@ -69,12 +69,12 @@ class Spacer(Flowable):
 class IIllustration(interfaces.IRMLDirectiveSignature):
     """Inserts an illustration with graphics elements."""
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width of the illustration.',
         required=True)
 
-    height = attrng.Measurement(
+    height = attr.Measurement(
         title=u'Height',
         description=u'The height of the illustration.',
         default=100,
@@ -92,7 +92,7 @@ class Illustration(Flowable):
 class IBarCodeFlowable(form.IBarCodeBase):
     """Creates a bar code as a flowable."""
 
-    value = attrng.String(
+    value = attr.String(
         title=u'Value',
         description=u'The value represented by the code.',
         required=True)
@@ -105,18 +105,18 @@ class BarCodeFlowable(Flowable):
 class IPluginFlowable(interfaces.IRMLDirectiveSignature):
     """Inserts a custom flowable developed in Python."""
 
-    module = attrng.String(
+    module = attr.String(
         title=u'Module',
         description=u'The Python module in which the flowable is located.',
         required=True)
 
-    function = attrng.String(
+    function = attr.String(
         title=u'Function',
         description=(u'The name of the factory function within the module '
                      u'that returns the custom flowable.'),
         required=True)
 
-    params = attrng.TextNode(
+    params = attr.TextNode(
         title=u'Parameters',
         description=(u'A list of parameters encoded as a long string.'),
         required=False)
@@ -137,7 +137,7 @@ class PluginFlowable(Flowable):
 
 class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
@@ -145,13 +145,13 @@ class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
         default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
         required=True)
 
-    bulletText = attrng.String(
+    bulletText = attr.String(
         title=u'Bullet Character',
         description=(u'The bullet character is the ASCII representation of '
                      u'the symbol making up the bullet in a listing.'),
         required=False)
 
-    dedent = attrng.Integer(
+    dedent = attr.Integer(
         title=u'Dedent',
         description=(u'Number of characters to be removed in front of every '
                      u'line of the text.'),
@@ -186,7 +186,7 @@ class IParagraphBase(IMinimalParagraphBase):
 class IPreformatted(IMinimalParagraphBase):
     """A preformatted text, similar to the <pre> tag in HTML."""
 
-    text = attrng.RawXMLContent(
+    text = attr.RawXMLContent(
         title=u'Text',
         description=(u'The text that will be layed out.'),
         required=True)
@@ -199,7 +199,7 @@ class Preformatted(Flowable):
 class IXPreformatted(IParagraphBase):
     """A preformatted text that allows paragraph markup."""
 
-    text = attrng.RawXMLContent(
+    text = attr.RawXMLContent(
         title=u'Text',
         description=(u'The text that will be layed out.'),
         required=True)
@@ -212,7 +212,7 @@ class XPreformatted(Flowable):
 class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
     """Lays out an entire paragraph."""
 
-    text = attrng.XMLContent(
+    text = attr.XMLContent(
         title=u'Text',
         description=(u'The text that will be layed out.'),
         required=True)
@@ -240,7 +240,7 @@ class Paragraph(Flowable):
 class ITitle(IParagraph):
     """The title is a simple paragraph with a special title style."""
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
@@ -255,7 +255,7 @@ class Title(Paragraph):
 class IHeading1(IParagraph):
     """Heading 1 is a simple paragraph with a special heading 1 style."""
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
@@ -270,7 +270,7 @@ class Heading1(Paragraph):
 class IHeading2(IParagraph):
     """Heading 2 is a simple paragraph with a special heading 2 style."""
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
@@ -285,7 +285,7 @@ class Heading2(Paragraph):
 class IHeading3(IParagraph):
     """Heading 3 is a simple paragraph with a special heading 3 style."""
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
@@ -300,173 +300,173 @@ class Heading3(Paragraph):
 class ITableCell(interfaces.IRMLDirectiveSignature):
     """A table cell within a table."""
 
-    content = attrng.RawXMLContent(
+    content = attr.RawXMLContent(
         title=u'Content',
         description=(u'The content of the cell; can be text or any flowable.'),
         required=True)
 
-    fontName = attrng.String(
+    fontName = attr.String(
         title=u'Font Name',
         description=u'The name of the font for the cell.',
         required=False)
 
-    fontSize = attrng.Measurement(
+    fontSize = attr.Measurement(
         title=u'Font Size',
         description=u'The font size for the text of the cell.',
         required=False)
 
-    leading = attrng.Measurement(
+    leading = attr.Measurement(
         title=u'Leading',
         description=(u'The height of a single text line. It includes '
                      u'character height.'),
         required=False)
 
-    fontColor = attrng.Color(
+    fontColor = attr.Color(
         title=u'Font Color',
         description=u'The color in which the text will appear.',
         required=False)
 
-    leftPadding = attrng.Measurement(
+    leftPadding = attr.Measurement(
         title=u'Left Padding',
         description=u'The size of the padding on the left side.',
         required=False)
 
-    rightPadding = attrng.Measurement(
+    rightPadding = attr.Measurement(
         title=u'Right Padding',
         description=u'The size of the padding on the right side.',
         required=False)
 
-    topPadding = attrng.Measurement(
+    topPadding = attr.Measurement(
         title=u'Top Padding',
         description=u'The size of the padding on the top.',
         required=False)
 
-    bottomPadding = attrng.Measurement(
+    bottomPadding = attr.Measurement(
         title=u'Bottom Padding',
         description=u'The size of the padding on the bottom.',
         required=False)
 
-    background = attrng.Color(
+    background = attr.Color(
         title=u'Background Color',
         description=u'The color to use as the background for the cell.',
         required=False)
 
-    align = attrng.Choice(
+    align = attr.Choice(
         title=u'Text Alignment',
         description=u'The text alignment within the cell.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
-    vAlign = attrng.Choice(
+    vAlign = attr.Choice(
         title=u'Vertical Alignment',
         description=u'The vertical alignment of the text within the cell.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
 
-    lineBelowThickness = attrng.Measurement(
+    lineBelowThickness = attr.Measurement(
         title=u'Line Below Thickness',
         description=u'The thickness of the line below the cell.',
         required=False)
 
-    lineBelowColor = attrng.Color(
+    lineBelowColor = attr.Color(
         title=u'Line Below Color',
         description=u'The color of the line below the cell.',
         required=False)
 
-    lineBelowCap = attrng.Choice(
+    lineBelowCap = attr.Choice(
         title=u'Line Below Cap',
         description=u'The cap at the end of the line below the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
-    lineBelowCount = attrng.Integer(
+    lineBelowCount = attr.Integer(
         title=u'Line Below Count',
         description=(u'Describes whether the line below is a single (1) or '
                      u'double (2) line.'),
         required=False)
 
-    lineBelowSpace = attrng.Measurement(
+    lineBelowSpace = attr.Measurement(
         title=u'Line Below Space',
         description=u'The space of the line below the cell.',
         required=False)
 
-    lineAboveThickness = attrng.Measurement(
+    lineAboveThickness = attr.Measurement(
         title=u'Line Above Thickness',
         description=u'The thickness of the line above the cell.',
         required=False)
 
-    lineAboveColor = attrng.Color(
+    lineAboveColor = attr.Color(
         title=u'Line Above Color',
         description=u'The color of the line above the cell.',
         required=False)
 
-    lineAboveCap = attrng.Choice(
+    lineAboveCap = attr.Choice(
         title=u'Line Above Cap',
         description=u'The cap at the end of the line above the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
-    lineAboveCount = attrng.Integer(
+    lineAboveCount = attr.Integer(
         title=u'Line Above Count',
         description=(u'Describes whether the line above is a single (1) or '
                      u'double (2) line.'),
         required=False)
 
-    lineAboveSpace = attrng.Measurement(
+    lineAboveSpace = attr.Measurement(
         title=u'Line Above Space',
         description=u'The space of the line above the cell.',
         required=False)
 
-    lineLeftThickness = attrng.Measurement(
+    lineLeftThickness = attr.Measurement(
         title=u'Left Line Thickness',
         description=u'The thickness of the line left of the cell.',
         required=False)
 
-    lineLeftColor = attrng.Color(
+    lineLeftColor = attr.Color(
         title=u'Left Line Color',
         description=u'The color of the line left of the cell.',
         required=False)
 
-    lineLeftCap = attrng.Choice(
+    lineLeftCap = attr.Choice(
         title=u'Line Left Cap',
         description=u'The cap at the end of the line left of the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
-    lineLeftCount = attrng.Integer(
+    lineLeftCount = attr.Integer(
         title=u'Line Left Count',
         description=(u'Describes whether the left line is a single (1) or '
                      u'double (2) line.'),
         required=False)
 
-    lineLeftSpace = attrng.Measurement(
+    lineLeftSpace = attr.Measurement(
         title=u'Line Left Space',
         description=u'The space of the line left of the cell.',
         required=False)
 
-    lineRightThickness = attrng.Measurement(
+    lineRightThickness = attr.Measurement(
         title=u'Right Line Thickness',
         description=u'The thickness of the line right of the cell.',
         required=False)
 
-    lineRightColor = attrng.Color(
+    lineRightColor = attr.Color(
         title=u'Right Line Color',
         description=u'The color of the line right of the cell.',
         required=False)
 
-    lineRightCap = attrng.Choice(
+    lineRightCap = attr.Choice(
         title=u'Line Right Cap',
         description=u'The cap at the end of the line right of the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
-    lineRightCount = attrng.Integer(
+    lineRightCount = attr.Integer(
         title=u'Line Right Count',
         description=(u'Describes whether the right line is a single (1) or '
                      u'double (2) line.'),
         required=False)
 
-    lineRightSpace = attrng.Measurement(
+    lineRightSpace = attr.Measurement(
         title=u'Line Right Space',
         description=u'The space of the line right of the cell.',
         required=False)
@@ -536,12 +536,12 @@ class TableRow(directive.RMLDirective):
 class ITableBulkData(interfaces.IRMLDirectiveSignature):
     """Bulk Data allows one to wuickly create a table."""
 
-    content = attrng.TextNodeSequence(
+    content = attr.TextNodeSequence(
         title=u'Content',
         description=u'The bulk data.',
         splitre=re.compile('\n'),
-        value_type=attrng.Sequence(splitre=re.compile(','),
-                                 value_type=attrng.Text())
+        value_type=attr.Sequence(splitre=re.compile(','),
+                                 value_type=attr.Text())
         )
 
 class TableBulkData(directive.RMLDirective):
@@ -570,24 +570,24 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('blockTableStyle', stylesheet.IBlockTableStyle),
         )
 
-    style = attrng.Style(
+    style = attr.Style(
         title=u'Style',
         description=(u'The table style that is applied to the table. '),
         required=False)
 
-    rowHeights = attrng.Sequence(
+    rowHeights = attr.Sequence(
         title=u'Row Heights',
         description=u'A list of row heights in the table.',
-        value_type=attrng.Measurement(),
+        value_type=attr.Measurement(),
         required=False)
 
-    colWidths = attrng.Sequence(
+    colWidths = attr.Sequence(
         title=u'Column Widths',
         description=u'A list of column widths in the table.',
-        value_type=attrng.Measurement(allowPercentage=True, allowStar=True),
+        value_type=attr.Measurement(allowPercentage=True, allowStar=True),
         required=False)
 
-    repeatRows = attrng.Integer(
+    repeatRows = attr.Integer(
         title=u'Repeat Rows',
         description=u'A flag to repeat rows upon table splits.',
         required=False)
@@ -623,7 +623,7 @@ class BlockTable(Flowable):
 
 class INextFrame(interfaces.IRMLDirectiveSignature):
     """Switch to the next frame."""
-    name = attrng.StringOrInt(
+    name = attr.StringOrInt(
         title=u'Name',
         description=(u'The name or index of the next frame.'),
         required=False)
@@ -636,7 +636,7 @@ class NextFrame(Flowable):
 
 class ISetNextFrame(interfaces.IRMLDirectiveSignature):
     """Define the next frame to switch to."""
-    name = attrng.StringOrInt(
+    name = attr.StringOrInt(
         title=u'Name',
         description=(u'The name or index of the next frame.'),
         required=True)
@@ -657,7 +657,7 @@ class NextPage(Flowable):
 
 class ISetNextTemplate(interfaces.IRMLDirectiveSignature):
     """Define the next page template to use."""
-    name = attrng.StringOrInt(
+    name = attr.StringOrInt(
         title=u'Name',
         description=u'The name or index of the next page template.',
         required=True)
@@ -670,7 +670,7 @@ class SetNextTemplate(Flowable):
 
 class IConditionalPageBreak(interfaces.IRMLDirectiveSignature):
     """Switch to the next page if not enough vertical space is available."""
-    height = attrng.Measurement(
+    height = attr.Measurement(
         title=u'height',
         description=u'The minimal height that must be remaining on the page.',
         required=True)
@@ -683,35 +683,35 @@ class ConditionalPageBreak(Flowable):
 class IKeepInFrame(interfaces.IRMLDirectiveSignature):
     """Ask a flowable to stay within the frame."""
 
-    maxWidth = attrng.Measurement(
+    maxWidth = attr.Measurement(
         title=u'Maximum Width',
         description=u'The maximum width the flowables are allotted.',
         default=None,
         required=False)
 
-    maxHeight = attrng.Measurement(
+    maxHeight = attr.Measurement(
         title=u'Maximum Height',
         description=u'The maximum height the flowables are allotted.',
         default=None,
         required=False)
 
-    mergeSpace = attrng.Boolean(
+    mergeSpace = attr.Boolean(
         title=u'Merge Space',
         description=u'A flag to set whether the space should be merged.',
         required=False)
 
-    onOverflow = attrng.Choice(
+    onOverflow = attr.Choice(
         title=u'On Overflow',
         description=u'Defines what has to be done, if an overflow is detected.',
         choices=('error', 'overflow', 'shrink', 'truncate'),
         required=False)
 
-    id = attrng.Text(
+    id = attr.Text(
         title=u'Name/Id',
         description=u'The name/id of the flowable.',
         required=False)
 
-    frame = attrng.StringOrInt(
+    frame = attr.StringOrInt(
         title=u'Frame',
         description=u'The frame to which the flowable should be fitted.',
         required=False)
@@ -743,48 +743,48 @@ class KeepInFrame(Flowable):
 class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
     """An image with flowables around it."""
 
-    imageName = attrng.Image(
+    imageName = attr.Image(
         title=u'Image',
         description=u'The file that is used to extract the image data.',
         onlyOpen=True,
         required=True)
 
-    imageWidth = attrng.Measurement(
+    imageWidth = attr.Measurement(
         title=u'Image Width',
         description=u'The width of the image.',
         required=False)
 
-    imageHeight = attrng.Measurement(
+    imageHeight = attr.Measurement(
         title=u'Image Height',
         description=u'The height the image.',
         required=False)
 
-    imageMask = attrng.Color(
+    imageMask = attr.Color(
         title=u'Mask',
         description=u'The height the image.',
         required=False)
 
-    imageLeftPadding = attrng.Measurement(
+    imageLeftPadding = attr.Measurement(
         title=u'Image Left Padding',
         description=u'The padding on the left side of the image.',
         required=False)
 
-    imageRightPadding = attrng.Measurement(
+    imageRightPadding = attr.Measurement(
         title=u'Image Right Padding',
         description=u'The padding on the right side of the image.',
         required=False)
 
-    imageTopPadding = attrng.Measurement(
+    imageTopPadding = attr.Measurement(
         title=u'Image Top Padding',
         description=u'The padding on the top of the image.',
         required=False)
 
-    imageBottomPadding = attrng.Measurement(
+    imageBottomPadding = attr.Measurement(
         title=u'Image Bottom Padding',
         description=u'The padding on the bottom of the image.',
         required=False)
 
-    iamgeSide = attrng.Choice(
+    iamgeSide = attr.Choice(
         title=u'Image Side',
         description=u'The side at which the image will be placed.',
         choices=('left', 'right'),
@@ -847,12 +847,12 @@ class PTO(Flowable):
 class IIndent(interfaces.IRMLDirectiveSignature):
     """Indent the contained flowables."""
 
-    left = attrng.Measurement(
+    left = attr.Measurement(
         title=u'Left',
         description=u'The indentation to the left.',
         required=False)
 
-    right = attrng.Measurement(
+    right = attr.Measurement(
         title=u'Right',
         description=u'The indentation to the right.',
         required=False)
@@ -877,12 +877,12 @@ class Indent(Flowable):
 class IFixedSize(interfaces.IRMLDirectiveSignature):
     """Create a container flowable of a fixed size."""
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width the flowables are allotted.',
         required=True)
 
-    height = attrng.Measurement(
+    height = attr.Measurement(
         title=u'Height',
         description=u'The height the flowables are allotted.',
         required=True)
@@ -911,38 +911,38 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
     choice of 'fitType'.
     """
 
-    name = attrng.Text(
+    name = attr.Text(
         title=u'Name',
         description=u'The name of the bookmark.',
         required=True)
 
-    fitType = attrng.Choice(
+    fitType = attr.Choice(
         title=u'Fit Type',
         description=u'The Fit Type.',
         choices=('Fit', 'FitH', 'FitV', 'FitR'),
         required=False)
 
-    left = attrng.Measurement(
+    left = attr.Measurement(
         title=u'Left',
         description=u'The left position.',
         required=False)
 
-    right = attrng.Measurement(
+    right = attr.Measurement(
         title=u'Right',
         description=u'The right position.',
         required=False)
 
-    top = attrng.Measurement(
+    top = attr.Measurement(
         title=u'Top',
         description=u'The top position.',
         required=False)
 
-    right = attrng.Measurement(
+    right = attr.Measurement(
         title=u'Right',
         description=u'The right position.',
         required=False)
 
-    zoom = attrng.Float(
+    zoom = attr.Float(
         title=u'Zoom',
         description=u'The zoom level when clicking on the bookmark.',
         required=False)
@@ -956,54 +956,54 @@ class Bookmark(Flowable):
 class IHorizontalRow(interfaces.IRMLDirectiveSignature):
     """Create a horizontal line on the page."""
 
-    width = attrng.Measurement(
+    width = attr.Measurement(
         title=u'Width',
         description=u'The width of the line on the page.',
         allowPercentage=True,
         required=False)
 
-    thickness = attrng.Measurement(
+    thickness = attr.Measurement(
         title=u'Thickness',
         description=u'Line Thickness',
         required=False)
 
-    color = attrng.Color(
+    color = attr.Color(
         title=u'Color',
         description=u'The color of the line.',
         required=False)
 
-    lineCap = attrng.Choice(
+    lineCap = attr.Choice(
         title=u'Cap',
         description=u'The cap at the end of the line.',
         choices=interfaces.CAP_CHOICES.keys(),
         required=False)
 
-    spaceBefore = attrng.Measurement(
+    spaceBefore = attr.Measurement(
         title=u'Space Before',
         description=u'The vertical space before the line.',
         required=False)
 
-    spaceAfter = attrng.Measurement(
+    spaceAfter = attr.Measurement(
         title=u'Space After',
         description=u'The vertical space after the line.',
         required=False)
 
-    align = attrng.Choice(
+    align = attr.Choice(
         title=u'Alignment',
         description=u'The alignment of the line within the frame.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
-    valign = attrng.Choice(
+    valign = attr.Choice(
         title=u'Vertical Alignment',
         description=u'The vertical alignment of the line.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
 
-    dash = attrng.Sequence(
+    dash = attr.Sequence(
         title=u'Dash-Pattern',
         description=u'The dash-pattern of a line.',
-        value_type=attrng.Measurement(),
+        value_type=attr.Measurement(),
         default=None,
         required=False)
 
@@ -1016,22 +1016,22 @@ class HorizontalRow(Flowable):
 class IOutlineAdd(interfaces.IRMLDirectiveSignature):
     """Add a new entry to the outline of the PDF."""
 
-    title = attrng.TextNode(
+    title = attr.TextNode(
         title=u'Title',
         description=u'The text displayed for this item.',
         required=True)
 
-    key = attrng.String(
+    key = attr.String(
         title=u'Key',
         description=u'The unique key of the item.',
         required=False)
 
-    level = attrng.Integer(
+    level = attr.Integer(
         title=u'Level',
         description=u'The level in the outline tree.',
         required=False)
 
-    closed = attrng.Boolean(
+    closed = attr.Boolean(
         title=u'Closed',
         description=(u'A flag to determine whether the sub-tree is closed '
                      u'by default.'),
