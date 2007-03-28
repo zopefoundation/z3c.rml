@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-path.pdf">
+  <pageDrawing>
+
+    <path x="2cm" y="26cm" close="true">
+      6cm 26cm
+      8cm 23cm
+      4cm 23cm
+    </path>
+
+    <path x="10cm" y="26cm" close="true" fill="true">
+      14cm 26cm
+      16cm 23cm
+      12cm 23cm
+    </path>
+
+    <path x="2cm" y="22cm" >
+      4cm 22cm
+      <moveto>
+        6cm 22cm
+      </moveto>
+      7cm 20.5cm
+      <moveto>
+        8cm 19cm
+      </moveto>
+      6cm 19cm
+      <moveto>
+        4cm 19cm
+      </moveto>
+      3cm 20.5cm
+    </path>
+
+  </pageDrawing>
+</document>

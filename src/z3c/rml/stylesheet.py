@@ -20,122 +20,311 @@ import copy
 import reportlab.lib.styles
 import reportlab.lib.enums
 import reportlab.platypus
-from z3c.rml import attr, element, error, interfaces, special
+from z3c.rml import attrng, directive, interfaces, occurence, special
 
 
-class Initialize(element.ContainerElement):
+class IInitialize(interfaces.IRMLDirectiveSignature):
+    """Do some RML processing initialization."""
+    occurence.containing(
+        occurence.ZeroOrMore('name', special.IName),
+        occurence.ZeroOrMore('alias', special.IAlias),
+        )
 
-    subElements = {
+class Initialize(directive.RMLDirective):
+    signature = IInitialize
+    factories = {
         'name': special.Name,
         'alias': special.Alias,
         }
 
-class ParagraphStyle(element.Element):
-    attrs = (
-        attr.Text('name'),
-        attr.Text('alias'),
-        attr.Style('parent'),
-        attr.Text('fontName'),
-        attr.Measurement('fontSize'),
-        attr.Measurement('leading'),
-        attr.Measurement('leftIndent'),
-        attr.Measurement('rightIndent'),
-        attr.Measurement('firstLineIndent'),
-        attr.Measurement('spaceBefore'),
-        attr.Measurement('spaceAfter'),
-        attr.Choice('alignment',
-            {'left':reportlab.lib.enums.TA_LEFT,
-             'right':reportlab.lib.enums.TA_RIGHT,
-             'center':reportlab.lib.enums.TA_CENTER,
-             'justify':reportlab.lib.enums.TA_JUSTIFY}),
-        attr.Text('bulletFontName'),
-        attr.Measurement('bulletFontSize'),
-        attr.Measurement('bulletIndent'),
-        attr.Color('textColor'),
-        attr.Color('backColor'),
-        attr.Bool('keepWithNext')
-        )
+
+class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
+
+    fontName = attrng.String(
+        title=u'Font Name',
+        description=u'The name of the font for the paragraph.',
+        required=False)
+
+    fontSize = attrng.Measurement(
+        title=u'Font Size',
+        description=u'The font size for the text of the paragraph.',
+        required=False)
+
+    leading = attrng.Measurement(
+        title=u'Leading',
+        description=(u'The height of a single paragraph line. It includes '
+                     u'character height.'),
+        required=False)
+
+    leftIndent = attrng.Measurement(
+        title=u'Left Indentation',
+        description=u'General indentation on the left side.',
+        required=False)
+
+    rightIndent = attrng.Measurement(
+        title=u'Right Indentation',
+        description=u'General indentation on the right side.',
+        required=False)
+
+    firstLineIndent = attrng.Measurement(
+        title=u'First Line Indentation',
+        description=u'The indentation of the first line in the paragraph.',
+        required=False)
+
+    spaceBefore = attrng.Measurement(
+        title=u'Space Before',
+        description=u'The vertical space before the paragraph.',
+        required=False)
+
+    spaceAfter = attrng.Measurement(
+        title=u'Space After',
+        description=u'The vertical space after the paragraph.',
+        required=False)
+
+    alignment = attrng.Choice(
+        title=u'Alignment',
+        description=u'The text alignment.',
+        choices=interfaces.ALIGN_CHOICES,
+        required=False)
+
+    bulletFontName = attrng.String(
+        title=u'Bullet Font Name',
+        description=u'The font in which the bullet character will be rendered.',
+        required=False)
+
+    bulletFontSize = attrng.Measurement(
+        title=u'Bullet Font Size',
+        description=u'The font size of the bullet character.',
+        required=False)
+
+    bulletIndent = attrng.Measurement(
+        title=u'Bullet Indentation',
+        description=u'The indentation that is kept for a bullet point.',
+        required=False)
+
+    textColor = attrng.Color(
+        title=u'Text Color',
+        description=u'The color in which the text will appear.',
+        required=False)
+
+    backColor = attrng.Color(
+        title=u'Background Color',
+        description=u'The background color of the paragraph.',
+        required=False)
+
+    keepWithNext = attrng.Boolean(
+        title=u'Keep with Next',
+        description=(u'When set, this paragraph will always be in the same '
+                     u'frame as the following flowable.'),
+        required=False)
+
+
+class IParagraphStyle(IBaseParagraphStyle):
+    """Defines a paragraph style and gives it a name."""
+
+    name = attrng.String(
+        title=u'Name',
+        description=u'The name of the style.',
+        required=True)
+
+    alias = attrng.String(
+        title=u'Alias',
+        description=u'An alias under which the style will also be known as.',
+        required=False)
+
+    parent = attrng.Style(
+        title=u'Parent',
+        description=(u'The apragraph style that will be used as a base for '
+                     u'this one.'),
+        required=False)
+
+class ParagraphStyle(directive.RMLDirective):
+    signature = IParagraphStyle
 
     def process(self):
-        attrs = element.extractKeywordArguments(
-            [(attrib.name, attrib) for attrib in self.attrs], self.element,
-            self.parent)
+        kwargs = dict(self.getAttributeValues())
 
-        parent = attrs.pop(
+        parent = kwargs.pop(
             'parent', reportlab.lib.styles.getSampleStyleSheet()['Normal'])
         style = copy.deepcopy(parent)
 
-        for name, value in attrs.items():
+        for name, value in kwargs.items():
             setattr(style, name, value)
 
-        manager = attr.getManager(self, interfaces.IStylesManager)
+        manager = attrng.getManager(self)
         manager.styles[style.name] = style
 
 
-class TableStyleCommand(element.Element):
+class ITableStyleCommand(interfaces.IRMLDirectiveSignature):
+
+    start = attrng.Sequence(
+        title=u'Start Coordinates',
+        description=u'The start table coordinates for the style instruction',
+        value_type=attrng.Combination(
+            value_types=(attrng.Integer(),
+                         attrng.Choice(choices=interfaces.SPLIT_CHOICES))
+            ),
+        default=[0, 0],
+        min_length=2,
+        max_length=2,
+        required=True)
+
+    end = attrng.Sequence(
+        title=u'End Coordinates',
+        description=u'The end table coordinates for the style instruction',
+        value_type=attrng.Combination(
+            value_types=(attrng.Integer(),
+                         attrng.Choice(choices=interfaces.SPLIT_CHOICES))
+            ),
+        default=[-1, -1],
+        min_length=2,
+        max_length=2,
+        required=True)
+
+class TableStyleCommand(directive.RMLDirective):
     name = None
-    attrs = (
-        attr.Sequence('start', attr.Combination(
-            valueTypes=(attr.Int(),
-                        attr.Choice(choices=('splitfirst', 'splitlast')) )),
-            [0, 0], length=2),
-        attr.Sequence('stop', attr.Combination(
-            valueTypes=(attr.Int(),
-                        attr.Choice(choices=('splitfirst', 'splitlast')) )),
-            [-1, -1], length=2) )
 
     def process(self):
         args = [self.name]
-        for attribute in self.attrs:
-            value = attribute.get(self.element, context=self)
-            if value is not attr.DEFAULT:
-                args.append(value)
-        self.context.add(*args)
+        args += self.getAttributeValues(valuesOnly=True)
+        self.parent.style.add(*args)
+
+
+class IBlockFont(ITableStyleCommand):
+    """Set the font properties for the texts."""
+
+    name = attrng.String(
+        title=u'Font Name',
+        description=u'The name of the font for the cell.',
+        required=False)
+
+    size = attrng.Measurement(
+        title=u'Font Size',
+        description=u'The font size for the text of the cell.',
+        required=False)
+
+    leading = attrng.Measurement(
+        title=u'Leading',
+        description=(u'The height of a single text line. It includes '
+                     u'character height.'),
+        required=False)
 
 class BlockFont(TableStyleCommand):
+    signature = IBlockFont
     name = 'FONT'
-    attrs = TableStyleCommand.attrs + (
-        attr.Text('name'),
-        attr.Measurement('size'),
-        attr.Measurement('leading') )
+
+class IBlockLeading(ITableStyleCommand):
+    """Set the text leading."""
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=(u'The height of a single text line. It includes '
+                     u'character height.'),
+        required=True)
 
 class BlockLeading(TableStyleCommand):
+    signature = IBlockLeading
     name = 'LEADING'
-    attrs = TableStyleCommand.attrs + (attr.Measurement('length'), )
+
+class IBlockTextColor(ITableStyleCommand):
+    """Set the text color."""
+
+    colorName = attrng.Color(
+        title=u'Color Name',
+        description=u'The color in which the text will appear.',
+        required=True)
 
 class BlockTextColor(TableStyleCommand):
+    signature = IBlockTextColor
     name = 'TEXTCOLOR'
-    attrs = TableStyleCommand.attrs + (attr.Color('colorName'), )
+
+class IBlockAlignment(ITableStyleCommand):
+    """Set the text alignment."""
+
+    value = attrng.Choice(
+        title=u'Text Alignment',
+        description=u'The text alignment within the cell.',
+        choices=interfaces.ALIGN_TEXT_CHOICES,
+        required=True)
 
 class BlockAlignment(TableStyleCommand):
+    signature = IBlockAlignment
     name = 'ALIGNMENT'
-    attrs = TableStyleCommand.attrs + (
-        attr.Choice('value',
-                    {'left': 'LEFT', 'right': 'RIGHT',
-                     'center': 'CENTER', 'decimal': 'DECIMAL'}), )
+
+class IBlockLeftPadding(ITableStyleCommand):
+    """Set the left padding of the cells."""
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=u'The size of the padding.',
+        required=True)
 
 class BlockLeftPadding(TableStyleCommand):
+    signature = IBlockLeftPadding
     name = 'LEFTPADDING'
-    attrs = TableStyleCommand.attrs + (attr.Measurement('length'), )
+
+class IBlockRightPadding(ITableStyleCommand):
+    """Set the right padding of the cells."""
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=u'The size of the padding.',
+        required=True)
 
 class BlockRightPadding(TableStyleCommand):
+    signature = IBlockRightPadding
     name = 'RIGHTPADDING'
-    attrs = TableStyleCommand.attrs + (attr.Measurement('length'), )
+
+class IBlockBottomPadding(ITableStyleCommand):
+    """Set the bottom padding of the cells."""
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=u'The size of the padding.',
+        required=True)
 
 class BlockBottomPadding(TableStyleCommand):
+    signature = IBlockBottomPadding
     name = 'BOTTOMPADDING'
-    attrs = TableStyleCommand.attrs + (attr.Measurement('length'), )
+
+class IBlockTopPadding(ITableStyleCommand):
+    """Set the top padding of the cells."""
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=u'The size of the padding.',
+        required=True)
 
 class BlockTopPadding(TableStyleCommand):
+    signature = IBlockTopPadding
     name = 'TOPPADDING'
-    attrs = TableStyleCommand.attrs + (attr.Measurement('length'), )
+
+class IBlockBackground(ITableStyleCommand):
+    """Define the background color of the cells.
+
+    It also supports alternating colors.
+    """
+
+    colorName = attrng.Color(
+        title=u'Color Name',
+        description=u'The color to use as the background for every cell.',
+        required=False)
+
+    colorsByRow = attrng.Sequence(
+        title=u'Colors By Row',
+        description=u'A list of colors to be used circularly for rows.',
+        value_type=attrng.Color(acceptNone=True),
+        required=False)
+
+    colorsByCol = attrng.Sequence(
+        title=u'Colors By Column',
+        description=u'A list of colors to be used circularly for columns.',
+        value_type=attrng.Color(acceptNone=True),
+        required=False)
 
 class BlockBackground(TableStyleCommand):
+    signature = IBlockBackground
     name = 'BACKGROUND'
-    attrs = TableStyleCommand.attrs + (
-        attr.Color('colorName'),
-        attr.Sequence('colorsByRow', attr.Color()),
-        attr.Sequence('colorsByCol', attr.Color()) )
 
     def process(self):
         args = [self.name]
@@ -144,64 +333,148 @@ class BlockBackground(TableStyleCommand):
         elif 'colorsByCol' in self.element.keys():
             args = [BlockColBackground.name]
 
-        for attribute in self.attrs:
-            value = attribute.get(self.element, context=self)
-            if value is not attr.DEFAULT:
-                args.append(value)
-        self.context.add(*args)
+        args += self.getAttributeValues(valuesOnly=True)
+        self.parent.style.add(*args)
+
+class IBlockRowBackground(ITableStyleCommand):
+    """Define the background colors for rows."""
+
+    colorNames = attrng.Sequence(
+        title=u'Colors By Row',
+        description=u'A list of colors to be used circularly for rows.',
+        value_type=attrng.Color(),
+        required=True)
 
 class BlockRowBackground(TableStyleCommand):
+    signature = IBlockRowBackground
     name = 'ROWBACKGROUNDS'
-    attrs = TableStyleCommand.attrs + (
-        attr.Sequence('colorNames', attr.Color()), )
+
+class IBlockColBackground(ITableStyleCommand):
+    """Define the background colors for columns."""
+
+    colorNames = attrng.Sequence(
+        title=u'Colors By Row',
+        description=u'A list of colors to be used circularly for rows.',
+        value_type=attrng.Color(),
+        required=True)
 
 class BlockColBackground(TableStyleCommand):
+    signature = IBlockColBackground
     name = 'COLBACKGROUNDS'
-    attrs = TableStyleCommand.attrs + (
-        attr.Sequence('colorNames', attr.Color()), )
+
+class IBlockValign(ITableStyleCommand):
+    """Define the vertical alignment of the cells."""
+
+    value = attrng.Choice(
+        title=u'Vertical Alignment',
+        description=u'The vertical alignment of the text with the cells.',
+        choices=interfaces.VALIGN_TEXT_CHOICES,
+        required=True)
 
 class BlockValign(TableStyleCommand):
+    signature = IBlockValign
     name = 'VALIGN'
-    attrs = TableStyleCommand.attrs + (
-        attr.Choice('value',
-                    {'top': 'TOP', 'middle': 'MIDDLE', 'bottom': 'BOTTOM'}), )
+
+class IBlockSpan(ITableStyleCommand):
+    """Define a span over multiple cells (rows and columns)."""
 
 class BlockSpan(TableStyleCommand):
+    signature = IBlockSpan
     name = 'SPAN'
 
-class LineStyle(TableStyleCommand):
-    attrs = TableStyleCommand.attrs + (
-        attr.Measurement('thickness', default=1),
-        attr.Color('colorName', default=None),
-        attr.Choice('cap', ('butt', 'round', 'square'), default=1),
-        attr.Sequence('dash', attr.Measurement(), default=None),
-        attr.Bool('join', default=1),
-        attr.Int('count', default=1),
-        )
+class ILineStyle(ITableStyleCommand):
+    """Define the border line style of each cell."""
 
-    @property
-    def name(self):
-        cmds = ['GRID', 'BOX', 'OUTLINE', 'INNERGRID',
-                'LINEBELOW', 'LINEABOVE', 'LINEBEFORE', 'LINEAFTER']
-        return attr.Choice(
-            'kind', dict([(cmd.lower(), cmd) for cmd in cmds])
-            ).get(self.element, context=self)
+    kind = attrng.Choice(
+        title=u'Kind',
+        description=u'The kind of line actions to be taken.',
+        choices=('GRID', 'BOX', 'OUTLINE', 'INNERGRID',
+                 'LINEBELOW', 'LINEABOVE', 'LINEBEFORE', 'LINEAFTER'),
+        required=True)
+
+    thickness = attrng.Measurement(
+        title=u'Thickness',
+        description=u'Line Thickness',
+        default=1,
+        required=True)
+
+    colorName = attrng.Color(
+        title=u'Color',
+        description=u'The color of the border line.',
+        default=None,
+        required=True)
+
+    cap = attrng.Choice(
+        title=u'Cap',
+        description=u'The cap at the end of a border line.',
+        choices=interfaces.CAP_CHOICES,
+        default=1,
+        required=True)
+
+    dash = attrng.Sequence(
+        title=u'Dash-Pattern',
+        description=u'The dash-pattern of a line.',
+        value_type=attrng.Measurement(),
+        default=None,
+        required=False)
+
+    join = attrng.Choice(
+        title=u'Join',
+        description=u'The way lines are joined together.',
+        choices=interfaces.JOIN_CHOICES,
+        default=1,
+        required=False)
+
+    count = attrng.Integer(
+        title=u'Count',
+        description=(u'Describes whether the line is a single (1) or '
+                     u'double (2) line.'),
+        default=1,
+        required=False)
+
+class LineStyle(TableStyleCommand):
+    signature = ILineStyle
 
     def process(self):
-        args = [self.name]
-        for attribute in self.attrs:
-            value = attribute.get(self.element, context=self)
-            if value is not attr.DEFAULT:
-                args.append(value)
-        self.context.add(*args)
+        name = self.getAttributeValues(select=('kind',), valuesOnly=True)[0]
+        args = [name]
+        args += self.getAttributeValues(ignore=('kind',), valuesOnly=True)
+        self.parent.style.add(*args)
 
-class BlockTableStyle(element.ContainerElement):
-
-    attrs = (
-        attr.Bool('keepWithNext'),
+class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
+    """A style defining the look of a table."""
+    occurence.containing(
+        occurence.ZeroOrMore('blockFont', IBlockFont),
+        occurence.ZeroOrMore('blockLeading', IBlockLeading),
+        occurence.ZeroOrMore('blockTextColor', IBlockTextColor),
+        occurence.ZeroOrMore('blockAlignment', IBlockAlignment),
+        occurence.ZeroOrMore('blockLeftPadding', IBlockLeftPadding),
+        occurence.ZeroOrMore('blockRightPadding', IBlockRightPadding),
+        occurence.ZeroOrMore('blockBottomPadding', IBlockBottomPadding),
+        occurence.ZeroOrMore('blockTopPadding', IBlockTopPadding),
+        occurence.ZeroOrMore('blockBackground', IBlockBackground),
+        occurence.ZeroOrMore('blockRowBackground', IBlockRowBackground),
+        occurence.ZeroOrMore('blockColBackground', IBlockColBackground),
+        occurence.ZeroOrMore('blockValign', IBlockValign),
+        occurence.ZeroOrMore('blockSpan', IBlockSpan),
+        occurence.ZeroOrMore('lineStyle', ILineStyle)
         )
 
-    subElements = {
+    id = attrng.String(
+        title=u'Id',
+        description=u'The name/id of the style.',
+        required=True)
+
+    keepWithNext = attrng.Boolean(
+        title=u'Keep with Next',
+        description=(u'When set, this paragraph will always be in the same '
+                     u'frame as the following flowable.'),
+        required=False)
+
+class BlockTableStyle(directive.RMLDirective):
+    signature = IBlockTableStyle
+
+    factories = {
         'blockFont': BlockFont,
         'blockLeading': BlockLeading,
         'blockTextColor': BlockTextColor,
@@ -219,25 +492,34 @@ class BlockTableStyle(element.ContainerElement):
         }
 
     def process(self):
-        id = attr.Text('id').get(self.element, context=self)
+        kw = dict(self.getAttributeValues())
+        id  = kw.pop('id')
         # Create Style
-        style = reportlab.platypus.tables.TableStyle()
-        attrs = element.extractAttributes(self.attrs, self.element, self)
-        for name, value in attrs.items():
-            setattr(style, name, value)
+        self.style = reportlab.platypus.tables.TableStyle()
+        for name, value in kw.items():
+            setattr(self.style, name, value)
         # Fill style
-        self.processSubElements(style)
+        self.processSubDirectives()
         # Add style to the manager
-        manager = attr.getManager(self, interfaces.IStylesManager)
-        manager.styles[id] = style
+        manager = attrng.getManager(self)
+        manager.styles[id] = self.style
 
 
-class Stylesheet(element.ContainerElement):
+class IStylesheet(interfaces.IRMLDirectiveSignature):
+    """A styleheet defines the styles that can be used in the document."""
+    occurence.containing(
+        occurence.ZeroOrOne('initialize', IInitialize),
+        occurence.ZeroOrMore('paraStyle', IParagraphStyle),
+        occurence.ZeroOrMore('blockTableStyle', IBlockTableStyle),
+        # TODO:
+        #occurence.ZeroOrMore('boxStyle', IBoxStyle),
+        )
 
-    subElements = {
+class Stylesheet(directive.RMLDirective):
+    signature = IStylesheet
+
+    factories = {
         'initialize': Initialize,
         'paraStyle': ParagraphStyle,
         'blockTableStyle': BlockTableStyle,
-        # TODO: 'boxStyle': BoxStyle,
         }
-    order = ('initialize', 'paraStyle', 'blockTableStyle')

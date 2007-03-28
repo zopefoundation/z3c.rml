@@ -19,7 +19,7 @@ import os
 import unittest
 import sys
 import z3c.rml.tests
-from z3c.rml import rml2pdf, attr
+from z3c.rml import rml2pdf, attrng
 
 class RMLRenderingTestCase(unittest.TestCase):
 
@@ -30,17 +30,17 @@ class RMLRenderingTestCase(unittest.TestCase):
 
     def setUp(self):
         # Switch file opener for Image attibute
-        self._imageOpen = attr.Image.open
+        self._fileOpen = attrng.File.open
         def testOpen(img, filename):
             path = os.path.join(os.path.dirname(self._inPath), filename)
             return open(path)
-        attr.Image.open = testOpen
+        attrng.File.open = testOpen
         import z3c.rml.tests.module
         sys.modules['module'] = z3c.rml.tests.module
         sys.modules['mymodule'] = z3c.rml.tests.module
 
     def tearDown(self):
-        attr.Image.open = self._imageOpen
+        attrng.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
 
@@ -58,7 +58,7 @@ def test_suite():
        inPath = os.path.join(inputDir, filename)
        outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
        # Create new type, so that we can get test matching
-       TestCase = type(filename[:-4].title(), (RMLRenderingTestCase,), {})
+       TestCase = type(filename[:-4], (RMLRenderingTestCase,), {})
        case = TestCase(inPath, outPath)
        suite.addTest(case)
    return suite

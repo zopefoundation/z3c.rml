@@ -18,12 +18,15 @@ $Id$
 __docformat__ = "reStructuredText"
 import copy
 import re
+import reportlab.lib.styles
 import reportlab.platypus
 import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
+import zope.schema
 from reportlab.lib import styles
-from z3c.rml import attr, element, form, platypus, special, stylesheet
+from z3c.rml import attrng, directive, interfaces, occurence
+from z3c.rml import form, platypus, special, stylesheet
 
 try:
     import reportlab.graphics.barcode
@@ -34,45 +37,96 @@ except ImportError:
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.createBarcodeDrawing = None
 
-class Flowable(element.FunctionElement):
+class Flowable(directive.RMLDirective):
     klass=None
+    attrMapping = None
 
     def process(self):
-        args = self.getPositionalArguments()
-        kw = self.getKeywordArguments()
-        self.parent.flow.append(self.klass(*args, **kw))
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        self.parent.flow.append(self.klass(**args))
+
+
+class ISpacer(interfaces.IRMLDirectiveSignature):
+    """Creates a vertical space in the flow."""
+
+    width = attrng.Measurement(
+        title=u'Width',
+        description=u'The width of the spacer. Currently not implemented.',
+        default=100,
+        required=False)
+
+    length = attrng.Measurement(
+        title=u'Length',
+        description=u'The height of the spacer.',
+        required=True)
 
 class Spacer(Flowable):
+    signature = ISpacer
     klass = reportlab.platypus.Spacer
-    args = ( attr.Measurement('width', 100), attr.Measurement('length'), )
+    attrMapping = {'length': 'height'}
 
+
+class IIllustration(interfaces.IRMLDirectiveSignature):
+    """Inserts an illustration with graphics elements."""
+
+    width = attrng.Measurement(
+        title=u'Width',
+        description=u'The width of the illustration.',
+        required=True)
+
+    height = attrng.Measurement(
+        title=u'Height',
+        description=u'The height of the illustration.',
+        default=100,
+        required=True)
 
 class Illustration(Flowable):
+    signature = IIllustration
     klass = platypus.Illustration
-    args = ( attr.Measurement('width'), attr.Measurement('height', 100))
 
     def process(self):
-        args = self.getPositionalArguments()
-        self.parent.flow.append(self.klass(self, *args))
+        args = dict(self.getAttributeValues())
+        self.parent.flow.append(self.klass(self, **args))
+
+
+class IBarCodeFlowable(form.IBarCodeBase):
+    """Creates a bar code as a flowable."""
+
+    value = attrng.String(
+        title=u'Value',
+        description=u'The value represented by the code.',
+        required=True)
 
 class BarCodeFlowable(Flowable):
+    signature = IBarCodeFlowable
     klass = staticmethod(reportlab.graphics.barcode.createBarcodeDrawing)
-    args = form.BarCode.args[:-1]
-    kw = form.BarCode.kw[2:] + ( ('value', attr.Attribute('value')), )
+    attrMapping = {'code': 'codeName'}
 
-class Preformatted(Flowable):
-    klass = reportlab.platypus.Preformatted
-    args = ( attr.RawXMLContent(u''), attr.Style('style', 'Normal') )
+class IPluginFlowable(interfaces.IRMLDirectiveSignature):
+    """Inserts a custom flowable developed in Python."""
 
-class XPreformatted(Flowable):
-    klass = reportlab.platypus.XPreformatted
-    args = ( attr.RawXMLContent(u''), attr.Style('style', 'Normal') )
+    module = attrng.String(
+        title=u'Module',
+        description=u'The Python module in which the flowable is located.',
+        required=True)
+
+    function = attrng.String(
+        title=u'Function',
+        description=(u'The name of the factory function within the module '
+                     u'that returns the custom flowable.'),
+        required=True)
+
+    params = attrng.TextNode(
+        title=u'Parameters',
+        description=(u'A list of parameters encoded as a long string.'),
+        required=False)
 
 class PluginFlowable(Flowable):
-    args = ( attr.Text('module'), attr.Text('function'), attr.TextNode())
+    signature = IPluginFlowable
 
     def process(self):
-        modulePath, functionName, text = self.getPositionalArguments()
+        modulePath, functionName, text = self.getAttributeValues(
+            valuesOnly=True)
         module = __import__(modulePath, {}, {}, [modulePath])
         function = getattr(module, functionName)
         flowables = function(text)
@@ -81,294 +135,737 @@ class PluginFlowable(Flowable):
         self.parent.flow += list(flowables)
 
 
-class Paragraph(Flowable):
-    klass = reportlab.platypus.Paragraph
-    args = ( attr.XMLContent(u''), attr.Style('style', 'Normal') )
-    kw = ( ('bulletText', attr.Attribute('bulletText')), )
+class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
 
-    styleAttrs = stylesheet.ParagraphStyle.attrs[3:]
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
+        required=True)
+
+    bulletText = attrng.String(
+        title=u'Bullet Character',
+        description=(u'The bullet character is the ASCII representation of '
+                     u'the symbol making up the bullet in a listing.'),
+        required=False)
+
+    dedent = attrng.Integer(
+        title=u'Dedent',
+        description=(u'Number of characters to be removed in front of every '
+                     u'line of the text.'),
+        required=False)
+
+
+class IBold(interfaces.IRMLDirectiveSignature):
+    """Renders the text inside as bold."""
+
+class IItalic(interfaces.IRMLDirectiveSignature):
+    """Renders the text inside as italic."""
+
+class IUnderLine(interfaces.IRMLDirectiveSignature):
+    """Underlines the contained text."""
+
+class IBreak(interfaces.IRMLDirectiveSignature):
+    """Inserts a line break in the paragraph."""
+
+class IPageNumber(interfaces.IRMLDirectiveSignature):
+    """Inserts the current page number into the text."""
+
+class IParagraphBase(IMinimalParagraphBase):
+    occurence.containing(
+        occurence.ZeroOrMore('b', IBold),
+        occurence.ZeroOrMore('i', IItalic),
+        occurence.ZeroOrMore('u', IUnderLine),
+        occurence.ZeroOrMore('br', IBreak,
+                             condition=occurence.laterThanReportlab21),
+        occurence.ZeroOrMore('pageNumber', IPageNumber)
+        )
+
+class IPreformatted(IMinimalParagraphBase):
+    """A preformatted text, similar to the <pre> tag in HTML."""
+
+    text = attrng.RawXMLContent(
+        title=u'Text',
+        description=(u'The text that will be layed out.'),
+        required=True)
+
+class Preformatted(Flowable):
+    signature = IPreformatted
+    klass = reportlab.platypus.Preformatted
+
+
+class IXPreformatted(IParagraphBase):
+    """A preformatted text that allows paragraph markup."""
+
+    text = attrng.RawXMLContent(
+        title=u'Text',
+        description=(u'The text that will be layed out.'),
+        required=True)
+
+class XPreformatted(Flowable):
+    signature = IXPreformatted
+    klass = reportlab.platypus.XPreformatted
+
+
+class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
+    """Lays out an entire paragraph."""
+
+    text = attrng.XMLContent(
+        title=u'Text',
+        description=(u'The text that will be layed out.'),
+        required=True)
+
+class Paragraph(Flowable):
+    signature = IParagraph
+    klass = reportlab.platypus.Paragraph
+
+    styleAttributes = zope.schema.getFieldNames(stylesheet.IBaseParagraphStyle)
 
     def processStyle(self, style):
-        attrs = element.extractAttributes(self.styleAttrs, self.element, self)
+        attrs = self.getAttributeValues(select=self.styleAttributes)
         if attrs:
             style = copy.deepcopy(style)
-            for name, value in attrs.items():
+            for name, value in attrs:
                 setattr(style, name, value)
         return style
 
     def process(self):
-        args = self.getPositionalArguments()
-        kw = self.getKeywordArguments()
-        args[1] = self.processStyle(args[1])
-        self.parent.flow.append(self.klass(*args, **kw))
+        args = dict(self.getAttributeValues(ignore=self.styleAttributes))
+        args['style'] = self.processStyle(args['style'])
+        self.parent.flow.append(self.klass(**args))
+
+
+class ITitle(IParagraph):
+    """The title is a simple paragraph with a special title style."""
+
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Title'],
+        required=True)
 
 class Title(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'Title'), )
+    signature = ITitle
+
+
+class IHeading1(IParagraph):
+    """Heading 1 is a simple paragraph with a special heading 1 style."""
+
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading1'],
+        required=True)
 
 class Heading1(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading1'), )
+    signature = IHeading1
+
+
+class IHeading2(IParagraph):
+    """Heading 2 is a simple paragraph with a special heading 2 style."""
+
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading2'],
+        required=True)
 
 class Heading2(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading2'), )
+    signature = IHeading2
+
+
+class IHeading3(IParagraph):
+    """Heading 3 is a simple paragraph with a special heading 3 style."""
+
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading3'],
+        required=True)
 
 class Heading3(Paragraph):
-    args = ( attr.XMLContent(u''), attr.Style('style', 'Heading3'), )
+    signature = IHeading3
 
-class TableCell(element.Element):
 
-    styleAttrs = (
-        ('FONTNAME', (attr.Text('fontName'),)),
-        ('FONTSIZE', (attr.Measurement('fontSize'),)),
-        ('TEXTCOLOR', (attr.Color('fontColor'),)),
-        ('LEADING', (attr.Measurement('leading'),)),
-        ('LEFTPADDING', (attr.Measurement('leftPadding'),)),
-        ('RIGHTPADDING', (attr.Measurement('rightPadding'),)),
-        ('TOPPADDING', (attr.Measurement('topPadding'),)),
-        ('BOTTOMPADDING', (attr.Measurement('bottomPadding'),)),
-        ('BACKGROUND', (attr.Color('background'),)),
-        ('ALIGNMENT', (attr.Choice('align',
-                           {'left': 'LEFT', 'right': 'RIGHT',
-                            'center': 'CENTER', 'decimal': 'DECIMAL'}),)),
-        ('VALIGN', (attr.Choice('vAlign',
-                        {'top': 'TOP', 'middle': 'MIDDLE',
-                         'bottom': 'BOTTOM'}), )),
-        ('LINEBELOW', (attr.Measurement('lineBelowThickness'),
-                       attr.Color('lineBelowColor'),
-                       attr.Choice('lineBelowCap',
-                                   {'butt': 0, 'round': 1, 'square': 2}),
-                       attr.Int('lineBelowCount'),
-                       attr.Measurement('lineBelowSpace'))),
-        ('LINEABOVE', (attr.Measurement('lineAboveThickness'),
-                       attr.Color('lineAboveColor'),
-                       attr.Choice('lineAboveCap',
-                                   {'butt': 0, 'round': 1, 'square': 2}),
-                       attr.Int('lineAboveCount'),
-                       attr.Measurement('lineAboveSpace'))),
-        ('LINEBEFORE', (attr.Measurement('lineLeftThickness'),
-                        attr.Color('lineLeftColor'),
-                        attr.Choice('lineLeftCap',
-                                    {'butt': 0, 'round': 1, 'square': 2}),
-                        attr.Int('lineLeftCount'),
-                        attr.Measurement('lineLeftSpace'))),
-        ('LINEAFTER', (attr.Measurement('lineRightThickness'),
-                       attr.Color('lineRightColor'),
-                       attr.Choice('lineRightCap',
-                                   {'butt': 0, 'round': 1, 'square': 2}),
-                       attr.Int('lineRightCount'),
-                       attr.Measurement('lineRightSpace'))),
+class ITableCell(interfaces.IRMLDirectiveSignature):
+    """A table cell within a table."""
+
+    content = attrng.RawXMLContent(
+        title=u'Content',
+        description=(u'The content of the cell; can be text or any flowable.'),
+        required=True)
+
+    fontName = attrng.String(
+        title=u'Font Name',
+        description=u'The name of the font for the cell.',
+        required=False)
+
+    fontSize = attrng.Measurement(
+        title=u'Font Size',
+        description=u'The font size for the text of the cell.',
+        required=False)
+
+    leading = attrng.Measurement(
+        title=u'Leading',
+        description=(u'The height of a single text line. It includes '
+                     u'character height.'),
+        required=False)
+
+    fontColor = attrng.Color(
+        title=u'Font Color',
+        description=u'The color in which the text will appear.',
+        required=False)
+
+    leftPadding = attrng.Measurement(
+        title=u'Left Padding',
+        description=u'The size of the padding on the left side.',
+        required=False)
+
+    rightPadding = attrng.Measurement(
+        title=u'Right Padding',
+        description=u'The size of the padding on the right side.',
+        required=False)
+
+    topPadding = attrng.Measurement(
+        title=u'Top Padding',
+        description=u'The size of the padding on the top.',
+        required=False)
+
+    bottomPadding = attrng.Measurement(
+        title=u'Bottom Padding',
+        description=u'The size of the padding on the bottom.',
+        required=False)
+
+    background = attrng.Color(
+        title=u'Background Color',
+        description=u'The color to use as the background for the cell.',
+        required=False)
+
+    align = attrng.Choice(
+        title=u'Text Alignment',
+        description=u'The text alignment within the cell.',
+        choices=interfaces.ALIGN_TEXT_CHOICES,
+        required=False)
+
+    vAlign = attrng.Choice(
+        title=u'Vertical Alignment',
+        description=u'The vertical alignment of the text within the cell.',
+        choices=interfaces.VALIGN_TEXT_CHOICES,
+        required=False)
+
+    lineBelowThickness = attrng.Measurement(
+        title=u'Line Below Thickness',
+        description=u'The thickness of the line below the cell.',
+        required=False)
+
+    lineBelowColor = attrng.Color(
+        title=u'Line Below Color',
+        description=u'The color of the line below the cell.',
+        required=False)
+
+    lineBelowCap = attrng.Choice(
+        title=u'Line Below Cap',
+        description=u'The cap at the end of the line below the cell.',
+        choices=interfaces.CAP_CHOICES,
+        required=False)
+
+    lineBelowCount = attrng.Integer(
+        title=u'Line Below Count',
+        description=(u'Describes whether the line below is a single (1) or '
+                     u'double (2) line.'),
+        required=False)
+
+    lineBelowSpace = attrng.Measurement(
+        title=u'Line Below Space',
+        description=u'The space of the line below the cell.',
+        required=False)
+
+    lineAboveThickness = attrng.Measurement(
+        title=u'Line Above Thickness',
+        description=u'The thickness of the line above the cell.',
+        required=False)
+
+    lineAboveColor = attrng.Color(
+        title=u'Line Above Color',
+        description=u'The color of the line above the cell.',
+        required=False)
+
+    lineAboveCap = attrng.Choice(
+        title=u'Line Above Cap',
+        description=u'The cap at the end of the line above the cell.',
+        choices=interfaces.CAP_CHOICES,
+        required=False)
+
+    lineAboveCount = attrng.Integer(
+        title=u'Line Above Count',
+        description=(u'Describes whether the line above is a single (1) or '
+                     u'double (2) line.'),
+        required=False)
+
+    lineAboveSpace = attrng.Measurement(
+        title=u'Line Above Space',
+        description=u'The space of the line above the cell.',
+        required=False)
+
+    lineLeftThickness = attrng.Measurement(
+        title=u'Left Line Thickness',
+        description=u'The thickness of the line left of the cell.',
+        required=False)
+
+    lineLeftColor = attrng.Color(
+        title=u'Left Line Color',
+        description=u'The color of the line left of the cell.',
+        required=False)
+
+    lineLeftCap = attrng.Choice(
+        title=u'Line Left Cap',
+        description=u'The cap at the end of the line left of the cell.',
+        choices=interfaces.CAP_CHOICES,
+        required=False)
+
+    lineLeftCount = attrng.Integer(
+        title=u'Line Left Count',
+        description=(u'Describes whether the left line is a single (1) or '
+                     u'double (2) line.'),
+        required=False)
+
+    lineLeftSpace = attrng.Measurement(
+        title=u'Line Left Space',
+        description=u'The space of the line left of the cell.',
+        required=False)
+
+    lineRightThickness = attrng.Measurement(
+        title=u'Right Line Thickness',
+        description=u'The thickness of the line right of the cell.',
+        required=False)
+
+    lineRightColor = attrng.Color(
+        title=u'Right Line Color',
+        description=u'The color of the line right of the cell.',
+        required=False)
+
+    lineRightCap = attrng.Choice(
+        title=u'Line Right Cap',
+        description=u'The cap at the end of the line right of the cell.',
+        choices=interfaces.CAP_CHOICES,
+        required=False)
+
+    lineRightCount = attrng.Integer(
+        title=u'Line Right Count',
+        description=(u'Describes whether the right line is a single (1) or '
+                     u'double (2) line.'),
+        required=False)
+
+    lineRightSpace = attrng.Measurement(
+        title=u'Line Right Space',
+        description=u'The space of the line right of the cell.',
+        required=False)
+
+class TableCell(directive.RMLDirective):
+    signature = ITableCell
+    styleAttributesMapping = (
+        ('FONTNAME', ('fontName',)),
+        ('FONTSIZE', ('fontSize',)),
+        ('TEXTCOLOR', ('fontColor',)),
+        ('LEADING', ('leading',)),
+        ('LEFTPADDING', ('leftPadding',)),
+        ('RIGHTPADDING', ('rightPadding',)),
+        ('TOPPADDING', ('topPadding',)),
+        ('BOTTOMPADDING', ('bottomPadding',)),
+        ('BACKGROUND', ('background',)),
+        ('ALIGNMENT', ('align',)),
+        ('VALIGN', ('vAlign',)),
+        ('LINEBELOW', ('lineBelowThickness', 'lineBelowColor',
+                       'lineBelowCap', 'lineBelowCount', 'lineBelowSpace')),
+        ('LINEABOVE', ('lineAboveThickness', 'lineAboveColor',
+                       'lineAboveCap', 'lineAboveCount', 'lineAboveSpace')),
+        ('LINEBEFORE', ('lineLeftThickness', 'lineLeftColor',
+                        'lineLeftCap', 'lineLeftCount', 'lineLeftSpace')),
+        ('LINEAFTER', ('lineRightThickness', 'lineRightColor',
+                       'lineRightCap', 'lineRightCount', 'lineRightSpace')),
         )
 
     def processStyle(self):
         row = len(self.parent.parent.rows)
         col = len(self.parent.cols)
-        for styleName, attrs in self.styleAttrs:
-            args = []
-            for attribute in attrs:
-                value = attribute.get(self.element, context=self)
-                if value is not attr.DEFAULT:
-                    args.append(value)
-            if args or len(attrs) == 0:
+        for styleAction, attrNames in self.styleAttributesMapping:
+            args = self.getAttributeValues(select=attrNames, valuesOnly=True)
+            if args or len(attrNames) == 0:
                 self.parent.parent.style.add(
-                    styleName, [col, row], [col, row], *args)
+                    styleAction, [col, row], [col, row], *args)
 
     def process(self):
         # Produce style
         self.processStyle()
         # Produce cell data
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
         content = flow.flow
         if len(content) == 0:
-            content = attr.TextNode().get(self.element)
+            content = self.getAttributeValues(
+                select=('content',), valuesOnly=True)[0]
         self.parent.cols.append(content)
 
-class TableRow(element.ContainerElement):
 
-    subElements = {'td': TableCell}
+class ITableRow(interfaces.IRMLDirectiveSignature):
+    """A table row in the block table."""
+    occurence.containing(
+        occurence.OneOrMore('td', ITableCell),
+        )
+
+class TableRow(directive.RMLDirective):
+    signature = ITableRow
+    factories = {'td': TableCell}
 
     def process(self):
         self.cols = []
-        self.processSubElements(None)
+        self.processSubDirectives()
         self.parent.rows.append(self.cols)
 
-class TableBulkData(element.Element):
+
+class ITableBulkData(interfaces.IRMLDirectiveSignature):
+    """Bulk Data allows one to wuickly create a table."""
+
+    content = attrng.TextNodeSequence(
+        title=u'Content',
+        description=u'The bulk data.',
+        splitre=re.compile('\n'),
+        value_type=attrng.Sequence(splitre=re.compile(','),
+                                 value_type=attrng.Text())
+        )
+
+class TableBulkData(directive.RMLDirective):
+    signature = ITableBulkData
 
     def process(self):
-        attribute = attr.TextNodeSequence(
-            splitre=re.compile('\n'),
-            valueType=attr.Sequence(
-                splitre=re.compile(','),
-                valueType=attr.Text()
-                ))
-        self.parent.rows = attribute.get(self.element)
+        self.parent.rows = self.getAttributeValues(valuesOnly=True)[0]
 
 
 class BlockTableStyle(stylesheet.BlockTableStyle):
 
     def process(self):
-        self.parent.style = copy.deepcopy(self.parent.style)
-        attrs = element.extractAttributes(self.attrs, self.element, self)
-        for name, value in attrs.items():
-            setattr(self.parent.style, name, value)
-        self.processSubElements(self.parent.style)
+        self.style = copy.deepcopy(self.parent.style)
+        attrs = self.getAttributeValues()
+        for name, value in attrs:
+            setattr(self.style, name, value)
+        self.processSubDirectives()
+        self.parent.style = self.style
 
 
-class BlockTable(element.ContainerElement, Flowable):
-    klass = reportlab.platypus.Table
-    kw = (
-        ('rowHeights', attr.Sequence('rowHeights', attr.Measurement())),
-        ('colWidths', attr.Sequence('colWidths',
-             attr.Measurement(allowPercentage=True, allowStar=True))),
+class IBlockTable(interfaces.IRMLDirectiveSignature):
+    """A typical block table."""
+    occurence.containing(
+        occurence.ZeroOrMore('tr', ITableRow),
+        occurence.ZeroOrOne('bulkData', ITableBulkData),
+        occurence.ZeroOrMore('blockTableStyle', stylesheet.IBlockTableStyle),
         )
 
-    attrs = ( ('repeatRows', attr.Int('repeatRows')), )
+    style = attrng.Style(
+        title=u'Style',
+        description=(u'The table style that is applied to the table. '),
+        required=False)
+
+    rowHeights = attrng.Sequence(
+        title=u'Row Heights',
+        description=u'A list of row heights in the table.',
+        value_type=attrng.Measurement(),
+        required=False)
+
+    colWidths = attrng.Sequence(
+        title=u'Column Widths',
+        description=u'A list of column widths in the table.',
+        value_type=attrng.Measurement(allowPercentage=True, allowStar=True),
+        required=False)
+
+    repeatRows = attrng.Integer(
+        title=u'Repeat Rows',
+        description=u'A flag to repeat rows upon table splits.',
+        required=False)
 
 
-    subElements = {
+class BlockTable(Flowable):
+    signature = IBlockTable
+    klass = reportlab.platypus.Table
+    factories = {
         'tr': TableRow,
         'bulkData': TableBulkData,
         'blockTableStyle': BlockTableStyle}
 
     def process(self):
+        attrs = dict(self.getAttributeValues())
         # Get the table style; create a new one, if none is found
-        self.style = attr.Style('style', 'table').get(self.element, None, self)
+        self.style = attrs.pop('style', None)
         if self.style is None:
             self.style = reportlab.platypus.tables.TableStyle()
         # Extract all table rows and cells
         self.rows = []
-        self.processSubElements(None)
+        self.processSubDirectives(None)
         # Create the table
-        kw = self.getKeywordArguments()
-
-        table = self.klass(self.rows, style=self.style, **kw)
-
-        attrs = element.extractKeywordArguments(self.attrs, self.element)
-        for name, value in attrs.items():
-            setattr(table, name, value)
-
-        # Must set keepWithNExt on table, since the style is not stored corr.
+        repeatRows = attrs.pop('repeatRows', None)
+        table = self.klass(self.rows, style=self.style, **attrs)
+        if repeatRows:
+            table.repeatRows = repeatRows
+        # Must set keepWithNext on table, since the style is not stored corr.
         if hasattr(self.style, 'keepWithNext'):
             table.keepWithNext = self.style.keepWithNext
         self.parent.flow.append(table)
 
 
+class INextFrame(interfaces.IRMLDirectiveSignature):
+    """Switch to the next frame."""
+    name = attrng.StringOrInt(
+        title=u'Name',
+        description=(u'The name or index of the next frame.'),
+        required=False)
+
 class NextFrame(Flowable):
+    signature = INextFrame
     klass = reportlab.platypus.doctemplate.FrameBreak
-    kw = (
-        ('ix', attr.StringOrInt('name')), )
+    attrMapping = {'name': 'ix'}
+
+
+class ISetNextFrame(interfaces.IRMLDirectiveSignature):
+    """Define the next frame to switch to."""
+    name = attrng.StringOrInt(
+        title=u'Name',
+        description=(u'The name or index of the next frame.'),
+        required=True)
 
 class SetNextFrame(Flowable):
+    signature = INextFrame
     klass = reportlab.platypus.doctemplate.NextFrameFlowable
-    kw = (
-        ('ix', attr.StringOrInt('name')), )
+    attrMapping = {'name': 'ix'}
+
+
+class INextPage(interfaces.IRMLDirectiveSignature):
+    """Switch to the next page."""
 
 class NextPage(Flowable):
+    signature = INextPage
     klass = reportlab.platypus.PageBreak
 
+
+class ISetNextTemplate(interfaces.IRMLDirectiveSignature):
+    """Define the next page template to use."""
+    name = attrng.StringOrInt(
+        title=u'Name',
+        description=u'The name or index of the next page template.',
+        required=True)
+
 class SetNextTemplate(Flowable):
+    signature = ISetNextTemplate
     klass = reportlab.platypus.doctemplate.NextPageTemplate
-    args = ( attr.StringOrInt('name'), )
+    attrMapping = {'name': 'pt'}
+
+
+class IConditionalPageBreak(interfaces.IRMLDirectiveSignature):
+    """Switch to the next page if not enough vertical space is available."""
+    height = attrng.Measurement(
+        title=u'height',
+        description=u'The minimal height that must be remaining on the page.',
+        required=True)
 
 class ConditionalPageBreak(Flowable):
+    signature = IConditionalPageBreak
     klass = reportlab.platypus.CondPageBreak
-    args = ( attr.Measurement('height'), )
 
+
+class IKeepInFrame(interfaces.IRMLDirectiveSignature):
+    """Ask a flowable to stay within the frame."""
+
+    maxWidth = attrng.Measurement(
+        title=u'Maximum Width',
+        description=u'The maximum width the flowables are allotted.',
+        default=None,
+        required=False)
+
+    maxHeight = attrng.Measurement(
+        title=u'Maximum Height',
+        description=u'The maximum height the flowables are allotted.',
+        default=None,
+        required=False)
+
+    mergeSpace = attrng.Boolean(
+        title=u'Merge Space',
+        description=u'A flag to set whether the space should be merged.',
+        required=False)
+
+    onOverflow = attrng.Choice(
+        title=u'On Overflow',
+        description=u'Defines what has to be done, if an overflow is detected.',
+        choices=('error', 'overflow', 'shrink', 'truncate'),
+        required=False)
+
+    id = attrng.Text(
+        title=u'Name/Id',
+        description=u'The name/id of the flowable.',
+        required=False)
+
+    frame = attrng.StringOrInt(
+        title=u'Frame',
+        description=u'The frame to which the flowable should be fitted.',
+        required=False)
 
 class KeepInFrame(Flowable):
+    signature = IKeepInFrame
     klass = reportlab.platypus.flowables.KeepInFrame
-    args = (
-        attr.Measurement('maxWidth', None),
-        attr.Measurement('maxHeight', None), )
-    kw = (
-        ('mergeSpace', attr.Bool('mergeSpace')),
-        ('mode', attr.Choice('onOverflow',
-                             ('error', 'overflow', 'shrink', 'truncate'))),
-        ('name', attr.Text('id')),
-        ('frame', attr.StringOrInt('frame')), )
+    attrMapping = {'onOverflow': 'mode', 'id': 'name'}
 
     def process(self):
-        args = self.getPositionalArguments()
-        kw = self.getKeywordArguments()
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        # Circumvent broken-ness in zope.schema
+        args['maxWidth'] = args.get('maxWidth', None)
+        args['maxHeight'] = args.get('maxHeight', None)
         # If the frame was specifed, get us there
-        frame = kw.pop('frame', None)
+        frame = args.pop('frame', None)
         if frame:
             self.parent.flow.append(
                 reportlab.platypus.doctemplate.FrameBreak(frame))
         # Create the content of the container
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
-        kw['content'] = flow.flow
+        args['content'] = flow.flow
         # Create the keep in frame container
-        frame = self.klass(*args, **kw)
+        frame = self.klass(**args)
         self.parent.flow.append(frame)
 
 
+class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
+    """An image with flowables around it."""
+
+    imageName = attrng.Image(
+        title=u'Image',
+        description=u'The file that is used to extract the image data.',
+        onlyOpen=True,
+        required=True)
+
+    imageWidth = attrng.Measurement(
+        title=u'Image Width',
+        description=u'The width of the image.',
+        required=False)
+
+    imageHeight = attrng.Measurement(
+        title=u'Image Height',
+        description=u'The height the image.',
+        required=False)
+
+    imageMask = attrng.Color(
+        title=u'Mask',
+        description=u'The height the image.',
+        required=False)
+
+    imageLeftPadding = attrng.Measurement(
+        title=u'Image Left Padding',
+        description=u'The padding on the left side of the image.',
+        required=False)
+
+    imageRightPadding = attrng.Measurement(
+        title=u'Image Right Padding',
+        description=u'The padding on the right side of the image.',
+        required=False)
+
+    imageTopPadding = attrng.Measurement(
+        title=u'Image Top Padding',
+        description=u'The padding on the top of the image.',
+        required=False)
+
+    imageBottomPadding = attrng.Measurement(
+        title=u'Image Bottom Padding',
+        description=u'The padding on the bottom of the image.',
+        required=False)
+
+    iamgeSide = attrng.Choice(
+        title=u'Image Side',
+        description=u'The side at which the image will be placed.',
+        choices=('left', 'right'),
+        required=False)
+
 class ImageAndFlowables(Flowable):
+    signature = IImageAndFlowables
     klass = reportlab.platypus.flowables.ImageAndFlowables
-    args = ( attr.Image('imageName', onlyOpen=True), )
-    kw = (
-        ('width', attr.Measurement('imageWidth')),
-        ('height', attr.Measurement('imageHeight')),
-        ('mask', attr.Color('imageMask')),
-        ('imageLeftPadding', attr.Measurement('imageLeftPadding')),
-        ('imageRightPadding', attr.Measurement('imageRightPadding')),
-        ('imageTopPadding', attr.Measurement('imageTopPadding')),
-        ('imageBottomPadding', attr.Measurement('imageBottomPadding')),
-        ('imageSide', attr.Choice('imageSide', ('left', 'right'))) )
+    attrMapping = {'imageWidth': 'width', 'imageHeight': 'height',
+                   'imageMask': 'mask', 'imageName': 'filename'}
 
     def process(self):
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
-        args = self.getPositionalArguments()
-        kw = self.getKeywordArguments()
         # Create the image
-        img = reportlab.platypus.flowables.Image(
-            width=kw.get('width'), height=kw.get('height'),
-            mask=kw.get('mask', 'auto'), *args)
-        for option in ('width', 'height', 'mask'):
-            if option in kw:
-                del kw[option]
+        args = dict(self.getAttributeValues(
+            select=('imageName', 'imageWidth', 'imageHeight', 'imageMask'),
+            attrMapping=self.attrMapping))
+        img = reportlab.platypus.flowables.Image(**args)
         # Create the flowable and add it
+        args = dict(self.getAttributeValues(
+            ignore=('imageName', 'imageWidth', 'imageHeight', 'imageMask'),
+            attrMapping=self.attrMapping))
         self.parent.flow.append(
-            self.klass(img, flow.flow, **kw))
+            self.klass(img, flow.flow, **args))
 
+
+class IPTO(interfaces.IRMLDirectiveSignature):
+    '''A container for flowables decorated with trailer & header lists.
+    If the split operation would be called then the trailer and header
+    lists are injected before and after the split. This allows specialist
+    "please turn over" and "continued from previous" like behaviours.'''
 
 class PTO(Flowable):
+    signature = IPTO
     klass = reportlab.platypus.flowables.PTOContainer
 
     def process(self):
         # Get Content
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
         # Get the header
         ptoHeader = self.element.find('pto_header')
         header = None
         if ptoHeader:
-            header = Flow(ptoHeader, self.parent, self.context)
+            header = Flow(ptoHeader, self.parent)
             header.process()
             header = header.flow
         # Get the trailer
         ptoTrailer = self.element.find('pto_trailer')
         trailer = None
         if ptoTrailer:
-            trailer = Flow(ptoTrailer, self.parent, self.context)
+            trailer = Flow(ptoTrailer, self.parent)
             trailer.process()
             trailer = trailer.flow
         # Create and add the PTO Container
         self.parent.flow.append(self.klass(flow.flow, trailer, header))
 
 
+class IIndent(interfaces.IRMLDirectiveSignature):
+    """Indent the contained flowables."""
+
+    left = attrng.Measurement(
+        title=u'Left',
+        description=u'The indentation to the left.',
+        required=False)
+
+    right = attrng.Measurement(
+        title=u'Right',
+        description=u'The indentation to the right.',
+        required=False)
+
 class Indent(Flowable):
-    kw = (
-        ('left', attr.Measurement('left')),
-        ('right', attr.Measurement('right')) )
+    signature = IIndent
 
     def process(self):
-        kw = self.getKeywordArguments()
+        kw = dict(self.getAttributeValues())
         # Indent
         self.parent.flow.append(reportlab.platypus.doctemplate.Indenter(**kw))
         # Add Content
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
         self.parent.flow += flow.flow
         # Dedent
@@ -377,57 +874,181 @@ class Indent(Flowable):
         self.parent.flow.append(reportlab.platypus.doctemplate.Indenter(**kw))
 
 
+class IFixedSize(interfaces.IRMLDirectiveSignature):
+    """Create a container flowable of a fixed size."""
+
+    width = attrng.Measurement(
+        title=u'Width',
+        description=u'The width the flowables are allotted.',
+        required=True)
+
+    height = attrng.Measurement(
+        title=u'Height',
+        description=u'The height the flowables are allotted.',
+        required=True)
+
 class FixedSize(Flowable):
+    signature = IFixedSize
     klass = reportlab.platypus.flowables.KeepInFrame
-    args = (
-        attr.Measurement('width'),
-        attr.Measurement('height'), )
+    attrMapping = {'width': 'maxWidth', 'height': 'maxHeight'}
 
     def process(self):
-        flow = Flow(self.element, self.parent, self.context)
+        flow = Flow(self.element, self.parent)
         flow.process()
-        args = self.getPositionalArguments()
-        frame = self.klass(content=flow.flow, mode='shrink', *args)
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        frame = self.klass(content=flow.flow, mode='shrink', **args)
         self.parent.flow.append(frame)
 
+
+class IBookmark(interfaces.IRMLDirectiveSignature):
+    """
+    This creates a bookmark to the current page which can be referred to with
+    the given key elsewhere.
+
+    PDF offers very fine grained control over how Acrobat reader is zoomed
+    when people link to this. The default is to keep the user's current zoom
+    settings. the last arguments may or may not be needed depending on the
+    choice of 'fitType'.
+    """
+
+    name = attrng.Text(
+        title=u'Name',
+        description=u'The name of the bookmark.',
+        required=True)
+
+    fitType = attrng.Choice(
+        title=u'Fit Type',
+        description=u'The Fit Type.',
+        choices=('Fit', 'FitH', 'FitV', 'FitR'),
+        required=False)
+
+    left = attrng.Measurement(
+        title=u'Left',
+        description=u'The left position.',
+        required=False)
+
+    right = attrng.Measurement(
+        title=u'Right',
+        description=u'The right position.',
+        required=False)
+
+    top = attrng.Measurement(
+        title=u'Top',
+        description=u'The top position.',
+        required=False)
+
+    right = attrng.Measurement(
+        title=u'Right',
+        description=u'The right position.',
+        required=False)
+
+    zoom = attrng.Float(
+        title=u'Zoom',
+        description=u'The zoom level when clicking on the bookmark.',
+        required=False)
+
 class Bookmark(Flowable):
+    signature = IBookmark
     klass = platypus.BookmarkPage
-    args = ( attr.Text('name'), )
-    kw = (
-        ('fitType', attr.Choice('fitType', ('Fit', 'FitH', 'FitV', 'FitR'))),
-        ('left', attr.Measurement('left')),
-        ('right', attr.Measurement('right')),
-        ('top', attr.Measurement('top')),
-        ('bottom', attr.Measurement('bottom')),
-        ('zoom', attr.Float('zoom')),
-        )
+    attrMapping = {'name': 'key'}
+
+
+class IHorizontalRow(interfaces.IRMLDirectiveSignature):
+    """Create a horizontal line on the page."""
+
+    width = attrng.Measurement(
+        title=u'Width',
+        description=u'The width of the line on the page.',
+        allowPercentage=True,
+        required=False)
+
+    thickness = attrng.Measurement(
+        title=u'Thickness',
+        description=u'Line Thickness',
+        required=False)
+
+    color = attrng.Color(
+        title=u'Color',
+        description=u'The color of the line.',
+        required=False)
+
+    lineCap = attrng.Choice(
+        title=u'Cap',
+        description=u'The cap at the end of the line.',
+        choices=interfaces.CAP_CHOICES.keys(),
+        required=False)
+
+    spaceBefore = attrng.Measurement(
+        title=u'Space Before',
+        description=u'The vertical space before the line.',
+        required=False)
+
+    spaceAfter = attrng.Measurement(
+        title=u'Space After',
+        description=u'The vertical space after the line.',
+        required=False)
+
+    align = attrng.Choice(
+        title=u'Alignment',
+        description=u'The alignment of the line within the frame.',
+        choices=interfaces.ALIGN_TEXT_CHOICES,
+        required=False)
+
+    valign = attrng.Choice(
+        title=u'Vertical Alignment',
+        description=u'The vertical alignment of the line.',
+        choices=interfaces.VALIGN_TEXT_CHOICES,
+        required=False)
+
+    dash = attrng.Sequence(
+        title=u'Dash-Pattern',
+        description=u'The dash-pattern of a line.',
+        value_type=attrng.Measurement(),
+        default=None,
+        required=False)
 
 class HorizontalRow(Flowable):
+    signature = IHorizontalRow
     klass = reportlab.platypus.flowables.HRFlowable
-    kw = (
-        ('width', attr.Measurement('width', allowPercentage=True)),
-        ('thickness', attr.Measurement('thickness')),
-        ('color', attr.Color('color')),
-        ('lineCap', attr.Choice('lineCap', ('butt', 'round', 'square') )),
-        ('spaceBefore', attr.Measurement('spaceBefore')),
-        ('spaceAfter', attr.Measurement('spaceAfter')),
-        ('hAlign', attr.Choice(
-             'align', ('left', 'right', 'center', 'centre', 'decimal') )),
-        ('vAlign', attr.Choice('vAlign', ('top', 'middle', 'bottom') )),
-        ('dash', attr.Sequence('dash', attr.Measurement())),
-        )
+    attrMapping = {'align': 'hAlign'}
+
+
+class IOutlineAdd(interfaces.IRMLDirectiveSignature):
+    """Add a new entry to the outline of the PDF."""
+
+    title = attrng.TextNode(
+        title=u'Title',
+        description=u'The text displayed for this item.',
+        required=True)
+
+    key = attrng.String(
+        title=u'Key',
+        description=u'The unique key of the item.',
+        required=False)
+
+    level = attrng.Integer(
+        title=u'Level',
+        description=u'The level in the outline tree.',
+        required=False)
+
+    closed = attrng.Boolean(
+        title=u'Closed',
+        description=(u'A flag to determine whether the sub-tree is closed '
+                     u'by default.'),
+        required=False)
+
 
 class OutlineAdd(Flowable):
+    signature = IOutlineAdd
     klass = platypus.OutlineAdd
-    args = ( attr.TextNode(), attr.Text('key', None) )
-    kw = (
-        ('level', attr.Int('level')),
-        ('closed', attr.Bool('closed')),
-        )
 
-class Flow(element.ContainerElement):
 
-    subElements = {
+class IFlow(interfaces.IRMLDirectiveSignature):
+    """A list of flowables."""
+
+class Flow(directive.RMLDirective):
+
+    factories = {
         # Generic Flowables
         'spacer': Spacer,
         'illustration': Illustration,
@@ -466,5 +1087,5 @@ class Flow(element.ContainerElement):
         self.flow = []
 
     def process(self):
-        self.processSubElements(None)
+        self.processSubDirectives()
         return self.flow

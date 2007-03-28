@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-textAnnotation.pdf">
+  <pageDrawing>
+    <textAnnotation>
+      <param name="Rect">0,0,1,1</param>
+      <param name="F">3</param>
+      <param name="escape">6</param>
+X::PDF
+PX(S)
+MT(PINK)
+    </textAnnotation>
+  </pageDrawing>
+</document>

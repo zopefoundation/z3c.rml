@@ -17,7 +17,7 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import cStringIO
-from z3c.rml import attr, element, interfaces
+from z3c.rml import attrng, directive, interfaces
 
 try:
     import pyPdf
@@ -48,11 +48,25 @@ class MergePostProcessor(object):
         return outputFile
 
 
-class MergePage(element.FunctionElement):
-    args = ( attr.File('filename'), attr.Int('page') )
+class IMergePage(interfaces.IRMLDirectiveSignature):
+    """Merges an existing PDF Page into the one to be generated."""
+
+    filename = attrng.File(
+        title=u'File',
+        description=(u'Reference to the PDF file to extract the page from.'),
+        required=True)
+
+    page = attrng.Integer(
+        title=u'Page Number',
+        description=u'The page number of the PDF file that is used to merge..',
+        required=True)
+
+
+class MergePage(directive.RMLDirective):
+    signature = IMergePage
 
     def getProcessor(self):
-        manager = attr.getManager(self, interfaces.IPostProcessorManager)
+        manager = attrng.getManager(self, interfaces.IPostProcessorManager)
         procs = dict(manager.postProcessors)
         if 'MERGE' not in procs:
             proc = MergePostProcessor()
@@ -64,8 +78,9 @@ class MergePage(element.FunctionElement):
         if pyPdf is None:
             raise Exception(
                 'pyPdf is not installed, so this feature is not available.')
-        inputFile, inPage = self.getPositionalArguments()
-        outPage = self.context.getPageNumber()-1
+        inputFile, inPage = self.getAttributeValues(valuesOnly=True)
+        manager = attrng.getManager(self, interfaces.ICanvasManager)
+        outPage = manager.canvas.getPageNumber()-1
 
         proc = self.getProcessor()
         pageOperations = proc.operations.setdefault(outPage, [])

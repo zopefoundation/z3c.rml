@@ -16,25 +16,45 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
-from z3c.rml import attr, element, interfaces
+from z3c.rml import attrng, directive, interfaces
 
 
-class Name(element.FunctionElement):
-    args = (
-        attr.Text('id'),
-        attr.Text('value'), )
+class IName(interfaces.IRMLDirectiveSignature):
+    """Defines a name for a string."""
+
+    id = attrng.String(
+        title=u'Id',
+        description=u'The id under which the value will be known.',
+        required=True)
+
+    value = attrng.Text(
+        title=u'Value',
+        description=u'The text that is displayed if the id is called.',
+        required=True)
+
+class Name(directive.RMLDirective):
+    signature = IName
 
     def process(self):
-        id, value = self.getPositionalArguments()
-        manager = attr.getManager(self, interfaces.INamesManager)
+        id, value = self.getAttributeValues(valuesOnly=True)
+        manager = attrng.getManager(self)
         manager.names[id] = value
 
 
-class GetName(element.Element):
+class IGetName(interfaces.IRMLDirectiveSignature):
+    """Get the text for the id."""
+
+    id = attrng.String(
+        title=u'Id',
+        description=u'The id as which the value is known.',
+        required=True)
+
+class GetName(directive.RMLDirective):
+    signature = IGetName
 
     def process(self):
-        id = attr.Text('id').get(self.element)
-        manager = attr.getManager(self, interfaces.INamesManager)
+        id = dict(self.getAttributeValues()).pop('id')
+        manager = attrng.getManager(self)
         text = manager.names[id] + (self.element.tail or u'')
         # Now replace the element with the text
         parent = self.element.getparent()
@@ -45,12 +65,23 @@ class GetName(element.Element):
         parent.remove(self.element)
 
 
-class Alias(element.FunctionElement):
-    args = (
-        attr.Text('id'),
-        attr.Style('value'), )
+class IAlias(interfaces.IRMLDirectiveSignature):
+    """Defines an alias for a given style."""
+
+    id = attrng.String(
+        title=u'Id',
+        description=u'The id as which the style will be known.',
+        required=True)
+
+    value = attrng.Style(
+        title=u'Value',
+        description=u'The style that is represented.',
+        required=True)
+
+class Alias(directive.RMLDirective):
+    signature = IAlias
 
     def process(self):
-        id, value = self.getPositionalArguments()
-        manager = attr.getManager(self, interfaces.IStylesManager)
+        id, value = self.getAttributeValues(valuesOnly=True)
+        manager = attrng.getManager(self)
         manager.styles[id] = value

@@ -17,6 +17,10 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import reportlab.platypus.flowables
+import zope.interface
+
+from z3c.rml import interfaces
+
 
 class BaseFlowable(reportlab.platypus.flowables.Flowable):
     def __init__(self, *args, **kw):
@@ -44,7 +48,9 @@ class Illustration(reportlab.platypus.flowables.Flowable):
         from z3c.rml import canvas
         self.canv.saveState()
         drawing = canvas.Drawing(
-            self.processor.element, self.processor, self.canv)
+            self.processor.element, self.processor)
+        zope.interface.alsoProvides(drawing, interfaces.ICanvasManager)
+        drawing.canvas = self.canv
         drawing.process()
         self.canv.restoreState()
 
@@ -55,8 +61,7 @@ class BookmarkPage(BaseFlowable):
 
 class OutlineAdd(BaseFlowable):
     def draw(self):
-        title, key = self.args
-        if key is None:
-            key = str(hash(self))
-        self.canv.bookmarkPage(key)
-        self.canv.addOutlineEntry(title, key, **self.kw)
+        if self.kw.get('key', None) is None:
+            self.kw['key'] = str(hash(self))
+        self.canv.bookmarkPage(self.kw['key'])
+        self.canv.addOutlineEntry(**self.kw)

@@ -16,67 +16,143 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import cStringIO
 import sys
 import zope.interface
+import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
-from z3c.rml import attr, element, error, interfaces
+from z3c.rml import attrng, directive, interfaces, occurence
 from z3c.rml import canvas, stylesheet, template
 
 
-class RegisterType1Face(element.Element):
-    args = ( attr.Attribute('afmFile'), attr.Attribute('pfbFile') )
+class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
+    """Register a new Type 1 font face."""
+
+    afmFile = attrng.String(
+        title=u'AFM File',
+        description=u'Path to AFM file used to register the Type 1 face.',
+        required=True)
+
+    pfbFile = attrng.String(
+        title=u'PFB File',
+        description=u'Path to PFB file used to register the Type 1 face.',
+        required=True)
+
+class RegisterType1Face(directive.RMLDirective):
+    signature = IRegisterType1Face
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element, self)
+        args = self.getAttributeValues(valuesOnly=True)
         face = pdfmetrics.EmbeddedType1Face(*args)
         pdfmetrics.registerTypeFace(face)
 
 
-class RegisterFont(element.Element):
-    args = (
-        attr.Attribute('name'),
-        attr.Attribute('faceName'),
-        attr.Attribute('encName') )
+class IRegisterFont(interfaces.IRMLDirectiveSignature):
+    """Register a new font based on a face and encoding."""
+
+    name = attrng.String(
+        title=u'Name',
+        description=(u'The name under which the font can be used in style '
+                     u'declarations or other parameters that lookup a font.'),
+        required=True)
+
+    faceName = attrng.String(
+        title=u'Face Name',
+        description=(u'The name of the face the font uses. The face has to '
+                     u'be previously registered.'),
+        required=True)
+
+    encName = attrng.String(
+        title=u'Encoding Name',
+        description=(u'The name of the encdoing to be used.'),
+        required=True)
+
+class RegisterFont(directive.RMLDirective):
+    signature = IRegisterFont
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element, self)
+        args = self.getAttributeValues(valuesOnly=True)
         font = pdfmetrics.Font(*args)
         pdfmetrics.registerFont(font)
 
 
-class RegisterTTFont(element.Element):
-    args = (
-        attr.Attribute('faceName'),
-        attr.Attribute('fileName') )
+class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
+    """Register a new TrueType font given the TT file and face name."""
+
+    faceName = attrng.String(
+        title=u'Face Name',
+        description=(u'The name of the face the font uses. The face has to '
+                     u'be previously registered.'),
+        required=True)
+
+    fileName = attrng.String(
+        title=u'File Name',
+        description=u'File path of the of the TrueType font.',
+        required=True)
+
+class RegisterTTFont(directive.RMLDirective):
+    signature = IRegisterTTFont
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element, self)
+        args = self.getAttributeValues(valuesOnly=True)
         font = ttfonts.TTFont(*args)
         pdfmetrics.registerFont(font)
 
 
-class RegisterCidFont(element.Element):
-    args = ( attr.Attribute('faceName'), )
+class IRegisterCidFont(interfaces.IRMLDirectiveSignature):
+    """Register a new CID font given the face name."""
+
+    faceName = attrng.String(
+        title=u'Face Name',
+        description=(u'The name of the face the font uses. The face has to '
+                     u'be previously registered.'),
+        required=True)
+
+class RegisterCidFont(directive.RMLDirective):
+    signature = IRegisterCidFont
 
     def process(self):
-        args = element.extractPositionalArguments(self.args, self.element, self)
-        pdfmetrics.registerFont(cidfonts.UnicodeCIDFont(*args))
+        args = self.getAttributeValues(valuesOnly=True)
+        font = cidfonts.UnicodeCIDFont(*args)
+        pdfmetrics.registerFont(font)
 
 
-class ColorDefinition(element.FunctionElement):
-    args = (
-        attr.Text('id'),
-        attr.Color('RGB'), )
+class IColorDefinition(interfaces.IRMLDirectiveSignature):
+    """Define a new color and give it a name to be known under."""
+
+    id = attrng.String(
+        title=u'Id',
+        description=(u'The id/name the color will be available under.'),
+        required=True)
+
+    # XXX: This is really disgusting; need to rename to "color"!
+    #      This is only here for compatibility with the original RML.
+    RGB = attrng.Color(
+        title=u'Color',
+        description=(u'The color value that is represented.'),
+        required=True)
+
+class ColorDefinition(directive.RMLDirective):
+    signature = IColorDefinition
 
     def process(self):
-        id, value = self.getPositionalArguments()
-        manager = attr.getManager(self, interfaces.IColorsManager)
+        id, value = self.getAttributeValues(valuesOnly=True)
+        manager = attrng.getManager(self)
         manager.colors[id] = value
 
 
-class DocInit(element.ContainerElement):
+class IDocInit(interfaces.IRMLDirectiveSignature):
+    occurence.containing(
+        occurence.ZeroOrMore('registerType1Face', IRegisterType1Face),
+        occurence.ZeroOrMore('registerFont', IRegisterFont),
+        occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
+        occurence.ZeroOrMore('registerCidFont', IRegisterCidFont),
+        occurence.ZeroOrMore('color', IColorDefinition),
+        )
 
-    subElements = {
+class DocInit(directive.RMLDirective):
+    signature = IDocInit
+    factories = {
         'registerType1Face': RegisterType1Face,
         'registerFont': RegisterFont,
         'registerTTFont': RegisterTTFont,
@@ -85,21 +161,56 @@ class DocInit(element.ContainerElement):
         }
 
 
-class Document(element.ContainerElement):
-    zope.interface.implements(
-        interfaces.INamesManager,
-        interfaces.IStylesManager,
-        interfaces.IColorsManager)
+class IDocument(interfaces.IRMLDirectiveSignature):
+    occurence.containing(
+        occurence.ZeroOrOne('docinit', IDocInit),
+        )
 
-    subElements = {
-        'docinit': DocInit
+    filename = attrng.String(
+        title=u'File Name',
+        description=(u'The default name of the output file, if no output '
+                     u'file was provided.'),
+        required=True)
+
+    debug = attrng.Boolean(
+        title=u'Debug',
+        description=u'A flag to activate the debug output.',
+        required=False)
+
+    compression = attrng.BooleanWithDefault(
+        title=u'Compression',
+        description=(u'A flag determining whether page compression should '
+                     u'be used.'),
+        required=False)
+
+    invariant = attrng.BooleanWithDefault(
+        title=u'Invariant',
+        description=(u'A flag that determines whether the produced PDF '
+                     u'should be invariant with respect to the date and '
+                     u'the exact contents.'),
+        required=False)
+
+class Document(directive.RMLDirective):
+    signature = IDocument
+    zope.interface.implements(interfaces.IManager,
+                              interfaces.IPostProcessorManager,
+                              interfaces.ICanvasManager)
+
+    factories = {
+        'docinit': DocInit,
+        'stylesheet': stylesheet.Stylesheet,
+        'template': template.Template,
+        'story': template.Story,
+        'pageInfo': canvas.PageInfo,
+        'pageDrawing': canvas.PageDrawing,
         }
 
     def __init__(self, element):
-        self.element = element
+        super(Document, self).__init__(element, None)
         self.names = {}
         self.styles = {}
         self.colors = {}
+        self.postProcessors = []
 
     def process(self, outputFile=None):
         """Process document"""
@@ -107,10 +218,36 @@ class Document(element.ContainerElement):
             # TODO: This is relative to the input file *not* the CWD!!!
             outputFile = open(self.element.get('filename'), 'w')
 
-        self.processSubElements(None)
+        # Create a temporary output file, so that post-processors can
+        # massage the output
+        self.outputFile = tempOutput = cStringIO.StringIO()
 
+        # Process common sub-directives
+        self.processSubDirectives(select=('docinit', 'stylesheet'))
+
+        # Handle Page Drawing Documents
         if self.element.find('pageDrawing') is not None:
-            canvas.Canvas(self.element, self, None).process(outputFile)
+            kwargs = dict(self.getAttributeValues(
+                select=('compression', 'debug'),
+                attrMapping={'compression': 'pageCompression',
+                             'debug': 'verbosity'}
+                ))
 
-        if self.element.find('template') is not None:
-            template.Template(self.element, self, None).process(outputFile)
+            self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
+            self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
+            self.canvas.save()
+
+        # Handle Flowable-based documents.
+        elif self.element.find('template') is not None:
+            self.processSubDirectives(select=('template', 'story'))
+            self.doc.multiBuild(self.flowables)
+
+        # Process all post processors
+        for name, processor in self.postProcessors:
+            tempOutput.seek(0)
+            tempOutput = processor.process(tempOutput)
+
+        # Save the result into our real output file
+        tempOutput.seek(0)
+        outputFile.write(tempOutput.getvalue())
+

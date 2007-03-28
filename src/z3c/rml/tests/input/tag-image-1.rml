@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-
 <document filename="drawString.pdf">
   <pageDrawing>
 
-    <image file="zope3logo.gif" x="2in" y="10in"
+    <image file="[z3c.rml.tests]/input/zope3logo.gif"
+           x="2in" y="10in"
            showBoundary="true" />
 
-    <image file="zope3logo.gif" x="2in" y="8in" width="5in"
+    <image file="[z3c.rml.tests]/input/zope3logo.gif"
+           x="2in" y="8in" width="5in"
            preserveAspectRatio="true" />
 
-    <image file="zope3logo.gif" x="2in" y="4in" height="3in"
+    <image file="[z3c.rml.tests]/input/zope3logo.gif"
+           x="2in" y="4in" height="3in"
            preserveAspectRatio="true" />
 
-    <image file="zope3logo.gif" x="2in" y="2in" width="0.5in" height="3in"
+    <image file="[z3c.rml.tests]/input/zope3logo.gif"
+           x="2in" y="2in" width="0.5in" height="3in"
            preserveAspectRatio="true" />
 
   </pageDrawing>
