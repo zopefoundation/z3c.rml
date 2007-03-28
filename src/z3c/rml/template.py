@@ -24,6 +24,8 @@ from z3c.rml import canvas, flowable, stylesheet
 
 class IStory(flowable.IFlow):
     """The story of the PDF file."""
+    occurence.containing(
+        *flowable.IFlow.getTaggedValue('directives'))
 
     firstPageTemplate = attr.Text(
         title=u'First Page Template',
@@ -197,7 +199,7 @@ class PageTemplate(directive.RMLDirective):
 class ITemplate(interfaces.IRMLDirectiveSignature):
     """Define a page template."""
     occurence.containing(
-        occurence.OneOrMore('pagetemplate', IPageTemplate),
+        occurence.OneOrMore('pageTemplate', IPageTemplate),
         )
 
     pagesize = attr.PageSize(

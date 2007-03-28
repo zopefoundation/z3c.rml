@@ -164,6 +164,11 @@ class DocInit(directive.RMLDirective):
 class IDocument(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.ZeroOrOne('docinit', IDocInit),
+        occurence.ZeroOrOne('stylesheet', stylesheet.IStylesheet),
+        occurence.ZeroOrOne('template', template.ITemplate),
+        occurence.ZeroOrOne('story', template.IStory),
+        occurence.ZeroOrOne('pageInfo', canvas.IPageInfo),
+        occurence.ZeroOrMore('pageDrawing', canvas.IPageDrawing),
         )
 
     filename = attr.String(

@@ -779,7 +779,11 @@ class Slices3D(Slices):
     factories = {'slice': Slice3D}
 
 
+class ISimpleLabels(interfaces.IRMLDirectiveSignature):
+    pass
+
 class SimpleLabels(directive.RMLDirective):
+    signature = ISimpleLabels
     factories = {'label': Name}
 
     def process(self):

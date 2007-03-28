@@ -1045,6 +1045,34 @@ class OutlineAdd(Flowable):
 
 class IFlow(interfaces.IRMLDirectiveSignature):
     """A list of flowables."""
+    occurence.containing(
+        occurence.ZeroOrMore('spacer', ISpacer),
+        occurence.ZeroOrMore('illustration', IIllustration),
+        occurence.ZeroOrMore('pre', IPreformatted),
+        occurence.ZeroOrMore('xpre', IXPreformatted),
+        occurence.ZeroOrMore('plugInFlowable', IPluginFlowable),
+        occurence.ZeroOrMore('barCodeFlowable', IBarCodeFlowable),
+        occurence.ZeroOrMore('outlineAdd', IOutlineAdd),
+        occurence.ZeroOrMore('title', ITitle),
+        occurence.ZeroOrMore('h1', IHeading1),
+        occurence.ZeroOrMore('h2', IHeading2),
+        occurence.ZeroOrMore('h3', IHeading3),
+        occurence.ZeroOrMore('para', IParagraph),
+        occurence.ZeroOrMore('blockTable', IBlockTable),
+        occurence.ZeroOrMore('nextFrame', INextFrame),
+        occurence.ZeroOrMore('setNextFrame', ISetNextFrame),
+        occurence.ZeroOrMore('nextPage', INextPage),
+        occurence.ZeroOrMore('setNextTemplate', ISetNextTemplate),
+        occurence.ZeroOrMore('condPageBreak', IConditionalPageBreak),
+        occurence.ZeroOrMore('keepInFrame', IKeepInFrame),
+        occurence.ZeroOrMore('imageAndFlowables', IImageAndFlowables),
+        occurence.ZeroOrMore('pto', IPTO),
+        occurence.ZeroOrMore('indent', IIndent),
+        occurence.ZeroOrMore('fixedSize', IFixedSize),
+        occurence.ZeroOrMore('bookmark', IBookmark),
+        occurence.ZeroOrMore('hr', IHorizontalRow),
+        occurence.ZeroOrMore('name', special.IName),
+        )
 
 class Flow(directive.RMLDirective):
 
