@@ -80,6 +80,7 @@ class BaseChoice(RMLAttribute):
 
 
 class Combination(RMLAttribute):
+    """A combination of several other attribute types."""
 
     def __init__(self, value_types=(), *args, **kw):
         super(Combination, self).__init__(*args, **kw)
@@ -104,6 +105,7 @@ class Text(RMLAttribute, zope.schema.Text):
 
 
 class Integer(RMLAttribute, zope.schema.Int):
+    """An integer. A minimum and maximum value can be specified."""
     # By making min and max simple attributes, we avoid some validation
     # problems.
     min = None
@@ -111,6 +113,7 @@ class Integer(RMLAttribute, zope.schema.Int):
 
 
 class Float(RMLAttribute, zope.schema.Float):
+    """An flaoting point. A minimum and maximum value can be specified."""
     # By making min and max simple attributes, we avoid some validation
     # problems.
     min = None
@@ -118,6 +121,7 @@ class Float(RMLAttribute, zope.schema.Float):
 
 
 class StringOrInt(RMLAttribute):
+    """A (bytes) string or an integer."""
 
     def fromUnicode(self, value):
         try:
@@ -127,6 +131,7 @@ class StringOrInt(RMLAttribute):
 
 
 class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
+    """A list of values of a specified type."""
 
     splitre = re.compile('[ \t\n,;]*')
 
@@ -151,6 +156,7 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
 
 
 class Choice(BaseChoice):
+    """A choice of several values. The values are always case-insensitive."""
 
     def __init__(self, choices=None, *args, **kw):
         super(Choice, self).__init__(*args, **kw)
@@ -160,6 +166,11 @@ class Choice(BaseChoice):
 
 
 class Boolean(BaseChoice):
+    '''A boolean value.
+
+    For true the values "true", "yes", and "1" are allowed. For false, the
+    values "false", "no", "1" are allowed.
+    '''
     choices = {'true': True, 'false': False,
                'yes': True, 'no': False,
                '1': True, '0': False,
@@ -167,12 +178,17 @@ class Boolean(BaseChoice):
 
 
 class BooleanWithDefault(Boolean):
+    '''This is a boolean field that can also receive the value "default".'''
     choices = Boolean.choices.copy()
     choices.update({'default': None})
 
 
 class Measurement(RMLAttribute):
+    '''This field represents a length value.
 
+    The units "in" (inch), "cm", and "mm" are allowed. If no units are
+    specified, the value is given in points/pixels.
+    '''
     def __init__(self, allowPercentage=False, allowStar=False, *args, **kw):
         super(Measurement, self).__init__(*args, **kw)
         self.allowPercentage = allowPercentage
@@ -203,7 +219,11 @@ class Measurement(RMLAttribute):
 
 
 class File(Text):
+    """This field will return a file object.
 
+    The value itself can eith be be a relative or absolute path. Additionally
+    the following syntax is supported: [path.to.python.mpackage]/path/to/file
+    """
     open = staticmethod(urllib.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
@@ -235,6 +255,8 @@ class File(Text):
 
 
 class Image(File):
+    """Similar to the file File attribute, except that an image is internally
+    expected."""
 
     def __init__(self, onlyOpen=False, *args, **kw):
         super(Image, self).__init__(*args, **kw)
@@ -248,6 +270,13 @@ class Image(File):
 
 
 class Color(RMLAttribute):
+    """Requires the input of a color. There are several supported formats.
+
+    Three values in a row are interpreted as RGB value ranging from 0-255.
+    A string is interpreted as a name to a pre-defined color.
+    The 'CMYK()' wrapper around four values represents a CMYK color
+    specification.
+    """
 
     def __init__(self, acceptNone=False, *args, **kw):
         super(Color, self).__init__(*args, **kw)
@@ -263,7 +292,11 @@ class Color(RMLAttribute):
 
 
 class Style(String):
+    """Requires a valid style to be entered.
 
+    Whether the style is a paragraph, table or box style is irrelevant, except
+    that it has to fit the tag.
+    """
     default = reportlab.lib.styles.getSampleStyleSheet().byName['Normal']
 
     def fromUnicode(self, value):
@@ -280,12 +313,17 @@ class Style(String):
 
 
 class Symbol(Text):
+    """This attribute should contain the text representation of a symbol to be
+    used."""
 
     def fromUnicode(self, value):
         return reportlab.graphics.widgets.markers.makeMarker(value)
 
 
 class PageSize(RMLAttribute):
+    """A simple measurement pair that specifies the page size. Optionally you
+    can also specify a the name of a page size, such as A4, letter, or legal.
+    """
 
     sizePair = Sequence(value_type=Measurement())
     words = Sequence(value_type=String())
@@ -315,7 +353,7 @@ class PageSize(RMLAttribute):
 
 
 class TextNode(RMLAttribute):
-    """Text nodes are not really attributes, but behave mostly like it."""
+    """Return the text content of an element."""
 
     def get(self):
         if self.context.element.text is None:
@@ -324,7 +362,8 @@ class TextNode(RMLAttribute):
 
 
 class FirstLevelTextNode(TextNode):
-    """Text ndoes are not really attributes, but behave mostly like it."""
+    """Gets all the text content of an element without traversing into any
+    child-elements."""
 
     def get(self):
         text = self.context.element.text or u''
@@ -334,12 +373,18 @@ class FirstLevelTextNode(TextNode):
 
 
 class TextNodeSequence(Sequence):
+    """A sequence of values retrieved from the element's content."""
 
     def get(self):
         return self.fromUnicode(self.context.element.text)
 
 
 class TextNodeGrid(TextNodeSequence):
+    """A grid/matrix of values retrieved from the element's content.
+
+    The number of columns is specified for every case, but the number of rows
+    is dynamic.
+    """
 
     def __init__(self, columns=None, *args, **kw):
         super(TextNodeGrid, self).__init__(*args, **kw)
@@ -355,6 +400,10 @@ class TextNodeGrid(TextNodeSequence):
 
 
 class RawXMLContent(RMLAttribute):
+    """Retrieve the raw content of an element.
+
+    Only some special element substitution will be made.
+    """
 
     def __init__(self, *args, **kw):
         super(RawXMLContent, self).__init__(*args, **kw)
@@ -377,6 +426,7 @@ class RawXMLContent(RMLAttribute):
 
 
 class XMLContent(RawXMLContent):
+    """Same as 'RawXMLContent', except that the whitespace is normalized."""
 
     def get(self):
         result = super(XMLContent, self).get()

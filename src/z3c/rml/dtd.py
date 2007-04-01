@@ -34,7 +34,7 @@ def generateElement(name, signature):
     subElementList = []
     for occurence in signature.queryTaggedValue('directives', ()):
         subElementList.append(
-            occurence.tag + occurence2Symbol[occurence.__class__]
+            occurence.tag + occurence2Symbol.get(occurence.__class__, '')
             )
     fields = zope.schema.getFields(signature).keys()
     if len(fields) == 1 and isinstance(fields[0], attr.TextNode):

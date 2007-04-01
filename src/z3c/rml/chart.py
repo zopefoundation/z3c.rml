@@ -156,10 +156,26 @@ class ISeries1D(interfaces.IRMLDirectiveSignature):
 class Series1D(Series):
     signature = ISeries1D
 
+
+class IData1D(interfaces.IRMLDirectiveSignature):
+    """A 1-D data set."""
+    occurence.containing(
+        occurence.OneOrMore('data', ISeries1D)
+        )
+
 class Data1D(Data):
+    signature = IData1D
     series = Series1D
 
+
+class ISingleData1D(interfaces.IRMLDirectiveSignature):
+    """A 1-D data set."""
+    occurence.containing(
+        occurence.One('data', ISeries1D)
+        )
+
 class SingleData1D(Data1D):
+    signature = ISingleData1D
 
     def process(self):
         self.data = []
@@ -181,7 +197,15 @@ class ISeries2D(interfaces.IRMLDirectiveSignature):
 class Series2D(Series):
     signature = ISeries2D
 
+
+class IData2D(interfaces.IRMLDirectiveSignature):
+    """A 2-D data set."""
+    occurence.containing(
+        occurence.OneOrMore('data', ISeries2D)
+        )
+
 class Data2D(Data):
+    signature = IData2D
     series = Series2D
 
 
@@ -455,7 +479,13 @@ class Name(directive.RMLDirective):
         self.parent.names.append(text)
 
 
+class ICategoryNames(IAxis):
+    occurence.containing(
+        occurence.OneOrMore('name', IName),
+        )
+
 class CategoryNames(directive.RMLDirective):
+    signature = ICategoryNames
     factories = {'name': Name}
 
     def process(self):
@@ -465,6 +495,10 @@ class CategoryNames(directive.RMLDirective):
 
 
 class ICategoryAxis(IAxis):
+    occurence.containing(
+        occurence.ZeroOrOne('categoryNames', ICategoryNames),
+        *IAxis.queryTaggedValue('directives', ())
+        )
 
     categoryNames = attr.Sequence(
         value_type=attr.Text(),
@@ -643,7 +677,9 @@ class Line(PropertyItem):
     signature = ILine
 
 class ILines(ILineBase):
-    pass
+    occurence.containing(
+        occurence.OneOrMore('line', ILine),
+        )
 
 class Lines(PropertyCollection):
     signature = ILines
@@ -720,11 +756,15 @@ class ISliceBase(interfaces.IRMLDirectiveSignature):
     labelRadius = attr.Measurement(
         required=False)
 
+
 class ISlice(ISliceBase):
+    occurence.containing(
+        occurence.ZeroOrOne('label', ISliceLabel),
+        occurence.ZeroOrOne('pointer', ISlicePointer),
+        )
 
     swatchMarker = attr.Symbol(
         required=False)
-
 
 class Slice(directive.RMLDirective):
     signature = ISlice
@@ -745,13 +785,15 @@ class ISlice3D(ISlice):
 
 class Slice3D(Slice):
     signature = ISlice3D
-    subElements = {}
+    factories = {}
     # Sigh, the 3-D Pie does not support advanced slice labels. :-(
     #     'label': SliceLabel}
 
 
 class ISlices(ISliceBase):
-    pass
+    occurence.containing(
+        occurence.OneOrMore('slice', ISlice),
+        )
 
 class Slices(directive.RMLDirective):
     signature = ISlices
@@ -770,6 +812,9 @@ class Slices(directive.RMLDirective):
 
 
 class ISlices3D(ISliceBase):
+    occurence.containing(
+        occurence.OneOrMore('slice', ISlice3D),
+        )
 
     fillColorShaded = attr.Color(
         required=False)
@@ -780,7 +825,9 @@ class Slices3D(Slices):
 
 
 class ISimpleLabels(interfaces.IRMLDirectiveSignature):
-    pass
+    occurence.containing(
+        occurence.OneOrMore('label', IName),
+        )
 
 class SimpleLabels(directive.RMLDirective):
     signature = ISimpleLabels
@@ -821,8 +868,15 @@ class IStrand(IStrandBase):
 class Strand(PropertyItem):
     signature = IStrand
 
+
+class IStrands(IStrand):
+    """A collection of strands."""
+    occurence.containing(
+        occurence.OneOrMore('strand', IStrand)
+        )
+
 class Strands(PropertyCollection):
-    signature = IStrandBase
+    signature = IStrands
     propertyName = 'strands'
     attrs = IStrandBase
     factories = {'strand': Strand}
@@ -850,8 +904,15 @@ class IStrandLabel(IStrandLabelBase):
 class StrandLabel(Label):
     signature = IStrandLabel
 
+
+class IStrandLabels(IStrandLabelBase):
+    """A set of strand labels."""
+    occurence.containing(
+        occurence.OneOrMore('label', IStrandLabel)
+        )
+
 class StrandLabels(PropertyCollection):
-    signature = IStrandLabelBase
+    signature = IStrandLabels
     propertyName = 'strandLabels'
     factories = {'label': StrandLabel}
 
@@ -892,8 +953,15 @@ class ISpoke(interfaces.IRMLDirectiveSignature):
 class Spoke(PropertyItem):
     signature = ISpoke
 
+
+class ISpokes(ISpoke):
+    """A collection of spokes."""
+    occurence.containing(
+        occurence.OneOrMore('spoke', ISpoke)
+        )
+
 class Spokes(PropertyCollection):
-    signature = ISpoke
+    signature = ISpokes
     propertyName = 'spokes'
     factories = {'spoke': Spoke}
 
@@ -909,13 +977,23 @@ class ISpokeLabel(ISpokeLabelBase):
 class SpokeLabel(Label):
     signature = ISpokeLabel
 
+
+class ISpokeLabels(ISpokeLabelBase):
+    """A set of spoke labels."""
+    occurence.containing(
+        occurence.OneOrMore('label', ISpokeLabel)
+        )
+
 class SpokeLabels(PropertyCollection):
-    signature = ISpokeLabelBase
+    signature = ISpokeLabels
     propertyName = 'spokeLabels'
     factories = {'label': SpokeLabel}
 
 
 class IChart(interfaces.IRMLDirectiveSignature):
+    occurence.containing(
+        occurence.ZeroOrOne('texts', ITexts),
+        )
 
     # Drawing Options
 
@@ -985,6 +1063,11 @@ class Chart(directive.RMLDirective):
 
 
 class IBarChart(IChart):
+    occurence.containing(
+        occurence.One('data', IData1D),
+        occurence.ZeroOrOne('bars', IBars),
+        *IChart.queryTaggedValue('directives', ())
+        )
 
     direction = attr.Choice(
         choices=('horizontal', 'vertical'),
@@ -1053,6 +1136,14 @@ class BarChart3D(BarChart):
 
 
 class ILinePlot(IChart):
+    occurence.containing(
+        occurence.One('data', IData2D),
+        occurence.ZeroOrOne('lines', ILines),
+        occurence.ZeroOrOne('xValueAxis', IXValueAxis),
+        occurence.ZeroOrOne('yValueAxis', IYValueAxis),
+        occurence.ZeroOrOne('lineLabels', ILabels),
+        *IChart.queryTaggedValue('directives', ())
+        )
 
     reversePlotOrder = attr.Boolean(
         required=False)
@@ -1087,6 +1178,12 @@ class LinePlot(Chart):
 
 
 class IPieChart(IChart):
+    occurence.containing(
+        occurence.One('data', ISingleData1D),
+        occurence.ZeroOrOne('slices', ISlices),
+        occurence.ZeroOrOne('labels', ISimpleLabels),
+        *IChart.queryTaggedValue('directives', ())
+        )
 
     startAngle = attr.Integer(
         required=False)
@@ -1138,6 +1235,10 @@ class PieChart(Chart):
 
 
 class IPieChart3D(IPieChart):
+    occurence.containing(
+        occurence.One('slices', ISlices3D),
+        *IChart.queryTaggedValue('directives', ())
+        )
 
     perspective = attr.Float(
         required=False)
@@ -1159,6 +1260,15 @@ class PieChart3D(PieChart):
 
 
 class ISpiderChart(IChart):
+    occurence.containing(
+        occurence.One('data', IData1D),
+        occurence.ZeroOrOne('strands', IStrands),
+        occurence.ZeroOrOne('strandLabels', IStrandLabels),
+        occurence.ZeroOrOne('spokes', ISpokes),
+        occurence.ZeroOrOne('spokeLabels', ISpokeLabels),
+        occurence.ZeroOrOne('labels', ISimpleLabels),
+        *IChart.queryTaggedValue('directives', ())
+        )
 
     startAngle = attr.Integer(
         required=False)

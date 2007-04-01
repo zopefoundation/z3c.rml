@@ -108,3 +108,9 @@ class OneOrMore(Occurence):
 
     This sub-directive can occur one or more times.
     """
+
+class One(Occurence):
+    """One
+
+    This sub-directive must occur exactly one time.
+    """

@@ -743,12 +743,12 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         # Form Field Elements
         occurence.ZeroOrMore('barCode', form.IBarCode),
         # Charts
-        #ZeroOrMore('barChart', IBarChart),
-        #ZeroOrMore('barChart3D', IBarChart3D),
-        #ZeroOrMore('linePlot', ILinePlot),
-        #ZeroOrMore('pieChart', IPieChart),
-        #ZeroOrMore('pieChart3D', IPieChart3D),
-        #ZeroOrMore('spiderChart', ISpiderChart),
+        occurence.ZeroOrMore('barChart', chart.IBarChart),
+        occurence.ZeroOrMore('barChart3D', chart.IBarChart3D),
+        occurence.ZeroOrMore('linePlot', chart.ILinePlot),
+        occurence.ZeroOrMore('pieChart', chart.IPieChart),
+        occurence.ZeroOrMore('pieChart3D', chart.IPieChart3D),
+        occurence.ZeroOrMore('spiderChart', chart.ISpiderChart),
         )
 
 class Drawing(directive.RMLDirective):

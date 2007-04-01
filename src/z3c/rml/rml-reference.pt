@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+     filename="rml-reference.pdf"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+     >
+
+  <docinit>
+    <registerFont name="ZapfDingbats" faceName="ZapfDingbats"
+                  encName="StandardEncoding"/>
+  </docinit>
+
+  <stylesheet>
+    <paraStyle
+        name="section-header"
+        fontName="Helvetica-Bold"
+        fontSize="36"
+        leading="42"
+        spaceAfter="30"
+        />
+    <paraStyle
+        name="content"
+        fontName="Times-Roman"
+        fontSize="12"
+        spaceAfter="5"
+        />
+    <paraStyle
+        name="attribute-type-name"
+        fontName="Times-Bold"
+        fontSize="14"
+        spaceBefore="10"
+        spaceAfter="5"
+        keepWithNext="true"
+        />
+    <paraStyle
+        name="element-name"
+        fontName="Times-Bold"
+        fontSize="14"
+        spaceBefore="10"
+        spaceAfter="5"
+        keepWithNext="true"
+        />
+    <paraStyle
+        name="element-subtitle"
+        fontName="Times-Bold"
+        fontSize="12"
+        spaceBefore="10"
+        spaceAfter="5"
+        />
+    <paraStyle
+        name="attribute-name"
+        fontName="Times-Roman"
+        fontSize="11"
+        leftIndent="0.5cm"
+        spaceBefore="5"
+        />
+    <paraStyle
+        name="field-description"
+        fontName="Times-Roman"
+        fontSize="10"
+        leftIndent="0.9cm"
+        />
+    <paraStyle
+        name="sub-directive"
+        fontName="Times-Roman"
+        fontSize="10"
+        leftIndent="0.3cm"
+        />
+  </stylesheet>
+
+  <template
+      pageSize="A4"
+      allowSplitting="true"
+      title="z3c.RML Reference"
+      author="Zope Community">
+
+    <pageTemplate id="first-page">
+      <pageGraphics>
+        <setFont name="Helvetica" size="48" />
+        <drawCenteredString x="10.5cm" y="20cm">
+          z3c.RML Reference
+        </drawCenteredString>
+        <setFont name="Helvetica" size="24" />
+        <drawCenteredString x="10.5cm" y="18.5cm">
+          Version 0.5
+        </drawCenteredString>
+      </pageGraphics>
+      <frame id="main" x1="3cm" y1="2cm" width="17cm" height="25.7cm" />
+    </pageTemplate>
+
+    <pageTemplate id="main">
+      <frame id="main" x1="2cm" y1="2cm" width="17cm" height="25.7cm" />
+    </pageTemplate>
+
+  </template>
+
+  <story firstPageTemplate="first-page">
+    <setNextTemplate name="main" />
+    <nextPage />
+    <para style="section-header">
+      Introduction
+    </para>
+    <para style="content">
+      RML is a XML dialect for generating PDF files. Like HTML produces a page
+      within the browser, RML produces a PDF file. The RML processor uses the
+      ReportLab library to convert the RML text into a full PDF template.
+    </para>
+    <para style="content">
+      The original version of RML was developed by ReportLab, Inc. as a
+      commercial extension to the free ReportLab library. This original
+      version of RML is still available and supported by ReportLab, Inc. This
+      version of RML, z3c.RML, is a free implementation of the XML dialect
+      based on the available documentation. While it tries to keep some level
+      of compatibility with the original version of RML, it is intended to
+      provde a as clean and feature-rich API as possible.
+    </para>
+    <para style="content">
+      The contents of this document is auto-generated from the code itself and
+      should thus be very accurate and complete.
+    </para>
+
+    <nextPage />
+    <para style="section-header">
+      Attribute Types
+    </para>
+    <para style="content">
+      This section list the types of attributes used for the attributes within
+      the RML elements.
+    </para>
+    <spacer length="0.5cm" />
+    <tal:block repeat="type context/types">
+      <para style="attribute-type-name" tal:content="type/name">
+        Attribute Name
+      </para>
+      <para style="content" tal:content="type/description">
+        Attribute purpose and data description.
+      </para>
+    </tal:block>
+
+    <nextPage />
+    <para style="section-header">
+      Directives
+    </para>
+    <tal:block repeat="directive context/directives">
+      <para style="element-name" tal:content="directive/name">
+        Element Name
+      </para>
+      <para style="content" tal:content="directive/description">
+        What is this element doing?
+      </para>
+
+      <tal:block condition="directive/attributes">
+        <para style="element-subtitle">
+          <i>Attributes</i>
+        </para>
+        <tal:block repeat="attr directive/attributes">
+          <para style="attribute-name">
+            <b tal:content="attr/name">para</b>
+            <tal:block condition="attr/required">
+              <i>(required)</i>
+            </tal:block>
+            -
+            <tal:block content="attr/type">Type</tal:block>
+          </para>
+          <para style="field-description"
+                tal:condition="attr/title">
+            <i tal:content="attr/title">Title</i>:
+            <tal:block tal:content="attr/description">Description</tal:block>
+          </para>
+        </tal:block>
+      </tal:block>
+
+      <tal:block condition="directive/sub-directives">
+        <para style="element-subtitle">
+          <i>Sub-Directives</i>
+        </para>
+        <para style="sub-directive"
+              tal:repeat="directive directive/sub-directives">
+          <b tal:content="directive/name">para</b>
+          <i>
+            (<tal:block replace="directive/occurence">ZeroOrMore</tal:block>)
+          </i>
+        </para>
+      </tal:block>
+
+    </tal:block>
+
+  </story>
+
+</document>
