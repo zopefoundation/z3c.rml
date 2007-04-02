@@ -1,0 +1,74 @@
+z3c.rml 0.5 released!
+=====================
+
+I am very proud to announce the release of z3c.rml version 0.5, an independent
+implementation of the ReportLab Markup Language (RML). RML is a XML dialect
+that describes the generation of a PDF using the ReportLab PDF generation
+library.
+
+This release focuses on compatibility with the RML version developed by
+ReportLab, Inc. In the future, however, the plan is to divert from the
+original API to fix inconsistencies between the RML Specification and the
+ReportLab API and to extend beyond the original functionality.
+
+Features
+--------
+
+- Full support of all common RML directives.
+
+- Support for merging in pages from external PDF files thanks to pyPdf.
+
+- Directives are fully documented using an extension to Zope's interfaces and
+  schemas.
+
+- Code-generated DTD file.
+
+- Code-generated RML Reference document, of course as PDF built with z3c.rml.
+
+- Optional integration of page templates, allowing dynamic RML documents to be
+  created.
+
+- Support for charts.
+
+- Test suite with 90 files.
+
+
+Roadmap to 1.0
+--------------
+
+- Fix inconsistencies between ReportLab and RML APIs.
+
+- Finish the documentation of the chart support.
+
+- Finish the page insert and merge functionality.
+
+- Improve the DTD generator and possibly write a generator for RelaxNG.
+
+- Integration of a hyphenation support, if a proper package can be found.
+
+
+Installation
+------------
+
+z3c.rml has been uploaded to the Python cheese shop. Thus you should only need
+to say:
+
+  easy_install z3c.rml
+
+Unfortunately, easy install will not install the ``reportlab`` dependency,
+since it is not available in the cheese shop. This will have to be done by
+hand.
+
+Also, by default the pagetemplate support is not enabled, because of the many
+dependencies. However, if you want the pagetemplate support, you can simply
+install it or install the "zope.pagetemplate" egg.
+
+
+Questions and Comments
+----------------------
+
+If you have any questions or comments, please feel free to contact the Zope 3
+Users mailing list at zope3-users@zope.org or E-mail me directly at
+srichter@cosmos.phy.tufts.edu.
+
+Enjoy!
