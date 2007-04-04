@@ -26,7 +26,13 @@ from z3c.rml import document, interfaces
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
 
-def parseString(xml):
+def parseString(xml, removeEncodingLine=True):
+    if removeEncodingLine:
+        # RML is a unicode string, but oftentimes documents declare their
+        # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
+        # ignore that directive. Thus we remove it.
+        if xml.startswith('<?xml'):
+            xml = xml.split('\n', 1)[-1]
     root = etree.fromstring(xml)
     doc = document.Document(root)
     output = cStringIO.StringIO()

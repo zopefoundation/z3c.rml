@@ -33,7 +33,7 @@ class RMLRenderingTestCase(unittest.TestCase):
         self._fileOpen = attr.File.open
         def testOpen(img, filename):
             path = os.path.join(os.path.dirname(self._inPath), filename)
-            return open(path)
+            return open(path, 'rb')
         attr.File.open = testOpen
         import z3c.rml.tests.module
         sys.modules['module'] = z3c.rml.tests.module
