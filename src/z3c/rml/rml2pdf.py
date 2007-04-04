@@ -27,7 +27,7 @@ zope.interface.moduleProvides(interfaces.IRML2PDF)
 
 
 def parseString(xml, removeEncodingLine=True):
-    if removeEncodingLine:
+    if isinstance(xml, unicode) and removeEncodingLine:
         # RML is a unicode string, but oftentimes documents declare their
         # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
         # ignore that directive. Thus we remove it.

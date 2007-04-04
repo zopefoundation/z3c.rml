@@ -718,7 +718,7 @@ class IKeepInFrame(interfaces.IRMLDirectiveSignature):
 
 class KeepInFrame(Flowable):
     signature = IKeepInFrame
-    klass = reportlab.platypus.flowables.KeepInFrame
+    klass = platypus.KeepInFrame
     attrMapping = {'onOverflow': 'mode', 'id': 'name'}
 
     def process(self):

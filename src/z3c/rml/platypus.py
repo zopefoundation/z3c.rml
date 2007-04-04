@@ -21,6 +21,24 @@ import zope.interface
 
 from z3c.rml import interfaces
 
+# Fix problem with reportlab 2.0
+class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
+
+    def __init__(self, maxWidth, maxHeight, content=[], mergeSpace=1,
+                 mode='shrink', name=''):
+        self.name = name
+        self.maxWidth = maxWidth
+        self.maxHeight = maxHeight
+        self.mode = mode
+        assert mode in ('error','overflow','shrink','truncate'), \
+               '%s invalid mode value %s' % (self.identity(),mode)
+        # This is an unnecessary check, since wrap() handles None just fine!
+        #assert maxHeight>=0,  \
+        #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)
+        if mergeSpace is None: mergeSpace = overlapAttachedSpace
+        self.mergespace = mergeSpace
+        self._content = content
+
 
 class BaseFlowable(reportlab.platypus.flowables.Flowable):
     def __init__(self, *args, **kw):
