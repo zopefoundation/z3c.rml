@@ -160,7 +160,7 @@ class Series1D(Series):
 class IData1D(interfaces.IRMLDirectiveSignature):
     """A 1-D data set."""
     occurence.containing(
-        occurence.OneOrMore('data', ISeries1D)
+        occurence.OneOrMore('series', ISeries1D)
         )
 
 class Data1D(Data):
@@ -171,7 +171,7 @@ class Data1D(Data):
 class ISingleData1D(interfaces.IRMLDirectiveSignature):
     """A 1-D data set."""
     occurence.containing(
-        occurence.One('data', ISeries1D)
+        occurence.One('series', ISeries1D)
         )
 
 class SingleData1D(Data1D):
@@ -201,7 +201,7 @@ class Series2D(Series):
 class IData2D(interfaces.IRMLDirectiveSignature):
     """A 2-D data set."""
     occurence.containing(
-        occurence.OneOrMore('data', ISeries2D)
+        occurence.OneOrMore('series', ISeries2D)
         )
 
 class Data2D(Data):
@@ -1186,6 +1186,9 @@ class IPieChart(IChart):
         )
 
     startAngle = attr.Integer(
+        title=u'Start Angle',
+        description=u'The start angle in the chart of the first slice '
+                    u'in degrees.',
         required=False)
 
     direction = attr.Choice(

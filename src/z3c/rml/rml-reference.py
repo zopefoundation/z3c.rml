@@ -16,11 +16,17 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import os
 import zope.schema
 import zope.schema.interfaces
+from lxml import etree
 from z3c.rml import attr, document, pagetemplate
 
+EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
 IGNORE_ATTRIBUTES = ('RMLAttribute', 'BaseChoice')
+CONTENT_FIELD_TYPES = (
+    attr.TextNode, attr.TextNodeSequence, attr.TextNodeGrid,
+    attr.RawXMLContent, attr.XMLContent)
 
 def getAttributeTypes():
     types = []
@@ -48,27 +54,42 @@ def formatSequence(field):
     vtFormatter = typeFormatters.get(field.value_type.__class__, formatField)
     return '%s of %s' %(field.__class__.__name__, vtFormatter(field.value_type))
 
+def formatGrid(field):
+    vtFormatter = typeFormatters.get(field.value_type.__class__, formatField)
+    return '%s with %i cols of %s' %(
+        field.__class__.__name__, field.columns, vtFormatter(field.value_type))
+
 typeFormatters = {
     attr.Choice: formatChoice,
-    attr.Sequence: formatSequence}
+    attr.Sequence: formatSequence,
+    attr.TextNodeSequence: formatSequence,
+    attr.TextNodeGrid: formatGrid}
 
-def processSignature(name, signature, directives=None):
+def processSignature(name, signature, examples, directives=None):
     if directives is None:
         directives = {}
     # Process this directive
     if signature not in directives:
         info = {'name': name, 'description': signature.getDoc()}
         attrs = []
-        for name, field in zope.schema.getFieldsInOrder(signature):
+        content = None
+        for fname, field in zope.schema.getFieldsInOrder(signature):
+            # Handle the case, where the field describes the content
             typeFormatter = typeFormatters.get(field.__class__, formatField)
-            attrs.append({
-                'name': name,
+            fieldInfo = {
+                'name': fname,
                 'type': typeFormatter(field),
                 'title': field.title,
                 'description': field.description,
                 'required': field.required,
-                })
+                }
+            if field.__class__ in CONTENT_FIELD_TYPES:
+                content = fieldInfo
+            else:
+                attrs.append(fieldInfo)
         info['attributes'] = attrs
+        info['content'] = content
+        info['examples'] = examples.get(name, None)
 
         subs = []
         for occurence in signature.queryTaggedValue('directives', ()):
@@ -80,14 +101,30 @@ def processSignature(name, signature, directives=None):
         directives[signature] = info
     # Process Children
     for occurence in signature.queryTaggedValue('directives', ()):
-        processSignature(occurence.tag, occurence.signature, directives)
+        processSignature(occurence.tag, occurence.signature,
+                         examples, directives)
+
+
+def extractExamples(directory):
+    examples = {}
+    for fileName in os.listdir(directory):
+        if not fileName.endswith('.rml'):
+            continue
+        rmlFile = open(os.path.join(directory, fileName), 'r')
+        root = etree.parse(rmlFile).getroot()
+        if fileName == 'tag-circle.rml':
+            import pdb; pdb.set_trace()
+
+    return examples
 
 
 if __name__ == '__main__':
+    examples = extractExamples(EXAMPLES_DIRECTORY)
+
     template = pagetemplate.RMLPageTemplateFile('rml-reference.pt')
 
     directives = {}
-    processSignature('document', document.IDocument, directives)
+    processSignature('document', document.IDocument, examples, directives)
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
     pdf = template(types=getAttributeTypes(), directives=directives)

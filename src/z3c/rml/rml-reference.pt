@@ -177,6 +177,24 @@
         </tal:block>
       </tal:block>
 
+      <tal:block define="attr directive/content"
+                 condition="directive/content">
+        <para style="element-subtitle">
+          <i>Content</i>
+        </para>
+        <para style="attribute-name">
+          <tal:block content="attr/type">Type</tal:block>
+          <tal:block condition="attr/required">
+            <i>(required)</i>
+          </tal:block>
+        </para>
+        <para style="field-description"
+              tal:condition="attr/title">
+          <i tal:content="attr/title">Title</i>:
+          <tal:block tal:content="attr/description">Description</tal:block>
+        </para>
+      </tal:block>
+
       <tal:block condition="directive/sub-directives">
         <para style="element-subtitle">
           <i>Sub-Directives</i>
