@@ -91,4 +91,4 @@ if __name__ == '__main__':
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
     pdf = template(types=getAttributeTypes(), directives=directives)
-    open('rml-reference.pdf', 'w').write(pdf)
+    open('rml-reference.pdf', 'wb').write(pdf)

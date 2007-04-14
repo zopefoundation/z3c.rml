@@ -124,6 +124,7 @@
     <para style="section-header">
       Attribute Types
     </para>
+    <outlineAdd>Attribute Types</outlineAdd>
     <para style="content">
       This section list the types of attributes used for the attributes within
       the RML elements.
@@ -133,6 +134,7 @@
       <para style="attribute-type-name" tal:content="type/name">
         Attribute Name
       </para>
+      <outlineAdd level="1" tal:content="type/name">Attribute Name</outlineAdd>
       <para style="content" tal:content="type/description">
         Attribute purpose and data description.
       </para>
@@ -142,10 +144,14 @@
     <para style="section-header">
       Directives
     </para>
+    <outlineAdd>Directives</outlineAdd>
     <tal:block repeat="directive context/directives">
       <para style="element-name" tal:content="directive/name">
         Element Name
       </para>
+      <outlineAdd level="1" tal:content="directive/name">
+        Element Name
+      </outlineAdd>
       <para style="content" tal:content="directive/description">
         What is this element doing?
       </para>

@@ -55,7 +55,7 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     if outputFileName is not None:
         if outDir is not None:
             outputFileName = os.path.join(outDir, outputFileName)
-        outputFile = open(outputFileName, 'w')
+        outputFile = open(outputFileName, 'wb')
 
     # Create a Reportlab canvas by processing the document
     doc.process(outputFile)

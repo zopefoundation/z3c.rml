@@ -1,12 +1,4 @@
-* Rewrite attribute and element system to use interfaces and schemas.
-
-* Create a distribution using eggs.
-
 * Finish compatibility work.
-
-* Documentation generator.
-
-* DTD generator.
 
 * Fix <pluginFlowable> tag to the following form::
 
