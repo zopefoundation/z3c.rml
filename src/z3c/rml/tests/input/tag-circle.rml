@@ -7,8 +7,7 @@
   <pageDrawing>
 
     <circle x="10cm" y="25cm" radius="2cm"
-            fill="false" stroke="false"
-            doc:exampleFor="circle" />
+            fill="false" stroke="false" doc:example="" />
 
     <circle x="10cm" y="20cm" radius="2cm"
             fill="true" stroke="false" />

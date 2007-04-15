@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawRightString.pdf">
+<document
+    filename="drawRightString.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
   <pageDrawing>
 
-    <drawRightString x="4.1in" y="5.8in">
-      Hello World.
-    </drawRightString>
+    <drawRightString
+        x="4.1in" y="5.8in" doc:example=""
+        >Hello World.</drawRightString>
 
   </pageDrawing>
 </document>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-place.pdf">
-
+<document
+    filename="tag-place.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <stylesheet>
     <paraStyle
       name="big"
@@ -45,6 +46,12 @@
     <drawString x="1cm" y="15cm">
       This is a string drawn using ``drawString``.
     </drawString>
+
+    <place
+        x="1cm" y="10cm" width="13cm" height="4cm"
+        doc:example="">
+      <para>A paragraph within the place.</para>
+    </place>
 
   </pageDrawing>
 </document>

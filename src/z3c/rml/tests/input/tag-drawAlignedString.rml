@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawString.pdf">
+<document
+    filename="drawString.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
-    <drawAlignedString x="4.1in" y="9.8in">
-      $ 13.63
-    </drawAlignedString>
+    <drawAlignedString
+        x="4.1in" y="9.8in" doc:example=""
+        >$ 13.63</drawAlignedString>
     <drawAlignedString x="4.1in" y="9.6in">
       $ 121.01
     </drawAlignedString>

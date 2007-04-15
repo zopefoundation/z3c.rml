@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-image.pdf">
+
+<document
+    filename="tag-image.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <image file="[z3c.rml.tests]/input/zope3logo.gif"
@@ -13,7 +16,8 @@
            x="2in" y="4in" height="3in" />
 
     <image file="[z3c.rml.tests]/input/zope3logo.gif"
-           x="2in" y="2in" width="0.5in" height="3in" />
+           x="2in" y="2in" width="0.5in" height="3in"
+           doc:example=""/>
 
   </pageDrawing>
 </document>

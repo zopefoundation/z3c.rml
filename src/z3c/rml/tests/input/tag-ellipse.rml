@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="ellipse.pdf">
+<document
+    filename="ellipse.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <ellipse x="10cm" y="25cm" width="5cm" height="3cm"
-             fill="false" stroke="false" />
+             fill="false" stroke="false" doc:example="" />
 
     <ellipse x="10cm" y="20cm" width="5cm" height="3cm"
              fill="true" stroke="false" />

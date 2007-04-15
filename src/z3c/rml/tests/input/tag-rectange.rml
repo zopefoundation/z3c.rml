@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="rectangle.pdf">
+<document
+    filename="rectangle.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
-    <rect x="8cm" y="20cm" width="5cm" height="3cm" />
+    <rect x="8cm" y="20cm" width="5cm" height="3cm" doc:example="" />
 
     <rect x="8cm" y="15cm" width="5cm" height="3cm"
           round="1cm" />

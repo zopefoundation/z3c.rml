@@ -132,17 +132,17 @@ def processSignature(name, signature, examples, directives=None):
 
 def extractExamples(directory):
     EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
-    EXAMPLE_ATTR_NAME = '{%s}exampleFor' %EXAMPLE_NS
+    EXAMPLE_ATTR_NAME = '{%s}example' %EXAMPLE_NS
     examples = {}
     for filename in os.listdir(directory):
         if not filename.endswith('.rml'):
             continue
         rmlFile = open(os.path.join(directory, filename), 'r')
         root = etree.parse(rmlFile).getroot()
-        elements = root.xpath('//@doc:exampleFor/parent::*',
+        elements = root.xpath('//@doc:example/parent::*',
                               {'doc': EXAMPLE_NS})
         for elem in elements:
-            demoTag = elem.get(EXAMPLE_ATTR_NAME)
+            demoTag = elem.get(EXAMPLE_ATTR_NAME) or elem.tag
             del elem.attrib[EXAMPLE_ATTR_NAME]
             xml = highlightRML(etree.tounicode(elem).strip())
             elemExamples = examples.setdefault(demoTag, [])
