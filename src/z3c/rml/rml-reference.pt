@@ -67,6 +67,12 @@
         fontSize="10"
         leftIndent="0.3cm"
         />
+    <paraStyle
+        name="code"
+        fontName="Courier"
+        fontSize="10"
+        leftIndent="0.5cm"
+        />
   </stylesheet>
 
   <template
@@ -206,6 +212,17 @@
             (<tal:block replace="directive/occurence">ZeroOrMore</tal:block>)
           </i>
         </para>
+      </tal:block>
+
+      <tal:block condition="directive/examples">
+        <para style="element-subtitle">
+          <i>Examples</i>
+        </para>
+        <tal:block repeat="example directive/examples">
+          <pre style="code" tal:content="structure example">
+            Example Code
+          </pre>
+        </tal:block>
       </tal:block>
 
     </tal:block>

@@ -14,10 +14,10 @@
             fill="true" stroke="false" />
 
     <circle x="10cm" y="15cm" radius="2cm"
-            fill="false" stroke="true" />
+            fill="false" stroke="true" doc:elementExample="bulkData"/>
 
     <circle x="10cm" y="10cm" radius="2cm"
-            fill="true" stroke="true" />
+            fill="true" stroke="true" doc:elementExample="circle"/>
 
   </pageDrawing>
 </document>
