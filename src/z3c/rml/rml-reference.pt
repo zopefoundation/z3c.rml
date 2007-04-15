@@ -68,10 +68,16 @@
         leftIndent="0.3cm"
         />
     <paraStyle
+        name="example-info"
+        fontName="Times-Roman"
+        fontSize="10"
+        leftIndent="0.5cm"
+        />
+    <paraStyle
         name="code"
         fontName="Courier"
         fontSize="10"
-        leftIndent="0.5cm"
+        leftIndent="0.8cm"
         />
   </stylesheet>
 
@@ -219,9 +225,13 @@
           <i>Examples</i>
         </para>
         <tal:block repeat="example directive/examples">
-          <pre style="code" tal:content="structure example">
+          <para style="example-info">
+            File <i tal:content="example/filename" />,
+            line <tal:block replace="example/line" />:
+          </para>
+          <xpre style="code" tal:content="structure example/code">
             Example Code
-          </pre>
+          </xpre>
         </tal:block>
       </tal:block>
 

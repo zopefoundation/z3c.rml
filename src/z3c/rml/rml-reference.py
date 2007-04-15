@@ -20,13 +20,38 @@ import os
 import zope.schema
 import zope.schema.interfaces
 from lxml import etree
+from xml.sax import saxutils
 from z3c.rml import attr, document, pagetemplate
+
+try:
+    import SilverCity
+except ImportError:
+    SilverCity = None
+
 
 EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
 IGNORE_ATTRIBUTES = ('RMLAttribute', 'BaseChoice')
 CONTENT_FIELD_TYPES = (
     attr.TextNode, attr.TextNodeSequence, attr.TextNodeGrid,
     attr.RawXMLContent, attr.XMLContent)
+STYLES_FORMATTING = {
+     1 : ('<font textColor="red">', '</font>'),
+     #3 : ('<font textColor="blue">', '</font>'),
+     6 : ('<font textColor="blue">', '</font>'),
+    11 : ('<font textColor="red">', '</font>'),
+    }
+
+
+def highlightRML(rml):
+    if SilverCity is None:
+        return rml
+    lexer = SilverCity.XML.XMLLexer()
+    styledRml = ''
+    for piece in lexer.tokenize_by_style(rml):
+        start, end = STYLES_FORMATTING.get(piece['style'], ('', ''))
+        styledRml += start + saxutils.escape(piece['text']) + end
+    return styledRml
+
 
 def getAttributeTypes():
     types = []
@@ -107,21 +132,22 @@ def processSignature(name, signature, examples, directives=None):
 
 def extractExamples(directory):
     EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
-    EXAMPLE_ATTR_NAME = '{%s}elementExample' %EXAMPLE_NS
+    EXAMPLE_ATTR_NAME = '{%s}exampleFor' %EXAMPLE_NS
     examples = {}
-    for fileName in os.listdir(directory):
-        if not fileName.endswith('.rml'):
+    for filename in os.listdir(directory):
+        if not filename.endswith('.rml'):
             continue
-        rmlFile = open(os.path.join(directory, fileName), 'r')
+        rmlFile = open(os.path.join(directory, filename), 'r')
         root = etree.parse(rmlFile).getroot()
-        elements = root.xpath('//@doc:elementExample/parent::*',
+        elements = root.xpath('//@doc:exampleFor/parent::*',
                               {'doc': EXAMPLE_NS})
         for elem in elements:
             demoTag = elem.get(EXAMPLE_ATTR_NAME)
             del elem.attrib[EXAMPLE_ATTR_NAME]
-            xml = etree.tounicode(elem, pretty_print=True).strip()
+            xml = highlightRML(etree.tounicode(elem).strip())
             elemExamples = examples.setdefault(demoTag, [])
-            elemExamples.append(xml)
+            elemExamples.append(
+                {'filename': filename, 'line': elem.sourceline, 'code': xml})
 
     return examples
 

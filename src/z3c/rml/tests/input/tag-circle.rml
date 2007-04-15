@@ -8,16 +8,16 @@
 
     <circle x="10cm" y="25cm" radius="2cm"
             fill="false" stroke="false"
-            doc:elementExample="circle" />
+            doc:exampleFor="circle" />
 
     <circle x="10cm" y="20cm" radius="2cm"
             fill="true" stroke="false" />
 
     <circle x="10cm" y="15cm" radius="2cm"
-            fill="false" stroke="true" doc:elementExample="bulkData"/>
+            fill="false" stroke="true"/>
 
     <circle x="10cm" y="10cm" radius="2cm"
-            fill="true" stroke="true" doc:elementExample="circle"/>
+            fill="true" stroke="true" />
 
   </pageDrawing>
 </document>
