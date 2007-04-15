@@ -464,8 +464,8 @@ class CurvesTo(directive.RMLDirective):
 class IPath(IShape):
     """Create a line path."""
     occurence.containing(
-        occurence.ZeroOrMore('moveTo', IMoveTo),
-        occurence.ZeroOrMore('curvesTo', ICurvesTo),
+        occurence.ZeroOrMore('moveto', IMoveTo),
+        occurence.ZeroOrMore('curvesto', ICurvesTo),
         )
 
     points = attr.TextNodeGrid(

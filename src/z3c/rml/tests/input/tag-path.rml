@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-path.pdf">
+<document
+    filename="tag-path.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <path x="2cm" y="26cm" close="true">
@@ -30,6 +32,18 @@
         4cm 19cm
       </moveto>
       3cm 20.5cm
+    </path>
+
+    <path x="2cm" y="15cm" fill="true"
+          doc:example="">
+      8cm 15cm
+      <curvesto>
+        10cm 15cm 10cm 12cm 8cm 12cm
+      </curvesto>
+      2cm 12cm
+      <moveto>
+        2cm 15cm
+      </moveto>
     </path>
 
   </pageDrawing>

@@ -16,6 +16,7 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import re
 import os
 import zope.schema
 import zope.schema.interfaces
@@ -40,6 +41,14 @@ STYLES_FORMATTING = {
      6 : ('<font textColor="blue">', '</font>'),
     11 : ('<font textColor="red">', '</font>'),
     }
+
+
+def dedent(rml):
+    spaces = re.findall('\n( *)<', rml)
+    if not spaces:
+        return rml
+    least = min([len(s) for s in spaces if s != ''])
+    return rml.replace('\n'+' '*least, '\n')
 
 
 def highlightRML(rml):
@@ -144,7 +153,7 @@ def extractExamples(directory):
         for elem in elements:
             demoTag = elem.get(EXAMPLE_ATTR_NAME) or elem.tag
             del elem.attrib[EXAMPLE_ATTR_NAME]
-            xml = highlightRML(etree.tounicode(elem).strip())
+            xml = highlightRML(dedent(etree.tounicode(elem).strip()))
             elemExamples = examples.setdefault(demoTag, [])
             elemExamples.append(
                 {'filename': filename, 'line': elem.sourceline, 'code': xml})

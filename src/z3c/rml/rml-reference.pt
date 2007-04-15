@@ -77,7 +77,7 @@
         name="code"
         fontName="Courier"
         fontSize="10"
-        leftIndent="0.8cm"
+        leftIndent="0.5cm"
         />
   </stylesheet>
 
@@ -225,13 +225,14 @@
           <i>Examples</i>
         </para>
         <tal:block repeat="example directive/examples">
-          <para style="example-info">
-            File <i tal:content="example/filename" />,
-            line <tal:block replace="example/line" />:
-          </para>
           <xpre style="code" tal:content="structure example/code">
             Example Code
           </xpre>
+          <para style="example-info">
+            (Extracted from
+             file <i tal:content="example/filename" />,
+             line <tal:block replace="example/line" />)
+          </para>
         </tal:block>
       </tal:block>
 
