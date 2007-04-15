@@ -216,6 +216,7 @@ class Document(directive.RMLDirective):
         self.styles = {}
         self.colors = {}
         self.postProcessors = []
+        self.filename = '<unknwon>'
 
     def process(self, outputFile=None):
         """Process document"""

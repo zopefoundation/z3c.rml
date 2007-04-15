@@ -534,7 +534,7 @@ class TableRow(directive.RMLDirective):
 
 
 class ITableBulkData(interfaces.IRMLDirectiveSignature):
-    """Bulk Data allows one to wuickly create a table."""
+    """Bulk Data allows one to quickly create a table."""
 
     content = attr.TextNodeSequence(
         title=u'Content',
@@ -784,7 +784,7 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
         description=u'The padding on the bottom of the image.',
         required=False)
 
-    iamgeSide = attr.Choice(
+    imageSide = attr.Choice(
         title=u'Image Side',
         description=u'The side at which the image will be placed.',
         choices=('left', 'right'),
@@ -950,7 +950,51 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
 class Bookmark(Flowable):
     signature = IBookmark
     klass = platypus.BookmarkPage
-    attrMapping = {'name': 'key'}
+    attrMapping = {'name': 'key', 'fitType': 'fit'}
+
+
+class ILink(interfaces.IRMLDirectiveSignature):
+    """Place an internal link around a set of flowables."""
+
+    destination = attr.Text(
+        title=u'Destination',
+        description=u'The name of the destination to link to.',
+        required=False)
+
+    url = attr.Text(
+        title=u'URL',
+        description=u'The URL to link to.',
+        required=False)
+
+    boxStrokeWidth = attr.Measurement(
+        title=u'Box Stroke Width',
+        description=u'The width of the box border line.',
+        required=False)
+
+    boxStrokeDashArray = attr.Sequence(
+        title=u'Box Stroke Dash Array',
+        description=u'The dash array of the box border line.',
+        value_type=attr.Float(),
+        required=False)
+
+    boxStrokeColor = attr.Color(
+        title=u'Box Stroke Color',
+        description=(u'The color in which the box border is drawn.'),
+        required=False)
+
+
+class Link(Flowable):
+    signature = ILink
+    attrMapping = {'destination': 'destinationname',
+                   'boxStrokeWidth': 'thickness',
+                   'boxStrokeDashArray': 'dashArray',
+                   'boxStrokeColor': 'color'}
+
+    def process(self):
+        flow = Flow(self.element, self.parent)
+        flow.process()
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        self.parent.flow.append(platypus.Link(flow.flow, **args))
 
 
 class IHorizontalRow(interfaces.IRMLDirectiveSignature):
@@ -1070,6 +1114,7 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('indent', IIndent),
         occurence.ZeroOrMore('fixedSize', IFixedSize),
         occurence.ZeroOrMore('bookmark', IBookmark),
+        occurence.ZeroOrMore('link', ILink),
         occurence.ZeroOrMore('hr', IHorizontalRow),
         occurence.ZeroOrMore('name', special.IName),
         )
@@ -1105,6 +1150,7 @@ class Flow(directive.RMLDirective):
         'indent': Indent,
         'fixedSize': FixedSize,
         'bookmark': Bookmark,
+        'link': Link,
         'hr': HorizontalRow,
         # Special Elements
         'name': special.Name,

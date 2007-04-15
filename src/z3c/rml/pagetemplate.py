@@ -43,10 +43,5 @@ class RMLPageTemplateFile(zope.pagetemplate.pagetemplatefile.PageTemplateFile):
     def __call__(self, *args, **kwargs):
         rml = super(RMLPageTemplateFile, self).__call__(*args, **kwargs)
 
-        # RML is a unicode string, but oftentimes documents declare their
-        # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
-        # ignore that directive. Thus we remove it.
-        if rml.startswith('<?xml'):
-            rml = rml.split('\n', 1)[-1]
-
-        return rml2pdf.parseString(rml).getvalue()
+        return rml2pdf.parseString(
+            rml, filename=self.pt_source_file()).getvalue()

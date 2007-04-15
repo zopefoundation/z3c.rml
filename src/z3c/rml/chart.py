@@ -998,44 +998,70 @@ class IChart(interfaces.IRMLDirectiveSignature):
     # Drawing Options
 
     dx = attr.Measurement(
+        title=u'Drawing X-Position',
+        description=u'The x-position of the entire drawing on the canvas.',
         required=False)
 
     dy = attr.Measurement(
+        title=u'Drawing Y-Position',
+        description=u'The y-position of the entire drawing on the canvas.',
         required=False)
 
     dwidth = attr.Measurement(
+        title=u'Drawing Width',
+        description=u'The width of the entire drawing',
         required=False)
 
     dheight = attr.Measurement(
+        title=u'Drawing Height',
+        description=u'The height of the entire drawing',
         required=False)
 
     angle = attr.Float(
+        title=u'Angle',
+        description=u'The orientation of the drawing as an angle in degrees.',
         required=False)
 
     # Plot Area Options
 
     x = attr.Measurement(
+        title=u'Chart X-Position',
+        description=u'The x-position of the chart within the drawing.',
         required=False)
 
     y = attr.Measurement(
+        title=u'Chart Y-Position',
+        description=u'The y-position of the chart within the drawing.',
         required=False)
 
     width = attr.Measurement(
+        title=u'Chart Width',
+        description=u'The width of the chart.',
         required=False)
 
     height = attr.Measurement(
+        title=u'Chart Height',
+        description=u'The height of the chart.',
         required=False)
 
     strokeColor = attr.Color(
+        title=u'Stroke Color',
+        description=u'Color of the chart border.',
         required=False)
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'Width of the chart border.',
         required=False)
 
     fillColor = attr.Color(
+        title=u'Fill Color',
+        description=u'Color of the chart interior.',
         required=False)
 
     debug = attr.Boolean(
+        title=u'Debugging',
+        description=u'A flag that when set to True turns on debug messages.',
         required=False)
 
 class Chart(directive.RMLDirective):
@@ -1043,12 +1069,13 @@ class Chart(directive.RMLDirective):
     factories = {
         'texts': Texts
         }
+    attrMapping = {}
 
     def createChart(self, attributes):
         raise NotImplementedError
 
     def process(self):
-        attrs = dict(self.getAttributeValues())
+        attrs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
         angle = attrs.pop('angle', 0)
         x, y = attrs.pop('dx'), attrs.pop('dy')
         self.drawing = shapes.Drawing(attrs.pop('dwidth'), attrs.pop('dheight'))
@@ -1063,30 +1090,43 @@ class Chart(directive.RMLDirective):
 
 
 class IBarChart(IChart):
+    """Creates a two-dimensional bar chart."""
     occurence.containing(
         occurence.One('data', IData1D),
         occurence.ZeroOrOne('bars', IBars),
+        occurence.ZeroOrOne('categoryAxis', ICategoryAxis),
+        occurence.ZeroOrOne('valueAxis', IValueAxis),
         *IChart.queryTaggedValue('directives', ())
         )
 
     direction = attr.Choice(
+        title=u'Direction',
+        description=u'The direction of the bars within the chart.',
         choices=('horizontal', 'vertical'),
         default='horizontal',
         required=False)
 
     useAbsolute = attr.Boolean(
+        title=u'Use Absolute Spacing',
+        description=u'Flag to use absolute spacing values.',
         default=False,
         required=False)
 
     barWidth = attr.Measurement(
+        title=u'Bar Width',
+        description=u'The width of an individual bar.',
         default=10,
         required=False)
 
     groupSpacing = attr.Measurement(
+        title=u'Group Spacing',
+        description=u'Width between groups of bars.',
         default=5,
         required=False)
 
     barSpacing = attr.Measurement(
+        title=u'Bar Spacing',
+        description=u'Width between individual bars.',
         default=0,
         required=False)
 
@@ -1117,22 +1157,35 @@ class BarChart(Chart):
 
 
 class IBarChart3D(IBarChart):
+    """Creates a three-dimensional bar chart."""
+    occurence.containing(
+        *IBarChart.queryTaggedValue('directives', ())
+        )
 
-    theta_x = attr.Float(
+    thetaX = attr.Float(
+        title=u'Theta-X',
+        description=u'Fraction of dx/dz.',
         required=False)
 
-    theta_y = attr.Float(
+    thetaY = attr.Float(
+        title=u'Theta-Y',
+        description=u'Fraction of dy/dz.',
         required=False)
 
     zDepth = attr.Measurement(
+        title=u'Z-Depth',
+        description=u'Depth of an individual series/bar.',
         required=False)
 
     zSpace = attr.Measurement(
+        title=u'Z-Space',
+        description=u'Z-Gap around a series/bar.',
         required=False)
 
 class BarChart3D(BarChart):
     signature = IBarChart3D
     nameBase = 'BarChart3D'
+    attrMapping = {'thetaX': 'theta_x', 'thetaY': 'theta_y'}
 
 
 class ILinePlot(IChart):

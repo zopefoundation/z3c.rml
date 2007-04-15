@@ -32,6 +32,14 @@ from xml.sax import saxutils
 
 MISSING = object()
 
+def getFileInfo(attr):
+    root = attr.context
+    while root.parent:
+        root = root.parent
+    return '(file %s, line %i)' % (
+        root.filename, attr.context.element.sourceline)
+
+
 def getManager(context, interface=None):
     if interface is None:
         # Avoid circular imports
@@ -76,7 +84,8 @@ class BaseChoice(RMLAttribute):
         if value in self.choices:
             return self.choices[value]
         raise ValueError(
-            '%r not a valid value for attribute "%s"' % (value, self.__name__))
+            '%r not a valid value for attribute "%s". %s' % (
+            value, self.__name__, getFileInfo(self)))
 
 
 class Combination(RMLAttribute):
@@ -93,7 +102,8 @@ class Combination(RMLAttribute):
                 return bound.fromUnicode(value)
             except ValueError:
                 pass
-        raise ValueError(value)
+        raise ValueError(
+            '"%s" is not a valid value. %s' %(value, getFileInfo(self)))
 
 
 class String(RMLAttribute, zope.schema.Bytes):
@@ -150,8 +160,8 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
         if ((self.min_length is not None and len(result) < self.min_length) and
             (self.max_length is not None and len(result) > self.max_length)):
             raise ValueError(
-                'Length of sequence must be at least %s and at most %i' % (
-                self.min_length, self.max_length))
+                'Length of sequence must be at least %s and at most %i. %s' % (
+                self.min_length, self.max_length, getFileInfo(self)))
         return result
 
 
@@ -215,7 +225,9 @@ class Measurement(RMLAttribute):
             res = unit[0].search(value, 0)
             if res:
                 return unit[1]*float(res.group(1))
-        raise ValueError('The value %r is not a valid measurement.' %value)
+        raise ValueError(
+            'The value %r is not a valid measurement. %s' % (
+            value, getFileInfo(self)))
 
 
 class File(Text):
@@ -240,7 +252,8 @@ class File(Text):
             result = self.packageExtract.match(value)
             if result is None:
                 raise ValueError(
-                    'The package-path-pair you specified was incorrect')
+                    'The package-path-pair you specified was incorrect. %s' %(
+                    getFileInfo(self)))
             modulepath, path = result.groups()
             module = __import__(modulepath, {}, {}, (modulepath))
             value = os.path.join(os.path.dirname(module.__file__), path)
@@ -288,8 +301,13 @@ class Color(RMLAttribute):
         manager = getManager(self.context)
         if value in manager.colors:
             return manager.colors[value]
-        return reportlab.lib.colors.toColor(value)
-
+        try:
+            return reportlab.lib.colors.toColor(value)
+        # Bare except, since code raises string exception: Invalid color value
+        except:
+            raise ValueError(
+                'The color specification "%s" is not valid. %s' % (
+                value, getFileInfo(self)))
 
 class Style(String):
     """Requires a valid style to be entered.
@@ -309,7 +327,8 @@ class Style(String):
                 return styles['style.' + value]
             elif value.startswith('style.') and value[6:] in styles:
                 return styles[value[6:]]
-        raise ValueError('Style %r could not be found.' %value)
+        raise ValueError('Style %r could not be found. %s' % (
+            value, getFileInfo(self)))
 
 
 class Symbol(Text):
@@ -394,7 +413,8 @@ class TextNodeGrid(TextNodeSequence):
         result = super(TextNodeGrid, self).fromUnicode(ustr)
         if len(result) % self.columns != 0:
             raise ValueError(
-                'Number of elements must be divisible by %i.' %self.columns)
+                'Number of elements must be divisible by %i. %s' %(
+                self.columns, getFileInfo(self)))
         return [result[i*self.columns:(i+1)*self.columns]
                 for i in range(len(result)/self.columns)]
 

@@ -26,7 +26,7 @@ from z3c.rml import document, interfaces
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
 
-def parseString(xml, removeEncodingLine=True):
+def parseString(xml, removeEncodingLine=True, filename=None):
     if isinstance(xml, unicode) and removeEncodingLine:
         # RML is a unicode string, but oftentimes documents declare their
         # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
@@ -35,6 +35,8 @@ def parseString(xml, removeEncodingLine=True):
             xml = xml.split('\n', 1)[-1]
     root = etree.fromstring(xml)
     doc = document.Document(root)
+    if filename:
+        doc.filename = filename
     output = cStringIO.StringIO()
     doc.process(output)
     output.seek(0)
@@ -48,6 +50,7 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     xmlFile = open(xmlInputName, 'r')
     root = etree.parse(xmlFile).getroot()
     doc = document.Document(root)
+    doc.filename = xmlInputName
 
     outputFile = None
 

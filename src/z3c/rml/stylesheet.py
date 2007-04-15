@@ -169,7 +169,7 @@ class ITableStyleCommand(interfaces.IRMLDirectiveSignature):
         max_length=2,
         required=True)
 
-    end = attr.Sequence(
+    stop = attr.Sequence(
         title=u'End Coordinates',
         description=u'The end table coordinates for the style instruction',
         value_type=attr.Combination(

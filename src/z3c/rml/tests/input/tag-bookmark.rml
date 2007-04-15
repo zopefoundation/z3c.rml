@@ -1,0 +1,51 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-bookmark.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+
+    <title>
+      <font face="Courier">&lt;bookmark&gt;</font>
+      and
+      <font face="Courier">&lt;link&gt;</font>
+      Tag Demo
+    </title>
+    <bookmark name="TITLE" doc:example="" />
+    <link destination="PAGE_1"
+          boxStrokeColor="red" boxStrokeWidth="1" boxStrokeDashArray="1 2"
+          doc:example="">
+      <para>Go to page 1 now!</para>
+    </link>
+    <nextPage/>
+    <bookmark
+        name="PAGE_1" fitType="fitv" zoom="2"
+        left="2cm" right="10cm" top="20cm"
+        doc:example=""
+        />
+    <h1>This is page 1.</h1>
+    <link destination="TITLE"
+          doc:example="">
+      <imageAndFlowables
+          imageName="images/replogo.gif"
+          imageSide="left">
+        <para>Go to title.</para>
+      </imageAndFlowables>
+    </link>
+    <link destination="PAGE_1">
+      <para>Go to page 1.</para>
+    </link>
+
+    <link url="http://www.reportlab.org"
+          doc:example="">
+      <para>Link to ReporLab Web Site.</para>
+    </link>
+
+  </story>
+</document>

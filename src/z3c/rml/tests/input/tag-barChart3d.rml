@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-barChart3d.pdf">
-
-  <stylesheet>
-  </stylesheet>
+<document
+    filename="tag-barChart3d.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
 
@@ -44,8 +43,9 @@
     <barChart3D
         dx="2in" dy="4in" dwidth="6in" dheight="4in"
          x="0"    y="0"    width="5in"  height="2in"
-         theta_x="0.3" theta_y="0.3" zDepth="5" zSpace="10"
-        direction="vertical">
+        thetaX="0.3" thetaY="0.3" zDepth="5" zSpace="10"
+        direction="vertical"
+        doc:example="">
       <categoryAxis strokeColor="black" strokeWidth="1"
                     visibleGrid="true">
         <labels fontName="Helvetica" />

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-barChart.pdf">
+<document
+    filename="tag-barChart.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <stylesheet>
   </stylesheet>
@@ -16,10 +18,11 @@
     <barChart
         dx="2in" dy="7in" dwidth="6in" dheight="4in"
          x="0"    y="0"    width="5in"  height="3in"
-        barSpacing="7"
-        groupSpacing="15">
+        barSpacing="7" groupSpacing="15"
+        doc:example="">
       <bars>
-        <bar fillColor="blue" strokeColor="red" strokeWidth="0.5" />
+        <bar fillColor="blue" strokeColor="red" strokeWidth="0.5"
+             doc:example="" />
         <bar fillColor="yellow" strokeColor="green" strokeWidth="1" />
       </bars>
       <categoryAxis strokeColor="black" strokeWidth="1">

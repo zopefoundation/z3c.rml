@@ -72,6 +72,7 @@
         fontName="Times-Roman"
         fontSize="10"
         leftIndent="0.5cm"
+        spaceAfter="5"
         />
     <paraStyle
         name="code"
@@ -164,6 +165,7 @@
       <outlineAdd level="1" tal:content="directive/name">
         Element Name
       </outlineAdd>
+      <bookmark tal:attributes="name directive/id"/>
       <para style="content" tal:content="directive/description">
         What is this element doing?
       </para>
@@ -211,13 +213,18 @@
         <para style="element-subtitle">
           <i>Sub-Directives</i>
         </para>
-        <para style="sub-directive"
-              tal:repeat="directive directive/sub-directives">
-          <b tal:content="directive/name">para</b>
-          <i>
-            (<tal:block replace="directive/occurence">ZeroOrMore</tal:block>)
-          </i>
-        </para>
+        <link destination=""
+              tal:repeat="directive directive/sub-directives"
+              tal:attributes="destination directive/id">
+          <para style="sub-directive">
+            <font color="blue">
+              <b tal:content="directive/name">para</b>
+            </font>
+            <i>
+              (<tal:block replace="directive/occurence">ZeroOrMore</tal:block>)
+            </i>
+          </para>
+        </link>
       </tal:block>
 
       <tal:block condition="directive/examples">

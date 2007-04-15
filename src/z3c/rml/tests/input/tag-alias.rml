@@ -1,0 +1,25 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-alias.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <initialize>
+      <alias id="h1" value="style.Heading1"
+             doc:example="" />
+    </initialize>
+  </stylesheet>
+
+  <story>
+
+    <title><font face="Courier">&lt;alias&gt;</font> Tag Demo</title>
+    <para style="h1">Header 1 via Alias</para>
+
+  </story>
+</document>

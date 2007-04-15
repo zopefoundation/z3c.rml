@@ -20,10 +20,17 @@ import logging
 import zope.interface
 import zope.schema
 
+from lxml import etree
 from z3c.rml import interfaces
 
 logger = logging.getLogger("z3c.rml")
 
+
+def getFileInfo(directive):
+    root = directive
+    while root.parent:
+        root = root.parent
+    return '(file %s, line %i)' %(root.filename, directive.element.sourceline)
 
 class RMLDirective(object):
     zope.interface.implements(interfaces.IRMLDirective)
@@ -48,7 +55,9 @@ class RMLDirective(object):
                 # error
                 if attr.required and value is attr.missing_value:
                     raise ValueError(
-                        'No value for required attribute %s' %name)
+                        'No value for required attribute "%s" '
+                        'in directive "%s" %s.' % (
+                        name, self.element.tag, getFileInfo(self)))
                 # Only add the entry if the value is not the missing value or
                 # missing values are requested to be included.
                 if value is not attr.missing_value or includeMissing:
@@ -74,6 +83,9 @@ class RMLDirective(object):
     def processSubDirectives(self, select=None, ignore=None):
         # Go through all children of the directive and try to process them.
         for element in self.element.getchildren():
+            # Ignore all comments
+            if isinstance(element, etree._Comment):
+                continue
             if select is not None and element.tag not in select:
                 continue
             if ignore is not None and element.tag in ignore:
@@ -85,7 +97,7 @@ class RMLDirective(object):
             else:
                 # Record any tags/elements that could not be processed.
                 logger.warn("Directive %r could not be processed and was "
-                            "ignored." %element.tag)
+                            "ignored. %s" %(element.tag, getFileInfo(self)))
 
     def process(self):
         self.processSubDirectives()

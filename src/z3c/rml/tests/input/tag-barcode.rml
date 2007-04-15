@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-place.pdf">
-
-  <stylesheet>
-  </stylesheet>
+<document
+    filename="tag-place.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
 
-    <barCode x="5cm" y="25cm" code="MSI">
+    <drawCenteredString x="10.5cm" y="26cm">
+      barCode Tag Demo
+    </drawCenteredString>
+
+    <barCode x="5cm" y="24cm" code="MSI" doc:example="">
       23465092892
     </barCode>
 
     <barCode x="5cm" y="21cm" code="Standard93">
       217829804
+    </barCode>
+
+    <barCode
+        x="5cm" y="17cm" height="2cm" width="5cm"
+        code="Ean13"
+        humanReadable="true" fontName="Helvetica" fontSize="7"
+        barStrokeColor="blue" barFillColor="blue" textColor="blue"
+        quiet="false" barHeight="0.4in" barWidth="0.009in"
+        doc:example="">
+      123456789012
     </barCode>
 
   </pageDrawing>

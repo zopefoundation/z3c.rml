@@ -41,6 +41,8 @@ STYLES_FORMATTING = {
      6 : ('<font textColor="blue">', '</font>'),
     11 : ('<font textColor="red">', '</font>'),
     }
+EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
+EXAMPLE_ATTR_NAME = '{%s}example' %EXAMPLE_NS
 
 
 def dedent(rml):
@@ -51,6 +53,26 @@ def dedent(rml):
     return rml.replace('\n'+' '*least, '\n')
 
 
+def enforceColumns(rml, columns=80):
+    result = []
+    for line in rml.split('\n'):
+        if len(line) <= columns:
+            result.append(line)
+            continue
+        # Determine the indentation for all other lines
+        lineStart = re.findall('^( *<[a-zA-Z0-9]+ )', line)
+        lineIndent = 0
+        if lineStart:
+            lineIndent = len(lineStart[0])
+        # Create lines having at most the specified number of columns
+        while len(line) > columns:
+            end = line[:columns].rfind(' ')
+            result.append(line[:end])
+            line = ' '*lineIndent + line[end+1:]
+        result.append(line)
+
+    return '\n'.join(result)
+
 def highlightRML(rml):
     if SilverCity is None:
         return rml
@@ -60,6 +82,14 @@ def highlightRML(rml):
         start, end = STYLES_FORMATTING.get(piece['style'], ('', ''))
         styledRml += start + saxutils.escape(piece['text']) + end
     return styledRml
+
+
+def removeDocAttributes(elem):
+    for name in elem.attrib.keys():
+        if name.startswith('{'+EXAMPLE_NS+'}'):
+            del elem.attrib[name]
+    for child in elem.getchildren():
+        removeDocAttributes(child)
 
 
 def getAttributeTypes():
@@ -93,9 +123,15 @@ def formatGrid(field):
     return '%s with %i cols of %s' %(
         field.__class__.__name__, field.columns, vtFormatter(field.value_type))
 
+def formatCombination(field):
+    vts = [typeFormatters.get(vt.__class__, formatField)(vt)
+           for vt in field.value_types]
+    return '%s of %s' %(field.__class__.__name__, ', '.join(vts))
+
 typeFormatters = {
     attr.Choice: formatChoice,
     attr.Sequence: formatSequence,
+    attr.Combination: formatCombination,
     attr.TextNodeSequence: formatSequence,
     attr.TextNodeGrid: formatGrid}
 
@@ -104,7 +140,8 @@ def processSignature(name, signature, examples, directives=None):
         directives = {}
     # Process this directive
     if signature not in directives:
-        info = {'name': name, 'description': signature.getDoc()}
+        info = {'name': name, 'description': signature.getDoc(),
+                'id': str(hash(signature))}
         attrs = []
         content = None
         for fname, field in zope.schema.getFieldsInOrder(signature):
@@ -130,6 +167,7 @@ def processSignature(name, signature, examples, directives=None):
             subs.append({
                 'name': occurence.tag,
                 'occurence': occurence.__class__.__name__,
+                'id': str(hash(occurence.signature))
                 })
         info['sub-directives'] = subs
         directives[signature] = info
@@ -140,8 +178,6 @@ def processSignature(name, signature, examples, directives=None):
 
 
 def extractExamples(directory):
-    EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
-    EXAMPLE_ATTR_NAME = '{%s}example' %EXAMPLE_NS
     examples = {}
     for filename in os.listdir(directory):
         if not filename.endswith('.rml'):
@@ -152,8 +188,11 @@ def extractExamples(directory):
                               {'doc': EXAMPLE_NS})
         for elem in elements:
             demoTag = elem.get(EXAMPLE_ATTR_NAME) or elem.tag
-            del elem.attrib[EXAMPLE_ATTR_NAME]
-            xml = highlightRML(dedent(etree.tounicode(elem).strip()))
+            removeDocAttributes(elem)
+            xml = etree.tounicode(elem).strip()
+            xml = dedent(xml)
+            xml = enforceColumns(xml, 80)
+            xml = highlightRML(xml)
             elemExamples = examples.setdefault(demoTag, [])
             elemExamples.append(
                 {'filename': filename, 'line': elem.sourceline, 'code': xml})

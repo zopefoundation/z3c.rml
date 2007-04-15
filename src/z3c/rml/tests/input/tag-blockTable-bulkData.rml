@@ -11,18 +11,16 @@
 
   <story>
 
-    <title><font face="Courier">&lt;blockTable&gt;</font> Tag Demo</title>
-    <blockTable
-        colWidths="50% 50%" rowHeights="1cm 1cm"
-        doc:example="">
-      <tr>
-       <td>This</td>
-       <td>is</td>
-      </tr>
-      <tr>
-        <td>a</td>
-        <td>blockTable.</td>
-      </tr>
+    <title><font face="Courier">&lt;bulkData&gt;</font> Tag Demo</title>
+    <blockTable >
+      <bulkData doc:example=""><![CDATA[
+Product,Profit
+Sprockets,26
+Widgets,34
+Thingummies,217
+Bits & Bobs,23
+Total,277
+        ]]></bulkData>
     </blockTable>
 
   </story>

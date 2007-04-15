@@ -152,13 +152,13 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
-    frontName = attr.String(
+    fontName = attr.String(
         title=u'Font Name',
         description=(u'The font used to print the value.'),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
-    frontSize = attr.Measurement(
+    fontSize = attr.Measurement(
         title=u'Font Size',
         description=(u'The size of the value text.'),
         required=False)

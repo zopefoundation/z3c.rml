@@ -573,7 +573,7 @@ class SetFont(CanvasRMLDirective):
 
 
 class IScale(interfaces.IRMLDirectiveSignature):
-    """Scale the drawing using x and y sclaing factors."""
+    """Scale the drawing using x and y scaling factors."""
 
     sx = attr.Float(
         title=u'X-Scaling-Factor',
