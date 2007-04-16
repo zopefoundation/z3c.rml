@@ -235,11 +235,13 @@
           <xpre style="code" tal:content="structure example/code">
             Example Code
           </xpre>
-          <para style="example-info">
-            (Extracted from
-             file <i tal:content="example/filename" />,
-             line <tal:block replace="example/line" />)
-          </para>
+          <link url="" tal:attributes="url example/pdfurl">
+            <para style="example-info">
+              (Extracted from
+               file <i tal:content="example/filename" />,
+               line <tal:block replace="example/line" />)
+            </para>
+          </link>
         </tal:block>
       </tal:block>
 

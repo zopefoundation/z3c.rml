@@ -399,7 +399,7 @@ class Param(directive.RMLDirective):
 class ITextAnnotation(interfaces.IRMLDirectiveSignature):
     """Writes a low-level text annotation into the PDF."""
     occurence.containing(
-        occurence.ZeroOrMore('', IParam))
+        occurence.ZeroOrMore('param', IParam))
 
     contents = attr.FirstLevelTextNode(
         title=u'Contents',

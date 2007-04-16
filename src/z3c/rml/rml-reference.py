@@ -30,6 +30,8 @@ except ImportError:
     SilverCity = None
 
 
+EXPECTED_URL = ('http://svn.zope.org/z3c.rml/trunk/src/z3c/'
+                'rml/tests/expected/%s?view=auto')
 EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
 IGNORE_ATTRIBUTES = ('RMLAttribute', 'BaseChoice')
 CONTENT_FIELD_TYPES = (
@@ -194,8 +196,12 @@ def extractExamples(directory):
             xml = enforceColumns(xml, 80)
             xml = highlightRML(xml)
             elemExamples = examples.setdefault(demoTag, [])
-            elemExamples.append(
-                {'filename': filename, 'line': elem.sourceline, 'code': xml})
+            elemExamples.append({
+                'filename': filename,
+                'line': elem.sourceline,
+                'code': xml,
+                'pdfurl': EXPECTED_URL %(filename[:-4]+'.pdf')
+                })
 
     return examples
 
