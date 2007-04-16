@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-spiderChart.pdf">
-
-  <stylesheet>
-  </stylesheet>
+<document
+    filename="tag-spiderChart.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
 
@@ -15,7 +14,8 @@
 
     <spiderChart
         dx="2in" dy="7in" dwidth="6in" dheight="4in"
-         x="0"    y="0"    width="3in"  height="3in">
+         x="0"    y="0"    width="3in"  height="3in"
+         doc:example="">
       <labels>
         <label>a</label>
         <label>b</label>
@@ -24,12 +24,12 @@
         <label>e</label>
         <label>f</label>
       </labels>
-      <strands>
-        <strand strokeColor="cornsilk" fillColor="cornsilk" />
+      <strands doc:example="">
+        <strand strokeColor="cornsilk" fillColor="cornsilk" doc:example="" />
         <strand strokeColor="cyan" fillColor="cyan" />
         <strand strokeColor="palegreen" fillColor="palegreen" />
       </strands>
-      <spokes strokeDashArray="2 2" />
+      <spokes strokeDashArray="2 2" doc:example="" />
       <data>
         <series>12 14 16 14 12</series>
         <series>6 8 10 12 9 15</series>
@@ -40,8 +40,9 @@
     <spiderChart
         dx="2in" dy="4in" dwidth="6in" dheight="4in"
          x="0"    y="0"    width="3in"  height="3in">
-      <spokeLabels fontName="Helvetica-Bold">
-        <label>U</label>
+      <spokeLabels fontName="Helvetica-Bold"
+                   doc:example="z3c.rml.chart.ISpokeLabels">
+        <label doc:example="z3c.rml.chart.ISpokeLabel">U</label>
         <label>V</label>
         <label>W</label>
         <label>X</label>
@@ -54,8 +55,10 @@
                 symbol="Circle" strokeWidth="0.5" />
         <strand strokeColor="green" fillColor="palegreen" />
       </strands>
-      <strandLabels dR="-5" format="values">
-        <label row="0" col="3" dx="-10">special</label>
+      <strandLabels dR="-5" format="values"
+                    doc:example="z3c.rml.chart.IStrandLabels">
+        <label row="0" col="3" dx="-10"
+               doc:example="z3c.rml.chart.IStrandLabel">special</label>
         <label row="0" col="1" dy="5">one</label>
         <label row="0" col="0" dy="5">zero</label>
         <label row="1" col="0" dy="10">Earth</label>

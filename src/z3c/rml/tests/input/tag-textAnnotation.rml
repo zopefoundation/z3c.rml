@@ -6,7 +6,7 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
     <textAnnotation doc:example="">
-      <param name="Rect">0,0,1,1</param>
+      <param name="Rect" doc:example="">0,0,1,1</param>
       <param name="F">3</param>
       <param name="escape">6</param>
 X::PDF

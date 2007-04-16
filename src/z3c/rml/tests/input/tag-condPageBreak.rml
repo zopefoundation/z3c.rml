@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-condPageBreak.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="21cm" width="19cm" height="6cm"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+    <h1>Text 1 - On page 1</h1>
+    <condPageBreak height="8cm" doc:example="" />
+    <h1>Text 2 - On page 2</h1>
+    <condPageBreak height="4cm" />
+    <h1>Text 3 - On page 2</h1>
+  </story>
+</document>

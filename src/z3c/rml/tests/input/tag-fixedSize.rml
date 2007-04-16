@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-spacer.pdf">
+
+<document
+    filename="tag-spacer.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
@@ -27,7 +31,7 @@
     </para>
     <nextFrame name="second" />
 
-    <fixedSize width="3cm" height="2cm">
+    <fixedSize width="3cm" height="2cm" doc:example="">
       <title><font face="Courier">&lt;fixedSize&gt;</font> Tag Demo</title>
       <para>
         This tag allows keeping a set of flowables in a confined space.

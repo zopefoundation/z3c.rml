@@ -16,13 +16,14 @@
 $Id$
 """
 __docformat__ = "reStructuredText"
+import copy
 import re
 import os
 import zope.schema
 import zope.schema.interfaces
 from lxml import etree
 from xml.sax import saxutils
-from z3c.rml import attr, document, pagetemplate
+from z3c.rml import attr, document, interfaces, pagetemplate
 
 try:
     import SilverCity
@@ -30,6 +31,8 @@ except ImportError:
     SilverCity = None
 
 
+INPUT_URL = ('http://svn.zope.org/*checkout*/z3c.rml/trunk/src/z3c/'
+             'rml/tests/input/%s')
 EXPECTED_URL = ('http://svn.zope.org/z3c.rml/trunk/src/z3c/'
                 'rml/tests/expected/%s?view=auto')
 EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
@@ -143,7 +146,11 @@ def processSignature(name, signature, examples, directives=None):
     # Process this directive
     if signature not in directives:
         info = {'name': name, 'description': signature.getDoc(),
-                'id': str(hash(signature))}
+                'id': str(hash(signature)), 'deprecated': False}
+        # If directive is deprecated, then add some info
+        if interfaces.IDeprecatedDirective.providedBy(signature):
+            info['deprecated'] = True
+            info['reason'] = signature.getTaggedValue('deprecatedReason')
         attrs = []
         content = None
         for fname, field in zope.schema.getFieldsInOrder(signature):
@@ -155,20 +162,37 @@ def processSignature(name, signature, examples, directives=None):
                 'title': field.title,
                 'description': field.description,
                 'required': field.required,
+                'deprecated': False,
                 }
             if field.__class__ in CONTENT_FIELD_TYPES:
                 content = fieldInfo
             else:
                 attrs.append(fieldInfo)
+
+            # Add a separate entry for the deprecated field
+            if interfaces.IDeprecated.providedBy(field):
+                deprFieldInfo = fieldInfo.copy()
+                deprFieldInfo['deprecated'] = True
+                deprFieldInfo['name'] = field.deprecatedName
+                deprFieldInfo['reason'] = field.deprecatedReason
+                attrs.append(deprFieldInfo)
+
         info['attributes'] = attrs
         info['content'] = content
-        info['examples'] = examples.get(name, None)
+        # Examples can be either gotten by interface path or tag name
+        ifacePath = signature.__module__ + '.' + signature.__name__
+        if ifacePath in examples:
+            info['examples'] = examples[ifacePath]
+        else:
+            info['examples'] = examples.get(name, None)
 
         subs = []
         for occurence in signature.queryTaggedValue('directives', ()):
             subs.append({
                 'name': occurence.tag,
                 'occurence': occurence.__class__.__name__,
+                'deprecated': interfaces.IDeprecatedDirective.providedBy(
+                                 occurence.signature),
                 'id': str(hash(occurence.signature))
                 })
         info['sub-directives'] = subs
@@ -188,20 +212,26 @@ def extractExamples(directory):
         root = etree.parse(rmlFile).getroot()
         elements = root.xpath('//@doc:example/parent::*',
                               {'doc': EXAMPLE_NS})
+        # Phase 1: Collect all elements
         for elem in elements:
             demoTag = elem.get(EXAMPLE_ATTR_NAME) or elem.tag
-            removeDocAttributes(elem)
-            xml = etree.tounicode(elem).strip()
-            xml = dedent(xml)
-            xml = enforceColumns(xml, 80)
-            xml = highlightRML(xml)
             elemExamples = examples.setdefault(demoTag, [])
             elemExamples.append({
                 'filename': filename,
                 'line': elem.sourceline,
-                'code': xml,
+                'element': elem,
+                'rmlurl': INPUT_URL %filename,
                 'pdfurl': EXPECTED_URL %(filename[:-4]+'.pdf')
                 })
+        # Phase 2: Render all elements
+        removeDocAttributes(root)
+        for dirExamples in examples.values():
+            for example in dirExamples:
+                xml = etree.tounicode(example['element']).strip()
+                xml = dedent(xml)
+                xml = enforceColumns(xml, 80)
+                xml = highlightRML(xml)
+                example['code'] = xml
 
     return examples
 

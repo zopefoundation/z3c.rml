@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="template.pdf">
+<document
+    filename="simple-layout.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
-  <stylesheet>
+  <stylesheet doc:example="">
     <paraStyle
         name="large"
         fontSize="3cm"
         textColor="red"
+        doc:example=""
         />
   </stylesheet>
 
@@ -29,7 +32,7 @@
 
   </template>
 
-  <story>
+  <story doc:example="">
     <para style="large">Hello <b>World</b>!</para>
   </story>
 

@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-illustration.pdf">
+
+<document
+    filename="tag-illustration.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
@@ -7,15 +11,12 @@
     </pageTemplate>
   </template>
 
-  <stylesheet>
-  </stylesheet>
-
   <story>
     <title><font face="Courier">&lt;illustration&gt;</font> Tag Demo</title>
     <para>
       Illustrations allow graphical elements to be located into a story.
     </para>
-    <illustration height="3cm" width="5cm">
+    <illustration height="3cm" width="5cm" doc:example="">
       <lines>
         0   0   0   3cm
         0   3cm 5cm 3cm

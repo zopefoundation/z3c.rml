@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-pieChart3d.pdf">
-
-  <stylesheet>
-  </stylesheet>
+<document
+    filename="tag-pieChart3d.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
 
@@ -15,7 +14,8 @@
 
     <pieChart3D
         dx="2in" dy="7in" dwidth="6in" dheight="4in"
-         x="0"    y="0"    width="3in"  height="3in">
+         x="0"    y="0"    width="3in"  height="3in"
+         doc:example="">
       <labels>
         <label>a</label>
         <label>b</label>
@@ -24,12 +24,13 @@
         <label>e</label>
         <label>f</label>
       </labels>
-      <slices strokeWidth="0.5">
+      <slices strokeWidth="0.5" doc:example="z3c.rml.chart.ISlices3D">
         <slice fillColor="darkcyan" />
         <slice fillColor="blueviolet" />
         <slice fillColor="blue" />
         <slice fillColor="cyan" popout="10"
-               strokeWidth="2" strokeDashArray="2 2"/>
+               strokeWidth="2" strokeDashArray="2 2"
+               doc:example="z3c.rml.chart.ISlice3D"/>
         <slice fillColor="aquamarine" />
         <slice fillColor="cadetblue" />
         <slice fillColor="lightcoral" />
@@ -44,8 +45,8 @@
          x="0"    y="0"    width="5in"  height="3in"
          orderMode="fixed" pointerLabelMode="LeftAndRight"
          sameRadii="true" perspective="50" angle_3d="170">
-      <labels>
-        <label>Age  1-10</label>
+      <labels doc:example="z3c.rml.chart.ISimpleLabels">
+        <label doc:example="z3c.rml.chart.ISimpleLabel">Age  1-10</label>
         <label>Age 11-20</label>
         <label>Age 21-30</label>
         <label>Age 31-40</label>

@@ -26,6 +26,11 @@ from z3c.rml import interfaces
 logger = logging.getLogger("z3c.rml")
 
 
+def DeprecatedDirective(iface, reason):
+    zope.interface.directlyProvides(iface, interfaces.IDeprecatedDirective)
+    iface.setTaggedValue('deprecatedReason', reason)
+    return iface
+
 def getFileInfo(directive):
     root = directive
     while root.parent:

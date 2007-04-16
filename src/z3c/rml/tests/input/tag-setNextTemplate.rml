@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-setNextTemplate.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template>
+    <pageTemplate id="first">
+      <pageGraphics>
+        <drawString x="1cm" y="28cm">First Template</drawString>
+      </pageGraphics>
+      <frame id="one" x1="1cm" y1="24cm" width="19cm" height="2cm"/>
+    </pageTemplate>
+    <pageTemplate id="main">
+      <pageGraphics>
+        <drawString x="1cm" y="28cm">Main Template</drawString>
+      </pageGraphics>
+      <frame id="one" x1="1cm" y1="24cm" width="19cm" height="2cm"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+    <title>First Text 1</title>
+
+    <setNextTemplate name="first" doc:example="" />
+    <spacer length="1cm" />
+    <title>First Text 2</title>
+
+    <setNextTemplate name="main" />
+    <spacer length="1cm" />
+    <title>Main Text</title>
+  </story>
+</document>

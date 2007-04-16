@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-spacer.pdf">
+
+<document
+    filename="tag-keepInFrame.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
@@ -7,9 +11,6 @@
       <frame id="second" x1="3cm" y1="19cm" width="10cm" height="3cm"/>
     </pageTemplate>
   </template>
-
-  <stylesheet>
-  </stylesheet>
 
   <story>
     <title><font face="Courier">&lt;keepInFrame&gt;</font> Tag Demo</title>
@@ -37,6 +38,16 @@
         goes here. Lot's of text goes here. Lot's of text goes here. Lot's of
         text goes here. Lot's of text goes here. Lot's of text goes here. Lot's
         of text goes here.
+      </para>
+    </keepInFrame>
+
+    <nextPage />
+
+    <keepInFrame maxWidth="3cm" maxHeight="2cm"
+                 onOverflow="shrink" name="second"
+                 doc:example="">
+      <para>
+        This tag allows keeping a set of flowables in a confined space.
       </para>
     </keepInFrame>
   </story>

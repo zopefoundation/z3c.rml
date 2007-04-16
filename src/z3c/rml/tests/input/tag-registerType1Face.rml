@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-registerType1Face.pdf">
+
+<document
+    filename="tag-registerType1Face.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <docinit>
-    <registerType1Face afmFile="LeERC___.AFM" pfbFile="LeERC___.PFB" />
+    <registerType1Face afmFile="LeERC___.AFM" pfbFile="LeERC___.PFB"
+                       doc:example=""/>
     <registerFont
         name="LettErrorRobot-Chrome"
         faceName="LettErrorRobot-Chrome"
-        encName="WinAnsiEncoding" />
+        encName="WinAnsiEncoding"
+        doc:example="" />
   </docinit>
   <template>
     <pageTemplate id="main">

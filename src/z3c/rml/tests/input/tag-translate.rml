@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawString.pdf">
+<document
+    filename="tag-translate.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <drawString x="4.1in" y="8in">
       Hello World.
     </drawString>
 
-    <translate dx="1in" dy="0" />
+    <translate dx="1in" dy="0" doc:example="" />
     <drawString x="4.1in" y="6in">
       Hello World.
     </drawString>

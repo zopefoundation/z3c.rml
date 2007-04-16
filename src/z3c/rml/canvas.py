@@ -443,7 +443,7 @@ class MoveTo(directive.RMLDirective):
         self.parent.path.moveTo(*args[0])
 
 
-class ICurvesTo(interfaces.IRMLDirectiveSignature):
+class ICurveTo(interfaces.IRMLDirectiveSignature):
     """Create a bezier curve from the current location to the specified one."""
 
     curvelist = attr.TextNodeGrid(
@@ -453,18 +453,27 @@ class ICurvesTo(interfaces.IRMLDirectiveSignature):
         columns=6,
         required=True)
 
-class CurvesTo(directive.RMLDirective):
-    signature = ICurvesTo
+class CurveTo(directive.RMLDirective):
+    signature = ICurveTo
 
     def process(self):
         argset = self.getAttributeValues(valuesOnly=True)[0]
         for args in argset:
             self.parent.path.curveTo(*args)
 
+class ICurvesTo(ICurveTo):
+    pass
+directive.DeprecatedDirective(
+    ICurvesTo,
+    'Available for ReportLab RML compatibility. Please use the "curveto" '
+    'directive instead.')
+
+
 class IPath(IShape):
     """Create a line path."""
     occurence.containing(
         occurence.ZeroOrMore('moveto', IMoveTo),
+        occurence.ZeroOrMore('curveto', ICurveTo),
         occurence.ZeroOrMore('curvesto', ICurvesTo),
         )
 
@@ -485,7 +494,8 @@ class Path(CanvasRMLDirective):
     signature = IPath
     factories = {
         'moveto': MoveTo,
-        'curvesto': CurvesTo
+        'curveto': CurveTo,
+        'curvesto': CurveTo
         }
 
     def processPoints(self, text):
@@ -535,7 +545,7 @@ class Fill(CanvasRMLDirective):
 
 
 class IStroke(interfaces.IRMLDirectiveSignature):
-    """Set the fill color."""
+    """Set the stroke/line color."""
 
     color = attr.Color(
         title=u'Color',

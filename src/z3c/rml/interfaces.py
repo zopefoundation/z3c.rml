@@ -119,3 +119,21 @@ class IRMLDirective(zope.interface.Interface):
 
         This call should also process all sub-directives and process them.
         """
+
+
+class IDeprecated(zope.interface.Interface):
+    """Mark an attribute as being compatible."""
+
+    deprecatedName = zope.schema.TextLine(
+        title=u'Name',
+        description=u'The name of the original attribute.',
+        required=True)
+
+    deprecatedReason = zope.schema.Text(
+        title=u'Reason',
+        description=u'The reason the attribute has been deprecated.',
+        required=False)
+
+
+class IDeprecatedDirective(zope.interface.interfaces.IInterface):
+    """A directive that is deprecated."""

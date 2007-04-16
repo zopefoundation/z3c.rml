@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-registerTTFont.pdf">
+
+<document
+    filename="tag-registerTTFont.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <docinit>
-    <registerCidFont faceName="HeiseiMin-W3" />
+    <registerCidFont faceName="HeiseiMin-W3" doc:example="" />
   </docinit>
   <template>
     <pageTemplate id="main">

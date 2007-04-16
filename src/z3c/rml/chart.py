@@ -379,7 +379,7 @@ class IPositionLabelBase(ILabelBase):
 
 
 class ILabel(IPositionLabelBase):
-    """A label for the chart."""
+    """A label for the chart on an axis."""
 
     text = attr.TextNode(
         title=u'Text',
@@ -391,7 +391,7 @@ class Label(PropertyItem):
 
 
 class ILabels(IPositionLabelBase):
-    """A set of labels."""
+    """A set of labels of an axis."""
     occurence.containing(
         occurence.ZeroOrMore('label', ILabel)
         )
@@ -408,47 +408,77 @@ class IAxis(interfaces.IRMLDirectiveSignature):
         )
 
     visible = attr.Boolean(
+        title=u'Visible',
+        description=u'When true, draw the entire axis with all details.',
         required=False)
 
     visibleAxis = attr.Boolean(
+        title=u'Visible Axis',
+        description=u'When true, draw the axis line.',
         required=False)
 
     visibleTicks = attr.Boolean(
+        title=u'Visible Ticks',
+        description=u'When true, draw the axis ticks on the line.',
         required=False)
 
     visibleLabels = attr.Boolean(
+        title=u'Visible Labels',
+        description=u'When true, draw the axis labels.',
         required=False)
 
     visibleGrid = attr.Boolean(
+        title=u'Visible Grid',
+        description=u'When true, draw the grid lines for the axis.',
         required=False)
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'The width of axis line and ticks.',
         required=False)
 
     strokeColor = attr.Color(
+        title=u'Stroke Color',
+        description=u'The color in which the axis line and ticks are drawn.',
         required=False)
 
     strokeDashArray = attr.Sequence(
+        title=u'Stroke Dash Array',
+        description=u'The dash array that is used for the axis line and ticks.',
         value_type=attr.Float(),
         required=False)
 
     gridStrokeWidth = attr.Measurement(
+        title=u'Grid Stroke Width',
+        description=u'The width of the grid lines.',
         required=False)
 
     gridStrokeColor = attr.Color(
+        title=u'Grid Stroke Color',
+        description=u'The color in which the grid lines are drawn.',
         required=False)
 
     gridStrokeDashArray = attr.Sequence(
+        title=u'Grid Stroke Dash Array',
+        description=u'The dash array that is used for the grid lines.',
         value_type=attr.Float(),
         required=False)
 
     gridStart = attr.Measurement(
+        title=u'Grid Start',
+        description=(u'The start of the grid lines with respect to the '
+                     u'axis origin.'),
         required=False)
 
     gridEnd = attr.Measurement(
+        title=u'Grid End',
+        description=(u'The end of the grid lines with respect to the '
+                     u'axis origin.'),
         required=False)
 
     style = attr.Choice(
+        title=u'Style',
+        description=u'The plot style of the common categories.',
         choices=('parallel', 'stacked', 'parallel_3d'),
         required=False)
 
@@ -466,9 +496,10 @@ class Axis(directive.RMLDirective):
 
 
 class IName(interfaces.IRMLDirectiveSignature):
-
+    """A category name"""
     text = attr.TextNode(
         title=u'Text',
+        description=u'The text value that is the name.',
         required=True)
 
 class Name(directive.RMLDirective):
@@ -479,7 +510,8 @@ class Name(directive.RMLDirective):
         self.parent.names.append(text)
 
 
-class ICategoryNames(IAxis):
+class ICategoryNames(interfaces.IRMLDirectiveSignature):
+    """A list of category names."""
     occurence.containing(
         occurence.OneOrMore('name', IName),
         )
@@ -495,29 +527,43 @@ class CategoryNames(directive.RMLDirective):
 
 
 class ICategoryAxis(IAxis):
+    """An axis displaying categories (instead of numerical values)."""
     occurence.containing(
         occurence.ZeroOrOne('categoryNames', ICategoryNames),
         *IAxis.queryTaggedValue('directives', ())
         )
 
     categoryNames = attr.Sequence(
+        title=u'Category Names',
+        description=u'A simple list of category names.',
         value_type=attr.Text(),
         required=False)
 
     joinAxis = attr.Boolean(
+        title=u'Join Axis',
+        description=u'When true, both axes join together.',
         required=False)
 
     joinAxisPos = attr.Measurement(
+        title=u'Join Axis Position',
+        description=u'The position at which the axes should join together.',
         required=False)
 
     reverseDirection = attr.Boolean(
+        title=u'Reverse Direction',
+        description=u'A flag to reverse the direction of category names.',
         required=False)
 
     labelAxisMode = attr.Choice(
+        title=u'Label Axis Mode',
+        description=u'Defines the relative position of the axis labels.',
         choices=('high', 'low', 'axis'),
         required=False)
 
     tickShift = attr.Boolean(
+        title=u'Tick Shift',
+        description=(u'When true, place the ticks in the center of a '
+                     u'category instead the beginning and end.'),
         required=False)
 
 class CategoryAxis(Axis):
@@ -530,14 +576,21 @@ class CategoryAxis(Axis):
 
 
 class IXCategoryAxis(ICategoryAxis):
+    """X-Category Axis"""
 
     tickUp = attr.Measurement(
+        title=u'Tick Up',
+        description=u'Length of tick above the axis line.',
         required=False)
 
     tickDown = attr.Measurement(
+        title=u'Tick Down',
+        description=u'Length of tick below the axis line.',
         required=False)
 
     joinAxisMode = attr.Choice(
+        title=u'Join Axis Mode',
+        description=u'Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -546,14 +599,21 @@ class XCategoryAxis(CategoryAxis):
 
 
 class IYCategoryAxis(ICategoryAxis):
+    """Y-Category Axis"""
 
     tickLeft = attr.Measurement(
+        title=u'Tick Left',
+        description=u'Length of tick left to the axis line.',
         required=False)
 
     tickRight = attr.Measurement(
+        title=u'Tick Right',
+        description=u'Length of tick right to the axis line.',
         required=False)
 
     joinAxisMode = attr.Choice(
+        title=u'Join Axis Mode',
+        description=u'Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -564,39 +624,64 @@ class YCategoryAxis(CategoryAxis):
 class IValueAxis(IAxis):
 
     forceZero = attr.Boolean(
+        title=u'Force Zero',
+        description=u'When set, the range will contain the origin.',
         required=False)
 
     minimumTickSpacing = attr.Measurement(
+        title=u'Minimum Tick Spacing',
+        description=u'The minimum distance between ticks.',
         required=False)
 
     maximumTicks = attr.Integer(
+        title=u'Maximum Ticks',
+        description=u'The maximum number of ticks to be shown.',
         required=False)
 
     labelTextFormat = attr.String(
+        title=u'Label Text Format',
+        description=u'Formatting string for axis labels.',
         required=False)
 
     labelTextPostFormat = attr.Text(
+        title=u'Label Text Post Format',
+        description=u'An additional formatting string.',
         required=False)
 
     labelTextScale = attr.Float(
+        title=u'Label Text Scale',
+        description=u'The sclaing factor for the label tick values.',
         required=False)
 
     valueMin = attr.Float(
+        title=u'Minimum Value',
+        description=u'The smallest value on the axis.',
         required=False)
 
     valueMax = attr.Float(
+        title=u'Maximum Value',
+        description=u'The largest value on the axis.',
         required=False)
 
     valueStep = attr.Float(
+        title=u'Value Step',
+        description=u'The step size between ticks',
         required=False)
 
     valueSteps = attr.Measurement(
+        title=u'Step Sizes',
+        description=u'List of step sizes between ticks.',
         required=False)
 
-    rangeRound = attr.Text(
+    rangeRound = attr.Choice(
+        title=u'Range Round',
+        description=u'Method to be used to round the range values.',
+        choices=('none', 'both', 'ceiling', 'floor'),
         required=False)
 
     zrangePref = attr.Float(
+        title=u'Zero Range Preference',
+        description=u'Zero range axis limit preference.',
         required=False)
 
 class ValueAxis(Axis):
@@ -605,21 +690,32 @@ class ValueAxis(Axis):
 
 
 class IXValueAxis(IValueAxis):
+    """X-Value Axis"""
 
     tickUp = attr.Measurement(
+        title=u'Tick Up',
+        description=u'Length of tick above the axis line.',
         required=False)
 
     tickDown = attr.Measurement(
+        title=u'Tick Down',
+        description=u'Length of tick below the axis line.',
         required=False)
 
     joinAxis = attr.Boolean(
+        title=u'Join Axis',
+        description=u'Whether to join the axes.',
         required=False)
 
     joinAxisMode = attr.Choice(
+        title=u'Join Axis Mode',
+        description=u'Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
     joinAxisPos = attr.Measurement(
+        title=u'Join Axis Position',
+        description=u'The position in the plot at which to join the axes.',
         required=False)
 
 class XValueAxis(ValueAxis):
@@ -629,22 +725,34 @@ class LineXValueAxis(XValueAxis):
     name = 'xValueAxis'
 
 class IYValueAxis(IValueAxis):
+    """Y-Value Axis"""
 
     tickLeft = attr.Measurement(
+        title=u'Tick Left',
+        description=u'Length of tick left to the axis line.',
         required=False)
 
     tickRight = attr.Measurement(
+        title=u'Tick Right',
+        description=u'Length of tick right to the axis line.',
         required=False)
 
     joinAxis = attr.Boolean(
+        title=u'Join Axis',
+        description=u'Whether to join the axes.',
         required=False)
 
     joinAxisMode = attr.Choice(
+        title=u'Join Axis Mode',
+        description=u'Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
     joinAxisPos = attr.Measurement(
+        title=u'Join Axis Position',
+        description=u'The position in the plot at which to join the axes.',
         required=False)
+
 
 class YValueAxis(ValueAxis):
     signature = IYValueAxis
@@ -653,30 +761,54 @@ class LineYValueAxis(YValueAxis):
     name = 'yValueAxis'
 
 
+class ILineLabels(IPositionLabelBase):
+    """A set of labels of an axis."""
+    occurence.containing(
+        occurence.ZeroOrMore('label', ILabel)
+        )
+
+class LineLabels(PropertyCollection):
+    signature = ILineLabels
+    propertyName = 'lineLabels'
+    factories = {'label': Label}
+
+
 class ILineBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'The width of the plot line.',
         required=False)
 
     strokeColor = attr.Color(
+        title=u'Stroke Color',
+        description=u'The color of the plot line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
+        title=u'Stroke Dash Array',
+        description=u'The dash array of the plot line.',
         value_type = attr.Float(),
         required=False)
 
     symbol = attr.Symbol(
+        title=u'Symbol',
+        description=u'The symbol to be used for every data point in the plot.',
         required=False)
 
 class ILine(ILineBase):
+    """A line description of a series of a line plot."""
 
     name = attr.Text(
+        title=u'Name',
+        description=u'The name of the line.',
         required=False)
 
 class Line(PropertyItem):
     signature = ILine
 
 class ILines(ILineBase):
+    """The set of all line descriptions in the line plot."""
     occurence.containing(
         occurence.OneOrMore('line', ILine),
         )
@@ -688,6 +820,7 @@ class Lines(PropertyCollection):
 
 
 class ISliceLabel(ILabelBase):
+    """The label of a slice within a bar chart."""
 
     text = attr.TextNode(
         title=u'Text',
@@ -705,20 +838,31 @@ class SliceLabel(Label):
 
 
 class ISlicePointer(interfaces.IRMLDirectiveSignature):
+    """A pointer to a slice in a pie chart."""
 
     strokeColor = attr.Color(
+        title=u'Stroke Color',
+        description=u'The color of the pointer line.',
         required=False)
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'The wodth of the pointer line.',
         required=False)
 
     elbowLength = attr.Measurement(
+        title=u'Elbow Length',
+        description=u'The length of the final segment of the pointer.',
         required=False)
 
     edgePad = attr.Measurement(
+        title=u'Edge Padding',
+        description=u'The padding between between the pointer label and box.',
         required=False)
 
     piePad = attr.Measurement(
+        title=u'Pie Padding',
+        description=u'The padding between between the pointer label and chart.',
         required=False)
 
 class SlicePointer(directive.RMLDirective):
@@ -732,32 +876,50 @@ class SlicePointer(directive.RMLDirective):
 class ISliceBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'The wodth of the slice line.',
         required=False)
 
     fillColor = attr.Color(
+        title=u'Fill Color',
+        description=u'The fill color of the slice.',
         required=False)
 
     strokeColor = attr.Color(
+        title=u'Stroke Color',
+        description=u'The color of the pointer line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
+        title=u'Stroke Dash Array',
+        description=u'Teh dash array of the slice borderline.',
         value_type=attr.Float(),
         required=False)
 
     popout = attr.Measurement(
+        title=u'Popout',
+        description=u'The distance of how much the slice should be popped out.',
         required=False)
 
     fontName = attr.String(
+        title=u'Font Name',
+        description=u'The font name of the label.',
         required=False)
 
     fontSize = attr.Measurement(
+        title=u'Font Size',
+        description=u'The font size of the label.',
         required=False)
 
     labelRadius = attr.Measurement(
+        title=u'Label Radius',
+        description=(u'The radius at which the label should be placed around '
+                     u'the pie.'),
         required=False)
 
 
 class ISlice(ISliceBase):
+    """A slice in a pie chart."""
     occurence.containing(
         occurence.ZeroOrOne('label', ISliceLabel),
         occurence.ZeroOrOne('pointer', ISlicePointer),
@@ -779,8 +941,11 @@ class Slice(directive.RMLDirective):
 
 
 class ISlice3D(ISlice):
+    """A 3-D slice of a 3-D pie chart."""
 
     fillColorShaded = attr.Color(
+        title=u'Fill Color Shade',
+        description=u'The shade used for the fill color.',
         required=False)
 
 class Slice3D(Slice):
@@ -791,6 +956,7 @@ class Slice3D(Slice):
 
 
 class ISlices(ISliceBase):
+    """The collection of all 2-D slice descriptions."""
     occurence.containing(
         occurence.OneOrMore('slice', ISlice),
         )
@@ -812,6 +978,7 @@ class Slices(directive.RMLDirective):
 
 
 class ISlices3D(ISliceBase):
+    """The collection of all 3-D slice descriptions."""
     occurence.containing(
         occurence.OneOrMore('slice', ISlice3D),
         )
@@ -824,9 +991,16 @@ class Slices3D(Slices):
     factories = {'slice': Slice3D}
 
 
+class ISimpleLabel(IName):
+    """A simple label"""
+
+class SimpleLabel(Name):
+    signature = ISimpleLabel
+
 class ISimpleLabels(interfaces.IRMLDirectiveSignature):
+    """A set of simple labels for a chart."""
     occurence.containing(
-        occurence.OneOrMore('label', IName),
+        occurence.OneOrMore('label', ISimpleLabel),
         )
 
 class SimpleLabels(directive.RMLDirective):
@@ -842,27 +1016,42 @@ class SimpleLabels(directive.RMLDirective):
 class IStrandBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u'The line width of the strand.',
         required=False)
 
     fillColor = attr.Color(
+        title=u'Fill Color',
+        description=u'The fill color of the strand area.',
         required=False)
 
     strokeColor= attr.Color(
+        title=u'Stroke Color',
+        description=u'The color of the strand line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
+        title=u'Stroke Dash Array',
+        description=u'The dash array of the strand line.',
         value_type=attr.Float(),
         required=False)
 
     symbol = attr.Symbol(
+        title=u'Symbol',
+        description=u'The symbol to use to mark the strand.',
         required=False)
 
     symbolSize = attr.Measurement(
+        title=u'Symbol Size',
+        description=u'The size of the strand symbol.',
         required=False)
 
 class IStrand(IStrandBase):
+    """A strand in the spider diagram"""
 
-     name = attr.Text(
+    name = attr.Text(
+        title=u'Name',
+        description=u'The name of the strand.',
         required=False)
 
 class Strand(PropertyItem):
@@ -885,20 +1074,31 @@ class Strands(PropertyCollection):
 class IStrandLabelBase(ILabelBase):
 
     _text = attr.TextNode(
+        title=u'Text',
+        description=u'The label text of the strand.',
         required=False)
 
     row = attr.Integer(
+        title=u'Row',
+        description=u'The row of the strand label',
         required=False)
 
     col = attr.Integer(
+        title=u'Column',
+        description=u'The column of the strand label.',
         required=False)
 
     format = attr.String(
+        title=u'Format',
+        description=u'The format string for the label.',
         required=False)
 
 class IStrandLabel(IStrandLabelBase):
+    """A label for a strand."""
 
     dR = attr.Float(
+        title=u'Radial Shift',
+        description=u'The radial shift of the label.',
         required=False)
 
 class StrandLabel(Label):
@@ -930,24 +1130,37 @@ class StrandLabels(PropertyCollection):
 
 
 class ISpoke(interfaces.IRMLDirectiveSignature):
+    """A spoke in the spider diagram."""
 
     strokeWidth = attr.Measurement(
+        title=u'Stroke Width',
+        description=u"The width of the spoke's line.",
         required=False)
 
     fillColor = attr.Color(
+        title=u'Fill Color',
+        description=u"The fill color of the spoke's area.",
         required=False)
 
     strokeColor= attr.Color(
+        title=u'Stroke Color',
+        description=u'The color of the spoke line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
+        title=u'Stroke Dash Array',
+        description=u'The dash array of the spoke line.',
         value_type=attr.Float(),
         required=False)
 
     labelRadius = attr.Measurement(
+        title=u'Label Radius',
+        description=u'The radius of the label arouns the spoke.',
         required=False)
 
-    visible = attr.Measurement(
+    visible = attr.Boolean(
+        title=u'Visible',
+        description=u'When true, the spoke line is drawn.',
         required=False)
 
 class Spoke(PropertyItem):
@@ -970,8 +1183,10 @@ class ISpokeLabelBase(ILabelBase):
     pass
 
 class ISpokeLabel(ISpokeLabelBase):
-
+    """A label for a spoke."""
     _text = attr.TextNode(
+        title=u'Text',
+        description=u'The text of the spoke (label).',
         required=False)
 
 class SpokeLabel(Label):
@@ -1189,25 +1404,34 @@ class BarChart3D(BarChart):
 
 
 class ILinePlot(IChart):
+    """A line plot."""
     occurence.containing(
         occurence.One('data', IData2D),
         occurence.ZeroOrOne('lines', ILines),
         occurence.ZeroOrOne('xValueAxis', IXValueAxis),
         occurence.ZeroOrOne('yValueAxis', IYValueAxis),
-        occurence.ZeroOrOne('lineLabels', ILabels),
+        occurence.ZeroOrOne('lineLabels', ILineLabels),
         *IChart.queryTaggedValue('directives', ())
         )
 
     reversePlotOrder = attr.Boolean(
+        title=u'Reverse Plot Order',
+        description=u'When true, the coordinate system is reversed.',
         required=False)
 
     lineLabelNudge = attr.Measurement(
+        title=u'Line Label Nudge',
+        description=u'The distance between the data point and its label.',
         required=False)
 
     lineLabelFormat = attr.String(
+        title=u'Line Label Format',
+        description=u'Formatting string for data point labels.',
         required=False)
 
     joinedLines = attr.Boolean(
+        title=u'Joined Lines',
+        description=u'When true, connect all data points with lines.',
         required=False)
 
 class LinePlot(Chart):
@@ -1219,7 +1443,7 @@ class LinePlot(Chart):
         'lines': Lines,
         'xValueAxis': LineXValueAxis,
         'yValueAxis': LineYValueAxis,
-        'lineLabels': Labels,
+        'lineLabels': LineLabels,
         })
 
     def createChart(self, attrs):
@@ -1231,6 +1455,7 @@ class LinePlot(Chart):
 
 
 class IPieChart(IChart):
+    """A pie chart."""
     occurence.containing(
         occurence.One('data', ISingleData1D),
         occurence.ZeroOrOne('slices', ISlices),
@@ -1245,29 +1470,45 @@ class IPieChart(IChart):
         required=False)
 
     direction = attr.Choice(
+        title=u'Direction',
+        description=u'The direction in which the pie chart will be built.',
         choices=('clockwise', 'anticlockwise'),
         required=False)
 
     checkLabelOverlap = attr.Boolean(
+        title=u'Check Label Overlap',
+        description=(u'When true, check and attempt to fix standard '
+                     u'label overlaps'),
         required=False)
 
     pointerLabelMode = attr.Choice(
+        title=u'Pointer Label Mode',
+        description=(u'The location relative to the slace the label should '
+                     u'be placed.'),
         choices={'none': None,
                  'leftright': 'LeftRight',
                  'leftandright': 'LeftAndRight'},
         required=False)
 
     sameRadii = attr.Boolean(
+        title=u'Same Radii',
+        description=u'When true, make x/y radii the same.',
         required=False)
 
     orderMode = attr.Choice(
+        title=u'Order Mode',
+        description=u'',
         choices=('fixed', 'alternate'),
         required=False)
 
     xradius = attr.Measurement(
+        title=u'X-Radius',
+        description=u'The radius of the X-directions',
         required=False)
 
     yradius = attr.Measurement(
+        title=u'Y-Radius',
+        description=u'The radius of the Y-directions',
         required=False)
 
 
@@ -1291,18 +1532,25 @@ class PieChart(Chart):
 
 
 class IPieChart3D(IPieChart):
+    """A 3-D pie chart."""
     occurence.containing(
         occurence.One('slices', ISlices3D),
         *IChart.queryTaggedValue('directives', ())
         )
 
     perspective = attr.Float(
+        title=u'Perspsective',
+        description=u'The flattening parameter.',
         required=False)
 
     depth_3d = attr.Measurement(
+        title=u'3-D Depth',
+        description=u'The depth of the pie.',
         required=False)
 
     angle_3d = attr.Float(
+        title=u'3-D Angle',
+        description=u'The view angle in the Z-coordinate.',
         required=False)
 
 class PieChart3D(PieChart):
@@ -1316,6 +1564,7 @@ class PieChart3D(PieChart):
 
 
 class ISpiderChart(IChart):
+    """A spider chart."""
     occurence.containing(
         occurence.One('data', IData1D),
         occurence.ZeroOrOne('strands', IStrands),
@@ -1327,9 +1576,14 @@ class ISpiderChart(IChart):
         )
 
     startAngle = attr.Integer(
+        title=u'Start Angle',
+        description=u'The start angle in the chart of the first strand '
+                    u'in degrees.',
         required=False)
 
     direction = attr.Choice(
+        title=u'Direction',
+        description=u'The direction in which the spider chart will be built.',
         choices=('clockwise', 'anticlockwise'),
         required=False)
 

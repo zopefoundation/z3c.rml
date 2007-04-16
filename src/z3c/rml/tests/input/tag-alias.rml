@@ -10,7 +10,7 @@
   </template>
 
   <stylesheet>
-    <initialize>
+    <initialize doc:example="">
       <alias id="h1" value="style.Heading1"
              doc:example="" />
     </initialize>

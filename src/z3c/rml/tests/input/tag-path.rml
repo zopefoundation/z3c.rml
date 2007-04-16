@@ -41,9 +41,16 @@
         10cm 15cm 10cm 12cm 8cm 12cm
       </curvesto>
       2cm 12cm
-      <moveto>
+      <moveto doc:example="">
         2cm 15cm
       </moveto>
+    </path>
+
+    <path x="8cm" y="12cm" fill="true"
+          doc:example="">
+      <curveto doc:example="">
+        10cm 12cm 10cm 9cm 8cm 9cm
+      </curveto>
     </path>
 
   </pageDrawing>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-document-pageDrawing.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc"
+    doc:example="">
+  <pageDrawing>
+    <drawString x="4.1in" y="8in">Hello World!</drawString>
+  </pageDrawing>
+</document>

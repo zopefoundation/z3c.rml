@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-fill.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+    <fill color="red" doc:example="" />
+    <circle x="4.1in" y="5.8in" radius="1in" fill="true" />
+  </pageDrawing>
+</document>

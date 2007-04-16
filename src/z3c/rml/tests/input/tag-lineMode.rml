@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-lineMode.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+    <lineMode width="4" dash="3 2" doc:example="" />
+    <circle x="4.1in" y="5.8in" radius="2in" />
+  </pageDrawing>
+</document>

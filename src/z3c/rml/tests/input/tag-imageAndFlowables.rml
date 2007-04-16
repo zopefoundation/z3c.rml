@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-spacer.pdf">
+
+<document
+    filename="tag-imageAndFlowables.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
       <frame id="first" x1="72" y1="72" width="451" height="698"/>
     </pageTemplate>
   </template>
-
-  <stylesheet>
-  </stylesheet>
 
   <story>
     <title>
@@ -42,6 +43,15 @@
         here. A lot more text goes here. A lot more text goes here. A lot more
         text goes here. A lot more text goes here.
       </para>
+    </imageAndFlowables>
+    <imageAndFlowables
+        imageName="images/replogo.gif"
+        imageWidth="200"
+        imageMask="white"
+        imageSide="left"
+        doc:example="">
+      <h1>Wrap around</h1>
+      <para>This text should wrap around the image.</para>
     </imageAndFlowables>
   </story>
 </document>

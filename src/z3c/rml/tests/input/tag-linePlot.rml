@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="tag-linePlot.pdf">
-
-  <stylesheet>
-  </stylesheet>
+<document
+    filename="tag-linePlot.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
 
@@ -16,19 +15,22 @@
     <linePlot
         dx="2in" dy="7in" dwidth="6in" dheight="4in"
          x="0"    y="0"    width="5in"  height="3in"
-         joinedLines="true" lineLabelFormat="%2.0f">
-      <lines>
-        <line strokeColor="red" symbol="FilledCircle" />
+         joinedLines="true" lineLabelFormat="%2.0f"
+         doc:example="">
+      <lines doc:example="z3c.rml.chart.ILines">
+        <line strokeColor="red" symbol="FilledCircle"
+              doc:example="z3c.rml.chart.ILine"/>
         <line strokeColor="blue" symbol="FilledDiamond" />
       </lines>
-      <xValueAxis valueMin="0" valueMax="5" valueStep="1">
+      <xValueAxis valueMin="0" valueMax="5" valueStep="1" doc:example="">
         <labels fontName="Helvetica" />
       </xValueAxis>
-      <yValueAxis valueMin="0" valueMax="7" valueStep="1">
+      <yValueAxis valueMin="0" valueMax="7" valueStep="1" doc:example="">
         <labels fontName="Helvetica" />
       </yValueAxis>
-      <data>
-        <series>
+      <lineLabels font="Roman-Bold" fontSize="30" doc:example="" />
+      <data doc:example="z3c.rml.chart.IData2D">
+        <series doc:example="z3c.rml.chart.ISeries2D">
           1   1
           2   2
           2.5 1
@@ -59,10 +61,10 @@
       <yValueAxis valueMin="0" valueMax="7" valueStep="1">
         <labels fontName="Helvetica" />
       </yValueAxis>
-      <texts>
+      <texts doc:example="">
         <text x="2.5in" y="-0.5in" textAnchor="middle"
               fontName="Helvetica-Bold" fontSize="13"
-              fillColor="black">
+              fillColor="black" doc:example="">
           X-Axis Label
         </text>
         <text x="1.5in" y="0.3in" angle="90" textAnchor="middle"

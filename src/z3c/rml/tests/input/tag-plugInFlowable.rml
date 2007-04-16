@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-pre.pdf">
+
+<document
+    filename="tag-pluginFlowable.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
       <frame id="first" x1="72" y1="72" width="451" height="698"/>
     </pageTemplate>
   </template>
-
-  <stylesheet>
-  </stylesheet>
 
   <story>
 
@@ -17,9 +18,10 @@
       You can also integrate arbitrary flowables.
     </para>
     <spacer length="20" />
-    <pluginFlowable module="z3c.rml.tests.flowable" function="TestFlowable">
+    <plugInFlowable module="z3c.rml.tests.flowable" function="TestFlowable"
+                    doc:example="">
       Some text.
-    </pluginFlowable>
+    </plugInFlowable>
 
   </story>
 </document>

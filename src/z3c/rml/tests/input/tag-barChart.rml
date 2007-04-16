@@ -5,9 +5,6 @@
     filename="tag-barChart.pdf"
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
-  <stylesheet>
-  </stylesheet>
-
   <pageDrawing>
 
     <setFont name="Helvetica-Bold" size="16" />
@@ -25,21 +22,25 @@
              doc:example="" />
         <bar fillColor="yellow" strokeColor="green" strokeWidth="1" />
       </bars>
-      <categoryAxis strokeColor="black" strokeWidth="1">
-        <labels fontName="Helvetica" />
-        <categoryNames>
-          <name>Category 1</name>
+      <categoryAxis strokeColor="black" strokeWidth="1"
+                    doc:example="">
+        <labels fontName="Helvetica" fontSize="20"
+                doc:example="z3c.rml.chart.ILabels" />
+        <categoryNames doc:example="">
+          <name doc:example="z3c.rml.chart.IName">Category 1</name>
           <name>Category 2</name>
           <name>Category 3</name>
           <name>Category 4</name>
         </categoryNames>
       </categoryAxis>
       <valueAxis valueMin="0" valueMax="150" valueStep="30"
-                 visibleTicks="true" visibleLabels="true">
+                 visibleTicks="true" visibleLabels="true"
+                 doc:example="">
         <labels fontName="Helvetica" />
       </valueAxis>
-      <data>
-        <series>100 110 120 130</series>
+      <data doc:example="z3c.rml.chart.IData1D">
+        <series doc:example="z3c.rml.chart.ISeries1D"
+               >100 110 120 130</series>
         <series> 70  80  85  90</series>
       </data>
     </barChart>
@@ -51,7 +52,7 @@
       <categoryAxis strokeColor="black" strokeWidth="1"
                     visibleGrid="true">
         <labels fontName="Helvetica" />
-        <categoryNames>
+        <categoryNames >
           <name>Category 1</name>
           <name>Category 2</name>
           <name>Category 3</name>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawString.pdf">
+<document
+    filename="tag-transform.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <drawString x="4.1in" y="8in">
       Hello World.
     </drawString>
 
-    <transform>
+    <transform doc:example="">
        1.0  0.3
       -0.2  1.1
       10.1 15.0

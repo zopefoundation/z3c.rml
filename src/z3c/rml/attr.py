@@ -17,6 +17,7 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import cStringIO
+import logging
 import os
 import re
 import reportlab.graphics.widgets.markers
@@ -26,11 +27,16 @@ import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
 import urllib
+import zope.interface
 import zope.schema
 from lxml import etree
 from xml.sax import saxutils
 
+from z3c.rml import interfaces
+
 MISSING = object()
+logger = logging.getLogger("z3c.rml")
+
 
 def getFileInfo(attr):
     root = attr.context
@@ -54,6 +60,13 @@ def getManager(context, interface=None):
     return context
 
 
+def deprecated(oldName, attr, reason):
+    zope.interface.directlyProvides(attr, interfaces.IDeprecated)
+    attr.deprecatedName = oldName
+    attr.deprecatedReason = reason
+    return attr
+
+
 class RMLAttribute(zope.schema.Field):
     """An attribute of the RML directive."""
 
@@ -68,7 +81,19 @@ class RMLAttribute(zope.schema.Field):
 
     def get(self):
         """See zope.schema.interfaces.IField"""
-        value = self.context.element.get(self.__name__, self.missing_value)
+        # If the attribute has a deprecated partner and the deprecated name
+        # has been specified, use it.
+        if (interfaces.IDeprecated.providedBy(self) and
+            self.deprecatedName in self.context.element.attrib):
+            name = self.deprecatedName
+            logger.warn(
+                u'Deprecated attribute "%s": %s %s' % (
+                name, self.deprecatedReason, getFileInfo(self)))
+        else:
+            name = self.__name__
+        # Extract the value.
+        value = self.context.element.get(name, self.missing_value)
+        # Get the correct default value.
         if value is self.missing_value:
             if self.default is not None:
                 return self.default

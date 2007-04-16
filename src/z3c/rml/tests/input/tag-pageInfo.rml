@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawString.pdf">
-  <pageInfo pageSize="(4in, 6in)" />
+<document
+    filename="drawString.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageInfo pageSize="(4in, 6in)" doc:example="" />
   <pageDrawing>
 
     <drawString x="2in" y="3in">Hello World.</drawString>

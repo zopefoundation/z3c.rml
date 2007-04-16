@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 
-<document filename="drawString.pdf">
+<document
+    filename="tag-skew.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <pageDrawing>
 
     <drawString x="4.1in" y="8in">
       Hello World.
     </drawString>
 
-    <skew alpha="15" beta="5" />
+    <skew alpha="15" beta="5" doc:example="" />
     <drawString x="4in" y="4in">
       Hello World.
     </drawString>

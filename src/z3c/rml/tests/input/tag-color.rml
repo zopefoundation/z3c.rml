@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-color.pdf">
+
+<document
+    filename="tag-color.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
   <docinit>
-    <color id="favorite-color" RGB="yellow" />
+    <color id="favorite-color" value="yellow"
+           doc:example="" />
   </docinit>
   <template>
     <pageTemplate id="main">

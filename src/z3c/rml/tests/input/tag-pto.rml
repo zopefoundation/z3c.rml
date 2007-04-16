@@ -1,5 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-spacer.pdf">
+
+<document
+    filename="tag-pto.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
@@ -57,6 +61,21 @@
         text. Main text. Main text. Main text.
       </para>
       <spacer length="5cm" />
+      <para>
+        Main text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text. Main text. Main text. Main
+        text. Main text. Main text. Main text.
+      </para>
+    </pto>
+    <pto doc:example="">
+      <pto_header doc:example="">
+        <spacer length="1cm" />
+        <para><b>... let's go on</b></para>
+      </pto_header>
+      <pto_trailer doc:example="">
+        <spacer length="1cm" />
+        <para><b>... please continue on the next page.</b></para>
+      </pto_trailer>
       <para>
         Main text. Main text. Main text. Main text. Main text. Main text. Main
         text. Main text. Main text. Main text. Main text. Main text. Main

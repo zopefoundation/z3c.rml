@@ -15,8 +15,8 @@
     <blockTable
         colWidths="50% 50%" rowHeights="1cm 1cm"
         doc:example="">
-      <tr>
-       <td>This</td>
+      <tr doc:example="">
+       <td doc:example="">This</td>
        <td>is</td>
       </tr>
       <tr>

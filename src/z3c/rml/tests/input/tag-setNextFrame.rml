@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-setNextFrame.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template>
+    <pageTemplate id="main">
+      <frame id="one" x1="1cm" y1="24cm" width="19cm" height="2cm"
+             showBoundary="true" />
+      <frame id="two" x1="1cm" y1="21cm" width="19cm" height="2cm"
+             showBoundary="true" />
+      <frame id="three" x1="1cm" y1="18cm" width="19cm" height="2cm"
+             showBoundary="true" />
+    </pageTemplate>
+  </template>
+
+  <story>
+    <title>Frame 1</title>
+
+    <setNextFrame name="three" doc:example="" />
+    <spacer length="1cm" />
+    <title>Frame 3</title>
+
+    <setNextFrame name="two" />
+    <spacer length="1cm" />
+    <title>Frame 2</title>
+  </story>
+</document>

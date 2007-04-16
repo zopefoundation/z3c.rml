@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-hr.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="1cm" width="19cm" height="26cm"/>
+    </pageTemplate>
+  </template>
+  <story>
+    <para>Some text.</para>
+    <hr width="80%" thickness="2" color="blue" dash="1 3"
+        spaceAfter="5" spaceBefore="5" align="center"
+        doc:example="" />
+    <para>Some more text.</para>
+  </story>
+</document>

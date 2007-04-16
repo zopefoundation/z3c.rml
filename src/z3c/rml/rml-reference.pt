@@ -26,6 +26,12 @@
         spaceAfter="5"
         />
     <paraStyle
+        name="deprecation"
+        fontName="Times-Roman"
+        fontSize="12"
+        textColor="red"
+        />
+    <paraStyle
         name="attribute-type-name"
         fontName="Times-Bold"
         fontSize="14"
@@ -56,6 +62,13 @@
         spaceBefore="5"
         />
     <paraStyle
+        name="field-deprecation"
+        fontName="Times-Roman"
+        fontSize="10"
+        leftIndent="0.9cm"
+        textColor="red"
+        />
+    <paraStyle
         name="field-description"
         fontName="Times-Roman"
         fontSize="10"
@@ -80,6 +93,9 @@
         fontSize="10"
         leftIndent="0.5cm"
         />
+    <blockTableStyle id="plain">
+      <blockLeftPadding length="0" />
+    </blockTableStyle>
   </stylesheet>
 
   <template
@@ -166,6 +182,11 @@
         Element Name
       </outlineAdd>
       <bookmark tal:attributes="name directive/id"/>
+      <para style="deprecation"
+            tal:condition="directive/deprecated">
+        <b>Deprecated:</b>
+        <tal:block tal:content="directive/reason">Reason</tal:block>
+      </para>
       <para style="content" tal:content="directive/description">
         What is this element doing?
       </para>
@@ -182,6 +203,11 @@
             </tal:block>
             -
             <tal:block content="attr/type">Type</tal:block>
+          </para>
+          <para style="field-deprecation"
+                tal:condition="attr/deprecated">
+            <b>Deprecated:</b>
+            <tal:block tal:content="attr/reason">Reason</tal:block>
           </para>
           <para style="field-description"
                 tal:condition="attr/title">
@@ -223,6 +249,9 @@
             <i>
               (<tal:block replace="directive/occurence">ZeroOrMore</tal:block>)
             </i>
+            <font color="red" tal:condition="directive/deprecated">
+              <i>(Deprecated)</i>
+            </font>
           </para>
         </link>
       </tal:block>
@@ -235,13 +264,26 @@
           <xpre style="code" tal:content="structure example/code">
             Example Code
           </xpre>
-          <link url="" tal:attributes="url example/pdfurl">
-            <para style="example-info">
-              (Extracted from
-               file <i tal:content="example/filename" />,
-               line <tal:block replace="example/line" />)
-            </para>
-          </link>
+          <blockTable style="plain">
+            <tr>
+              <td>
+                <para style="example-info">
+                  (Extracted from file
+                  <link href="" tal:attributes="href example/rmlurl">
+                    <i tal:content="example/filename">File</i>,
+                  </link>
+                  line <tal:block replace="example/line" />)
+                </para>
+              </td>
+              <td>
+                <para>
+                  <link href="" tal:attributes="href example/pdfurl">
+                    <font color="blue">[PDF]</font>
+                  </link>
+                </para>
+              </td>
+            </tr>
+          </blockTable>
         </tal:block>
       </tal:block>
 

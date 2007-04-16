@@ -30,8 +30,7 @@
         doc:example=""
         />
     <h1>This is page 1.</h1>
-    <link destination="TITLE"
-          doc:example="">
+    <link destination="TITLE">
       <imageAndFlowables
           imageName="images/replogo.gif"
           imageSide="left">

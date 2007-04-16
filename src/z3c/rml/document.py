@@ -125,12 +125,14 @@ class IColorDefinition(interfaces.IRMLDirectiveSignature):
         description=(u'The id/name the color will be available under.'),
         required=True)
 
-    # XXX: This is really disgusting; need to rename to "color"!
-    #      This is only here for compatibility with the original RML.
-    RGB = attr.Color(
+    value = attr.Color(
         title=u'Color',
         description=(u'The color value that is represented.'),
         required=True)
+    attr.deprecated(
+        'RGB', value,
+        (u'Ensures compatibility with ReportLab RML. Please use '
+         u'the "value" attribute.'))
 
 class ColorDefinition(directive.RMLDirective):
     signature = IColorDefinition

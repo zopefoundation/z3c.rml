@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-nextPage.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template>
+    <pageTemplate id="main">
+      <pageGraphics doc:example="">
+        <setFont name="Helvetica-BoldOblique" size="18" doc:example="" />
+        <drawString x="1cm" y="28cm">Graphic Line</drawString>
+      </pageGraphics>
+      <frame id="one" x1="1cm" y1="1cm" width="19cm" height="25cm"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+    <title>Story goes here.</title>
+  </story>
+</document>

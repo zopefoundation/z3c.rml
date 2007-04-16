@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-indent.pdf">
+
+<document
+    filename="tag-indent.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
       <frame id="first" x1="72" y1="72" width="451" height="698" />
     </pageTemplate>
   </template>
-
-  <stylesheet>
-  </stylesheet>
 
   <story>
     <title><font face="Courier">&lt;indent&gt;</font> Tag Demo</title>
@@ -36,7 +37,7 @@
       Back from the indentation, everything is normal. You can also nest
       indents of course:
     </para>
-    <indent left="2cm">
+    <indent left="2cm" doc:example="">
       <para>Item 1-1</para>
       <indent left="2cm">
         <para>Item 2-1</para>
