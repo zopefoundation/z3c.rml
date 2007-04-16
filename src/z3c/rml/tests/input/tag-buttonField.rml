@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-textField.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+
+    <drawCenteredString x="10.5cm" y="27cm">
+      "buttonField" Tag Demo
+    </drawCenteredString>
+
+    <drawString x="2cm" y="23cm">
+      Button 1:
+    </drawString>
+    <!-- buttonField
+        title="button1" value="Off" x="3.5cm" y="22.9cm"
+        doc:example="" / -->
+
+  </pageDrawing>
+</document>

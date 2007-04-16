@@ -399,7 +399,7 @@ class Param(directive.RMLDirective):
 class ITextAnnotation(interfaces.IRMLDirectiveSignature):
     """Writes a low-level text annotation into the PDF."""
     occurence.containing(
-        occurence.ZeroOrMore('param', IParam))
+        occurence.ZeroOrMore('', IParam))
 
     contents = attr.FirstLevelTextNode(
         title=u'Contents',
@@ -742,6 +742,9 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('lineMode', ILineMode),
         # Form Field Elements
         occurence.ZeroOrMore('barCode', form.IBarCode),
+        occurence.ZeroOrMore('textField', form.ITextField),
+        occurence.ZeroOrMore('buttonField', form.IButtonField),
+        occurence.ZeroOrMore('selectField', form.ISelectField),
         # Charts
         occurence.ZeroOrMore('barChart', chart.IBarChart),
         occurence.ZeroOrMore('barChart3D', chart.IBarChart3D),
@@ -773,6 +776,9 @@ class Drawing(directive.RMLDirective):
         'path': Path,
         # Form Field Elements
         'barCode': form.BarCode,
+        'textField': form.TextField,
+        'buttonField': form.ButtonField,
+        'selectField': form.SelectField,
         # State Change Operations
         'fill': Fill,
         'stroke': Stroke,

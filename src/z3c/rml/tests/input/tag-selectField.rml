@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-textField.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+
+    <drawCenteredString x="10.5cm" y="27cm">
+      "selectField" Tag Demo
+    </drawCenteredString>
+
+    <drawString x="2cm" y="23cm">
+      Select 1:
+    </drawString>
+    <selectField
+        title="select1" value="Option 2"
+        x="4cm" y="22.9cm" width="5cm" height="15"
+        doc:example="">
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </selectField>
+
+    <drawString x="2cm" y="20cm">
+      Select 2:
+    </drawString>
+    <selectField
+        title="select2" value="Option 2"
+        x="4cm" y="18.5cm" width="5cm" height="2cm">
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </selectField>
+
+  </pageDrawing>
+</document>

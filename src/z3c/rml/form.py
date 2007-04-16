@@ -17,7 +17,8 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import types
-from z3c.rml import attr, directive, interfaces
+import reportlab.pdfbase.pdfform
+from z3c.rml import attr, directive, interfaces, occurence
 
 try:
     import reportlab.graphics.barcode
@@ -225,3 +226,133 @@ class BarCode(directive.RMLDirective):
         code = reportlab.graphics.barcode.createBarcodeDrawing(name, **kw)
         manager = attr.getManager(self, interfaces.ICanvasManager)
         code.drawOn(manager.canvas, x, y)
+
+
+class IField(interfaces.IRMLDirectiveSignature):
+    """A field."""
+
+    title = attr.Text(
+        title=u'Title',
+        description=u'The title of the field.',
+        required=True)
+
+    x = attr.Measurement(
+        title=u'X-Position',
+        description=u'The x-position of the lower-left corner of the field.',
+        default=0,
+        required=True)
+
+    y = attr.Measurement(
+        title=u'Y-Position',
+        description=u'The y-position of the lower-left corner of the field.',
+        default=0,
+        required=True)
+
+
+class Field(directive.RMLDirective):
+    signature = IField
+    callable = None
+    attrMapping = {}
+
+    def process(self):
+        kwargs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        getattr(reportlab.pdfbase.pdfform, self.callable)(canvas, **kwargs)
+
+
+class ITextField(IField):
+    """A text field within the PDF"""
+
+    width = attr.Measurement(
+        title=u'Width',
+        description=u'The width of the text field.',
+        required=True)
+
+    height = attr.Measurement(
+        title=u'Height',
+        description=u'The height of the text field.',
+        required=True)
+
+    value = attr.Text(
+        title=u'Value',
+        description=u'The default text value of the field.',
+        required=False)
+
+    maxLength = attr.Integer(
+        title=u'Maximum Length',
+        description=u'The maximum amount of characters allowed in the field.',
+        required=False)
+
+    multiline = attr.Boolean(
+        title=u'Multiline',
+        description=u'A flag when set allows multiple lines within the field.',
+        required=False)
+
+class TextField(Field):
+    signature = ITextField
+    callable = 'textFieldAbsolute'
+    attrMapping = {'maxLength': 'maxlen'}
+
+
+class IButtonField(IField):
+    """A button field within the PDF"""
+
+    value = attr.Choice(
+        title=u'Value',
+        description=u'The value of the button.',
+        choices=('Yes', 'Off'),
+        required=True)
+
+class ButtonField(Field):
+    signature = IButtonField
+    callable = 'buttonFieldAbsolute'
+
+
+class IOption(interfaces.IRMLDirectiveSignature):
+    """An option in the select field."""
+
+    value = attr.TextNode(
+        title=u'Value',
+        description=u'The value of the option.',
+        required=True)
+
+class Option(directive.RMLDirective):
+    signature = IOption
+
+    def process(self):
+        value = self.getAttributeValues(valuesOnly=True)[0]
+        self.parent.options.append(value)
+
+
+class ISelectField(IField):
+    """A selection field within the PDF"""
+    occurence.containing(
+        occurence.ZeroOrMore('option', IOption))
+
+    width = attr.Measurement(
+        title=u'Width',
+        description=u'The width of the select field.',
+        required=True)
+
+    height = attr.Measurement(
+        title=u'Height',
+        description=u'The height of the select field.',
+        required=True)
+
+    value = attr.Text(
+        title=u'Value',
+        description=u'The default value of the field.',
+        required=False)
+
+class SelectField(Field):
+    signature = ISelectField
+    callable = 'selectFieldAbsolute'
+    factories = {'option': Option}
+
+    def process(self):
+        self.options = []
+        self.processSubDirectives()
+        kwargs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        kwargs['options'] = self.options
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        getattr(reportlab.pdfbase.pdfform, self.callable)(canvas, **kwargs)
