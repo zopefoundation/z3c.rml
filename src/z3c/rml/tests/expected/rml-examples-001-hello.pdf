@@ -1,0 +1,146 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R
+ /F3 5 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFType1Font 
+3 0 obj
+% Font Helvetica-BoldOblique
+<< /BaseFont /Helvetica-BoldOblique
+ /Encoding /WinAnsiEncoding
+ /Name /F2
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Annot.NUMBER1': class TextAnnotation 
+4 0 obj
+<< /Contents (\376\377\000X\000:\000:\000P\000D\000F\000
+\000P\000X\000(\000S\000)\000
+\000M\000T\000(\000P\000I\000N\000K\000))
+ /F 3
+ /Rect [ 0
+ ,
+ 0
+ ,
+ 1
+ ,
+ 1 ]
+ /Subtype /Text
+ /Type /Annot >>
+endobj
+% 'F3': class PDFType1Font 
+5 0 obj
+% Font ZapfDingbats
+<< /BaseFont /ZapfDingbats
+ /Encoding /ZapfDingbatsEncoding
+ /Name /F3
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+6 0 obj
+% Page dictionary
+<< /Annots [ 4 0 R ]
+ /Contents 10 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 9 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R7': class PDFCatalog 
+7 0 obj
+% Document Root
+<< /Outlines 11 0 R
+ /PageMode /UseNone
+ /Pages 9 0 R
+ /Type /Catalog >>
+endobj
+% 'R8': class PDFInfo 
+8 0 obj
+<< /Author (anonymous)
+ /CreationDate (20000101000000)
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (unspecified)
+ /Title (untitled) >>
+endobj
+% 'R9': class PDFPages 
+9 0 obj
+% page tree
+<< /Count 1
+ /Kids [ 6 0 R ]
+ /Type /Pages >>
+endobj
+% 'R10': class PDFStream 
+10 0 obj
+% page stream
+<< /Filter [ /ASCII85Decode
+ /FlateDecode ]
+ /Length 696 >>
+stream
+Gb"/$?#Q2d'Rc%,s)=i,'<<sI#pD^c?D9#dV/6)sg9Ukc]RnCedr,27L4loW
+7-X7^fiZ,CgiMo63JP=(K/@@C?l%aB:-`';$&E5@#T*7O%L9b(K-o`4"Ehp7
+[bo(uJ8EYm4Pu`*!X+O9Y^glrIGs%3SKh[1`l![Lp(?7:KGVmgGJf!I`3#pr
+-FW*RT2'2eJ7<b:0\a8&`$Q05/K(jjm^k>Y9mX(An'i&BAuHEp(!CZTT2OdU
+NA0B-bbPeJ'f8EP'hoDp1E3ZjAnW$EmDmhf2pKW@3\9T,SL%;,=_C:$@M(K:
+mY9JrXdusblUg`'V,T5/?&0Q+K*b4GDo#J5M3JCf'Gp"/R0Tr)0cFd*`"6ug
+VrgmMdY_e*nu/&6[,RLRplj"5G\dCed>I%#R57S/a5a#`Fem3e^P0?qG[a"C
+e5iMK6q_E"*7!)A#d0PW0f;`Q$\h1fL$;'k)7;o%W<s^c"RH#YWV[Q?f!;oX
+O#H9/X4\,TD6gMHih*hGS%.K[2JGV7CRB!?CMOA&FiMoSK,F9O/TA/6nNo9\
+rOu=SkdX[jV0\+NPH-gcO.-[u2=79f>l7%9BNu4L8fBF'JOE)'+VPRVh(_7V
+@!X;reiO=Yo:)`H^EL-uos%D8Te#_442@47##3<9E3r>LkB'AshllM8m'F#o
+F>el+J+cqnRK~>endstream
+
+endobj
+% 'R11': class PDFOutlines 
+11 0 obj
+<< /Count 0
+ /Type /Outlines >>
+endobj
+xref
+0 12
+0000000000 65535 f
+0000000113 00000 n
+0000000233 00000 n
+0000000398 00000 n
+0000000600 00000 n
+0000000856 00000 n
+0000001030 00000 n
+0000001328 00000 n
+0000001463 00000 n
+0000001659 00000 n
+0000001765 00000 n
+0000002607 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\034\027\201\230\373\337\245\033%\231]\211\324\020 C) (\034\027\201\230\373\337\245\033%\231]\211\324\020 C)] 
+
+ /Info 8 0 R
+ /Root 7 0 R
+ /Size 12 >>
+startxref
+2659
+%%EOF

@@ -1,0 +1,346 @@
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
+1 0 obj
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R >>
+endobj
+% 'F1': class PDFType1Font 
+2 0 obj
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
+endobj
+% 'F2': class PDFDictionary 
+3 0 obj
+<< /BaseFont /HeiseiMin-W3
+ /DescendantFonts [ << /BaseFont /HeiseiMin-W3
+ /CIDSystemInfo << /Ordering (Japan1)
+ /Registry (Adobe)
+ /Supplement 2 >>
+ /DW 1000
+ /FontDescriptor << /Ascent 723
+ /CapHeight 709
+ /Descent -241
+ /Flags 6
+ /FontBBox [ -123
+ -257
+ 1001
+ 910 ]
+ /FontName /HeiseiMin-W3
+ /ItalicAngle 0
+ /StemV 69
+ /Type /FontDescriptor
+ /XHeight 450 >>
+ /Subtype /CIDFontType0
+ /Type /Font
+ /W [ 1
+ [ 250
+ 333
+ 408
+ 500 ]
+ 5
+ [ 500
+ 833
+ 778
+ 180
+ 333 ]
+ 10
+ [ 333
+ 500
+ 564
+ 250
+ 333
+ 250
+ 278
+ 500 ]
+ 18
+ 26
+ 500
+ 27
+ 28
+ 278
+ 29
+ 31
+ 564
+ 32
+ [ 444
+ 921
+ 722
+ 667 ]
+ 36
+ [ 667
+ 722
+ 611
+ 556
+ 722 ]
+ 41
+ [ 722
+ 333
+ 389
+ 722
+ 611
+ 889
+ 722 ]
+ 48
+ [ 722
+ 556
+ 722
+ 667
+ 556
+ 611
+ 722 ]
+ 55
+ [ 722
+ 944
+ 722 ]
+ 58
+ [ 722
+ 611
+ 333
+ 500
+ 333
+ 469
+ 500
+ 333
+ 444
+ 500
+ 444
+ 500
+ 444
+ 333
+ 500 ]
+ 73
+ [ 500
+ 278 ]
+ 75
+ [ 278
+ 500
+ 278
+ 778
+ 500 ]
+ 80
+ 82
+ 500
+ 83
+ [ 333
+ 389
+ 278
+ 500 ]
+ 87
+ [ 500
+ 722
+ 500 ]
+ 90
+ [ 500
+ 444
+ 480
+ 200
+ 480
+ 333 ]
+ 97
+ [ 278 ]
+ 99
+ [ 200 ]
+ 101
+ [ 333
+ 500 ]
+ 103
+ [ 500
+ 167 ]
+ 107
+ [ 500 ]
+ 109
+ [ 500
+ 333 ]
+ 111
+ [ 333
+ 556 ]
+ 113
+ [ 556
+ 500 ]
+ 117
+ [ 250 ]
+ 119
+ [ 350
+ 333
+ 444 ]
+ 123
+ [ 500 ]
+ 126
+ [ 444
+ 333 ]
+ 128
+ 137
+ 333
+ 138
+ [ 1000
+ 889
+ 276
+ 611
+ 722
+ 889
+ 310
+ 667
+ 278 ]
+ 147
+ [ 278
+ 500
+ 722
+ 500
+ 564
+ 760
+ 564
+ 760 ]
+ 157
+ 158
+ 300
+ 159
+ [ 500
+ 300
+ 750 ]
+ 162
+ 163
+ 750
+ 164
+ 169
+ 722
+ 170
+ [ 667
+ 611 ]
+ 172
+ 174
+ 611
+ 175
+ 178
+ 333
+ 179
+ 185
+ 722
+ 187
+ 191
+ 722
+ 192
+ [ 556
+ 444 ]
+ 194
+ 203
+ 444
+ 204
+ 207
+ 278
+ 208
+ 214
+ 500
+ 216
+ 222
+ 500
+ 223
+ [ 556
+ 722
+ 611
+ 500
+ 389
+ 980
+ 444 ]
+ 231
+ [ 500 ]
+ 323
+ [ 500 ]
+ 325
+ [ 500 ]
+ 327
+ 389
+ 500 ] >> ]
+ /Encoding /UniJIS-UCS2-H
+ /Name /F2
+ /Subtype /Type0
+ /Type /Font >>
+endobj
+% 'Page1': class PDFPage 
+4 0 obj
+% Page dictionary
+<< /Contents 8 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 7 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
+endobj
+% 'R5': class PDFCatalog 
+5 0 obj
+% Document Root
+<< /Outlines 9 0 R
+ /PageMode /UseNone
+ /Pages 7 0 R
+ /Type /Catalog >>
+endobj
+% 'R6': class PDFInfo 
+6 0 obj
+<< /Author (anonymous)
+ /CreationDate (20070416001215)
+ /Producer (ReportLab http://www.reportlab.com)
+ /Subject (unspecified)
+ /Title (untitled) >>
+endobj
+% 'R7': class PDFPages 
+7 0 obj
+% page tree
+<< /Count 1
+ /Kids [ 4 0 R ]
+ /Type /Pages >>
+endobj
+% 'R8': class PDFStream 
+8 0 obj
+% page stream
+<< /Filter [ /ASCII85Decode
+ /FlateDecode ]
+ /Length 191 >>
+stream
+Gar'"]*\U*$q:&Eq1i1SkaL,KDCoU7,6UE%:38a'7/t#@*5k/V!]QVh_Ot)f
+k%2ELZ/.9=i&@l_#!ZMY0g&t(0.LJ0Q7QJ.[F=!>*]ANen1$.l%KF?s)<"Ne
+$B1ET51]`r]4SIb/@2Qkd6s$HP3Pg,6sD-_VCCgbA0RV_n*idCm+<42]E(`-
+.I[~>endstream
+
+endobj
+% 'R9': class PDFOutlines 
+9 0 obj
+<< /Count 0
+ /Type /Outlines >>
+endobj
+xref
+0 10
+0000000000 65535 f
+0000000113 00000 n
+0000000221 00000 n
+0000000387 00000 n
+0000002359 00000 n
+0000002636 00000 n
+0000002770 00000 n
+0000002966 00000 n
+0000003071 00000 n
+0000003406 00000 n
+trailer
+<< /ID 
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\222O\002\327&P\025\006\226\366\032\331WM\225\375) (\222O\002\327&P\025\006\226\366\032\331WM\225\375)] 
+
+ /Info 6 0 R
+ /Root 5 0 R
+ /Size 10 >>
+startxref
+3457
+%%EOF
