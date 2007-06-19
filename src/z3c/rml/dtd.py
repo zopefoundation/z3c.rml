@@ -70,6 +70,9 @@ def generate(useWrapper=False):
         text = '<!DOCTYPE RML [\n%s]>\n' %text
     return text
 
+def main():
+    print generate()
+
 
 if __name__ == '__main__':
-    print generate()
+    print main()
