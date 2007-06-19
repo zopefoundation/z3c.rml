@@ -14,6 +14,7 @@ setup (
     include_package_data = True,
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
+    zip_safe = False,
     extras_require = dict(
         test = ['zope.pagetemplate', 'zope.testing'],
         pagetemplate = ['zope.pagetemplate']
