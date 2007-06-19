@@ -5,7 +5,33 @@ CHANGES
 0.7 (06/19/2007)
 ----------------
 
-- Bug: Handle Windows drive letters correctly.
+- Feature: Added a Chinese PDF sample file to ``tests/expected`` under the
+  name ``sample-shipment-chinese.pdf``.
+
+- Feature: Added another tag that is commonly needed in projects. The
+  ``<keepTogether>`` tag will keep the child flowables in the same frame.
+  When necessary, the frame break will be automatic. Patch by Yuan Hong.
+
+- Feature: Added the "alignment" attribute to the ``blockTable``
+  directive. This attribute defines the horizontal alignment for a table that
+  is not 100% in width of the containing flowable. Patch by Yuan Hong.
+
+- Feature: When creating Chinese PDF documents, the normal TTF for Chinese
+  printing is 'simsun'. However, when bold text is neeed, we switch to
+  'simhei'. To properly register this, we need the
+  ``reportlab.lib.fonts.addMapping`` function. This is missing in the reportlab
+  RML specification, so a new directive has been defined::
+
+    <addMapping faceName="simsun" bold="1" italic="0" psName="simhei" />
+
+  Patch by Yuan Hong.
+
+- Feature: The ``para`` and ``paraStyle`` directive now support the "wordWrap"
+  attribute, which allows for selecting a different wrod wrapping
+  algorithm. This is needed because some far-East Asian languages do not use
+  white space to separate words. Patch by Yuan Hong.
+
+- Bug: Handle Windows drive letters correctly. Report and fix by Yuan Hong.
 
 
 0.6 (06/19/2007)

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-keepTogether.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template showBoundary="1">
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="1cm" width="10cm" height="26cm"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <paraStyle name="normal" fontSize="20" leading="22" spaceAfter="5" />
+  </stylesheet>
+
+  <story>
+    <para style="normal">
+      The &lt;keepTogether&gt; tag will keep a set of child flowables in
+      the same frame as much as possible. Unlike &lt;keepInFrame&gt;, it
+      will not shrink the contents to do this. It adds frame breaks when
+      necessary instead.
+    </para>
+
+    <para style="normal">
+      In this example, we try to keep 3 paragraphs together. Since they
+      can not all fit into the same frame as this paragraph, they will
+      all appear in the next page together.
+    </para>
+
+    <spacer length="1cm" />
+
+    <keepTogether doc:example="">
+      <para style="normal">
+        This is the 1st paragraph of 3 that we wish to keep together. <br/>
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+      </para>
+      <spacer length="1cm" />
+      <para style="normal">
+        This is the 2nd paragraph of 3 that we wish to keep together. <br/>
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+      </para>
+      <spacer length="1cm" />
+      <para style="normal">
+        This is the 3rd paragraph of 3 that we wish to keep together. <br/>
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+        Some nonsense text to fill up the space.
+      </para>
+
+    </keepTogether>
+  </story>
+
+</document>

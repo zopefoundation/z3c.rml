@@ -5,7 +5,7 @@
 <!ATTLIST document compression CDATA #IMPLIED>
 <!ATTLIST document invariant CDATA #IMPLIED>
 
-<!ELEMENT docinit (registerType1Face*,registerFont*,registerTTFont*,registerCidFont*,color*)>
+<!ELEMENT docinit (registerType1Face*,registerFont*,registerTTFont*,registerCidFont*,color*,addMapping*)>
 
 <!ELEMENT registerType1Face>
 <!ATTLIST registerType1Face afmFile CDATA #REQUIRED>
@@ -19,6 +19,12 @@
 <!ELEMENT registerTTFont>
 <!ATTLIST registerTTFont faceName CDATA #REQUIRED>
 <!ATTLIST registerTTFont fileName CDATA #REQUIRED>
+
+<!ELEMENT addMapping>
+<!ATTLIST addMapping faceName CDATA #REQUIRED>
+<!ATTLIST addMapping bold CDATA #REQUIRED>
+<!ATTLIST addMapping italic CDATA #REQUIRED>
+<!ATTLIST addMapping psName CDATA #REQUIRED>
 
 <!ELEMENT registerCidFont>
 <!ATTLIST registerCidFont faceName CDATA #REQUIRED>
@@ -58,6 +64,7 @@
 <!ATTLIST paraStyle name CDATA #REQUIRED>
 <!ATTLIST paraStyle alias CDATA #IMPLIED>
 <!ATTLIST paraStyle parent CDATA #IMPLIED>
+<!ATTLIST paraStyle wordWrap CDATA #IMPLIED>
 
 <!ELEMENT blockTableStyle (blockFont*,blockLeading*,blockTextColor*,blockAlignment*,blockLeftPadding*,blockRightPadding*,blockBottomPadding*,blockTopPadding*,blockBackground*,blockRowBackground*,blockColBackground*,blockValign*,blockSpan*,lineStyle*)>
 <!ATTLIST blockTableStyle id CDATA #REQUIRED>
@@ -173,7 +180,7 @@
 
 <!ELEMENT pageGraphics>
 
-<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,hr*,name*)>
+<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,hr*,name*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
 
 <!ELEMENT spacer>
@@ -339,12 +346,14 @@
 <!ATTLIST para bulletText CDATA #IMPLIED>
 <!ATTLIST para dedent CDATA #IMPLIED>
 <!ATTLIST para text CDATA #REQUIRED>
+<!ATTLIST para wordWrap CDATA #IMPLIED>
 
 <!ELEMENT blockTable (tr*,bulkData?,blockTableStyle*)>
 <!ATTLIST blockTable style CDATA #IMPLIED>
 <!ATTLIST blockTable rowHeights CDATA #IMPLIED>
 <!ATTLIST blockTable colWidths CDATA #IMPLIED>
 <!ATTLIST blockTable repeatRows CDATA #IMPLIED>
+<!ATTLIST blockTable alignment (right|center|centre|left) #IMPLIED>
 
 <!ELEMENT tr (td+)>
 
@@ -489,6 +498,9 @@
 <!ATTLIST keepInFrame onOverflow (overflow|shrink|truncate|error) #IMPLIED>
 <!ATTLIST keepInFrame id CDATA #IMPLIED>
 <!ATTLIST keepInFrame frame CDATA #IMPLIED>
+
+<!ELEMENT keepTogether>
+<!ATTLIST keepTogether maxHeight CDATA #IMPLIED>
 
 <!ELEMENT imageAndFlowables>
 <!ATTLIST imageAndFlowables imageName CDATA #REQUIRED>

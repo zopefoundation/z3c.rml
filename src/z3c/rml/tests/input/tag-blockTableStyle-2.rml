@@ -21,7 +21,9 @@
   <story>
     <title><font face="Courier">&lt;blockTableStyle&gt;</font> Tag Demo</title>
 
-    <p>This demo ensures that a table style can be applied multiple times.</p>
+    <para>
+      This demo ensures that a table style can be applied multiple times.
+    </para>
 
     <blockTable style="custom">
       <tr>

@@ -592,6 +592,11 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         description=u'A flag to repeat rows upon table splits.',
         required=False)
 
+    alignment = attr.Choice(
+        title=u'Alignment',
+        description=u'The alignment of whole table.',
+        choices=interfaces.ALIGN_TEXT_CHOICES,
+        required=False)
 
 class BlockTable(Flowable):
     signature = IBlockTable
@@ -607,6 +612,7 @@ class BlockTable(Flowable):
         self.style = attrs.pop('style', None)
         if self.style is None:
             self.style = reportlab.platypus.tables.TableStyle()
+        hAlign = attrs.pop('alignment', None)
         # Extract all table rows and cells
         self.rows = []
         self.processSubDirectives(None)
@@ -615,6 +621,8 @@ class BlockTable(Flowable):
         table = self.klass(self.rows, style=self.style, **attrs)
         if repeatRows:
             table.repeatRows = repeatRows
+        if hAlign:
+            table.hAlign = hAlign
         # Must set keepWithNext on table, since the style is not stored corr.
         if hasattr(self.style, 'keepWithNext'):
             table.keepWithNext = self.style.keepWithNext
@@ -739,6 +747,30 @@ class KeepInFrame(Flowable):
         frame = self.klass(**args)
         self.parent.flow.append(frame)
 
+class IKeepTogether(interfaces.IRMLDirectiveSignature):
+    """Keep the child flowables in the same frame. Add frame break when
+    necessary."""
+
+    maxHeight = attr.Measurement(
+        title=u'Maximum Height',
+        description=u'The maximum height the flowables are allotted.',
+        default=None,
+        required=False)
+    
+class KeepTogether(Flowable):
+    signature = IKeepTogether
+    klass = reportlab.platypus.flowables.KeepTogether
+
+    def process(self):
+        args = dict(self.getAttributeValues())
+
+        # Create the content of the container
+        flow = Flow(self.element, self.parent)
+        flow.process()
+
+        # Create the keep in frame container
+        frame = self.klass(flow.flow, **args)
+        self.parent.flow.append(frame)
 
 class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
     """An image with flowables around it."""
@@ -1109,6 +1141,7 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('setNextTemplate', ISetNextTemplate),
         occurence.ZeroOrMore('condPageBreak', IConditionalPageBreak),
         occurence.ZeroOrMore('keepInFrame', IKeepInFrame),
+        occurence.ZeroOrMore('keepTogether', IKeepTogether),
         occurence.ZeroOrMore('imageAndFlowables', IImageAndFlowables),
         occurence.ZeroOrMore('pto', IPTO),
         occurence.ZeroOrMore('indent', IIndent),
@@ -1145,6 +1178,7 @@ class Flow(directive.RMLDirective):
         'setNextTemplate': SetNextTemplate,
         'condPageBreak': ConditionalPageBreak,
         'keepInFrame': KeepInFrame,
+        'keepTogether': KeepTogether,
         'imageAndFlowables': ImageAndFlowables,
         'pto': PTO,
         'indent': Indent,

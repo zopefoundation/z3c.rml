@@ -21,6 +21,8 @@ import sys
 import zope.interface
 import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
+from reportlab.lib import fonts
+
 from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import canvas, stylesheet, template
 
@@ -75,6 +77,37 @@ class RegisterFont(directive.RMLDirective):
         font = pdfmetrics.Font(*args)
         pdfmetrics.registerFont(font)
 
+
+class IAddMapping(interfaces.IRMLDirectiveSignature):
+    """Map various styles(bold, italic) of a font name to the actual ps fonts
+    used."""
+
+    faceName = attr.String(
+        title=u'Name',
+        description=(u'The name of the font to be mapped'),
+        required=True)
+
+    bold = attr.Integer(
+        title=u'Bold',
+        description=(u'Bold'),
+        required=True)
+
+    italic = attr.Integer(
+        title=u'Italic',
+        description=(u'Italic'),
+        required=True)
+
+    psName = attr.String(
+        title=u'psName',
+        description=(u'Actual font name mapped'),
+        required=True)
+
+class AddMapping(directive.RMLDirective):
+    signature = IAddMapping
+
+    def process(self):
+        args = self.getAttributeValues(valuesOnly=True)
+        fonts.addMapping(*args)
 
 class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
     """Register a new TrueType font given the TT file and face name."""
@@ -150,6 +183,7 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerCidFont', IRegisterCidFont),
         occurence.ZeroOrMore('color', IColorDefinition),
+        occurence.ZeroOrMore('addMapping', IAddMapping),
         )
 
 class DocInit(directive.RMLDirective):
@@ -160,6 +194,7 @@ class DocInit(directive.RMLDirective):
         'registerTTFont': RegisterTTFont,
         'registerCidFont': RegisterCidFont,
         'color': ColorDefinition,
+        'addMapping': AddMapping,
         }
 
 

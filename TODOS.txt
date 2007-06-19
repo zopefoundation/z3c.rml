@@ -1,0 +1,18 @@
+* Finish compatibility work.
+
+* Fix <pluginFlowable> tag to the following form::
+
+  <pluginFlowable module="..." function="...">
+    <param name="color" type="Color">#FF0000</param>
+    ...
+  </pluginFlowable>
+
+* Add TOC
+
+* Add chart legends
+
+* Add symbols
+
+* Implement form fields: push button, text field, select field
+
+  See reportlab.pdfbase.pdfform

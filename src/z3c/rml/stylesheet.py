@@ -118,6 +118,10 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
                      u'frame as the following flowable.'),
         required=False)
 
+    wordWrap = attr.String(
+        title=u'Word Wrap Method',
+        description=(u'When set to "CJK", invoke CJK word wrapping'),
+        required=False)
 
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""
