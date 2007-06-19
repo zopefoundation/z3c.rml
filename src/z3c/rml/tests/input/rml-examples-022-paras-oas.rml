@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd" [
+  <!ENTITY pound   "&#xA3;">
+]>
 <document filename="test_022_paras_oas.pdf"> 
 
 

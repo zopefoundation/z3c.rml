@@ -1,0 +1,3 @@
+- Stephan Richter (stephan.richter_at_gmail.com)
+
+This package is based on ReportLab Inc.'s ReportLab library.

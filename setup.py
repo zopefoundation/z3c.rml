@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup (
     name='z3c.rml',
-    version='0.5',
+    version='0.6',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope3-dev@zope.org",
     description = "An alternative implementation of RML",
@@ -15,7 +15,7 @@ setup (
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
     extras_require = dict(
-        test = ['zope.testing'],
+        test = ['zope.pagetemplate', 'zope.testing'],
         pagetemplate = ['zope.pagetemplate']
         ),
     install_requires = [
@@ -23,6 +23,7 @@ setup (
         # 'reportlab',
         'setuptools',
         'zope.interface',
+        'zope.schema',
         ],
     dependency_links = ['http://download.zope.org/distribution']
     )

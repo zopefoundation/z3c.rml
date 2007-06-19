@@ -1,0 +1,21 @@
+=======
+CHANGES
+=======
+
+0.6 (06/19/2007)
+----------------
+
+- Fixed setup.py to include all dependencies.
+
+- Added test to show that a blocktable style can be applied multiple times. A
+  user reported that this is not working, but I could not replicate the
+  problem.
+
+- Updated the expected renderings to ReportLab 2.1. There were some good
+  layout fixes that broke the image comparison.
+
+
+0.5 (04/01/2007)
+----------------
+
+- Initial Release
