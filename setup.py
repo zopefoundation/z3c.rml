@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup (
     name='z3c.rml',
-    version='0.6',
+    version='0.7',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope3-dev@zope.org",
     description = "An alternative implementation of RML",

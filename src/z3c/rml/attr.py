@@ -282,6 +282,11 @@ class File(Text):
             modulepath, path = result.groups()
             module = __import__(modulepath, {}, {}, (modulepath))
             value = os.path.join(os.path.dirname(module.__file__), path)
+        # If there is a drive name in the path, then we want a local file to
+        # be opened. This is only interesting for Windows of course.
+        if os.path.splitdrive(value)[0]:
+            value = 'file:///' + value
+        # If the file is not to be opened, simply return the path.
         if self.doNotOpen:
             return value
         # Open/Download the file
