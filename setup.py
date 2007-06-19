@@ -29,7 +29,7 @@ setup (
     entry_points = """
         [console_scripts]
         dtd = z3c.rml.dtd:generate
-        reference = z3c.rml.rml-reference:main
+        reference = z3c.rml.reference:main
         """,
     dependency_links = ['http://download.zope.org/distribution']
     )

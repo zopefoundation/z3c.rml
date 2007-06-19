@@ -239,7 +239,7 @@ def extractExamples(directory):
 def main():
     examples = extractExamples(EXAMPLES_DIRECTORY)
 
-    template = pagetemplate.RMLPageTemplateFile('rml-reference.pt')
+    template = pagetemplate.RMLPageTemplateFile('reference.pt')
 
     directives = {}
     processSignature('document', document.IDocument, examples, directives)
