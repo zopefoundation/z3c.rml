@@ -45,7 +45,6 @@ class Flowable(directive.RMLDirective):
         args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
         self.parent.flow.append(self.klass(**args))
 
-
 class ISpacer(interfaces.IRMLDirectiveSignature):
     """Creates a vertical space in the flow."""
 

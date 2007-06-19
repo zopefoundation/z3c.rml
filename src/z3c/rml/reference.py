@@ -80,7 +80,7 @@ def enforceColumns(rml, columns=80):
 
 def highlightRML(rml):
     if SilverCity is None:
-        return rml
+        return saxutils.escape(rml)
     lexer = SilverCity.XML.XMLLexer()
     styledRml = ''
     for piece in lexer.tokenize_by_style(rml):

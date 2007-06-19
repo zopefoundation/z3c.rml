@@ -112,7 +112,7 @@
         </drawCenteredString>
         <setFont name="Helvetica" size="24" />
         <drawCenteredString x="10.5cm" y="18.5cm">
-          Version 0.5
+          Version 0.7
         </drawCenteredString>
       </pageGraphics>
       <frame id="main" x1="3cm" y1="2cm" width="17cm" height="25.7cm" />
