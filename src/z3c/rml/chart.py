@@ -300,12 +300,12 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
         description=u'The width of the label line.',
         required=False)
 
-    frontName = attr.String(
+    fontName = attr.String(
         title=u'Font Name',
         description=u'The font used to print the value.',
         required=False)
 
-    frontSize = attr.Measurement(
+    fontSize = attr.Measurement(
         title=u'Font Size',
         description=u'The size of the value text.',
         required=False)
