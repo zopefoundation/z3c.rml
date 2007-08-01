@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-pageInfo-2.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageInfo pageSize="LEGAL" doc:example="" />
+  <pageDrawing>
+
+    <drawString x="2in" y="3in">US Legal sized document.</drawString>
+
+  </pageDrawing>
+</document>

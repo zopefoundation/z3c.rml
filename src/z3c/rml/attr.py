@@ -380,12 +380,12 @@ class PageSize(RMLAttribute):
     def fromUnicode(self, value):
         # First try to get a pair
         try:
-            return self.sizePair.fromUnicode(value)
+            return self.sizePair.bind(self.context).fromUnicode(value)
         except ValueError:
             pass
         # Now we try to lookup a name. The following type of combinations must
         # work: "Letter" "LETTER" "A4 landscape" "letter portrait"
-        words = self.words.fromUnicode(value)
+        words = self.words.bind(self.context).fromUnicode(value)
         words = [word.lower() for word in words]
         # First look for the orientation
         orienter = None

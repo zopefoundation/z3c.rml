@@ -2,8 +2,16 @@
 CHANGES
 =======
 
-0.7 (06/19/2007)
-----------------
+0.7.1 (07/31/2007)
+------------------
+
+- Bug: When the specified page size (within the ``pageInfo`` element) was a
+  word or set thereof, the processing would fail. Thanks to Chris Zelenak for
+  reporting the bug and providing a patch.
+
+
+0.7.0 (06/19/2007)
+------------------
 
 - Feature: Added a Chinese PDF sample file to ``tests/expected`` under the
   name ``sample-shipment-chinese.pdf``.
@@ -34,8 +42,8 @@ CHANGES
 - Bug: Handle Windows drive letters correctly. Report and fix by Yuan Hong.
 
 
-0.6 (06/19/2007)
-----------------
+0.6.0 (06/19/2007)
+------------------
 
 - Bug: Fixed setup.py to include all dependencies.
 
@@ -47,7 +55,7 @@ CHANGES
   good layout fixes that broke the image comparison.
 
 
-0.5 (04/01/2007)
-----------------
+0.5.0 (04/01/2007)
+------------------
 
 - Initial Release
