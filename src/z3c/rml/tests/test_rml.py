@@ -17,7 +17,7 @@ $Id$
 """
 import os
 import PIL
-import popen2
+import subprocess
 import unittest
 import sys
 import z3c.rml.tests
@@ -25,6 +25,7 @@ from z3c.rml import rml2pdf, attr
 
 GS_COMMAND = ('gs -q -sNOPAUSE -sDEVICE=png256 -sOutputFile=%s[Page-%%d].png '
               '%s -c quit')
+
 
 class RMLRenderingTestCase(unittest.TestCase):
 
@@ -37,6 +38,12 @@ class RMLRenderingTestCase(unittest.TestCase):
         # Switch file opener for Image attibute
         self._fileOpen = attr.File.open
         def testOpen(img, filename):
+            # cleanup win paths like:
+            # ....\\input\\file:///D:\\trunk\\...
+            if sys.platform[:3].lower() == "win":
+                filename.replace('/', '\\')
+                if filename.startswith('file:///'):
+                    filename = filename[len('file:///'):]
             path = os.path.join(os.path.dirname(self._inPath), filename)
             return open(path, 'rb')
         attr.File.open = testOpen
@@ -71,13 +78,13 @@ class ComparePDFTestCase(unittest.TestCase):
 
     def runTest(self):
         # Convert the base PDF to image(s)
-        status = popen2.Popen3(
-            GS_COMMAND %(self._basePath[:-4], self._basePath), True).wait()
+        status = subprocess.Popen(
+            GS_COMMAND %(self._basePath[:-4], self._basePath)).wait()
         if status:
             return
         # Convert the test PDF to image(s)
-        status = popen2.Popen3(
-            GS_COMMAND %(self._testPath[:-4], self._testPath), True).wait()
+        status = subprocess.Popen(
+            GS_COMMAND %(self._testPath[:-4], self._testPath)).wait()
         if status:
             return
         # Go through all pages and ensure their equality

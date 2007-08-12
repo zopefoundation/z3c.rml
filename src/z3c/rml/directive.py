@@ -23,6 +23,7 @@ import zope.schema
 from lxml import etree
 from z3c.rml import interfaces
 
+logging.raiseExceptions = False
 logger = logging.getLogger("z3c.rml")
 
 
