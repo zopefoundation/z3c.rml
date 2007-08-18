@@ -93,6 +93,11 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
         program.append('testing=1')
     program = " ".join(program)
 
+    # run the subprocess in the rml input file folder, this will make it easy 
+    # to include images. If this doesn't fit, feel free to add a additional 
+    # home argument, and let this be the default, ri
+    os.chdir(os.path.dirname(xmlInputName))
+
     # start processing in a sub process, raise exception or return None
     try:
         p = subprocess.Popen(program, env=env, stdin=subprocess.PIPE, 
