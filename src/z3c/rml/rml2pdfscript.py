@@ -100,8 +100,9 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
 
     # start processing in a sub process, raise exception or return None
     try:
-        p = subprocess.Popen(program, env=env, stdin=subprocess.PIPE, 
-            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen(program, executable=py, env=env,
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
     except Exception, e:
         raise Exception("Subprocess error: %s" % e)
 
