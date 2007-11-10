@@ -16,7 +16,6 @@
 $Id: rml2pdf.py 74160 2007-04-15 22:04:24Z srichter $
 """
 __docformat__ = "reStructuredText"
-
 import subprocess
 import sys
 import os
@@ -27,13 +26,12 @@ _fileOpen = None
 def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
     # set the sys path given from the parent process
     sysPath = os.environ['Z3CRMLSYSPATH']
-    for p in sysPath.split(';'):
-        sys.path.insert(0, p)
+    sys.path[:] = sysPath.split(';')
 
     # now it come the ugly thing, but we need to hook our test changes into
     # our subprocess.
     if testing is not None:
-        
+
         # set some globals
         import z3c.rml.attr
         import z3c.rml.directive
@@ -71,9 +69,9 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     This method is much slower then the ``go`` method defined in rml2pdf.py
     because each PDF generation is done in a sub process. But this will make
     sure, that we do not run into problems. Note, the ReportLab lib is not
-    threadsafe. 
+    threadsafe.
 
-    Use this method from python and it will dispatch the pdf generation 
+    Use this method from python and it will dispatch the pdf generation
     to a subprocess.
 
     Note: this method does not take care on how much process will started.
@@ -88,13 +86,13 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     py = sys.executable
 
     # setup the cmd
-    program = [py, __file__, 'excecuteSubProcess', xmlInputName, outputFileName]
+    program = [__file__, 'excecuteSubProcess', xmlInputName, outputFileName]
     if testing is True:
         program.append('testing=1')
     program = " ".join(program)
 
-    # run the subprocess in the rml input file folder, this will make it easy 
-    # to include images. If this doesn't fit, feel free to add a additional 
+    # run the subprocess in the rml input file folder, this will make it easy
+    # to include images. If this doesn't fit, feel free to add a additional
     # home argument, and let this be the default, ri
     os.chdir(os.path.dirname(xmlInputName))
 
@@ -106,12 +104,12 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     except Exception, e:
         raise Exception("Subprocess error: %s" % e)
 
-    # Do we need improve the implementation and to kill subprocess which will 
+    # Do we need to improve the implementation and kill the subprocess which will
     # fail? ri
     stdout, stderr = p.communicate()
     error = stderr
     if error:
-        raise Exception("Subprocess error: %s" % error) 
+        raise Exception("Subprocess error: %s" % error)
 
 
 if __name__ == '__main__':

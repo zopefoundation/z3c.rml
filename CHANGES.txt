@@ -2,7 +2,15 @@
 CHANGES
 =======
 
-0.7.1 (07/31/2007)
+0.7.2 (2007-11-10)
+------------------
+
+- Upgraded to work with ReportLab 2.1 and lxml 1.3.6.
+
+- Fix sub-process tests for a pure egg setup.
+
+
+0.7.1 (2007-07-31)
 ------------------
 
 - Bug: When the specified page size (within the ``pageInfo`` element) was a
@@ -10,7 +18,7 @@ CHANGES
   reporting the bug and providing a patch.
 
 
-0.7.0 (06/19/2007)
+0.7.0 (2007-06-19)
 ------------------
 
 - Feature: Added a Chinese PDF sample file to ``tests/expected`` under the
@@ -42,7 +50,7 @@ CHANGES
 - Bug: Handle Windows drive letters correctly. Report and fix by Yuan Hong.
 
 
-0.6.0 (06/19/2007)
+0.6.0 (2007-06-19)
 ------------------
 
 - Bug: Fixed setup.py to include all dependencies.
@@ -55,7 +63,7 @@ CHANGES
   good layout fixes that broke the image comparison.
 
 
-0.5.0 (04/01/2007)
+0.5.0 (2007-04-01)
 ------------------
 
 - Initial Release

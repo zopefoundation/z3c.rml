@@ -469,9 +469,10 @@ class RawXMLContent(RMLAttribute):
                     subElement, self.context)
                 substitute.process()
         # Now create the text
-        text = saxutils.escape(self.context.element.text or u'')
-        for child in self.context.element.getchildren():
-            text += etree.tounicode(child)
+        # ReportLab's paragraph parser does not like attributes from other
+        # namespaces; sigh. So we have to improvize.
+        text = etree.tounicode(self.context.element)
+        text = text[text.find('>')+1:text.rfind('<')]
         return text
 
 

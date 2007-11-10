@@ -21,7 +21,7 @@ def read(*rnames):
 
 setup (
     name='z3c.rml',
-    version='0.7.1',
+    version='0.7.2',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope3-dev@zope.org",
     description = "An alternative implementation of RML",
@@ -41,15 +41,15 @@ setup (
         'Operating System :: OS Independent'],
     url = 'http://cheeseshop.python.org/pypi/z3c.rml',
     packages = find_packages('src'),
-    include_package_data = True,
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
-    zip_safe = False,
     extras_require = dict(
         test = ['zope.pagetemplate', 'zope.testing'],
         pagetemplate = ['zope.pagetemplate']
         ),
     install_requires = [
+        'lxml',
+        'pyPdf',
         # ReportLab does not seem to upload their packages to PyPI
         # 'reportlab',
         'setuptools',
@@ -61,6 +61,7 @@ setup (
             'dtd = z3c.rml.dtd:main',
             'reference = z3c.rml.reference:main'],
         },
-    dependency_links = ['http://download.zope.org/distribution']
+    include_package_data = True,
+    zip_safe = False,
     )
 
