@@ -2,13 +2,17 @@
 CHANGES
 =======
 
+0.8.0dev (unreleased)
+---------------------
+
+- Bug: Use python executable as a part of the subprocess command.
+
+
 0.7.3 (2007-11-10)
 ------------------
 
-- Bug: Use python executable as a part of the subprocess command. This is only
-  needed on a windows system
-
 - Make sure that the output dir is included in the distribution.
+
 
 0.7.2 (2007-11-10)
 ------------------
