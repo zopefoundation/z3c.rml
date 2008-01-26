@@ -22,6 +22,9 @@ import os
 
 _fileOpen = None
 
+WIN = False
+if sys.platform[:3].lower() == "win":
+    WIN = True
 
 def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
     # set the sys path given from the parent process
@@ -86,7 +89,13 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     py = sys.executable
 
     # setup the cmd
-    program = [__file__, 'excecuteSubProcess', xmlInputName, outputFileName]
+    if WIN:
+        # we need an explicit python in our command
+        program = [py, __file__, 'excecuteSubProcess', xmlInputName,
+                   outputFileName]
+    else:
+        # seems that this is not the case on linux
+        program = [__file__, 'excecuteSubProcess', xmlInputName, outputFileName]
     if testing is True:
         program.append('testing=1')
     program = " ".join(program)
