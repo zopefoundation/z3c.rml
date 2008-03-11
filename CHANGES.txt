@@ -7,6 +7,8 @@ CHANGES
 
 - Bug: Use python executable as a part of the subprocess command.
 
+- Add support for RML's `pageNumber` element.
+
 
 0.7.3 (2007-11-10)
 ------------------

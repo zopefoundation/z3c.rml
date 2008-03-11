@@ -23,8 +23,11 @@ import sys
 import z3c.rml.tests
 from z3c.rml import rml2pdf, attr
 
-GS_COMMAND = ('gs -q -sNOPAUSE -sDEVICE=png256 -sOutputFile=%s[Page-%%d].png '
-              '%s -c quit')
+
+def gs_command(path):
+    return ('gs', '-q', '-sNOPAUSE', '-sDEVICE=png256',
+            '-sOutputFile=%s[Page-%%d].png' % path[:-4],
+            path, '-c', 'quit')
 
 
 class RMLRenderingTestCase(unittest.TestCase):
@@ -78,13 +81,11 @@ class ComparePDFTestCase(unittest.TestCase):
 
     def runTest(self):
         # Convert the base PDF to image(s)
-        status = subprocess.Popen(
-            GS_COMMAND %(self._basePath[:-4], self._basePath)).wait()
+        status = subprocess.Popen(gs_command(self._basePath)).wait()
         if status:
             return
         # Convert the test PDF to image(s)
-        status = subprocess.Popen(
-            GS_COMMAND %(self._testPath[:-4], self._testPath)).wait()
+        status = subprocess.Popen(gs_command(self._testPath)).wait()
         if status:
             return
         # Go through all pages and ensure their equality
