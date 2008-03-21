@@ -860,14 +860,14 @@ class PTO(Flowable):
         # Get the header
         ptoHeader = self.element.find('pto_header')
         header = None
-        if ptoHeader:
+        if ptoHeader is not None:
             header = Flow(ptoHeader, self.parent)
             header.process()
             header = header.flow
         # Get the trailer
         ptoTrailer = self.element.find('pto_trailer')
         trailer = None
-        if ptoTrailer:
+        if ptoTrailer is not None:
             trailer = Flow(ptoTrailer, self.parent)
             trailer.process()
             trailer = trailer.flow
