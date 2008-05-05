@@ -51,7 +51,7 @@ setup (
         'lxml',
         'pyPdf',
         # ReportLab does not seem to upload their packages to PyPI
-        # 'reportlab',
+        'Reportlab',
         'setuptools',
         'zope.interface',
         'zope.schema',
