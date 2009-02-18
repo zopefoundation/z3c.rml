@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-0.8.0dev (unreleased)
+0.8.0dev (2009-02-18)
 ---------------------
 
 - Bug: Use python executable as a part of the subprocess command.

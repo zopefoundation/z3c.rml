@@ -23,7 +23,7 @@ setup (
     name='z3c.rml',
     version='0.8.0dev',
     author = "Stephan Richter and the Zope Community",
-    author_email = "zope3-dev@zope.org",
+    author_email = "zope-dev@zope.org",
     description = "An alternative implementation of RML",
     long_description=(
         read('README.txt')
@@ -39,12 +39,12 @@ setup (
         'Programming Language :: Python',
         'Natural Language :: English',
         'Operating System :: OS Independent'],
-    url = 'http://cheeseshop.python.org/pypi/z3c.rml',
+    url = 'http://pypi.python.org/pypi/z3c.rml',
     packages = find_packages('src'),
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
     extras_require = dict(
-        test = ['zope.pagetemplate', 'zope.testing'],
+        test = ['zope.pagetemplate', 'zope.testing', 'PIL'],
         pagetemplate = ['zope.pagetemplate']
         ),
     install_requires = [
