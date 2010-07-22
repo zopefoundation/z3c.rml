@@ -759,6 +759,7 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('barChart', chart.IBarChart),
         occurence.ZeroOrMore('barChart3D', chart.IBarChart3D),
         occurence.ZeroOrMore('linePlot', chart.ILinePlot),
+        occurence.ZeroOrMore('linePlot3D', chart.ILinePlot3D),
         occurence.ZeroOrMore('pieChart', chart.IPieChart),
         occurence.ZeroOrMore('pieChart3D', chart.IPieChart3D),
         occurence.ZeroOrMore('spiderChart', chart.ISpiderChart),
@@ -803,6 +804,7 @@ class Drawing(directive.RMLDirective):
         'barChart': chart.BarChart,
         'barChart3D': chart.BarChart3D,
         'linePlot': chart.LinePlot,
+        'linePlot3D': chart.LinePlot3D,
         'pieChart': chart.PieChart,
         'pieChart3D': chart.PieChart3D,
         'spiderChart': chart.SpiderChart

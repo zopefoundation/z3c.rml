@@ -11,6 +11,8 @@ CHANGES
 - Upgraded to latest lxml. This only required a trivial change. Patch by Felix
   Schwarz.
 
+- Implemented ``linePlot3D`` directive. Patch by Faisal Puthuparackat.
+
 - Bug: Fixed version number in reference.pt. Patch by Felix Schwarz.
 
 - Bug: Write PDF documents in binary mode. Patch by Felix Schwarz.

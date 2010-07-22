@@ -389,6 +389,17 @@ class ILabel(IPositionLabelBase):
 class Label(PropertyItem):
     signature = ILabel
 
+class IBarLabels(ILabelBase):
+    """A set of labels for a bar chart"""
+    occurence.containing(
+        occurence.ZeroOrMore('label', ILabel)
+        )
+
+class BarLabels(PropertyCollection):
+    signature = IBarLabels
+    propertyName = 'barLabels'
+    factories = {'label': Label}
+    name = 'barLabels'
 
 class ILabels(IPositionLabelBase):
     """A set of labels of an axis."""
@@ -668,9 +679,10 @@ class IValueAxis(IAxis):
         description=u'The step size between ticks',
         required=False)
 
-    valueSteps = attr.Measurement(
+    valueSteps = attr.Sequence(
         title=u'Step Sizes',
         description=u'List of step sizes between ticks.',
+        value_type = attr.Float(),
         required=False)
 
     rangeRound = attr.Choice(
@@ -1311,6 +1323,7 @@ class IBarChart(IChart):
         occurence.ZeroOrOne('bars', IBars),
         occurence.ZeroOrOne('categoryAxis', ICategoryAxis),
         occurence.ZeroOrOne('valueAxis', IValueAxis),
+        occurence.ZeroOrOne('barLabels', IBarLabels),
         *IChart.queryTaggedValue('directives', ())
         )
 
@@ -1345,6 +1358,12 @@ class IBarChart(IChart):
         default=0,
         required=False)
 
+    barLabelFormat = attr.String(
+        title=u'Bar Label Text Format',
+        description=u'Formatting string for bar labels.',
+        required=False)
+
+
 class BarChart(Chart):
     signature = IBarChart
     nameBase = 'BarChart'
@@ -1352,6 +1371,7 @@ class BarChart(Chart):
     factories.update({
         'data': Data1D,
         'bars': Bars,
+	'barLabels': BarLabels,
         })
 
     def createChart(self, attrs):
@@ -1452,6 +1472,45 @@ class LinePlot(Chart):
         for name, value in attrs.items():
             setattr(chart, name, value)
         return chart
+
+class ILinePlot3D(ILinePlot):
+    """Creates a three-dimensional line plot."""
+    occurence.containing(
+        *ILinePlot.queryTaggedValue('directives', ())
+        )
+
+    thetaX = attr.Float(
+        title=u'Theta-X',
+        description=u'Fraction of dx/dz.',
+        required=False)
+
+    thetaY = attr.Float(
+        title=u'Theta-Y',
+        description=u'Fraction of dy/dz.',
+        required=False)
+
+    zDepth = attr.Measurement(
+        title=u'Z-Depth',
+        description=u'Depth of an individual series/bar.',
+        required=False)
+
+    zSpace = attr.Measurement(
+        title=u'Z-Space',
+        description=u'Z-Gap around a series/bar.',
+        required=False)
+
+class LinePlot3D(LinePlot):
+    signature = ILinePlot3D
+    nameBase = 'LinePlot3D'
+    attrMapping = {'thetaX': 'theta_x', 'thetaY': 'theta_y'}
+
+    def createChart(self, attrs):
+        # Generate the chart
+        chart = lineplots.LinePlot3D()
+        for name, value in attrs.items():
+            setattr(chart,name, value)
+        return chart
+
 
 
 class IPieChart(IChart):

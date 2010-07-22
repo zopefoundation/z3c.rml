@@ -560,7 +560,7 @@
 <!ELEMENT pageInfo>
 <!ATTLIST pageInfo pageSize CDATA #REQUIRED>
 
-<!ELEMENT pageDrawing (drawString*,drawRightString*,drawCenteredString*,drawCentredString*,drawAlignedString*,ellipse*,circle*,rect*,grid*,lines*,curves*,image*,place*,textAnnotation*,path*,fill*,stroke*,setFont*,scale*,translate*,rotate*,skew*,transform*,lineMode*,barCode*,textField*,buttonField*,selectField*,barChart*,barChart3D*,linePlot*,pieChart*,pieChart3D*,spiderChart*)>
+<!ELEMENT pageDrawing (drawString*,drawRightString*,drawCenteredString*,drawCentredString*,drawAlignedString*,ellipse*,circle*,rect*,grid*,lines*,curves*,image*,place*,textAnnotation*,path*,fill*,stroke*,setFont*,scale*,translate*,rotate*,skew*,transform*,lineMode*,barCode*,textField*,buttonField*,selectField*,barChart*,barChart3D*,linePlot*,linePlot3D*,pieChart*,pieChart3D*,spiderChart*)>
 
 <!ELEMENT drawString>
 <!ATTLIST drawString x CDATA #REQUIRED>
@@ -754,7 +754,7 @@
 <!ELEMENT option>
 <!ATTLIST option value CDATA #REQUIRED>
 
-<!ELEMENT barChart (data,bars?,categoryAxis?,valueAxis?,texts?)>
+<!ELEMENT barChart (data,bars?,categoryAxis?,valueAxis?,texts?,barLabels?)>
 <!ATTLIST barChart dx CDATA #IMPLIED>
 <!ATTLIST barChart dy CDATA #IMPLIED>
 <!ATTLIST barChart dwidth CDATA #IMPLIED>
@@ -773,6 +773,7 @@
 <!ATTLIST barChart barWidth CDATA #IMPLIED>
 <!ATTLIST barChart groupSpacing CDATA #IMPLIED>
 <!ATTLIST barChart barSpacing CDATA #IMPLIED>
+<!ATTLIST barChart barLabelFormat CDATA #IMPLIED>
 
 <!ELEMENT data (series+)>
 
@@ -911,7 +912,15 @@
 <!ATTLIST text fillColor CDATA #IMPLIED>
 <!ATTLIST text textAnchor (start|boxauto|end|middle) #IMPLIED>
 
-<!ELEMENT barChart3D (data,bars?,categoryAxis?,valueAxis?,texts?)>
+<!ELEMENT barLabels>
+<!ATTLIST barLabels dx CDATA #REQUIRED>
+<!ATTLIST barLabels dy CDATA #REQUIRED>
+<!ATTLIST barLabels boxAnchor CDATA #REQUIRED>
+<!ATTLIST barLabels fontName CDATA #REQUIRED>
+<!ATTLIST barLabels fontSize CDATA #REQUIRED>
+<!ATTLIST barLabels nudge CDATA #REQUIRED>
+
+<!ELEMENT barChart3D (data,bars?,categoryAxis?,valueAxis?,texts?,barLabels?)>
 <!ATTLIST barChart3D dx CDATA #IMPLIED>
 <!ATTLIST barChart3D dy CDATA #IMPLIED>
 <!ATTLIST barChart3D dwidth CDATA #IMPLIED>
@@ -930,6 +939,7 @@
 <!ATTLIST barChart3D barWidth CDATA #IMPLIED>
 <!ATTLIST barChart3D groupSpacing CDATA #IMPLIED>
 <!ATTLIST barChart3D barSpacing CDATA #IMPLIED>
+<!ATTLIST barChart3D barLabelFormat CDATA #IMPLIED>
 <!ATTLIST barChart3D thetaX CDATA #IMPLIED>
 <!ATTLIST barChart3D thetaY CDATA #IMPLIED>
 <!ATTLIST barChart3D zDepth CDATA #IMPLIED>
@@ -1091,6 +1101,29 @@
 <!ATTLIST linePlot lineLabelFormat CDATA #IMPLIED>
 <!ATTLIST linePlot joinedLines CDATA #IMPLIED>
 
+<!ELEMENT linePlot3D (data,lines?,xValueAxis?,yValueAxis?,lineLabels?,texts?)>
+<!ATTLIST linePlot3D dx CDATA #IMPLIED>
+<!ATTLIST linePlot3D dy CDATA #IMPLIED>
+<!ATTLIST linePlot3D dwidth CDATA #IMPLIED>
+<!ATTLIST linePlot3D dheight CDATA #IMPLIED>
+<!ATTLIST linePlot3D angle CDATA #IMPLIED>
+<!ATTLIST linePlot3D x CDATA #IMPLIED>
+<!ATTLIST linePlot3D y CDATA #IMPLIED>
+<!ATTLIST linePlot3D width CDATA #IMPLIED>
+<!ATTLIST linePlot3D height CDATA #IMPLIED>
+<!ATTLIST linePlot3D strokeColor CDATA #IMPLIED>
+<!ATTLIST linePlot3D strokeWidth CDATA #IMPLIED>
+<!ATTLIST linePlot3D fillColor CDATA #IMPLIED>
+<!ATTLIST linePlot3D debug CDATA #IMPLIED>
+<!ATTLIST linePlot3D reversePlotOrder CDATA #IMPLIED>
+<!ATTLIST linePlot3D lineLabelNudge CDATA #IMPLIED>
+<!ATTLIST linePlot3D lineLabelFormat CDATA #IMPLIED>
+<!ATTLIST linePlot3D joinedLines CDATA #IMPLIED>
+<!ATTLIST linePlot3D thetaX CDATA #IMPLIED>
+<!ATTLIST linePlot3D thetaY CDATA #IMPLIED>
+<!ATTLIST linePlot3D zDepth CDATA #IMPLIED>
+<!ATTLIST linePlot3D zSpace CDATA #IMPLIED>
+
 <!ELEMENT data (series+)>
 
 <!ELEMENT series>
@@ -1109,7 +1142,7 @@
 <!ATTLIST line symbol CDATA #IMPLIED>
 <!ATTLIST line name CDATA #IMPLIED>
 
-<!ELEMENT xValueAxis>
+<!ELEMENT xValueAxis (valueSteps?)>
 <!ATTLIST xValueAxis visible CDATA #IMPLIED>
 <!ATTLIST xValueAxis visibleAxis CDATA #IMPLIED>
 <!ATTLIST xValueAxis visibleTicks CDATA #IMPLIED>
@@ -1133,7 +1166,6 @@
 <!ATTLIST xValueAxis valueMin CDATA #IMPLIED>
 <!ATTLIST xValueAxis valueMax CDATA #IMPLIED>
 <!ATTLIST xValueAxis valueStep CDATA #IMPLIED>
-<!ATTLIST xValueAxis valueSteps CDATA #IMPLIED>
 <!ATTLIST xValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST xValueAxis zrangePref CDATA #IMPLIED>
 <!ATTLIST xValueAxis tickUp CDATA #IMPLIED>
@@ -1142,7 +1174,7 @@
 <!ATTLIST xValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
 <!ATTLIST xValueAxis joinAxisPos CDATA #IMPLIED>
 
-<!ELEMENT yValueAxis>
+<!ELEMENT yValueAxis (valueSteps?)>
 <!ATTLIST yValueAxis visible CDATA #IMPLIED>
 <!ATTLIST yValueAxis visibleAxis CDATA #IMPLIED>
 <!ATTLIST yValueAxis visibleTicks CDATA #IMPLIED>
@@ -1166,7 +1198,6 @@
 <!ATTLIST yValueAxis valueMin CDATA #IMPLIED>
 <!ATTLIST yValueAxis valueMax CDATA #IMPLIED>
 <!ATTLIST yValueAxis valueStep CDATA #IMPLIED>
-<!ATTLIST yValueAxis valueSteps CDATA #IMPLIED>
 <!ATTLIST yValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST yValueAxis zrangePref CDATA #IMPLIED>
 <!ATTLIST yValueAxis tickLeft CDATA #IMPLIED>
@@ -1174,6 +1205,10 @@
 <!ATTLIST yValueAxis joinAxis CDATA #IMPLIED>
 <!ATTLIST yValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
 <!ATTLIST yValueAxis joinAxisPos CDATA #IMPLIED>
+
+<!ELEMENT valueSteps (valueStep*)>
+
+<!ELEMENT valueStep>
 
 <!ELEMENT lineLabels (label*)>
 <!ATTLIST lineLabels dx CDATA #IMPLIED>
