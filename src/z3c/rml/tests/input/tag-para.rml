@@ -24,6 +24,13 @@
     <para doc:example="">Paragraph</para>
     <pre doc:example="">Preformatted <b>text</b> only.</pre>
     <xpre doc:example="">Preformatted with <i>markup</i>.</xpre>
+    <para borderColor="red" borderWidth="2" borderPadding="5 10 30"
+          borderRadius="5" backColor="yellow"
+	  spaceBefore="5" spaceAfter="35" leftIndent="10" rightIndent="10">
+        Paragraph with a border and a padding. <br/><br/>
+        <b>Note:</b> The padding only affects the position of the border, not 
+        the paragraph text.
+    </para>
     <para>Page number: <pageNumber/> </para>
   </story>
 </document>

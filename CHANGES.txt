@@ -2,10 +2,12 @@
 CHANGES
 =======
 
-1.0.0 (unreleased)
+0.9.1 (2010-06-22)
 ------------------
 
-- No changes yet.
+- I found a more complete paragraph border patch from Yuan Hong. Now the DTD
+  is updated, the border supports a border radius and the tag-para.rml sample
+  has been updated.
 
 0.9.0 (2010-06-22)
 ------------------

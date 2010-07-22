@@ -141,6 +141,11 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         max_length=4,
         required=False)
 
+    borderRadius = attr.Measurement(
+        title=u'Paragraph Border Radius',
+        description=u'The radius of the paragraph border.',
+        required=False)
+
 
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""

@@ -62,6 +62,10 @@
 <!ATTLIST paraStyle backColor CDATA #IMPLIED>
 <!ATTLIST paraStyle keepWithNext CDATA #IMPLIED>
 <!ATTLIST paraStyle wordWrap CDATA #IMPLIED>
+<!ATTLIST paraStyle borderWidth CDATA #IMPLIED>
+<!ATTLIST paraStyle borderStyle CDATA #IMPLIED>
+<!ATTLIST paraStyle borderPadding CDATA #IMPLIED>
+<!ATTLIST paraStyle borderRadius CDATA #IMPLIED>
 <!ATTLIST paraStyle name CDATA #REQUIRED>
 <!ATTLIST paraStyle alias CDATA #IMPLIED>
 <!ATTLIST paraStyle parent CDATA #IMPLIED>
@@ -347,6 +351,10 @@
 <!ATTLIST para backColor CDATA #IMPLIED>
 <!ATTLIST para keepWithNext CDATA #IMPLIED>
 <!ATTLIST para wordWrap CDATA #IMPLIED>
+<!ATTLIST para borderWidth CDATA #IMPLIED>
+<!ATTLIST para borderStyle CDATA #IMPLIED>
+<!ATTLIST para borderPadding CDATA #IMPLIED>
+<!ATTLIST para borderRadius CDATA #IMPLIED>
 <!ATTLIST para style CDATA #REQUIRED>
 <!ATTLIST para bulletText CDATA #IMPLIED>
 <!ATTLIST para dedent CDATA #IMPLIED>
