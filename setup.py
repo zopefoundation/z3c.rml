@@ -44,14 +44,18 @@ setup (
     package_dir = {'':'src'},
     namespace_packages = ['z3c'],
     extras_require = dict(
-        test = ['zope.pagetemplate', 'zope.testing', 'PIL'],
-        pagetemplate = ['zope.pagetemplate']
+        test = [
+            'zope.pagetemplate',
+            'zope.testing',
+            'PILwoTk'],
+        pagetemplate = [
+            'zope.pagetemplate']
         ),
     install_requires = [
         'lxml',
         'pyPdf',
         # ReportLab does not seem to upload their packages to PyPI
-        'Reportlab',
+        'reportlab',
         'setuptools',
         'zope.interface',
         'zope.schema',

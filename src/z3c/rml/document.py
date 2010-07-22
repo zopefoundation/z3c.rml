@@ -259,7 +259,7 @@ class Document(directive.RMLDirective):
         """Process document"""
         if outputFile is None:
             # TODO: This is relative to the input file *not* the CWD!!!
-            outputFile = open(self.element.get('filename'), 'w')
+            outputFile = open(self.element.get('filename'), 'wb')
 
         # Create a temporary output file, so that post-processors can
         # massage the output

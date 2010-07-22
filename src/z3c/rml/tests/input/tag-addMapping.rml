@@ -6,8 +6,8 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <docinit doc:example="">
-    <registerTTFont faceName="rina" fileName="rina.ttf" />
-    <addMapping faceName="times" bold="1" italic="0" psName="rina"
+    <registerTTFont faceName="Vera" fileName="Vera.ttf" />
+    <addMapping faceName="times" bold="1" italic="0" psName="Vera"
                 doc:example="" />
   </docinit>
 
@@ -28,10 +28,10 @@
     </para>
     <para style="normal">
       With 'addMapping' we map the bold form of 'times' to use the font
-      'rina'. So we get the next line:
+      'Vera'. So we get the next line:
     </para>
     <para style="normal">
-      <b>This line should appear in font 'rina'</b>
+      <b>This line should appear in font 'Vera'</b>
     </para>
   </story>
 

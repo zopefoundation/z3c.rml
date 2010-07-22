@@ -3,9 +3,9 @@
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_005_fonts.pdf">
 	<docinit>
-		<registerType1Face afmFile="LeERC___.AFM" pfbFile="LeERC___.PFB"/>
-		<registerFont name="LettErrorRobot-Chrome" faceName="LettErrorRobot-Chrome" encName="WinAnsiEncoding"/>
-		<registerTTFont faceName="rina" fileName="rina.ttf"/>
+		<registerType1Face afmFile="DarkGardenMK.afm" pfbFile="DarkGardenMK.pfb"/>
+		<registerFont name="DarkGardenMK" faceName="DarkGardenMK" encName="WinAnsiEncoding"/>
+		<registerTTFont faceName="Vera" fileName="Vera.ttf"/>
 	</docinit>
 	<template>
 		<pageTemplate id="main">
@@ -13,15 +13,15 @@
 		</pageTemplate>
 	</template>
 	<stylesheet>
-		<paraStyle name="robot" fontName="LettErrorRobot-Chrome" fontSize="12" spaceBefore="0.5 cm"/>
-		<paraStyle name="rina" fontName="rina" fontSize="12" spaceBefore="0.5 cm"/>
+		<paraStyle name="robot" fontName="DarkGardenMK" fontSize="12" spaceBefore="0.5 cm"/>
+		<paraStyle name="Vera" fontName="Vera" fontSize="12" spaceBefore="0.5 cm"/>
 	</stylesheet>
 	<story>
 		<para>
 		This paragraph is an ordinary font style, but switches font. 
-		<font face="LettErrorRobot-Chrome">This is in a custom font</font>
-		and <font face="rina">this is in a custom TTF font</font>.
-			<!-- doesn't work <font face="LettErrorRobot-Chrome"> -->
+		<font face="DarkGardenMK">This is in a custom font</font>
+		and <font face="Vera">this is in a custom TTF font</font>.
+			<!-- doesn't work <font face="DarkGardenMK"> -->
 <!--        Yahoo! Rooms 
   Asian Markets - Discuss the latest market activity. 
   Biotechnology - Discuss the latest research and advances in this field. 
@@ -32,12 +32,12 @@
 <!-- </font> -->
 		</para>
 		<para style="robot">This is a whole paragraph in the 'robot' style.</para>
-		<para style="rina">This is a whole paragraph in the 'rina' style.</para>
+		<para style="Vera">This is a whole paragraph in the 'Vera' style.</para>
 		<illustration height="100" width="1">
-			<setFont name="LettErrorRobot-Chrome" size="25"/>
-			<drawString x="25" y="25">"LettErrorRobot-Chrome"</drawString>
-			<setFont name="rina" size="25"/>
-			<drawString x="25" y="50">"rina"</drawString>
+			<setFont name="DarkGardenMK" size="25"/>
+			<drawString x="25" y="25">"DarkGardenMK"</drawString>
+			<setFont name="Vera" size="25"/>
+			<drawString x="25" y="50">"Vera"</drawString>
 			<setFont name="Helvetica" size="16"/>
 			<drawString x="25" y="75">This is drawn directly in an illustration</drawString>
 		</illustration>

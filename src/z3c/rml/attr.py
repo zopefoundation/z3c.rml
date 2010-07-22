@@ -457,7 +457,7 @@ class RawXMLContent(RMLAttribute):
 
     def __init__(self, *args, **kw):
         super(RawXMLContent, self).__init__(*args, **kw)
-        # Do it in here, since we hace a recursive problem otherwise
+        # Do it in here, since we have a recursive problem otherwise
         from z3c.rml import special
         self.handleElements = {'getName': special.GetName}
 

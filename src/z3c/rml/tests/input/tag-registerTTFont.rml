@@ -6,7 +6,7 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <docinit doc:example="">
-    <registerTTFont faceName="rina" fileName="rina.ttf"
+    <registerTTFont faceName="Vera" fileName="Vera.ttf"
                     doc:example="" />
   </docinit>
 
@@ -17,7 +17,7 @@
   </template>
 
   <story>
-    <para fontName="rina" fontSize="40">Hello World!</para>
+    <para fontName="Vera" fontSize="40">Hello World!</para>
   </story>
 
 </document>

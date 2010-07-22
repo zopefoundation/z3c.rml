@@ -211,7 +211,7 @@ def extractExamples(directory):
         rmlFile = open(os.path.join(directory, filename), 'r')
         root = etree.parse(rmlFile).getroot()
         elements = root.xpath('//@doc:example/parent::*',
-                              {'doc': EXAMPLE_NS})
+                              namespaces={'doc': EXAMPLE_NS})
         # Phase 1: Collect all elements
         for elem in elements:
             demoTag = elem.get(EXAMPLE_ATTR_NAME) or elem.tag

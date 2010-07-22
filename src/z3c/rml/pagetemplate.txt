@@ -45,7 +45,7 @@ All we have to do now is to render the template. The context of the template
 is effectively the keyword arguments dictionary:
 
   >>> rmlPageTemplate(names=(u'Roy', u'Daniel', u'Julian', u'Stephan'))
-  '%PDF-1.3...'
+  '%PDF-1.4...'
 
 You can uncomment the following line to write out the PDF in the current
 working directory:

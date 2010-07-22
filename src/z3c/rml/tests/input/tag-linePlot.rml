@@ -28,7 +28,7 @@
       <yValueAxis valueMin="0" valueMax="7" valueStep="1" doc:example="">
         <labels fontName="Helvetica" />
       </yValueAxis>
-      <lineLabels font="Roman-Bold" fontSize="30" doc:example="" />
+      <lineLabels font="Roman-Bold" fontSize="10" doc:example="" />
       <data doc:example="z3c.rml.chart.IData2D">
         <series doc:example="z3c.rml.chart.ISeries2D">
           1   1

@@ -2,8 +2,19 @@
 CHANGES
 =======
 
-0.8.1 (unreleased)
+0.9.0 (unreleased)
 ------------------
+
+- Upgraded to ReportLab 2.4. This required some font changes and several
+  generated PDFs did not match, since some default fonts changed.
+
+- Upgraded to latest lxml. This only required a trivial change. Patch by Felix
+  Schwarz.
+
+- Bug: Fixed version number in reference.pt. Patch by Felix Schwarz.
+
+- Bug: Write PDF documents in binary mode. Patch by Felix Schwarz.
+
 
 0.8.0 (2009-02-18)
 ------------------

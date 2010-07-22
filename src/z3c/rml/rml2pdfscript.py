@@ -22,7 +22,6 @@ import os
 
 _fileOpen = None
 
-
 def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
     # set the sys path given from the parent process
     sysPath = os.environ['Z3CRMLSYSPATH']
@@ -41,7 +40,7 @@ def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
             # cleanup win paths like:
             # ....\\input\\file:///D:\\trunk\\...
             if sys.platform[:3].lower() == "win":
-                filename.replace('/', '\\')
+                filename = filename.replace('/', '\\')
                 if filename.startswith('file:///'):
                     filename = filename[len('file:///'):]
             path = os.path.join(os.path.dirname(xmlInputName), filename)

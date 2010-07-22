@@ -5,11 +5,11 @@
     filename="tag-registerType1Face.pdf"
     xmlns:doc="http://namespaces.zope.org/rml/doc">
   <docinit>
-    <registerType1Face afmFile="LeERC___.AFM" pfbFile="LeERC___.PFB"
+    <registerType1Face afmFile="DarkGardenMK.afm" pfbFile="DarkGardenMK.pfb"
                        doc:example=""/>
     <registerFont
-        name="LettErrorRobot-Chrome"
-        faceName="LettErrorRobot-Chrome"
+        name="DarkGardenMK"
+        faceName="DarkGardenMK"
         encName="WinAnsiEncoding"
         doc:example="" />
   </docinit>
@@ -19,6 +19,6 @@
     </pageTemplate>
   </template>
   <story>
-    <para fontName="LettErrorRobot-Chrome" fontSize="40">Hello World!</para>
+    <para fontName="DarkGardenMK" fontSize="40">Hello World!</para>
   </story>
 </document>
