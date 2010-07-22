@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-linePlot.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <pageDrawing>
+
+    <setFont name="Helvetica-Bold" size="16" />
+    <drawCenteredString x="4.1in" y="11in">
+      Line Plot Demo
+    </drawCenteredString>
+
+    <linePlot3D
+        dx="2in" dy="7in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="3in"
+         joinedLines="true" lineLabelFormat="%2.0f"
+         zDepth="0.3in" zSpace="0.3in"
+         doc:example="">
+      <lines>
+        <line strokeColor="red" symbol="FilledCircle"/>
+        <line strokeColor="blue" symbol="FilledDiamond" />
+      </lines>
+      <xValueAxis valueMin="0" valueMax="5" valueStep="1">
+        <labels fontName="Helvetica" />
+      </xValueAxis>
+      <yValueAxis valueMin="0" valueMax="7" valueStep="1">
+        <labels fontName="Helvetica" />
+      </yValueAxis>
+      <lineLabels font="Roman-Bold" fontSize="10" />
+      <data>
+        <series>
+          1   1
+          2   2
+          2.5 1
+          3   3
+          4   5
+        </series>
+        <series>
+          1   2
+          2   3
+          2.5 2
+          3.5 5
+          4   6
+        </series>
+      </data>
+    </linePlot3D>
+
+    <linePlot3D
+        dx="2in" dy="3in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="3in"
+         joinedLines="true">
+      <lines>
+        <line strokeColor="red" strokeDashArray="1 5 5" symbol="FilledCircle" />
+        <line strokeColor="blue" fillColor="black" symbol="FilledDiamond" />
+      </lines>
+      <xValueAxis valueMin="0" valueMax="5" valueStep="1">
+        <labels fontName="Helvetica" />
+      </xValueAxis>
+      <yValueAxis valueMin="0" valueMax="7" valueStep="1">
+        <labels fontName="Helvetica" />
+      </yValueAxis>
+      <texts>
+        <text x="2.5in" y="-0.5in" textAnchor="middle"
+              fontName="Helvetica-Bold" fontSize="13"
+              fillColor="black">
+          X-Axis Label
+        </text>
+        <text x="1.5in" y="0.3in" angle="90" textAnchor="middle"
+              fontName="Helvetica-Bold" fontSize="13"
+              fillColor="red">
+          Y-Axis Label
+        </text>
+      </texts>
+      <data>
+        <series>
+          1   1
+          2   2
+          2.5 1
+          3   3
+          4   5
+        </series>
+        <series>
+          1   2
+          2   3
+          2.5 2
+          3.5 5
+          4   6
+        </series>
+      </data>
+    </linePlot3D>
+
+  </pageDrawing>
+</document>
