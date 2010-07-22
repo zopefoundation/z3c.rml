@@ -13,6 +13,8 @@ CHANGES
 
 - Implemented ``linePlot3D`` directive. Patch by Faisal Puthuparackat.
 
+- Added paragraph border support. Patch by Yuan Hong.
+
 - Bug: Fixed version number in reference.pt. Patch by Felix Schwarz.
 
 - Bug: Write PDF documents in binary mode. Patch by Felix Schwarz.

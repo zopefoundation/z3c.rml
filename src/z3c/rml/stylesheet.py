@@ -123,6 +123,25 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=(u'When set to "CJK", invoke CJK word wrapping'),
         required=False)
 
+    borderColor = attr.Color(
+        title=u'Border Color',
+        description=u'The color in which the paragraph border will appear.',
+        required=False)
+
+    borderWidth = attr.Measurement(
+        title=u'Paragraph Border Width',
+        description=u'The width of the paragraph border.',
+        required=False)
+
+    borderPadding = attr.Sequence(
+        title=u'Paragraph Border Padding',
+        description=u'Padding of the paragraph.',
+        value_type=attr.Integer(),
+        min_length=1,
+        max_length=4,
+        required=False)
+
+
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""
 

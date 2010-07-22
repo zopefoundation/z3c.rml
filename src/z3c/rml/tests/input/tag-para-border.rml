@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-paraWordWrap.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template showBoundary="1">
+    <pageTemplate id="main">
+      <frame id="first" x1="5cm" y1="1cm" width="10cm" height="26cm"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <paraStyle name="important"
+               borderColor="red"
+               borderWidth="2"
+               borderPadding="5 5" />
+  </stylesheet>
+
+  <story>
+    <title>Paragraph Borders</title>
+    <spacer length="1cm" />
+    <para style="important">
+      This is some important text. In this document all important text is
+      rendered in a red box.
+    </para>
+  </story>
+
+</document>
