@@ -21,7 +21,7 @@ def read(*rnames):
 
 setup (
     name='z3c.rml',
-    version='0.8.1dev',
+    version='0.9.0',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope-dev@zope.org",
     description = "An alternative implementation of RML",
@@ -54,7 +54,6 @@ setup (
     install_requires = [
         'lxml',
         'pyPdf',
-        # ReportLab does not seem to upload their packages to PyPI
         'reportlab',
         'setuptools',
         'zope.interface',
