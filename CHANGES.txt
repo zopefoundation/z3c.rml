@@ -5,7 +5,9 @@ CHANGES
 1.0.0 (unreleased)
 ------------------
 
-- Nothing yet.
+- Using Python's ``doctest`` module instead of depreacted
+  ``zope.testing.doctest``.
+
 
 0.9.1 (2010-06-22)
 ------------------

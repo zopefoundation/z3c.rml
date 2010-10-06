@@ -12,16 +12,14 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ###############################################################################
-"""Tests for the Book Documentation Module
+"""Tests for the Book Documentation Module"""
 
-$Id$
-"""
-__docformat__ = "reStructuredText"
+import doctest
 import unittest
-from zope.testing import doctest
+
 
 def test_suite():
-    return unittest.TestSuite((
-        doctest.DocFileSuite('../pagetemplate.txt',
-            optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS),
-        ))
+    return doctest.DocFileSuite(
+        '../pagetemplate.txt',
+        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
+
