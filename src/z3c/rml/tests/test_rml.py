@@ -44,7 +44,6 @@ class RMLRenderingTestCase(unittest.TestCase):
             # cleanup win paths like:
             # ....\\input\\file:///D:\\trunk\\...
             if sys.platform[:3].lower() == "win":
-                filename.replace('/', '\\')
                 if filename.startswith('file:///'):
                     filename = filename[len('file:///'):]
             path = os.path.join(os.path.dirname(self._inPath), filename)
