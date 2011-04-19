@@ -18,6 +18,7 @@ $Id$
 __docformat__ = "reStructuredText"
 import reportlab.platypus.flowables
 import reportlab.rl_config
+from reportlab.rl_config import overlapAttachedSpace
 import zope.interface
 
 from z3c.rml import interfaces

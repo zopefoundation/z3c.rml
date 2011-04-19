@@ -30,7 +30,6 @@ import urllib
 import zope.interface
 import zope.schema
 from lxml import etree
-from xml.sax import saxutils
 
 from z3c.rml import interfaces
 

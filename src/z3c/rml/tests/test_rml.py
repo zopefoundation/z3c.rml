@@ -16,13 +16,16 @@
 $Id$
 """
 import os
-import PIL
 import subprocess
 import unittest
 import sys
 import z3c.rml.tests
 from z3c.rml import rml2pdf, attr
 
+try:
+    import Image
+except ImportError:
+    from PIL import Image
 
 def gs_command(path):
     return ('gs', '-q', '-sNOPAUSE', '-sDEVICE=png256',
@@ -72,8 +75,8 @@ class ComparePDFTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def assertSameImage(self, baseImage, testImage):
-        base = PIL.Image.open(baseImage).getdata()
-        test = PIL.Image.open(testImage).getdata()
+        base = Image.open(baseImage).getdata()
+        test = Image.open(testImage).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
                 self.fail('Image is not the same.')

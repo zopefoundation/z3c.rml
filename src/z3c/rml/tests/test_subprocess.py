@@ -16,13 +16,9 @@
 $Id: test_rml.py 74170 2007-04-16 08:42:13Z srichter $
 """
 import os
-import PIL
-import popen2
 import unittest
-import sys
 import z3c.rml.tests
 from z3c.rml import rml2pdfscript
-from z3c.rml import attr
 from z3c.rml.tests.test_rml import ComparePDFTestCase
 from z3c.rml.tests.test_rml import RMLRenderingTestCase
 
