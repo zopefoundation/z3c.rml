@@ -47,7 +47,7 @@ setup (
         test = [
             'zope.pagetemplate',
             'zope.testing',
-            'PILwoTk'],
+            'PIL'],
         pagetemplate = [
             'zope.pagetemplate']
         ),
