@@ -46,7 +46,6 @@ setup (
     extras_require = dict(
         test = [
             'zope.pagetemplate',
-            'zope.testing',
             'PIL'],
         pagetemplate = [
             'zope.pagetemplate']
