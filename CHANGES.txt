@@ -2,21 +2,21 @@
 CHANGES
 =======
 
-1.0.0 (unreleased)
+1.0.0 (2012-04-02)
 ------------------
 
 - Using Python's ``doctest`` module instead of depreacted
   ``zope.testing.doctest``.
 
 
-0.9.1 (2010-06-22)
+0.9.1 (2010-07-22)
 ------------------
 
 - I found a more complete paragraph border patch from Yuan Hong. Now the DTD
   is updated, the border supports a border radius and the tag-para.rml sample
   has been updated.
 
-0.9.0 (2010-06-22)
+0.9.0 (2010-07-22)
 ------------------
 
 - Upgraded to ReportLab 2.4. This required some font changes and several
