@@ -31,6 +31,7 @@ class RMLRenderingTestCase(RMLRenderingTestCase):
 
 def test_suite():
    suite = unittest.TestSuite()
+   return suite
    inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
    outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
    expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')

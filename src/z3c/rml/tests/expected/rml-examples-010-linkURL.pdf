@@ -1,11 +1,10 @@
-%PDF-1.3
+%PDF-1.4
 %“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
 % 'BasicFonts': class PDFDictionary 
 1 0 obj
 % The standard fonts dictionary
 << /F1 2 0 R
- /F2 3 0 R
- /F3 4 0 R >>
+ /F2 3 0 R >>
 endobj
 % 'F1': class PDFType1Font 
 2 0 obj
@@ -18,24 +17,15 @@ endobj
 endobj
 % 'F2': class PDFType1Font 
 3 0 obj
-% Font Times-Roman
-<< /BaseFont /Times-Roman
+% Font Helvetica-Oblique
+<< /BaseFont /Helvetica-Oblique
  /Encoding /WinAnsiEncoding
  /Name /F2
  /Subtype /Type1
  /Type /Font >>
 endobj
-% 'F3': class PDFType1Font 
-4 0 obj
-% Font Helvetica-Oblique
-<< /BaseFont /Helvetica-Oblique
- /Encoding /WinAnsiEncoding
- /Name /F3
- /Subtype /Type1
- /Type /Font >>
-endobj
 % 'Annot.NUMBER1': class PDFDictionary 
-5 0 obj
+4 0 obj
 << /A << /S /URI
  /Type /Action
  /URI (mailto:robin@reportlab.com) >>
@@ -50,15 +40,15 @@ endobj
  /Type /Annot >>
 endobj
 % 'Page1': class PDFPage 
-6 0 obj
+5 0 obj
 % Page dictionary
-<< /Annots [ 5 0 R ]
- /Contents 10 0 R
+<< /Annots [ 4 0 R ]
+ /Contents 9 0 R
  /MediaBox [ 0
  0
  595.2756
  841.8898 ]
- /Parent 9 0 R
+ /Parent 8 0 R
  /Resources << /Font 1 0 R
  /ProcSet [ /PDF
  /Text
@@ -69,73 +59,66 @@ endobj
  /Trans <<  >>
  /Type /Page >>
 endobj
-% 'R7': class PDFCatalog 
-7 0 obj
+% 'R6': class PDFCatalog 
+6 0 obj
 % Document Root
-<< /Outlines 11 0 R
+<< /Outlines 10 0 R
  /PageMode /UseNone
- /Pages 9 0 R
+ /Pages 8 0 R
  /Type /Catalog >>
 endobj
-% 'R8': class PDFInfo 
-8 0 obj
-<< /Author (anonymous)
- /CreationDate (20070416001215)
- /Producer (ReportLab http://www.reportlab.com)
- /Subject (unspecified)
- /Title (untitled) >>
+% 'R7': class PDFInfo 
+7 0 obj
+<< /Author (\(anonymous\))
+ /CreationDate (D:20121217140300+05'00')
+ /Creator (\(unspecified\))
+ /Keywords ()
+ /Producer (ReportLab PDF Library - www.reportlab.com)
+ /Subject (\(unspecified\))
+ /Title (\(anonymous\)) >>
 endobj
-% 'R9': class PDFPages 
-9 0 obj
+% 'R8': class PDFPages 
+8 0 obj
 % page tree
 << /Count 1
- /Kids [ 6 0 R ]
+ /Kids [ 5 0 R ]
  /Type /Pages >>
 endobj
-% 'R10': class PDFStream 
-10 0 obj
+% 'R9': class PDFStream 
+9 0 obj
 % page stream
 << /Filter [ /ASCII85Decode
  /FlateDecode ]
- /Length 443 >>
+ /Length 427 >>
 stream
-GauI1_+oVJ&;KX!]Yb_)'=Z2km"-Tpd[D"_@bmOD5[.u-=\r;popsn?/r0/Y
-_6AJ!o?I45$m7r[Tt;regh<)!&<MNN!t$A?hnrEK5m</#,8+NRJBS^k.5V2j
-Ku$7r@,&[fM+]F[911D[]S6Hp`a4W#)cG[GO]17?B;@K*^4?0Zr[_-TahJ02
-\(06)?%Cd_*]kU-mWan^,V2TR,&Q\"&XZ18-L<OPO\20sMYL9T:Lb`IODp%o
-K([b3?u,?B1mhi0M[/CH2fD+L&DJ'm&%O-:ruQeZ0bkARU/R7ob7gt1`%gk0
-Z)rDnhaH'LrmUSCqOtW<XMT*Y][tE%bSP(uS+HM!WclLr0R+r*Kp\-bGFb6!
-XUW&B9q1$G;cMHmWcFc!Lkb@CO7\eQS`g0%)2d,V$9T69Q$q"Zo)H"?>UY9A
-&%eOIhu~>endstream
-
+GauI1_+oVJ&;KX!]Yb_)'=Z2km"-Tpd[D"_@bmOD5[.u-=\r;pp"e:&/r0/Y_6AJ!o?I45$m7t36?ccTJ/\r])$4j*CI#]=k^/]^0W76V3[-j:"NX7kR6jif;]'n8!OdC^8mH+F>U"3Fju!Q`C[BSfIreSHS.[3?OkpfL!qr,[ZWt<ns!j\s<c<>.!I=usm#4'<j%3^CYUiesC1AWM^f80,6-i4o.Wl4NbJt6?)D`OjKM-D#XN+:jXj&ZK@$\on&'U4rDa`>'VAVl7\LDq+*eQd6'jIh0V^C;e-Wg\3A*3Gn>PX5mM6:4`VsT]ETtY84iOUJplfM%+$b!.]q>Ch(]B!674Bpmc1+S6+SX]F,L#;j+c0qfP<72:W3RCDe_tT9`HH_4@p&fUY)mpOtGVi0\IF)!bs0?lS."oDI-TA[9~>endstream
 endobj
-% 'R11': class PDFOutlines 
-11 0 obj
+% 'R10': class PDFOutlines 
+10 0 obj
 << /Count 0
  /Type /Outlines >>
 endobj
 xref
-0 12
+0 11
 0000000000 65535 f
 0000000113 00000 n
-0000000233 00000 n
-0000000398 00000 n
-0000000567 00000 n
-0000000760 00000 n
-0000000976 00000 n
-0000001274 00000 n
-0000001409 00000 n
-0000001605 00000 n
-0000001711 00000 n
-0000002300 00000 n
+0000000221 00000 n
+0000000386 00000 n
+0000000579 00000 n
+0000000795 00000 n
+0000001092 00000 n
+0000001227 00000 n
+0000001496 00000 n
+0000001601 00000 n
+0000002171 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\222O\002\327&P\025\006\226\366\032\331WM\225\375) (\222O\002\327&P\025\006\226\366\032\331WM\225\375)] 
+ [(\2514PW\375b\346M\037u\307 \354\014_\254) (\2514PW\375b\346M\037u\307 \354\014_\254)] 
 
- /Info 8 0 R
- /Root 7 0 R
- /Size 12 >>
+ /Info 7 0 R
+ /Root 6 0 R
+ /Size 11 >>
 startxref
-2352
+2223
 %%EOF

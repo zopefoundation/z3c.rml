@@ -184,7 +184,7 @@
 
 <!ELEMENT pageGraphics>
 
-<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*)>
+<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,pdfInclude*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
 
 <!ELEMENT spacer>
@@ -211,6 +211,9 @@
 <!ATTLIST plugInFlowable module CDATA #REQUIRED>
 <!ATTLIST plugInFlowable function CDATA #REQUIRED>
 <!ATTLIST plugInFlowable params CDATA #IMPLIED>
+
+<!ELEMENT pdfInclude>
+<!ATTLIST pdfInclude filename CDATA #REQUIRED>
 
 <!ELEMENT barCodeFlowable>
 <!ATTLIST barCodeFlowable code (ean13|extended39|standard39|ean8|extended93|usps_4state|codabar|msi|postnet|fim|code11|standard93|i2of5|code128) #REQUIRED>
