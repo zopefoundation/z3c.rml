@@ -4,7 +4,7 @@ except ImportError:
     pyPdf = None
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, flowable, interfaces, page
+from z3c.rml import attr, flowable, interfaces, occurence, page
 
 
 class PDFIncludeFlowable(flowables.Flowable):
@@ -82,3 +82,8 @@ class PDFInclude(flowable.Flowable):
 
 
 flowable.Flow.factories['pdfInclude'] = PDFInclude
+flowable.IFlow.setTaggedValue(
+    'directives',
+    flowable.IFlow.getTaggedValue('directives') +
+    (occurence.ZeroOrMore('pdfInclude', IPDFInclude),)
+    )

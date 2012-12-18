@@ -2,9 +2,24 @@
 CHANGES
 =======
 
-1.0.1 (unreleased)
+1.1.0 (2012-12-18)
 ------------------
 
+- Upgrade to ReportLab 2.6. This required some font changes and several
+  generated PDFs did not match, since some default fonts changed to sans-serif.
+
+- Added ``pdfInclude`` directive from Alex Garel. (LP #969399).
+
+- Switched to Pillow (from PIL).
+
+- Switched RML highlighting in RML Reference from SilverCity to Pygments.
+
+- Bug: Addressed a bug in ReportLab 2.6 that disallowed 3-D pie charts from
+  rendering.
+
+- Bug: Properly reset pdfform before rendering a document.
+
+- Bug: Reset fonts properly before a rendering.
 
 
 1.0.0 (2012-04-02)

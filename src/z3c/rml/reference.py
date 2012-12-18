@@ -19,16 +19,13 @@ __docformat__ = "reStructuredText"
 import copy
 import re
 import os
+import pygments.token
 import zope.schema
 import zope.schema.interfaces
 from lxml import etree
 from xml.sax import saxutils
+from pygments.lexers import XmlLexer
 from z3c.rml import attr, document, interfaces, pagetemplate
-
-try:
-    import SilverCity
-except ImportError:
-    SilverCity = None
 
 
 INPUT_URL = ('http://svn.zope.org/*checkout*/z3c.rml/trunk/src/z3c/'
@@ -41,10 +38,8 @@ CONTENT_FIELD_TYPES = (
     attr.TextNode, attr.TextNodeSequence, attr.TextNodeGrid,
     attr.RawXMLContent, attr.XMLContent)
 STYLES_FORMATTING = {
-     1 : ('<font textColor="red">', '</font>'),
-     #3 : ('<font textColor="blue">', '</font>'),
-     6 : ('<font textColor="blue">', '</font>'),
-    11 : ('<font textColor="red">', '</font>'),
+     pygments.token.Name.Tag : ('<font textColor="red">', '</font>'),
+     pygments.token.Literal.String : ('<font textColor="blue">', '</font>'),
     }
 EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
 EXAMPLE_ATTR_NAME = '{%s}example' %EXAMPLE_NS
@@ -79,13 +74,11 @@ def enforceColumns(rml, columns=80):
     return '\n'.join(result)
 
 def highlightRML(rml):
-    if SilverCity is None:
-        return saxutils.escape(rml)
-    lexer = SilverCity.XML.XMLLexer()
+    lexer = XmlLexer()
     styledRml = ''
-    for piece in lexer.tokenize_by_style(rml):
-        start, end = STYLES_FORMATTING.get(piece['style'], ('', ''))
-        styledRml += start + saxutils.escape(piece['text']) + end
+    for ttype, token in lexer.get_tokens(rml):
+        start, end = STYLES_FORMATTING.get(ttype, ('', ''))
+        styledRml += start + saxutils.escape(token) + end
     return styledRml
 
 

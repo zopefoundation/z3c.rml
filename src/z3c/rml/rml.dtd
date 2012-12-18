@@ -62,8 +62,8 @@
 <!ATTLIST paraStyle backColor CDATA #IMPLIED>
 <!ATTLIST paraStyle keepWithNext CDATA #IMPLIED>
 <!ATTLIST paraStyle wordWrap CDATA #IMPLIED>
+<!ATTLIST paraStyle borderColor CDATA #IMPLIED>
 <!ATTLIST paraStyle borderWidth CDATA #IMPLIED>
-<!ATTLIST paraStyle borderStyle CDATA #IMPLIED>
 <!ATTLIST paraStyle borderPadding CDATA #IMPLIED>
 <!ATTLIST paraStyle borderRadius CDATA #IMPLIED>
 <!ATTLIST paraStyle name CDATA #REQUIRED>
@@ -184,7 +184,7 @@
 
 <!ELEMENT pageGraphics>
 
-<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,pdfInclude*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*)>
+<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*,pdfInclude*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
 
 <!ELEMENT spacer>
@@ -212,11 +212,8 @@
 <!ATTLIST plugInFlowable function CDATA #REQUIRED>
 <!ATTLIST plugInFlowable params CDATA #IMPLIED>
 
-<!ELEMENT pdfInclude>
-<!ATTLIST pdfInclude filename CDATA #REQUIRED>
-
 <!ELEMENT barCodeFlowable>
-<!ATTLIST barCodeFlowable code (ean13|extended39|standard39|ean8|extended93|usps_4state|codabar|msi|postnet|fim|code11|standard93|i2of5|code128) #REQUIRED>
+<!ATTLIST barCodeFlowable code (ean13|qr|extended39|standard39|upca|ean8|extended93|usps_4state|codabar|msi|postnet|fim|code11|standard93|i2of5|code128) #REQUIRED>
 <!ATTLIST barCodeFlowable width CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable height CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable strokeColor CDATA #IMPLIED>
@@ -266,6 +263,10 @@
 <!ATTLIST title backColor CDATA #IMPLIED>
 <!ATTLIST title keepWithNext CDATA #IMPLIED>
 <!ATTLIST title wordWrap CDATA #IMPLIED>
+<!ATTLIST title borderColor CDATA #IMPLIED>
+<!ATTLIST title borderWidth CDATA #IMPLIED>
+<!ATTLIST title borderPadding CDATA #IMPLIED>
+<!ATTLIST title borderRadius CDATA #IMPLIED>
 <!ATTLIST title bulletText CDATA #IMPLIED>
 <!ATTLIST title dedent CDATA #IMPLIED>
 <!ATTLIST title text CDATA #REQUIRED>
@@ -288,6 +289,10 @@
 <!ATTLIST h1 backColor CDATA #IMPLIED>
 <!ATTLIST h1 keepWithNext CDATA #IMPLIED>
 <!ATTLIST h1 wordWrap CDATA #IMPLIED>
+<!ATTLIST h1 borderColor CDATA #IMPLIED>
+<!ATTLIST h1 borderWidth CDATA #IMPLIED>
+<!ATTLIST h1 borderPadding CDATA #IMPLIED>
+<!ATTLIST h1 borderRadius CDATA #IMPLIED>
 <!ATTLIST h1 bulletText CDATA #IMPLIED>
 <!ATTLIST h1 dedent CDATA #IMPLIED>
 <!ATTLIST h1 text CDATA #REQUIRED>
@@ -310,6 +315,10 @@
 <!ATTLIST h2 backColor CDATA #IMPLIED>
 <!ATTLIST h2 keepWithNext CDATA #IMPLIED>
 <!ATTLIST h2 wordWrap CDATA #IMPLIED>
+<!ATTLIST h2 borderColor CDATA #IMPLIED>
+<!ATTLIST h2 borderWidth CDATA #IMPLIED>
+<!ATTLIST h2 borderPadding CDATA #IMPLIED>
+<!ATTLIST h2 borderRadius CDATA #IMPLIED>
 <!ATTLIST h2 bulletText CDATA #IMPLIED>
 <!ATTLIST h2 dedent CDATA #IMPLIED>
 <!ATTLIST h2 text CDATA #REQUIRED>
@@ -332,6 +341,10 @@
 <!ATTLIST h3 backColor CDATA #IMPLIED>
 <!ATTLIST h3 keepWithNext CDATA #IMPLIED>
 <!ATTLIST h3 wordWrap CDATA #IMPLIED>
+<!ATTLIST h3 borderColor CDATA #IMPLIED>
+<!ATTLIST h3 borderWidth CDATA #IMPLIED>
+<!ATTLIST h3 borderPadding CDATA #IMPLIED>
+<!ATTLIST h3 borderRadius CDATA #IMPLIED>
 <!ATTLIST h3 bulletText CDATA #IMPLIED>
 <!ATTLIST h3 dedent CDATA #IMPLIED>
 <!ATTLIST h3 text CDATA #REQUIRED>
@@ -354,8 +367,8 @@
 <!ATTLIST para backColor CDATA #IMPLIED>
 <!ATTLIST para keepWithNext CDATA #IMPLIED>
 <!ATTLIST para wordWrap CDATA #IMPLIED>
+<!ATTLIST para borderColor CDATA #IMPLIED>
 <!ATTLIST para borderWidth CDATA #IMPLIED>
-<!ATTLIST para borderStyle CDATA #IMPLIED>
 <!ATTLIST para borderPadding CDATA #IMPLIED>
 <!ATTLIST para borderRadius CDATA #IMPLIED>
 <!ATTLIST para style CDATA #REQUIRED>
@@ -568,6 +581,9 @@
 <!ATTLIST name id CDATA #REQUIRED>
 <!ATTLIST name value CDATA #REQUIRED>
 
+<!ELEMENT pdfInclude>
+<!ATTLIST pdfInclude filename CDATA #REQUIRED>
+
 <!ELEMENT pageInfo>
 <!ATTLIST pageInfo pageSize CDATA #REQUIRED>
 
@@ -709,7 +725,7 @@
 <!ATTLIST lineMode cap (default|square|round|butt) #IMPLIED>
 
 <!ELEMENT barCode>
-<!ATTLIST barCode code (ean13|extended39|standard39|ean8|extended93|usps_4state|codabar|msi|postnet|fim|code11|standard93|i2of5|code128) #REQUIRED>
+<!ATTLIST barCode code (ean13|qr|extended39|standard39|upca|ean8|extended93|usps_4state|codabar|msi|postnet|fim|code11|standard93|i2of5|code128) #REQUIRED>
 <!ATTLIST barCode value CDATA #REQUIRED>
 <!ATTLIST barCode width CDATA #IMPLIED>
 <!ATTLIST barCode height CDATA #IMPLIED>
@@ -765,7 +781,7 @@
 <!ELEMENT option>
 <!ATTLIST option value CDATA #REQUIRED>
 
-<!ELEMENT barChart (data,bars?,categoryAxis?,valueAxis?,texts?,barLabels?)>
+<!ELEMENT barChart (data,bars?,categoryAxis?,valueAxis?,barLabels?,texts?)>
 <!ATTLIST barChart dx CDATA #IMPLIED>
 <!ATTLIST barChart dy CDATA #IMPLIED>
 <!ATTLIST barChart dwidth CDATA #IMPLIED>
@@ -840,8 +856,8 @@
 <!ATTLIST labels fillColor CDATA #IMPLIED>
 <!ATTLIST labels strokeColor CDATA #IMPLIED>
 <!ATTLIST labels strokeWidth CDATA #IMPLIED>
-<!ATTLIST labels frontName CDATA #IMPLIED>
-<!ATTLIST labels frontSize CDATA #IMPLIED>
+<!ATTLIST labels fontName CDATA #IMPLIED>
+<!ATTLIST labels fontSize CDATA #IMPLIED>
 <!ATTLIST labels leading CDATA #IMPLIED>
 <!ATTLIST labels width CDATA #IMPLIED>
 <!ATTLIST labels maxWidth CDATA #IMPLIED>
@@ -867,8 +883,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>
@@ -911,6 +927,59 @@
 <!ATTLIST valueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST valueAxis zrangePref CDATA #IMPLIED>
 
+<!ELEMENT barLabels (label*)>
+<!ATTLIST barLabels dx CDATA #IMPLIED>
+<!ATTLIST barLabels dy CDATA #IMPLIED>
+<!ATTLIST barLabels angle CDATA #IMPLIED>
+<!ATTLIST barLabels boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST barLabels boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST barLabels boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST barLabels boxFillColor CDATA #IMPLIED>
+<!ATTLIST barLabels boxTarget CDATA #IMPLIED>
+<!ATTLIST barLabels fillColor CDATA #IMPLIED>
+<!ATTLIST barLabels strokeColor CDATA #IMPLIED>
+<!ATTLIST barLabels strokeWidth CDATA #IMPLIED>
+<!ATTLIST barLabels fontName CDATA #IMPLIED>
+<!ATTLIST barLabels fontSize CDATA #IMPLIED>
+<!ATTLIST barLabels leading CDATA #IMPLIED>
+<!ATTLIST barLabels width CDATA #IMPLIED>
+<!ATTLIST barLabels maxWidth CDATA #IMPLIED>
+<!ATTLIST barLabels height CDATA #IMPLIED>
+<!ATTLIST barLabels textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST barLabels visible CDATA #IMPLIED>
+<!ATTLIST barLabels leftPadding CDATA #IMPLIED>
+<!ATTLIST barLabels rightPadding CDATA #IMPLIED>
+<!ATTLIST barLabels topPadding CDATA #IMPLIED>
+<!ATTLIST barLabels bottomPadding CDATA #IMPLIED>
+
+<!ELEMENT label>
+<!ATTLIST label dx CDATA #IMPLIED>
+<!ATTLIST label dy CDATA #IMPLIED>
+<!ATTLIST label angle CDATA #IMPLIED>
+<!ATTLIST label boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST label boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST label boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST label boxFillColor CDATA #IMPLIED>
+<!ATTLIST label boxTarget CDATA #IMPLIED>
+<!ATTLIST label fillColor CDATA #IMPLIED>
+<!ATTLIST label strokeColor CDATA #IMPLIED>
+<!ATTLIST label strokeWidth CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
+<!ATTLIST label leading CDATA #IMPLIED>
+<!ATTLIST label width CDATA #IMPLIED>
+<!ATTLIST label maxWidth CDATA #IMPLIED>
+<!ATTLIST label height CDATA #IMPLIED>
+<!ATTLIST label textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST label visible CDATA #IMPLIED>
+<!ATTLIST label leftPadding CDATA #IMPLIED>
+<!ATTLIST label rightPadding CDATA #IMPLIED>
+<!ATTLIST label topPadding CDATA #IMPLIED>
+<!ATTLIST label bottomPadding CDATA #IMPLIED>
+<!ATTLIST label x CDATA #IMPLIED>
+<!ATTLIST label y CDATA #IMPLIED>
+<!ATTLIST label text CDATA #REQUIRED>
+
 <!ELEMENT texts (text*)>
 
 <!ELEMENT text>
@@ -923,15 +992,7 @@
 <!ATTLIST text fillColor CDATA #IMPLIED>
 <!ATTLIST text textAnchor (start|boxauto|end|middle) #IMPLIED>
 
-<!ELEMENT barLabels>
-<!ATTLIST barLabels dx CDATA #REQUIRED>
-<!ATTLIST barLabels dy CDATA #REQUIRED>
-<!ATTLIST barLabels boxAnchor CDATA #REQUIRED>
-<!ATTLIST barLabels fontName CDATA #REQUIRED>
-<!ATTLIST barLabels fontSize CDATA #REQUIRED>
-<!ATTLIST barLabels nudge CDATA #REQUIRED>
-
-<!ELEMENT barChart3D (data,bars?,categoryAxis?,valueAxis?,texts?,barLabels?)>
+<!ELEMENT barChart3D (data,bars?,categoryAxis?,valueAxis?,barLabels?,texts?)>
 <!ATTLIST barChart3D dx CDATA #IMPLIED>
 <!ATTLIST barChart3D dy CDATA #IMPLIED>
 <!ATTLIST barChart3D dwidth CDATA #IMPLIED>
@@ -1010,8 +1071,8 @@
 <!ATTLIST labels fillColor CDATA #IMPLIED>
 <!ATTLIST labels strokeColor CDATA #IMPLIED>
 <!ATTLIST labels strokeWidth CDATA #IMPLIED>
-<!ATTLIST labels frontName CDATA #IMPLIED>
-<!ATTLIST labels frontSize CDATA #IMPLIED>
+<!ATTLIST labels fontName CDATA #IMPLIED>
+<!ATTLIST labels fontSize CDATA #IMPLIED>
 <!ATTLIST labels leading CDATA #IMPLIED>
 <!ATTLIST labels width CDATA #IMPLIED>
 <!ATTLIST labels maxWidth CDATA #IMPLIED>
@@ -1037,8 +1098,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>
@@ -1081,6 +1142,59 @@
 <!ATTLIST valueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST valueAxis zrangePref CDATA #IMPLIED>
 
+<!ELEMENT barLabels (label*)>
+<!ATTLIST barLabels dx CDATA #IMPLIED>
+<!ATTLIST barLabels dy CDATA #IMPLIED>
+<!ATTLIST barLabels angle CDATA #IMPLIED>
+<!ATTLIST barLabels boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST barLabels boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST barLabels boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST barLabels boxFillColor CDATA #IMPLIED>
+<!ATTLIST barLabels boxTarget CDATA #IMPLIED>
+<!ATTLIST barLabels fillColor CDATA #IMPLIED>
+<!ATTLIST barLabels strokeColor CDATA #IMPLIED>
+<!ATTLIST barLabels strokeWidth CDATA #IMPLIED>
+<!ATTLIST barLabels fontName CDATA #IMPLIED>
+<!ATTLIST barLabels fontSize CDATA #IMPLIED>
+<!ATTLIST barLabels leading CDATA #IMPLIED>
+<!ATTLIST barLabels width CDATA #IMPLIED>
+<!ATTLIST barLabels maxWidth CDATA #IMPLIED>
+<!ATTLIST barLabels height CDATA #IMPLIED>
+<!ATTLIST barLabels textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST barLabels visible CDATA #IMPLIED>
+<!ATTLIST barLabels leftPadding CDATA #IMPLIED>
+<!ATTLIST barLabels rightPadding CDATA #IMPLIED>
+<!ATTLIST barLabels topPadding CDATA #IMPLIED>
+<!ATTLIST barLabels bottomPadding CDATA #IMPLIED>
+
+<!ELEMENT label>
+<!ATTLIST label dx CDATA #IMPLIED>
+<!ATTLIST label dy CDATA #IMPLIED>
+<!ATTLIST label angle CDATA #IMPLIED>
+<!ATTLIST label boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST label boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST label boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST label boxFillColor CDATA #IMPLIED>
+<!ATTLIST label boxTarget CDATA #IMPLIED>
+<!ATTLIST label fillColor CDATA #IMPLIED>
+<!ATTLIST label strokeColor CDATA #IMPLIED>
+<!ATTLIST label strokeWidth CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
+<!ATTLIST label leading CDATA #IMPLIED>
+<!ATTLIST label width CDATA #IMPLIED>
+<!ATTLIST label maxWidth CDATA #IMPLIED>
+<!ATTLIST label height CDATA #IMPLIED>
+<!ATTLIST label textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST label visible CDATA #IMPLIED>
+<!ATTLIST label leftPadding CDATA #IMPLIED>
+<!ATTLIST label rightPadding CDATA #IMPLIED>
+<!ATTLIST label topPadding CDATA #IMPLIED>
+<!ATTLIST label bottomPadding CDATA #IMPLIED>
+<!ATTLIST label x CDATA #IMPLIED>
+<!ATTLIST label y CDATA #IMPLIED>
+<!ATTLIST label text CDATA #REQUIRED>
+
 <!ELEMENT texts (text*)>
 
 <!ELEMENT text>
@@ -1111,6 +1225,157 @@
 <!ATTLIST linePlot lineLabelNudge CDATA #IMPLIED>
 <!ATTLIST linePlot lineLabelFormat CDATA #IMPLIED>
 <!ATTLIST linePlot joinedLines CDATA #IMPLIED>
+
+<!ELEMENT data (series+)>
+
+<!ELEMENT series>
+<!ATTLIST series values CDATA #REQUIRED>
+
+<!ELEMENT lines (line+)>
+<!ATTLIST lines strokeWidth CDATA #IMPLIED>
+<!ATTLIST lines strokeColor CDATA #IMPLIED>
+<!ATTLIST lines strokeDashArray CDATA #IMPLIED>
+<!ATTLIST lines symbol CDATA #IMPLIED>
+
+<!ELEMENT line>
+<!ATTLIST line strokeWidth CDATA #IMPLIED>
+<!ATTLIST line strokeColor CDATA #IMPLIED>
+<!ATTLIST line strokeDashArray CDATA #IMPLIED>
+<!ATTLIST line symbol CDATA #IMPLIED>
+<!ATTLIST line name CDATA #IMPLIED>
+
+<!ELEMENT xValueAxis>
+<!ATTLIST xValueAxis visible CDATA #IMPLIED>
+<!ATTLIST xValueAxis visibleAxis CDATA #IMPLIED>
+<!ATTLIST xValueAxis visibleTicks CDATA #IMPLIED>
+<!ATTLIST xValueAxis visibleLabels CDATA #IMPLIED>
+<!ATTLIST xValueAxis visibleGrid CDATA #IMPLIED>
+<!ATTLIST xValueAxis strokeWidth CDATA #IMPLIED>
+<!ATTLIST xValueAxis strokeColor CDATA #IMPLIED>
+<!ATTLIST xValueAxis strokeDashArray CDATA #IMPLIED>
+<!ATTLIST xValueAxis gridStrokeWidth CDATA #IMPLIED>
+<!ATTLIST xValueAxis gridStrokeColor CDATA #IMPLIED>
+<!ATTLIST xValueAxis gridStrokeDashArray CDATA #IMPLIED>
+<!ATTLIST xValueAxis gridStart CDATA #IMPLIED>
+<!ATTLIST xValueAxis gridEnd CDATA #IMPLIED>
+<!ATTLIST xValueAxis style (stacked|parallel|parallel_3d) #IMPLIED>
+<!ATTLIST xValueAxis forceZero CDATA #IMPLIED>
+<!ATTLIST xValueAxis minimumTickSpacing CDATA #IMPLIED>
+<!ATTLIST xValueAxis maximumTicks CDATA #IMPLIED>
+<!ATTLIST xValueAxis labelTextFormat CDATA #IMPLIED>
+<!ATTLIST xValueAxis labelTextPostFormat CDATA #IMPLIED>
+<!ATTLIST xValueAxis labelTextScale CDATA #IMPLIED>
+<!ATTLIST xValueAxis valueMin CDATA #IMPLIED>
+<!ATTLIST xValueAxis valueMax CDATA #IMPLIED>
+<!ATTLIST xValueAxis valueStep CDATA #IMPLIED>
+<!ATTLIST xValueAxis valueSteps CDATA #IMPLIED>
+<!ATTLIST xValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
+<!ATTLIST xValueAxis zrangePref CDATA #IMPLIED>
+<!ATTLIST xValueAxis tickUp CDATA #IMPLIED>
+<!ATTLIST xValueAxis tickDown CDATA #IMPLIED>
+<!ATTLIST xValueAxis joinAxis CDATA #IMPLIED>
+<!ATTLIST xValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
+<!ATTLIST xValueAxis joinAxisPos CDATA #IMPLIED>
+
+<!ELEMENT yValueAxis>
+<!ATTLIST yValueAxis visible CDATA #IMPLIED>
+<!ATTLIST yValueAxis visibleAxis CDATA #IMPLIED>
+<!ATTLIST yValueAxis visibleTicks CDATA #IMPLIED>
+<!ATTLIST yValueAxis visibleLabels CDATA #IMPLIED>
+<!ATTLIST yValueAxis visibleGrid CDATA #IMPLIED>
+<!ATTLIST yValueAxis strokeWidth CDATA #IMPLIED>
+<!ATTLIST yValueAxis strokeColor CDATA #IMPLIED>
+<!ATTLIST yValueAxis strokeDashArray CDATA #IMPLIED>
+<!ATTLIST yValueAxis gridStrokeWidth CDATA #IMPLIED>
+<!ATTLIST yValueAxis gridStrokeColor CDATA #IMPLIED>
+<!ATTLIST yValueAxis gridStrokeDashArray CDATA #IMPLIED>
+<!ATTLIST yValueAxis gridStart CDATA #IMPLIED>
+<!ATTLIST yValueAxis gridEnd CDATA #IMPLIED>
+<!ATTLIST yValueAxis style (stacked|parallel|parallel_3d) #IMPLIED>
+<!ATTLIST yValueAxis forceZero CDATA #IMPLIED>
+<!ATTLIST yValueAxis minimumTickSpacing CDATA #IMPLIED>
+<!ATTLIST yValueAxis maximumTicks CDATA #IMPLIED>
+<!ATTLIST yValueAxis labelTextFormat CDATA #IMPLIED>
+<!ATTLIST yValueAxis labelTextPostFormat CDATA #IMPLIED>
+<!ATTLIST yValueAxis labelTextScale CDATA #IMPLIED>
+<!ATTLIST yValueAxis valueMin CDATA #IMPLIED>
+<!ATTLIST yValueAxis valueMax CDATA #IMPLIED>
+<!ATTLIST yValueAxis valueStep CDATA #IMPLIED>
+<!ATTLIST yValueAxis valueSteps CDATA #IMPLIED>
+<!ATTLIST yValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
+<!ATTLIST yValueAxis zrangePref CDATA #IMPLIED>
+<!ATTLIST yValueAxis tickLeft CDATA #IMPLIED>
+<!ATTLIST yValueAxis tickRight CDATA #IMPLIED>
+<!ATTLIST yValueAxis joinAxis CDATA #IMPLIED>
+<!ATTLIST yValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
+<!ATTLIST yValueAxis joinAxisPos CDATA #IMPLIED>
+
+<!ELEMENT lineLabels (label*)>
+<!ATTLIST lineLabels dx CDATA #IMPLIED>
+<!ATTLIST lineLabels dy CDATA #IMPLIED>
+<!ATTLIST lineLabels angle CDATA #IMPLIED>
+<!ATTLIST lineLabels boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST lineLabels boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST lineLabels boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST lineLabels boxFillColor CDATA #IMPLIED>
+<!ATTLIST lineLabels boxTarget CDATA #IMPLIED>
+<!ATTLIST lineLabels fillColor CDATA #IMPLIED>
+<!ATTLIST lineLabels strokeColor CDATA #IMPLIED>
+<!ATTLIST lineLabels strokeWidth CDATA #IMPLIED>
+<!ATTLIST lineLabels fontName CDATA #IMPLIED>
+<!ATTLIST lineLabels fontSize CDATA #IMPLIED>
+<!ATTLIST lineLabels leading CDATA #IMPLIED>
+<!ATTLIST lineLabels width CDATA #IMPLIED>
+<!ATTLIST lineLabels maxWidth CDATA #IMPLIED>
+<!ATTLIST lineLabels height CDATA #IMPLIED>
+<!ATTLIST lineLabels textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST lineLabels visible CDATA #IMPLIED>
+<!ATTLIST lineLabels leftPadding CDATA #IMPLIED>
+<!ATTLIST lineLabels rightPadding CDATA #IMPLIED>
+<!ATTLIST lineLabels topPadding CDATA #IMPLIED>
+<!ATTLIST lineLabels bottomPadding CDATA #IMPLIED>
+<!ATTLIST lineLabels x CDATA #IMPLIED>
+<!ATTLIST lineLabels y CDATA #IMPLIED>
+
+<!ELEMENT label>
+<!ATTLIST label dx CDATA #IMPLIED>
+<!ATTLIST label dy CDATA #IMPLIED>
+<!ATTLIST label angle CDATA #IMPLIED>
+<!ATTLIST label boxAnchor (c|e|sw|ne|n|s|w|autox|autoy|se|nw) #IMPLIED>
+<!ATTLIST label boxStrokeColor CDATA #IMPLIED>
+<!ATTLIST label boxStrokeWidth CDATA #IMPLIED>
+<!ATTLIST label boxFillColor CDATA #IMPLIED>
+<!ATTLIST label boxTarget CDATA #IMPLIED>
+<!ATTLIST label fillColor CDATA #IMPLIED>
+<!ATTLIST label strokeColor CDATA #IMPLIED>
+<!ATTLIST label strokeWidth CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
+<!ATTLIST label leading CDATA #IMPLIED>
+<!ATTLIST label width CDATA #IMPLIED>
+<!ATTLIST label maxWidth CDATA #IMPLIED>
+<!ATTLIST label height CDATA #IMPLIED>
+<!ATTLIST label textAnchor (start|boxauto|end|middle) #IMPLIED>
+<!ATTLIST label visible CDATA #IMPLIED>
+<!ATTLIST label leftPadding CDATA #IMPLIED>
+<!ATTLIST label rightPadding CDATA #IMPLIED>
+<!ATTLIST label topPadding CDATA #IMPLIED>
+<!ATTLIST label bottomPadding CDATA #IMPLIED>
+<!ATTLIST label x CDATA #IMPLIED>
+<!ATTLIST label y CDATA #IMPLIED>
+<!ATTLIST label text CDATA #REQUIRED>
+
+<!ELEMENT texts (text*)>
+
+<!ELEMENT text>
+<!ATTLIST text x CDATA #REQUIRED>
+<!ATTLIST text y CDATA #REQUIRED>
+<!ATTLIST text angle CDATA #IMPLIED>
+<!ATTLIST text text CDATA #REQUIRED>
+<!ATTLIST text fontName CDATA #IMPLIED>
+<!ATTLIST text fontSize CDATA #IMPLIED>
+<!ATTLIST text fillColor CDATA #IMPLIED>
+<!ATTLIST text textAnchor (start|boxauto|end|middle) #IMPLIED>
 
 <!ELEMENT linePlot3D (data,lines?,xValueAxis?,yValueAxis?,lineLabels?,texts?)>
 <!ATTLIST linePlot3D dx CDATA #IMPLIED>
@@ -1153,7 +1418,7 @@
 <!ATTLIST line symbol CDATA #IMPLIED>
 <!ATTLIST line name CDATA #IMPLIED>
 
-<!ELEMENT xValueAxis (valueSteps?)>
+<!ELEMENT xValueAxis>
 <!ATTLIST xValueAxis visible CDATA #IMPLIED>
 <!ATTLIST xValueAxis visibleAxis CDATA #IMPLIED>
 <!ATTLIST xValueAxis visibleTicks CDATA #IMPLIED>
@@ -1177,6 +1442,7 @@
 <!ATTLIST xValueAxis valueMin CDATA #IMPLIED>
 <!ATTLIST xValueAxis valueMax CDATA #IMPLIED>
 <!ATTLIST xValueAxis valueStep CDATA #IMPLIED>
+<!ATTLIST xValueAxis valueSteps CDATA #IMPLIED>
 <!ATTLIST xValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST xValueAxis zrangePref CDATA #IMPLIED>
 <!ATTLIST xValueAxis tickUp CDATA #IMPLIED>
@@ -1185,7 +1451,7 @@
 <!ATTLIST xValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
 <!ATTLIST xValueAxis joinAxisPos CDATA #IMPLIED>
 
-<!ELEMENT yValueAxis (valueSteps?)>
+<!ELEMENT yValueAxis>
 <!ATTLIST yValueAxis visible CDATA #IMPLIED>
 <!ATTLIST yValueAxis visibleAxis CDATA #IMPLIED>
 <!ATTLIST yValueAxis visibleTicks CDATA #IMPLIED>
@@ -1209,6 +1475,7 @@
 <!ATTLIST yValueAxis valueMin CDATA #IMPLIED>
 <!ATTLIST yValueAxis valueMax CDATA #IMPLIED>
 <!ATTLIST yValueAxis valueStep CDATA #IMPLIED>
+<!ATTLIST yValueAxis valueSteps CDATA #IMPLIED>
 <!ATTLIST yValueAxis rangeRound (both|none|ceiling|floor) #IMPLIED>
 <!ATTLIST yValueAxis zrangePref CDATA #IMPLIED>
 <!ATTLIST yValueAxis tickLeft CDATA #IMPLIED>
@@ -1216,10 +1483,6 @@
 <!ATTLIST yValueAxis joinAxis CDATA #IMPLIED>
 <!ATTLIST yValueAxis joinAxisMode (top|points|none|value|bottom) #IMPLIED>
 <!ATTLIST yValueAxis joinAxisPos CDATA #IMPLIED>
-
-<!ELEMENT valueSteps (valueStep*)>
-
-<!ELEMENT valueStep>
 
 <!ELEMENT lineLabels (label*)>
 <!ATTLIST lineLabels dx CDATA #IMPLIED>
@@ -1233,8 +1496,8 @@
 <!ATTLIST lineLabels fillColor CDATA #IMPLIED>
 <!ATTLIST lineLabels strokeColor CDATA #IMPLIED>
 <!ATTLIST lineLabels strokeWidth CDATA #IMPLIED>
-<!ATTLIST lineLabels frontName CDATA #IMPLIED>
-<!ATTLIST lineLabels frontSize CDATA #IMPLIED>
+<!ATTLIST lineLabels fontName CDATA #IMPLIED>
+<!ATTLIST lineLabels fontSize CDATA #IMPLIED>
 <!ATTLIST lineLabels leading CDATA #IMPLIED>
 <!ATTLIST lineLabels width CDATA #IMPLIED>
 <!ATTLIST lineLabels maxWidth CDATA #IMPLIED>
@@ -1260,8 +1523,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>
@@ -1349,8 +1612,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>
@@ -1500,8 +1763,8 @@
 <!ATTLIST strandLabels fillColor CDATA #IMPLIED>
 <!ATTLIST strandLabels strokeColor CDATA #IMPLIED>
 <!ATTLIST strandLabels strokeWidth CDATA #IMPLIED>
-<!ATTLIST strandLabels frontName CDATA #IMPLIED>
-<!ATTLIST strandLabels frontSize CDATA #IMPLIED>
+<!ATTLIST strandLabels fontName CDATA #IMPLIED>
+<!ATTLIST strandLabels fontSize CDATA #IMPLIED>
 <!ATTLIST strandLabels leading CDATA #IMPLIED>
 <!ATTLIST strandLabels width CDATA #IMPLIED>
 <!ATTLIST strandLabels maxWidth CDATA #IMPLIED>
@@ -1529,8 +1792,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>
@@ -1575,8 +1838,8 @@
 <!ATTLIST spokeLabels fillColor CDATA #IMPLIED>
 <!ATTLIST spokeLabels strokeColor CDATA #IMPLIED>
 <!ATTLIST spokeLabels strokeWidth CDATA #IMPLIED>
-<!ATTLIST spokeLabels frontName CDATA #IMPLIED>
-<!ATTLIST spokeLabels frontSize CDATA #IMPLIED>
+<!ATTLIST spokeLabels fontName CDATA #IMPLIED>
+<!ATTLIST spokeLabels fontSize CDATA #IMPLIED>
 <!ATTLIST spokeLabels leading CDATA #IMPLIED>
 <!ATTLIST spokeLabels width CDATA #IMPLIED>
 <!ATTLIST spokeLabels maxWidth CDATA #IMPLIED>
@@ -1600,8 +1863,8 @@
 <!ATTLIST label fillColor CDATA #IMPLIED>
 <!ATTLIST label strokeColor CDATA #IMPLIED>
 <!ATTLIST label strokeWidth CDATA #IMPLIED>
-<!ATTLIST label frontName CDATA #IMPLIED>
-<!ATTLIST label frontSize CDATA #IMPLIED>
+<!ATTLIST label fontName CDATA #IMPLIED>
+<!ATTLIST label fontSize CDATA #IMPLIED>
 <!ATTLIST label leading CDATA #IMPLIED>
 <!ATTLIST label width CDATA #IMPLIED>
 <!ATTLIST label maxWidth CDATA #IMPLIED>

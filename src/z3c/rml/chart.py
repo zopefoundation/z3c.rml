@@ -1621,12 +1621,6 @@ class PieChart3D(PieChart):
         'slices': Slices3D,
         })
 
-    def createChart(self, attrs):
-        # Bugfix for ReportLab 2.6: PieChart3D.sideLabels attr is missing.
-        attrs['sideLabels'] = 0
-        return super(PieChart3D, self).createChart(attrs)
-
-
 class ISpiderChart(IChart):
     """A spider chart."""
     occurence.containing(

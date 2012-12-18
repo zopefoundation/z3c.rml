@@ -21,7 +21,7 @@ def read(*rnames):
 
 setup (
     name='z3c.rml',
-    version='1.0.1dev',
+    version='1.1.0',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope-dev@zope.org",
     description = "An alternative implementation of RML",
@@ -46,11 +46,12 @@ setup (
     extras_require = dict(
         test = [
             'zope.pagetemplate',
-            'PIL'],
+            'Pillow'],
         pagetemplate = [
             'zope.pagetemplate']
         ),
     install_requires = [
+        'Pygments',
         'lxml',
         'pyPdf',
         'reportlab',

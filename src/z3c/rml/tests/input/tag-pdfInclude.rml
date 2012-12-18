@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="tag-pdfInclude.pdf">
+<document
+    filename="tag-pdfInclude.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
     <pageTemplate id="main">
@@ -16,7 +18,8 @@
     <para>
       We will now include PDF
     </para>
-    <pdfInclude filename="[z3c.rml.tests]/input/data/include1.pdf"/>
+    <pdfInclude doc:example=""
+                filename="[z3c.rml.tests]/input/data/include1.pdf"/>
     <pdfInclude filename="[z3c.rml.tests]/input/data/include2.pdf"/>
     <nextPage/>
     <para>

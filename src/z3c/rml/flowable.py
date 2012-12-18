@@ -755,7 +755,7 @@ class IKeepTogether(interfaces.IRMLDirectiveSignature):
         description=u'The maximum height the flowables are allotted.',
         default=None,
         required=False)
-    
+
 class KeepTogether(Flowable):
     signature = IKeepTogether
     klass = reportlab.platypus.flowables.KeepTogether

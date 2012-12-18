@@ -23,8 +23,8 @@ import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
 from reportlab.lib import fonts
 
-from z3c.rml import attr, directive, interfaces, occurence
-from z3c.rml import canvas, stylesheet, template, pdfinclude
+from z3c.rml import attr, canvas, directive, interfaces, occurence
+from z3c.rml import pdfinclude, stylesheet, template
 
 
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
@@ -253,10 +253,14 @@ class Document(directive.RMLDirective):
         self.styles = {}
         self.colors = {}
         self.postProcessors = []
-        self.filename = '<unknwon>'
+        self.filename = '<unknown>'
 
     def process(self, outputFile=None):
         """Process document"""
+        # Reset all reportlab global variables. This is very important for
+        # ReportLab not to fail.
+        reportlab.rl_config._reset()
+
         if outputFile is None:
             # TODO: This is relative to the input file *not* the CWD!!!
             outputFile = open(self.element.get('filename'), 'wb')
