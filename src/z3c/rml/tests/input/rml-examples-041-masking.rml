@@ -1,0 +1,67 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_041_masking.pdf" invariant="1">
+
+<template pageSize="a4" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="a4 portrait">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 42: Masking</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<saveState/>
+		<translate dy="500" dx="200"/>
+		<saveState/>
+		<stroke color="red" width="1"/>
+		<translate dy="133" dx="40"/>
+		<scale sy="-1"/>
+		<path x="0" y="89.93" close="yes" stroke="yes" clip="yes">
+			<moveto>128.755 15.979</moveto>
+			<curvesto>43.5303 37.2158 10.1621 71.8726 0 78.8896</curvesto>
+			0 164.063
+			<curvesto>40.6992 167.07 105.996 158.279 174.089 141.313</curvesto>
+			<curvesto>237.792 125.438 281.841 105.292 319.089 83.2666</curvesto>
+			319.089 3.646
+			<curvesto>274.999 -2.29736 203.875 -2.73926 128.755 15.9795</curvesto>
+		</path>
+		<scale sy="-1"/>
+		<translate dy="-183" dx="-40"/>
+		<image file="400x200.gif" x="0" y="0" width="400" height="200"/>
+		<restoreState/>
+		<restoreState/>
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="420"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12" 
+		spaceBefore="12" spaceAfter="12"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+	<para style="normal">Hello World.  This is a normal paragraph. Blah <font color="red">IPO</font> blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah. 
+	</para>
+</story>
+
+</document>

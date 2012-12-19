@@ -7,7 +7,9 @@ CHANGES
 
 - Implemented ``saveState`` and ``restoreState`` directives. (LP #666194)
 
-- Implemented "storyPlace" directive. (LP #665941)
+- Implemented ``storyPlace`` directive. (LP #665941)
+
+- Implemented ``clip`` attribute of ``path`` directive. See RML example 041.
 
 - Don't show "doc" namespace in reference snippets.
 

@@ -30,11 +30,11 @@ naming.
 
 - blockTable: -repeatRows, -alignment
 
-- docAssert (reportlab.platypus.flowables.DocAssert)
+- docAssert (reportlab.platypus.flowables.DocAssert) (Test 39)
 
 - docAssign (reportlab.platypus.flowables.DocAssign)
 
-- docElse
+- docElse (reportlab.platypus.flowables.DocIf)
 
 - docIf (reportlab.platypus.flowables.DocIf)
 
@@ -48,7 +48,7 @@ naming.
 
 - widget
 
-- para: -fontNAme, -fontSize, -leading, -leftIndent, -rightIndent,
+- para: -fontName, -fontSize, -leading, -leftIndent, -rightIndent,
   -firstLineIndent, -spaceBefore, -spaceAfter, -alignement, -bulletFontName,
   -bulletFontSize, -bulletIndent, -textColor, -backColor, -keepWithText,
   -wordWrap, -borderColor, -borderWidth, -borderPadding, -borderRadius,
@@ -62,8 +62,6 @@ naming.
 
 - evalString
 
-- storyPlace
-
 - -keepTogether
 
 - pto
@@ -76,7 +74,7 @@ naming.
 
 - includePdfPages
 
-- plugInGraphic
+- plugInGraphic (Test 037)
 
 - barCodeFlowable: tracking, routing, width -> widthSize, height -> heightSize,
   -strokeWidth, -fillColor
@@ -174,3 +172,7 @@ naming.
 - logConfig
 
 - -pdfInclude
+
+- codesnippet
+
+- rectangle, table row, table cell, etc.: href and/or destination (Test 038)

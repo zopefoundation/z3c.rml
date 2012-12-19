@@ -506,6 +506,13 @@ class IPath(IShape):
         default=False,
         required=False)
 
+    clip = attr.Boolean(
+        title=u'Clip Path',
+        description=(u"A flag specifying whether the path should clip "
+                     u"overlapping elements."),
+        default=False,
+        required=False)
+
 class Path(CanvasRMLDirective):
     signature = IPath
     factories = {
@@ -543,7 +550,10 @@ class Path(CanvasRMLDirective):
         if kwargs.pop('close', False):
             self.path.close()
 
-        canvas.drawPath(self.path, **kwargs)
+        if kwargs.pop('clip', False):
+            canvas.clipPath(self.path, **kwargs)
+        else:
+            canvas.drawPath(self.path, **kwargs)
 
 
 class IFill(interfaces.IRMLDirectiveSignature):
@@ -604,12 +614,14 @@ class IScale(interfaces.IRMLDirectiveSignature):
     sx = attr.Float(
         title=u'X-Scaling-Factor',
         description=(u'The scaling factor applied on x-coordinates.'),
-        required=True)
+        default=1,
+        required=False)
 
     sy = attr.Float(
         title=u'Y-Scaling-Factor',
         description=(u'The scaling factor applied on y-coordinates.'),
-        required=True)
+        default=1,
+        required=False)
 
 class Scale(CanvasRMLDirective):
     signature = IScale
