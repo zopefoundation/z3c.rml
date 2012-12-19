@@ -15,6 +15,9 @@ CHANGES
 
 - Implemented ``codesnippet`` directive.
 
+- Added ``maxLineLength`` and ``newLineChars`` attributes to the ``pre``
+  directive.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

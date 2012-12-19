@@ -190,13 +190,23 @@ class IPreformatted(IMinimalParagraphBase):
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
                      u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
+        default=reportlab.lib.styles.getSampleStyleSheet()['Code'],
         required=False)
 
     text = attr.RawXMLContent(
         title=u'Text',
         description=(u'The text that will be layed out.'),
         required=True)
+
+    maxLineLength = attr.Integer(
+        title=u'Max Line Length',
+        description=(u'The maximum number of characters on one line.'),
+        required=False)
+
+    newLineChars = attr.Text(
+        title=u'New Line Characters',
+        description=u'The characters placed at the beginning of a wrapped line',
+        required=False)
 
 class Preformatted(Flowable):
     signature = IPreformatted

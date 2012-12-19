@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_049_pre.pdf"> 
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+	<pageTemplate id="main">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+    	    <drawString x="35" y="783">RML Example 56: Preformatted text</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		
+		<setFont name="Helvetica" size="10"/>
+		<drawCenteredString x="297" y="36"><pageNumber countingFrom="2"/></drawCenteredString>
+	</pageGraphics>
+	<frame id="1" x1="35" y1="45" width="525" height="575"/>
+    </pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+	
+	<paraStyle name="style1"
+	fontSize="10"
+	/>
+	<paraStyle name="dotStyle1" parent="style1" endDots="." endDotsDy="3" endDotsFontName="Courier-Bold" endDotsFontSize="10" endDotsColor="red" spaceAfter="12"/>
+	<paraStyle name="dotStyle2"
+	parent="dotStyle1"
+	leftIndent = "0.25in"
+	firstLineIndent = "0.25in"
+	/>
+	<paraStyle name="rstyle1" parent="style1" textColor="red"/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>		
+
+</stylesheet>
+
+
+<story>
+    <storyPlace x="35" y="660" width="525" height="73" origin="page">
+    <para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+    <hr color="white" thickness="8pt"/>
+    <para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+    <illustration height="3" width="525" align="center">
+    <fill color= "(0,0.99,0.97,0.0)" />
+    <rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+    </illustration>
+    </storyPlace>
+    <title>Preformatted text test</title>
+    <para>Our pre tag can be used for printing simple blocks
+of code. It respects whitespace and newlines, and will not normally attempt 
+to wrap your code.  However, if your individual lines are too long, this can 
+overflow the width of the column and even run off the page. Three optional 
+attributes - maximumLineLength, splitCharacters and newLineCharacter - 
+can be used to do simple wrapping. maximumLineLength will force the text to
+wrap.</para>
+    <para>
+Note that this simply counts characters - it takes no account of
+actual width on the page. The examples below wrap lines above a certain length
+and add a '> ' to the start of the following line.</para>
+<pre maxLineLength="75" newLineChars="> ">
+class placePara(MapNode):
+    SUPER = LazyPlaceParagraph
+    def evaluate(self, tagname, sdict, pcontent, extra, context):
+        localdict = sdict.copy()
+        stylename = "para.defaultStyle"
+        if localdict.has_key("style"):
+            stylename = localdict["style"]
+            del localdict["style"]
+        bulletText = None
+        if localdict.has_key("bulletText"):
+            bulletText = localdict["bulletText"]
+            del localdict["bulletText"]
+        extraAttrs = dict(
+                        placeX = readLength(localdict.pop('x'),context),
+                        placeY = readLength(localdict.pop('y'),context),
+                        placeWidth = readLength(localdict.pop('width','0'),context),
+                        placeOrigin = localdict.pop('origin','page'),
+                        placeAnchor = localdict.pop('anchor','sw'),
+                        placeContext = context,
+                        )
+        return DeferredInitializationEx(self.SUPER, extraAttrs, ('para',localdict,pcontent,context), context[stylename], bulletText=bulletText)
+
+    def MyProcessContent(self, content, controller, context, overrides):
+        return content  #tuple tree parser now in place
+Controller["placePara"] = placePara()
+</pre>
+<nextPage/>
+</story>
+
+</document>
