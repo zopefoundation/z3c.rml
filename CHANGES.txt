@@ -15,6 +15,9 @@ CHANGES
 
 - Implemented ``codesnippet`` directive.
 
+- Implemented ``pageBreakBefore`` and ``frameBreakBefore`` attributes for
+  paragraph styles.
+
 - Added ``maxLineLength`` and ``newLineChars`` attributes to the ``pre``
   directive.
 

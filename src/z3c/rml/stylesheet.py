@@ -147,14 +147,12 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         title=u'Page Break Before',
         description=(u'Specifies whether a page break should be inserted '
                      u'before the directive.'),
-        default=False,
         required=False)
 
     frameBreakBefore = attr.Boolean(
         title=u'Frame Break Before',
         description=(u'Specifies whether a frame break should be inserted '
                      u'before the directive.'),
-        default=False,
         required=False)
 
 

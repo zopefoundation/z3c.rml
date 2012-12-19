@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="test_048_paragraph_flow_controls.pdf">
+
+<template pageSize="a4" leftMargin="72" showBoundary="1">
+    <pageTemplate id="page1" pageSize="a4 portrait">
+ 		<pageGraphics>
+            <setFont name="Helvetica-Bold" size="18"/>
+    	    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+    		</pageGraphics>
+
+		<frame id="1" x1="35" y1="450" width="525" height="185"/>
+		<frame id="2" x1="35" y1="247.5" width="525" height="185"/>
+		<frame id="3" x1="35" y1="45" width="525" height="185"/>
+	</pageTemplate>
+   
+<pageTemplate id="continued" pageSize="a4 portrait">
+		<pageGraphics>
+            <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+			<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+
+		</pageGraphics>
+
+		<frame id="1" x1="35" y1="515" width="525" height="215"/>
+		<frame id="2" x1="35" y1="280" width="525" height="215"/>
+		<frame id="3" x1="35" y1="45" width="525" height="215"/>
+	</pageTemplate>
+
+</template>
+
+<stylesheet>
+		<paraStyle 
+        name="intro" 
+        fontName="Helvetica" 
+        fontSize="12" 
+        leading="12"
+
+        spaceAfter="12"/>
+	<paraStyle 
+        name="heading"
+    	fontName="Helvetica-Bold"
+    	fontSize="24"
+    	leading="12"
+    	spaceBefore = "24"
+	/>
+    <paraStyle 
+        name="h1" 
+        fontName="Helvetica-Bold" 
+        fontSize="16" 
+        spaceBefore = "0.5 cm" 
+        spaceAfter="24"/>
+    <paraStyle 
+        name="h2" 
+        fontName="Helvetica-Bold" 
+        fontSize="14"  
+        spaceBefore = "12" 
+        spaceAfter="12"/>
+    <paraStyle 
+        name="heading-normal"
+        fontName="Helvetica-Bold" 
+        fontSize="12" 
+        keepWithNext="0"
+        spaceBefore = "12"
+        spaceAfter = "12"
+    />
+    <paraStyle 
+        name="heading-keep-with-next"
+        fontName="Helvetica-Bold" 
+        fontSize="12" 
+        keepWithNext="1"
+        spaceBefore = "12"
+        spaceAfter = "12"
+    />
+    <paraStyle 
+        name="heading-page-break"
+        fontName="Helvetica-Bold" 
+        fontSize="12" 
+        pageBreakBefore="1"
+        spaceBefore = "12"
+        spaceAfter = "12"
+    />
+    <paraStyle 
+        name="heading-frame-break"
+        fontName="Helvetica-Bold" 
+        fontSize="12" 
+        frameBreakBefore="1"
+        spaceBefore = "12"
+        spaceAfter = "12"
+    />
+    <paraStyle 
+        name="sample-no-widows" 
+        fontName="Helvetica-Oblique" 
+        fontSize="10" 
+        leading="12" 
+        allowWidows="0"
+        textColor="green"/>
+    <paraStyle 
+        name="sample-yes-orphans" 
+        fontName="Helvetica-Oblique" 
+        fontSize="10" 
+        leading="12" 
+        allowOrphans="1"
+        textColor="green"/>
+    <paraStyle 
+        name="normal" 
+        fontName="Helvetica" 
+        fontSize="10" 
+        leading="12" 
+        spaceBefore="6" 
+        spaceAfter="6"/>
+    <paraStyle 
+        name="sample" 
+        fontName="Helvetica-Oblique" 
+        fontSize="10" 
+        leading="12" 
+        spaceBefore="6" 
+        spaceAfter="6" 
+        textColor="green"/>
+</stylesheet>
+
+<story firstPageTemplate="page1">
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color="(0,0.99,0.97,0.0)"/>
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1"/>
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="continued"/>
+
+
+<para style="h1" alignment="center">Paragraph flow controls</para>
+<para style="intro">One of the most common uses of RML is the creation of dynamic documents from raw content. However, variable content lengths can cause problems around page and frame breaks. RML has a number of built in features to deal with these.</para>
+<para style="h2">keepTogether</para>
+<para style="intro">The keepTogether tag may be wrapped around flowables and indicates that everything within should remain on the same frame. See below a paragraph WITHOUT a keepTogether tag enclosing it. Notice that the paragraph is allowed to overflow into the next frame:</para>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. </para>
+<para style="intro">Now see the exact same paragraph with <font face="courier">&lt;keepTogether&gt;</font> tags used. Note the entire paragraph goes together onto the next frame.</para>
+<keepTogether>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. </para>
+</keepTogether>
+<para style="normal">Using the tag &lt;nextPage/&gt; will now break to the next page</para>
+<nextPage/>
+<para style="h2">keepWithNext</para>
+<para style="intro">The keepWithNext attribute is assigned to paragraph styles and tells them to stay in the same frame as the following content. If subsequent content overflows, keepWithNext will cause the preceding paragraph to overflow as well.</para>
+<para style="normal">Below is a paragraph heading that does NOT have keepWithNext turned on. It's styles are defined as below:</para>
+<codesnippet language="xml"><![CDATA[
+    <paraStyle 
+        name="heading-no-keep"
+        fontName="Helvetica-Bold" 
+        fontSize="12" 
+        keepWithNext="0"
+    />
+    ]]>
+
+</codesnippet>
+<para style="normal">Note how the following paragraph of text (using keep together) overflows onto the next page without bringing the heading with it:</para>
+<para style="heading-normal">Heading with no "keep with next"</para>
+<keepTogether>
+<para style="sample">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel nunc a purus ullamcorper fermentum id nec felis. Sed suscipit, elit quis bibendum gravida, mauris tortor iaculis justo, id pharetra neque nisi ut turpis. Nulla sit amet risus tortor. Integer congue ullamcorper nisi vitae elementum. Pellentesque eget justo nec lacus porta placerat. Sed nunc ligula, tempus nec ultrices non, posuere nec magna. Quisque laoreet magna sed erat congue euismod. Phasellus libero nisi, volutpat vel sagittis vel, dapibus sed neque.</para>
+</keepTogether>
+<para style="normal">Now see the same example using keepWithNext. Note that the heading goes to the next frame with the following paragraph.</para>
+<para style="heading-keep-with-next">Heading with "keep with next"</para>
+<keepTogether>
+<para style="sample">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel nunc a purus ullamcorper fermentum id nec felis. Sed suscipit, elit quis bibendum gravida, mauris tortor iaculis justo, id pharetra neque nisi ut turpis. Nulla sit amet risus tortor. Integer congue ullamcorper nisi vitae elementum. Pellentesque eget justo nec lacus porta placerat. Sed nunc ligula, tempus nec ultrices non, posuere nec magna. Quisque laoreet magna sed erat congue euismod. Phasellus libero nisi, volutpat vel sagittis vel, dapibus sed neque.</para>
+</keepTogether>
+<para style="normal">We will use the &lt;nextFrame/&gt; tag this time to move on. Note that because we are on the last frame of the page, this has the same effect as &lt;nextFrame/&gt;.</para>
+<nextFrame/>
+<para style="h2">pageBreakBefore and frameBreakBefore</para>
+<para style="intro">Paragraphs can also be given the attribute of pageBreakBefore, which will enforce a page break before rendering the content. See a heading below without this attribute.</para>
+<para style="heading-normal">Heading without a page break</para>
+<para style="normal">And now one below with pageBreakBefore set. Not surprisingly, it appears on the next page.</para>
+<para style="heading-page-break">Heading with a page break</para>
+<para style="normal">A similar attribute allows for automatic frame breaks. See a normal heading below:</para>
+<para style="heading-normal">Normal heading</para>
+<para style="normal">And now one with frameBreakBefore set</para>
+<para style="heading-frame-break">Heading (in the next frame)</para>
+<para style="normal">&lt;nextPage/&gt; again.</para>
+<nextPage/>
+<para style="h2">Widow control</para>
+<para style="intro">Widows are single lines of text which overflow into the next frame. A paragraph style, allowWidows, can be set to "0" in order to prevent this from happening. See a paragraph below which allows a widow:</para>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Pellentesque quis urna id neque adipiscing ultricies. Integer sem mauris, venenatis eget ornare vel, varius eu sapien.</para>
+<para style="normal">Isn't that single line above ugly?</para>
+<para style="normal">Let's try again with a new paragraph style whose settings prevent widows:</para>
+<para style="sample-no-widows">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Pellentesque quis urna id neque adipiscing ultricies. Integer sem mauris, venenatis eget ornare vel, varius eu sapien.</para>
+<para style="normal">As shown, allowWidows="0" means that a second line of text will overflow as well.</para>
+<nextPage/>
+<para style="h2">Orphan control</para>
+<para style="normal">Orphas are single lines of text which remain at the end of a frame. Unlike widows, orphan control is on by default and the allowOrphans tag can be used to turn it off. Let's put in a some sample text to get near the end of the paragraph</para>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. </para>
+<para style="normal">And now show that, with the normal paragraph style, orphans are not possible:</para>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Pellentesque quis urna id neque adipiscing ultricies. Integer sem mauris, venenatis eget ornare vel, varius eu sapien.</para>
+<para>Now let's try that again, copying the last frame exactly, but with a paragraph style with orphans allowed</para>
+<nextFrame/>
+<para style="h2">Orphan control</para>
+<para style="normal">Orphas are single lines of text which remain at the end of a frame. Unlike widows, orphan control is on by default and the allowOrphans tag can be used to turn it off. Let's put in a some sample text to get near the end of the paragraph</para>
+<para style="sample">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. </para>
+<para style="normal">And now show that, with the new paragraph style, orphans ARE possible:</para>
+<para style="sample-yes-orphans">Etiam fringilla faucibus libero, at bibendum risus luctus ac. Aliquam erat volutpat. Curabitur at odio non erat tincidunt semper. Proin pulvinar volutpat dolor, viverra blandit neque blandit in. Ut augue quam, vehicula et iaculis vitae, vehicula eu ligula. Aliquam erat volutpat. Donec ultrices magna vel massa rhoncus sed laoreet nunc posuere. Sed sed auctor felis. Vivamus lacinia sem sed mi molestie at malesuada velit consequat. Vestibulum malesuada mauris vel libero tempor hendrerit. Vivamus vel quam sem, sit amet tincidunt metus. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Mauris vel quam nibh, vel posuere justo. Proin sit amet felis convallis velit laoreet semper ut id felis. Phasellus nibh turpis, varius et feugiat ac, pharetra id leo. In laoreet gravida lorem, sit amet laoreet mi pretium nec. Integer ultricies est at odio tincidunt gravida. Maecenas convallis tellus nec nisl volutpat volutpat. Pellentesque quis urna id neque adipiscing ultricies. Integer sem mauris, venenatis eget ornare vel, varius eu sapien.</para>
+</story>
+</document>
