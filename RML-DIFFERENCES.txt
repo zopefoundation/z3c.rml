@@ -131,8 +131,6 @@ naming.
 
 - color: value -> RGB
 
-- pageNumber
-
 - outlineAdd: -key
 
 - cropMarks
