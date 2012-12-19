@@ -141,8 +141,7 @@ class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
                      u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
-        required=True)
+        required=False)
 
     bulletText = attr.String(
         title=u'Bullet Character',
@@ -219,6 +218,7 @@ class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
 class Paragraph(Flowable):
     signature = IParagraph
     klass = reportlab.platypus.Paragraph
+    defaultStyle = 'Normal'
 
     styleAttributes = zope.schema.getFieldNames(stylesheet.IBaseParagraphStyle)
 
@@ -232,6 +232,8 @@ class Paragraph(Flowable):
 
     def process(self):
         args = dict(self.getAttributeValues(ignore=self.styleAttributes))
+        if 'style' not in args:
+            args['style'] = attr._getStyle(self, self.defaultStyle)
         args['style'] = self.processStyle(args['style'])
         self.parent.flow.append(self.klass(**args))
 
@@ -239,106 +241,56 @@ class Paragraph(Flowable):
 class ITitle(IParagraph):
     """The title is a simple paragraph with a special title style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Title'],
-        required=True)
-
 class Title(Paragraph):
     signature = ITitle
-
+    defaultStyle = 'Title'
 
 class IHeading1(IParagraph):
     """Heading 1 is a simple paragraph with a special heading 1 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading1'],
-        required=True)
-
 class Heading1(Paragraph):
     signature = IHeading1
+    defaultStyle = 'Heading1'
 
 
 class IHeading2(IParagraph):
     """Heading 2 is a simple paragraph with a special heading 2 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading2'],
-        required=True)
-
 class Heading2(Paragraph):
     signature = IHeading2
+    defaultStyle = 'Heading2'
 
 
 class IHeading3(IParagraph):
     """Heading 3 is a simple paragraph with a special heading 3 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading3'],
-        required=True)
-
 class Heading3(Paragraph):
     signature = IHeading3
+    defaultStyle = 'Heading3'
 
 
 class IHeading4(IParagraph):
     """Heading 4 is a simple paragraph with a special heading 4 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading4'],
-        required=True)
-
 class Heading4(Paragraph):
     signature = IHeading4
+    defaultStyle = 'Heading4'
 
 
 class IHeading5(IParagraph):
     """Heading 5 is a simple paragraph with a special heading 5 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading5'],
-        required=True)
-
 class Heading5(Paragraph):
     signature = IHeading5
+    defaultStyle = 'Heading5'
 
 
 class IHeading6(IParagraph):
     """Heading 6 is a simple paragraph with a special heading 6 style."""
 
-    style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Heading6'],
-        required=True)
-
 class Heading6(Paragraph):
     signature = IHeading6
+    defaultStyle = 'Heading6'
 
 
 class ITableCell(interfaces.IRMLDirectiveSignature):

@@ -146,6 +146,20 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'The radius of the paragraph border.',
         required=False)
 
+    pageBreakBefore = attr.Boolean(
+        title=u'Page Break Before',
+        description=(u'Specifies whether a page break should be inserted '
+                     u'before the directive.'),
+        default=False,
+        required=False)
+
+    frameBreakBefore = attr.Boolean(
+        title=u'Frame Break Before',
+        description=(u'Specifies whether a frame break should be inserted '
+                     u'before the directive.'),
+        default=False,
+        required=False)
+
 
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""
@@ -171,10 +185,11 @@ class ParagraphStyle(directive.RMLDirective):
 
     def process(self):
         kwargs = dict(self.getAttributeValues())
-
         parent = kwargs.pop(
             'parent', reportlab.lib.styles.getSampleStyleSheet()['Normal'])
+        name = kwargs.pop('name')
         style = copy.deepcopy(parent)
+        style.name = name[6:] if name.startswith('style.') else name
 
         for name, value in kwargs.items():
             setattr(style, name, value)

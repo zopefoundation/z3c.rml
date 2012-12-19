@@ -339,6 +339,19 @@ class Color(RMLAttribute):
                 'The color specification "%s" is not valid. %s' % (
                 value, getFileInfo(self)))
 
+def _getStyle(context, value):
+    manager = getManager(context)
+    for styles in (manager.styles,
+                   reportlab.lib.styles.getSampleStyleSheet().byName):
+        if value in styles:
+            return styles[value]
+        elif 'style.' + value in styles:
+            return styles['style.' + value]
+        elif value.startswith('style.') and value[6:] in styles:
+            return styles[value[6:]]
+    raise ValueError('Style %r could not be found. %s' % (
+        value, getFileInfo(self)))
+
 class Style(String):
     """Requires a valid style to be entered.
 
@@ -348,18 +361,7 @@ class Style(String):
     default = reportlab.lib.styles.getSampleStyleSheet().byName['Normal']
 
     def fromUnicode(self, value):
-        manager = getManager(self.context)
-        for styles in (manager.styles,
-                       reportlab.lib.styles.getSampleStyleSheet().byName):
-            if value in styles:
-                return styles[value]
-            elif 'style.' + value in styles:
-                return styles['style.' + value]
-            elif value.startswith('style.') and value[6:] in styles:
-                return styles[value[6:]]
-        raise ValueError('Style %r could not be found. %s' % (
-            value, getFileInfo(self)))
-
+        return _getStyle(self.context, value)
 
 class Symbol(Text):
     """This attribute should contain the text representation of a symbol to be
