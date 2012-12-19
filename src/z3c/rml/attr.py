@@ -363,6 +363,23 @@ class Style(String):
     def fromUnicode(self, value):
         return _getStyle(self.context, value)
 
+
+class Padding(Sequence):
+    """This attribute is specific for padding and will produce the proper
+    length of the padding sequence."""
+
+    def __init__(self, *args, **kw):
+        kw.update(dict(value_type=Integer(), min_length=1, max_length=4))
+        super(Padding, self).__init__(*args, **kw)
+
+    def fromUnicode(self, value):
+        seq = super(Padding, self).fromUnicode(value)
+        # pdfgen does not like a single paddign value.
+        if len(seq) == 1:
+            seq.append(seq[0])
+        return seq
+
+
 class Symbol(Text):
     """This attribute should contain the text representation of a symbol to be
     used."""
@@ -463,13 +480,16 @@ class RawXMLContent(RMLAttribute):
         from z3c.rml import special
         self.handleElements = {'getName': special.GetName}
 
-    def get(self):
+    def _substitute(self):
         # Replace what we can replace
         for subElement in self.context.element.iterdescendants():
             if subElement.tag in self.handleElements:
                 substitute = self.handleElements[subElement.tag](
                     subElement, self.context)
                 substitute.process()
+
+    def get(self):
+        self._substitute()
         # Now create the text
         # ReportLab's paragraph parser does not like attributes from other
         # namespaces; sigh. So we have to improvize.
@@ -477,10 +497,9 @@ class RawXMLContent(RMLAttribute):
         text = text[text.find('>')+1:text.rfind('<')]
         return text
 
-
 class XMLContent(RawXMLContent):
     """Same as 'RawXMLContent', except that the whitespace is normalized."""
 
     def get(self):
-        result = super(XMLContent, self).get()
-        return result.strip().replace('\t', ' ')
+        text = super(XMLContent, self).get()
+        return text.strip().replace('\t', ' ')

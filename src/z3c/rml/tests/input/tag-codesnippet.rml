@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-codesnippet.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="1cm" width="19cm" height="26cm"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <paraStyle name="boxed-code"
+	       fontName="Courier"
+	       fontSize="8"
+	       leftIndent="36"
+	       textColor="blue"
+	       backColor="cornsilk"
+	       borderColor="gray"
+	       borderPadding="6"
+	       borderWidth="1"
+	       spaceBefore="12"
+	       spaceAfter="12"
+	       />
+  </stylesheet>
+  <story>
+
+    <codesnippet language="python" style="boxed-code" doc:example="">
+      class HelloWorld(object):
+
+          def render(self):
+              print 'Hello World!'
+
+      HelloWorld().render()
+    </codesnippet>
+
+    <para><br/></para>
+
+    <codesnippet language="xml" style="boxed-code" doc:example=""><![CDATA[
+        <tag attr="value">
+            <content>Hello World!</content>
+        </tag>
+    ]]></codesnippet>
+
+  </story>
+</document>

@@ -1,0 +1,108 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="test_044_codesnippets.pdf">
+
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+		<pageTemplate id="main">
+		<pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 45: Codesnippets</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		</pageGraphics>
+			<frame id="second" x1="35" y1="45" width="525" height="590"/>
+		</pageTemplate>
+	</template>
+	<stylesheet>
+		<paraStyle name="my_code"
+				   fontName="Courier"
+				   fontSize="8"
+				   leftIndent="36"
+				   textColor="blue"
+				   backColor="cornsilk"
+				   borderColor="gray"
+				   borderPadding="6"
+				   borderWidth="1"
+				   spaceBefore="12"
+				   spaceAfter="12"
+				   />
+		<paraStyle name="style.Heading1"
+				   parent="style.Heading1"
+				   textColor="red"
+				   />
+				   <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>		
+
+	</stylesheet>
+	<story>
+	<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+		<title>Code snippets test</title>
+		<para>Python has a code-highlighting package named 'Pygments'.   Pygments is installed, you can generate colorized code snippets.  If the sample below is in colour, you have it installed; otherwise, you can obtain it from pypi.python.org, or from the <font face="Courier">python-pygments</font> package in Ubuntu.  Pygments supports many, many different lexers.</para>
+		
+		<para>Here is the code to insert a Python snippet...</para>
+		<spacer length="6"/>
+		<para><font face="Courier"><![CDATA[<codesnippet language="python">...</codesnippet>]]></font></para>
+		<spacer length="6"/>
+		<para>...and here is some sample outout...</para>
+		<spacer length="6"/>
+		
+		
+        <codesnippet language="python">
+class code(MapNode):
+    def evaluate(self, tagname, sdict, pcontent, extra, context):
+        stylename = "pre.defaultStyle"
+        if sdict.has_key("style"):
+            stylename = sdict["style"]
+        if sdict.has_key("syntax"):
+            lang = sdict["syntax"]
+
+
+        #clean up the block of code prior to display.
+        
+        src = ''.join(map(str, pcontent))   
+        #split line ends, strip trailing space
+        
+        
+        lines = map(lambda x: x.rstrip(), src.split('\n'))
+        #generally we trim off up to one leading and trailing blank lines
+        #that's probably from indenting the XML
+        if lines[0] == '':
+            lines = lines[1:]
+        if lines[-1] == '':
+            lines = lines[:-1]
+        </codesnippet>
+
+<para>Now we'll show colourised XML:</para>        
+<codesnippet language="xml"><![CDATA[
+    <tag attr="value">
+        <content>Foo bar!</content>
+    </tag>
+]]></codesnippet>
+
+
+<para>If you don't specify a language parameter (or if pygments cannot be imported), it won't get colourised.</para>        
+<codesnippet><![CDATA[
+    <tag attr="value">
+        <content>Foo bar!</content>
+    </tag>
+]]></codesnippet>
+
+<para>Because your XML might be indented, by default we remove an initial or final blank line, and we also 'dedent' to remove any whitespace on the left of your code block.  However, the default paragraph style selected adds an indent on the left side.</para>
+
+
+<para>The one below specifies a different paragraph style, defined in our document, to add a coloured backdrop...</para>
+
+<codesnippet language="python" style="my_code">
+def my_function(arg):
+    foo, bar = do_stuff_to(arg)
+    return [bar, foo[0]]
+</codesnippet>
+
+	</story>
+</document>

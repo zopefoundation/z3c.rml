@@ -24,7 +24,8 @@ import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
-from reportlab.lib import styles
+from reportlab.lib import styles, pygments2xpre
+from xml.sax.saxutils import unescape
 from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import form, platypus, special, stylesheet
 
@@ -184,6 +185,14 @@ class IParagraphBase(IMinimalParagraphBase):
 class IPreformatted(IMinimalParagraphBase):
     """A preformatted text, similar to the <pre> tag in HTML."""
 
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
+        required=False)
+
     text = attr.RawXMLContent(
         title=u'Text',
         description=(u'The text that will be layed out.'),
@@ -193,9 +202,16 @@ class Preformatted(Flowable):
     signature = IPreformatted
     klass = reportlab.platypus.Preformatted
 
-
 class IXPreformatted(IParagraphBase):
     """A preformatted text that allows paragraph markup."""
+
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
+        required=False)
 
     text = attr.RawXMLContent(
         title=u'Text',
@@ -205,6 +221,36 @@ class IXPreformatted(IParagraphBase):
 class XPreformatted(Flowable):
     signature = IXPreformatted
     klass = reportlab.platypus.XPreformatted
+
+
+class ICodeSnippet(IXPreformatted):
+    """A code snippet with text highlighting."""
+
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        required=False)
+
+    language = attr.String(
+        title=u'Language',
+        description=u'The language the code snippet is written in.',
+        required=False)
+
+class CodeSnippet(XPreformatted):
+    signature = ICodeSnippet
+
+    def process(self):
+        args = dict(self.getAttributeValues())
+        lang = args.pop('language', None)
+        args['text'] = unescape(args['text'])
+        if lang is not None:
+            args['text'] = pygments2xpre.pygments2xpre(
+                args['text'], lang.lower())
+        if 'style' not in args:
+            args['style'] = attr._getStyle(self, 'Code')
+        self.parent.flow.append(self.klass(**args))
 
 
 class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
@@ -1122,6 +1168,7 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('illustration', IIllustration),
         occurence.ZeroOrMore('pre', IPreformatted),
         occurence.ZeroOrMore('xpre', IXPreformatted),
+        occurence.ZeroOrMore('codesnippet', ICodeSnippet),
         occurence.ZeroOrMore('plugInFlowable', IPluginFlowable),
         occurence.ZeroOrMore('barCodeFlowable', IBarCodeFlowable),
         occurence.ZeroOrMore('outlineAdd', IOutlineAdd),
@@ -1159,6 +1206,7 @@ class Flow(directive.RMLDirective):
         'illustration': Illustration,
         'pre': Preformatted,
         'xpre': XPreformatted,
+        'codesnippet': CodeSnippet,
         'plugInFlowable': PluginFlowable,
         'barCodeFlowable': BarCodeFlowable,
         'outlineAdd': OutlineAdd,

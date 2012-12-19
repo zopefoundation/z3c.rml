@@ -133,12 +133,9 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'The width of the paragraph border.',
         required=False)
 
-    borderPadding = attr.Sequence(
+    borderPadding = attr.Padding(
         title=u'Paragraph Border Padding',
         description=u'Padding of the paragraph.',
-        value_type=attr.Integer(),
-        min_length=1,
-        max_length=4,
         required=False)
 
     borderRadius = attr.Measurement(

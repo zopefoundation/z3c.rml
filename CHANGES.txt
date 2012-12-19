@@ -13,6 +13,8 @@ CHANGES
 
 - Added ``h4``, ``h5``, and ``h6`` directives.
 
+- Implemented ``codesnippet`` directive.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

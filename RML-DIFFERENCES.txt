@@ -153,9 +153,9 @@ naming.
 
 - registerCidFont: +encName
 
-- registerFontFamily
+- registerFontFamily (pdfmetrics.registerFontFamily())
 
-- setFontSize
+- setFontSize (plain canvas op)
 
 - log
 
@@ -173,6 +173,8 @@ naming.
 
 - -pdfInclude
 
-- codesnippet
-
 - rectangle, table row, table cell, etc.: href and/or destination (Test 038)
+
+- ol, ul, li
+
+- -addMapping

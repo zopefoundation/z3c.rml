@@ -150,6 +150,42 @@ class RegisterCidFont(directive.RMLDirective):
         pdfmetrics.registerFont(font)
 
 
+class IRegisterFontFamily(interfaces.IRMLDirectiveSignature):
+    """Register a new font family."""
+
+    name = attr.String(
+        title=u'Name',
+        description=(u'The name of the font family.'),
+        required=True)
+
+    normal = attr.String(
+        title=u'Normal Font Name',
+        description=(u'The name of the normal font variant.'),
+        required=False)
+
+    bold = attr.String(
+        title=u'Bold Font Name',
+        description=(u'The name of the bold font variant.'),
+        required=False)
+
+    italic = attr.String(
+        title=u'Italic Font Name',
+        description=(u'The name of the italic font variant.'),
+        required=False)
+
+    boldItalic = attr.String(
+        title=u'Bold/Italic Font Name',
+        description=(u'The name of the bold/italic font variant.'),
+        required=True)
+
+class RegisterFontFamily(directive.RMLDirective):
+    signature = IRegisterFontFamily
+
+    def process(self):
+        args = self.getAttributeValues(valuesOnly=True)
+        pdfmetrics.registerFontFamily(*args)
+
+
 class IColorDefinition(interfaces.IRMLDirectiveSignature):
     """Define a new color and give it a name to be known under."""
 
@@ -182,6 +218,7 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('registerFont', IRegisterFont),
         occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerCidFont', IRegisterCidFont),
+        occurence.ZeroOrMore('registerFontFamily', IRegisterFontFamily),
         occurence.ZeroOrMore('color', IColorDefinition),
         occurence.ZeroOrMore('addMapping', IAddMapping),
         )
