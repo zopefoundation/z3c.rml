@@ -221,6 +221,8 @@ def extractExamples(directory):
         for dirExamples in examples.values():
             for example in dirExamples:
                 xml = etree.tounicode(example['element']).strip()
+                xml = re.sub(
+                    ' ?xmlns:doc="http://namespaces.zope.org/rml/doc"', '', xml)
                 xml = dedent(xml)
                 xml = enforceColumns(xml, 80)
                 xml = highlightRML(xml)

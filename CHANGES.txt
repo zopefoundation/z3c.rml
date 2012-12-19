@@ -2,6 +2,16 @@
 CHANGES
 =======
 
+1.2.0 (unreleased)
+------------------
+
+- Implemented ``saveState`` and ``restoreState`` directives. (LP #666194)
+
+- Don't show "doc" namespace in reference snippets.
+
+- Create a list of RML2PDF and z3c.rml differences.
+
+
 1.1.0 (2012-12-18)
 ------------------
 
@@ -35,6 +45,7 @@ CHANGES
 - I found a more complete paragraph border patch from Yuan Hong. Now the DTD
   is updated, the border supports a border radius and the tag-para.rml sample
   has been updated.
+
 
 0.9.0 (2010-07-22)
 ------------------

@@ -1,0 +1,178 @@
+==============================================
+RML2PDF and z3c.rml Implementation Differences
+==============================================
+
+This document outlines the differences between ReportLab Inc.'s RML2PDF
+library and z3c.rml.
+
+Each major bullet represents a missing element. Names after the elements are
+missing attributes. A "-" (minus) sign in front of an element or attribute
+denotes a feature not in RML2PDF. The "->" arrow designates a difference in
+naming.
+
+- docinit: pageMode, pageLayout, useCropMarks
+   * alias
+   * name
+   * namedString
+   * outlineAdd
+   * registerFontFamily
+   * logConfig
+   * cropMarks
+   * startIndex
+
+- template: firstPageTemplate
+
+- story: -firstPageTemplate
+
+- pre/xpre: -bulletText, -dedent, -text
+
+- plugInFlowable: -params
+
+- blockTable: -repeatRows, -alignment
+
+- docAssert
+
+- docAssign
+
+- docElse
+
+- docIf
+
+- docExec
+
+- docPara
+
+- docWhile
+
+- drawing
+
+- widget
+
+- para: -fontNAme, -fontSize, -leading, -leftIndent, -rightIndent,
+  -firstLineIndent, -spaceBefore, -spaceAfter, -alignement, -bulletFontName,
+  -bulletFontSize, -bulletIndent, -textColor, -backColor, -keepWithText,
+  -wordWrap, -borderColor, -borderWidth, -borderPadding, -borderRadius,
+  -dedent
+
+- title: -<same as para>
+
+  -> Ditto h*
+
+- a
+
+- evalString
+
+- storyPlace
+
+- -keepTogether
+
+- pto
+   * pto_trailer
+   * pto_header
+
+- image: -showBoundary, -preserveAspectRatio
+
+- doForm
+
+- includePdfPages
+
+- plugInGraphic
+
+- barCodeFlowable: tracking, routing, width -> widthSize, height -> heightSize,
+  -strokeWidth, -fillColor
+
+- figure
+
+- imageFigure
+
+- img
+
+- barCode: -<everything, except, x, y, code>
+
+- checkBox
+
+- letterBoxes
+
+- textBox
+
+- setFont: -leading
+
+- form
+
+- catchForms
+
+- lineMode: -miterLimit
+
+- initialize
+  * color
+
+- paraStyle: fontName -> fontname, fontSize -> fontsize, -keepWithNext,
+  -wordWrap, -border*
+
+- boxStyle
+
+- blockTableStyle: -keepWtihNext
+
+- blockBackground: -colorsByRow, -colorsByCol
+
+- -blockRowBackground
+
+- -blockColBackground
+
+- lineStyle: -join
+
+- bulkData: +stripBlock, stripLines, stripFields, fieldDelim, recordDelim
+
+- excelData
+
+- frame: -*Padding, -showBoundary
+
+- getName
+
+- color: value -> RGB
+
+- pageNumber
+
+- outlineAdd: -key
+
+- cropMarks
+
+- startIndex
+
+- index
+
+- showIndex
+
+- bookmark: -fitType, -left, -top, -right, -zoom, x, y
+
+- bookmarkPage
+
+- join
+
+- length
+
+- namedString
+
+- param: -value
+
+- registerCidFont: +encName
+
+- registerFontFamily
+
+- setFontSize
+
+- log
+
+- debug
+
+- info
+
+- warning
+
+- error
+
+- critical
+
+- logConfig
+
+- -pdfInclude

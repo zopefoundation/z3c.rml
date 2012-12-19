@@ -59,6 +59,22 @@ class CanvasRMLDirective(directive.RMLDirective):
         getattr(canvas, self.callable)(**kwargs)
 
 
+class ISaveState(interfaces.IRMLDirectiveSignature):
+    """Saves the current canvas state."""
+
+class SaveState(CanvasRMLDirective):
+    signature = ISaveState
+    callable = 'saveState'
+
+
+class IRestoreState(interfaces.IRMLDirectiveSignature):
+    """Saves the current canvas state."""
+
+class RestoreState(CanvasRMLDirective):
+    signature = IRestoreState
+    callable = 'restoreState'
+
+
 class IDrawString(interfaces.IRMLDirectiveSignature):
     """Draws a simple string (left aligned) onto the canvas at the specified
     location."""
@@ -724,6 +740,10 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
     """A container directive for all directives that draw directly on the
     cnavas."""
     occurence.containing(
+        # State Manipulation
+        occurence.ZeroOrMore('saveState', ISaveState),
+        occurence.ZeroOrMore('restoreState', IRestoreState),
+        # String Drawing
         occurence.ZeroOrMore('drawString', IDrawString),
         occurence.ZeroOrMore('drawRightString', IDrawRightString),
         occurence.ZeroOrMore('drawCenteredString', IDrawCenteredString),
@@ -769,6 +789,10 @@ class Drawing(directive.RMLDirective):
     signature = IDrawing
 
     factories = {
+        # State Management
+        'saveState': SaveState,
+        'restoreState': RestoreState,
+        # Drawing Strings
         'drawString': DrawString,
         'drawRightString': DrawRightString,
         'drawCenteredString': DrawCenteredString,

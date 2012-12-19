@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-saveState-restoreState.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <pageDrawing doc:example="z3c.rml.canvas.SaveState">
+    <setFont name="Helvetica" size="9" />
+    <drawString x="1in" y="10in" >Text in Helvetica 9</drawString>
+    <saveState />
+    <setFont name="Courier" size="12" />
+    <drawString x="1in" y="9in" >Text in Courier 12</drawString>
+    <restoreState doc:example="" />
+    <drawString x="1in" y="8in" >Text in Helvetica 9</drawString>
+  </pageDrawing>
+
+</document>
