@@ -1,0 +1,105 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_045_cmyk.pdf" invariant="1" colorSpace="CMYK">
+<docinit>
+	<color id="BLUE" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV"/>
+	<color id="BLUE75" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV" density=".75"/>
+	<color id="BLUE50" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV" density=".5"/>
+	<color id="BLUE25" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV" density=".25"/>
+</docinit>
+
+<template pageSize="letter" leftMargin="72" showBoundary="0">
+	<pageTemplate id="main" pageSize="A4">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 46: Cmyk</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" textColor="black"/>
+	<paraStyle name="h1" parent="normal" fontName="Helvetica-BoldOblique" fontSize="24" leading="28" textColor="BLUE"/>
+	<paraStyle name="spaced" parent="normal" spaceBefore="12" spaceAfter="12"/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+
+    <blockTableStyle id="grid">
+        <blockAlignment value="center"/>
+        <blockFont name="Helvetica"/>
+        <lineStyle kind="GRID" colorName="black"/>
+        <lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+    </blockTableStyle>
+
+
+</stylesheet>
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+
+	<para style="h1">Tests of colour separated PDF output..
+	</para>
+	<para style="normal">On screen, you'll see various blacks and shades of blue.  The on-screen
+	appearance depends on CMYK equivalents you supply.
+	</para>
+	<para style="normal">If you open this document in Illustrator, Quark, Acrobat etc and check the
+	separations, there should be plates for black and for Pantone 288. The black/greys should be converted into
+	cmyk automatically.
+	</para>
+
+	<illustration height="50" width="300">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="black"/>
+		<rect x="0" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="[0,0,0,0.75]"/>
+		<rect x="50" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="[0,0,0,0.50]"/>
+		<rect x="100" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="[0,0,0,0.25]"/>
+		<rect x="150" y="10" width="30" height="30" fill="yes" stroke="no"/>
+	</illustration>
+
+    <para style="normal">The swatches above should fade from black to grey - 100% down to 25%.</para>
+
+
+	<illustration height="50" width="300">
+		<setFont name="Helvetica-Bold" size="12"/>
+		<fill color="BLUE"/>
+		<rect x="0" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="BLUE75"/>
+		<rect x="50" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="BLUE50"/>
+		<rect x="100" y="10" width="30" height="30" fill="yes" stroke="no"/>
+		<fill color="BLUE25"/>
+		<rect x="150" y="10" width="30" height="30" fill="yes" stroke="no"/>
+	</illustration>
+
+    <para style="normal">The swatches above should be tints of Pantone 288 - 100% down to 25%.</para>
+
+
+    <para style="normal">Now we'll check the colours in a table</para>
+
+    <spacer length="6"/>
+    <blockTable style="grid">
+        <tr><td fontColor="black">Black</td><td fontColor="BLUE">Blue</td></tr>
+        <tr><td background="black"></td><td background="BLUE"></td></tr>
+    </blockTable>
+    <spacer length="6"/>
+
+    <para style="normal">We can now <font color="BLUE75">pass colours</font> through into <font color="BLUE50">substrings</font> in paragraphs even
+    though that's handled by a different parser.</para>
+    
+
+</story>
+
+</document>

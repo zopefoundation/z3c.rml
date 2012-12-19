@@ -21,7 +21,7 @@ import sys
 import zope.interface
 import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
-from reportlab.lib import fonts
+from reportlab.lib import colors, fonts
 
 from z3c.rml import attr, canvas, directive, interfaces, occurence
 from z3c.rml import pdfinclude, storyplace, stylesheet, template
@@ -194,22 +194,61 @@ class IColorDefinition(interfaces.IRMLDirectiveSignature):
         description=(u'The id/name the color will be available under.'),
         required=True)
 
+    RGB = attr.Color(
+        title=u'RGB Color',
+        description=(u'The color value that is represented.'),
+        required=False)
+
+    CMYK = attr.Color(
+        title=u'CMYK Color',
+        description=(u'The color value that is represented.'),
+        required=False)
+
     value = attr.Color(
         title=u'Color',
         description=(u'The color value that is represented.'),
-        required=True)
-    attr.deprecated(
-        'RGB', value,
-        (u'Ensures compatibility with ReportLab RML. Please use '
-         u'the "value" attribute.'))
+        required=False)
+
+    spotName = attr.String(
+        title=u'Spot Name',
+        description=(u'The Spot Name of the CMYK color.'),
+        required=False)
+
+    density = attr.Float(
+        title=u'Density',
+        description=(u'The color density of the CMYK color.'),
+        min=0.0,
+        max=1.0,
+        required=False)
+
+    knockout = attr.String(
+        title=u'Knockout',
+        description=(u'The knockout of the CMYK color.'),
+        required=False)
+
+    alpha = attr.Float(
+        title=u'Alpha',
+        description=(u'The alpha channel of the color.'),
+        min=0.0,
+        max=1.0,
+        required=False)
 
 class ColorDefinition(directive.RMLDirective):
     signature = IColorDefinition
 
     def process(self):
-        id, value = self.getAttributeValues(valuesOnly=True)
-        manager = attr.getManager(self)
-        manager.colors[id] = value
+        kwargs = dict(self.getAttributeValues())
+        id = kwargs.pop('id')
+        for attrName in ('RGB', 'CMYK', 'value'):
+            color = kwargs.pop(attrName, None)
+            if color is not None:
+                # CMYK has additional attributes.
+                for name, value in kwargs.items():
+                    setattr(color, name, value)
+                manager = attr.getManager(self)
+                manager.colors[id] = color
+                return
+        raise ValueError('At least one color definition must be specified.')
 
 
 class IDocInit(interfaces.IRMLDirectiveSignature):
@@ -298,6 +337,9 @@ class Document(directive.RMLDirective):
         # ReportLab not to fail.
         reportlab.rl_config._reset()
 
+        # Add our colors mapping to the default ones.
+        colors.toColor.setExtraColorsNameSpace(self.colors)
+
         if outputFile is None:
             # TODO: This is relative to the input file *not* the CWD!!!
             outputFile = open(self.element.get('filename'), 'wb')
@@ -334,4 +376,7 @@ class Document(directive.RMLDirective):
         # Save the result into our real output file
         tempOutput.seek(0)
         outputFile.write(tempOutput.getvalue())
+
+        # Cleanup.
+        colors.toColor.setExtraColorsNameSpace({})
 
