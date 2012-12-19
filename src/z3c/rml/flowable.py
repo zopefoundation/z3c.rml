@@ -296,6 +296,51 @@ class Heading3(Paragraph):
     signature = IHeading3
 
 
+class IHeading4(IParagraph):
+    """Heading 4 is a simple paragraph with a special heading 4 style."""
+
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading4'],
+        required=True)
+
+class Heading4(Paragraph):
+    signature = IHeading4
+
+
+class IHeading5(IParagraph):
+    """Heading 5 is a simple paragraph with a special heading 5 style."""
+
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading5'],
+        required=True)
+
+class Heading5(Paragraph):
+    signature = IHeading5
+
+
+class IHeading6(IParagraph):
+    """Heading 6 is a simple paragraph with a special heading 6 style."""
+
+    style = attr.Style(
+        title=u'Style',
+        description=(u'The paragraph style that is applied to the paragraph. '
+                     u'See the ``paraStyle`` tag for creating a paragraph '
+                     u'style.'),
+        default=reportlab.lib.styles.getSampleStyleSheet()['Heading6'],
+        required=True)
+
+class Heading6(Paragraph):
+    signature = IHeading6
+
+
 class ITableCell(interfaces.IRMLDirectiveSignature):
     """A table cell within a table."""
 
@@ -1132,6 +1177,9 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('h1', IHeading1),
         occurence.ZeroOrMore('h2', IHeading2),
         occurence.ZeroOrMore('h3', IHeading3),
+        occurence.ZeroOrMore('h4', IHeading4),
+        occurence.ZeroOrMore('h5', IHeading5),
+        occurence.ZeroOrMore('h6', IHeading6),
         occurence.ZeroOrMore('para', IParagraph),
         occurence.ZeroOrMore('blockTable', IBlockTable),
         occurence.ZeroOrMore('nextFrame', INextFrame),
@@ -1167,6 +1215,9 @@ class Flow(directive.RMLDirective):
         'h1': Heading1,
         'h2': Heading2,
         'h3': Heading3,
+        'h4': Heading4,
+        'h5': Heading5,
+        'h6': Heading6,
         'para': Paragraph,
         # Table Flowable
         'blockTable': BlockTable,
