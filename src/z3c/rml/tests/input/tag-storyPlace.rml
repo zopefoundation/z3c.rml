@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-storyPlace.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <template showBoundary="1">
+    <pageTemplate id="main">
+      <frame id="first" x1="1cm" y1="12cm" width="19cm" height="4cm"/>
+      <frame id="second" x1="1cm" y1="6cm" width="19cm" height="5cm"/>
+    </pageTemplate>
+  </template>
+  <story>
+    <!-- Story Place 1 is outside the frames -->
+    <storyPlace x="1cm" y="0cm" width="10cm" height="1cm" origin="page"
+                doc:example="">
+      <para>This is at the bottom of the page</para>
+    </storyPlace>
+
+    <!-- Story Place 2 is inside the first frame -->
+    <storyPlace x="1cm" y="0cm" width="10cm" height="1cm" origin="frame">
+      <para>This is at the bottom of the frame.</para>
+    </storyPlace>
+
+    <nextFrame name="second" />
+    <para>Some text inside the second frame.</para>
+    <storyPlace x="1cm" y="-1cm" width="10cm" height="1cm" origin="local">
+      <para>This is below the current cursor position.</para>
+    </storyPlace>
+
+  </story>
+</document>

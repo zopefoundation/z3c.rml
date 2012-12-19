@@ -1,0 +1,103 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_035_numbering.pdf" invariant="1">
+
+<template showBoundary="1">
+
+        <pageTemplate id="Itemization">
+        <pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 36: Numbering</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		</pageGraphics>
+		
+           <frame id="second" x1="35" y1="45" width="525" height="590"/>
+        </pageTemplate>
+
+
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+	<paraStyle name="normal_indent" parent="normal" leftIndent="36"/>
+	<paraStyle name="normal_indent_lv_2" parent="normal" leftIndent="72"/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+
+
+<para style="h1">Demo of sequencing tag for multi-level numbering</para>
+
+<para style="normal"> This initial paragraph doesn't have any numbers, but I've hidden in it a command to
+"chain" together three level identifiers, so that whenever the level_1 number is ncremented,
+the ones below it reset to 1.   This needs to be done early and should really be allowed in 
+the docinit tag, but isn't yet.  The tag looks like <b>&lt;seqChain order= "level1 level2 level_3"/&gt;</b>
+<seqChain order= "level_1 level_2 level_3"/>
+
+</para>
+
+<para style="normal_indent">
+   <b><seq id="level_1"/></b> <b><u>Heading</u></b>.  Lorem ipsum dolor sit amet....  This contains a tag to "get" the current 
+   value of the <b>level_1</b> counter, and increments it after display.  The tag looks like <b>&lt;seq id="level_1"&gt;</b>.
+</para>
+
+
+<para style="normal_indent">
+   <b><seq id="level_1"/>.</b> <b><u>Heading</u></b>.  Lorem ipsum dolor sit amet...
+</para>
+
+<para style="normal_indent">
+   <b><seq id="level_1"/>.</b> <b><u>Another heading</u></b>.  Duis bibendum  
+urna ac....  In the paragraphs below we use two <b>seq</b> tags; the level 2 one is as you would expect and increments, bt the level 1 tag has 
+<b>&lt;seq id="level_1" inc="no"&gt;</b>, meaning "do not increment".  You can also pass in an integer, to increment by 0, 1 or something else entirely; you could count 
+down if you wanted to.  
+</para>
+
+
+<para style="normal_indent_lv_2">
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+heading</u></b>.  Morbi laoreet magna sit amet...
+</para>
+<para style="normal_indent_lv_2">
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+heading</u></b>.  Morbi laoreet magna sit amet...
+</para>
+<para style="normal_indent_lv_2">
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+heading</u></b>.  Morbi laoreet magna sit amet...
+</para>
+
+
+<para style="normal_indent">
+   <b><seq id="level_1"/>.</b> <b><u>Back to outer level</u></b>.  Duis bibendum  
+urna ac...
+</para>
+
+<para style="normal_indent_lv_2">
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2" inc="5"/></b> <b><u>Just for the hell of it,
+   jump ahead 5 at the inner level using inc="5"...</u></b>.  Morbi laoreet magna sit amet...
+</para>
+<para style="normal_indent_lv_2">
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+heading</u></b>.  Morbi laoreet magna sit amet...
+</para>
+
+</story>
+
+</document>

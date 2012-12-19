@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """RML to PDF Converter Interfaces
-
-$Id$
 """
 __docformat__ = "reStructuredText"
 import reportlab.lib.enums

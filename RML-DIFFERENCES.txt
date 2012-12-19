@@ -30,19 +30,19 @@ naming.
 
 - blockTable: -repeatRows, -alignment
 
-- docAssert
+- docAssert (reportlab.platypus.flowables.DocAssert)
 
-- docAssign
+- docAssign (reportlab.platypus.flowables.DocAssign)
 
 - docElse
 
-- docIf
+- docIf (reportlab.platypus.flowables.DocIf)
 
-- docExec
+- docExec (reportlab.platypus.flowables.DocExec)
 
-- docPara
+- docPara (reportlab.platypus.flowables.DocPara)
 
-- docWhile
+- docWhile (reportlab.platypus.flowables.DocWhile)
 
 - drawing
 

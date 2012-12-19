@@ -7,6 +7,8 @@ CHANGES
 
 - Implemented ``saveState`` and ``restoreState`` directives. (LP #666194)
 
+- Implemented "storyPlace" directive. (LP #665941)
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

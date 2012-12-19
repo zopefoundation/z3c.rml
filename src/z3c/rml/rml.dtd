@@ -184,7 +184,7 @@
 
 <!ELEMENT pageGraphics>
 
-<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*,pdfInclude*)>
+<!ELEMENT story (spacer*,illustration*,pre*,xpre*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmark*,link*,hr*,name*,pdfInclude*,storyPlace*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
 
 <!ELEMENT spacer>
@@ -584,10 +584,21 @@
 <!ELEMENT pdfInclude>
 <!ATTLIST pdfInclude filename CDATA #REQUIRED>
 
+<!ELEMENT storyPlace>
+<!ATTLIST storyPlace x CDATA #REQUIRED>
+<!ATTLIST storyPlace y CDATA #REQUIRED>
+<!ATTLIST storyPlace width CDATA #IMPLIED>
+<!ATTLIST storyPlace height CDATA #IMPLIED>
+<!ATTLIST storyPlace origin (frame|local|page) #IMPLIED>
+
 <!ELEMENT pageInfo>
 <!ATTLIST pageInfo pageSize CDATA #REQUIRED>
 
-<!ELEMENT pageDrawing (drawString*,drawRightString*,drawCenteredString*,drawCentredString*,drawAlignedString*,ellipse*,circle*,rect*,grid*,lines*,curves*,image*,place*,textAnnotation*,path*,fill*,stroke*,setFont*,scale*,translate*,rotate*,skew*,transform*,lineMode*,barCode*,textField*,buttonField*,selectField*,barChart*,barChart3D*,linePlot*,linePlot3D*,pieChart*,pieChart3D*,spiderChart*)>
+<!ELEMENT pageDrawing (saveState*,restoreState*,drawString*,drawRightString*,drawCenteredString*,drawCentredString*,drawAlignedString*,ellipse*,circle*,rect*,grid*,lines*,curves*,image*,place*,textAnnotation*,path*,fill*,stroke*,setFont*,scale*,translate*,rotate*,skew*,transform*,lineMode*,barCode*,textField*,buttonField*,selectField*,barChart*,barChart3D*,linePlot*,linePlot3D*,pieChart*,pieChart3D*,spiderChart*)>
+
+<!ELEMENT saveState>
+
+<!ELEMENT restoreState>
 
 <!ELEMENT drawString>
 <!ATTLIST drawString x CDATA #REQUIRED>

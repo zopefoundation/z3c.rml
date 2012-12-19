@@ -220,7 +220,7 @@ class BooleanWithDefault(Boolean):
 class Measurement(RMLAttribute):
     '''This field represents a length value.
 
-    The units "in" (inch), "cm", and "mm" are allowed. If no units are
+    The units "in" (inch), "cm", "mm", and "pt" are allowed. If no units are
     specified, the value is given in points/pixels.
     '''
     def __init__(self, allowPercentage=False, allowStar=False, *args, **kw):
@@ -232,6 +232,7 @@ class Measurement(RMLAttribute):
 	(re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
 	(re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
 	(re.compile('^(-?[0-9\.]+)\s*mm$'), reportlab.lib.units.mm),
+	(re.compile('^(-?[0-9\.]+)\s*pt$'), 1),
 	(re.compile('^(-?[0-9\.]+)\s*$'), 1)
         ]
 
