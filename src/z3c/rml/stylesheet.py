@@ -71,6 +71,12 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'The indentation of the first line in the paragraph.',
         required=False)
 
+    alignment = attr.Choice(
+        title=u'Alignment',
+        description=u'The text alignment.',
+        choices=interfaces.ALIGN_CHOICES,
+        required=False)
+
     spaceBefore = attr.Measurement(
         title=u'Space Before',
         description=u'The vertical space before the paragraph.',
@@ -79,12 +85,6 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
     spaceAfter = attr.Measurement(
         title=u'Space After',
         description=u'The vertical space after the paragraph.',
-        required=False)
-
-    alignment = attr.Choice(
-        title=u'Alignment',
-        description=u'The text alignment.',
-        choices=interfaces.ALIGN_CHOICES,
         required=False)
 
     bulletFontName = attr.String(
@@ -112,20 +112,9 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'The background color of the paragraph.',
         required=False)
 
-    keepWithNext = attr.Boolean(
-        title=u'Keep with Next',
-        description=(u'When set, this paragraph will always be in the same '
-                     u'frame as the following flowable.'),
-        required=False)
-
     wordWrap = attr.String(
         title=u'Word Wrap Method',
         description=(u'When set to "CJK", invoke CJK word wrapping'),
-        required=False)
-
-    borderColor = attr.Color(
-        title=u'Border Color',
-        description=u'The color in which the paragraph border will appear.',
         required=False)
 
     borderWidth = attr.Measurement(
@@ -138,9 +127,44 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'Padding of the paragraph.',
         required=False)
 
+    borderColor = attr.Color(
+        title=u'Border Color',
+        description=u'The color in which the paragraph border will appear.',
+        required=False)
+
     borderRadius = attr.Measurement(
         title=u'Paragraph Border Radius',
         description=u'The radius of the paragraph border.',
+        required=False)
+
+    allowWidows = attr.Boolean(
+        title=u'Allow Widows',
+        description=(u'Allow widows.'),
+        required=False)
+
+    allowOrphans = attr.Boolean(
+        title=u'Allow Orphans',
+        description=(u'Allow orphans.'),
+        required=False)
+
+    textTransforms = attr.Choice(
+        title=u'Text Transforms',
+        description=u'Text transformations.',
+        choices=interfaces.TEXT_TRANSFORM_CHOICES,
+        required=False)
+
+    endDots = attr.String(
+        title=u'End Dots',
+        description=u'Characters/Dots at the end of a paragraph.',
+        required=False)
+
+    # Attributes not part of the official style attributes, but are accessed
+    # by the paragraph renderer.
+
+    keepWithNext = attr.Boolean(
+        title=u'Keep with Next',
+        description=(u'When set, this paragraph will always be in the same '
+                     u'frame as the following flowable.'),
         required=False)
 
     pageBreakBefore = attr.Boolean(

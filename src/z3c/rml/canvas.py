@@ -91,7 +91,7 @@ class IDrawString(interfaces.IRMLDirectiveSignature):
                      u'string.'),
         required=True)
 
-    text = attr.TextNode(
+    text = attr.RawXMLContent(
         title=u'Text',
         description=(u'The string/text that is put onto the canvas.'),
         required=True)
@@ -99,6 +99,27 @@ class IDrawString(interfaces.IRMLDirectiveSignature):
 class DrawString(CanvasRMLDirective):
     signature = IDrawString
     callable = 'drawString'
+
+    def getPageNumber(self, elem, canvas):
+        return str(canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1)
+
+    handleElements = {'pageNumber': getPageNumber}
+
+    def _getText(self, node, canvas):
+        text = node.text or u''
+        for sub in node.iterdescendants():
+            if sub.tag in self.handleElements:
+                text += self.handleElements[sub.tag](self, sub, canvas)
+            else:
+                self._getText(sub, canvas)
+        text += node.tail or u''
+        return text
+
+    def process(self):
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        kwargs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        kwargs['text'] = self._getText(self.element, canvas).strip()
+        getattr(canvas, self.callable)(**kwargs)
 
 class IDrawRightString(IDrawString):
     """Draws a simple string (right aligned) onto the canvas at the specified

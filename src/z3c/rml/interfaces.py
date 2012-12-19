@@ -34,7 +34,7 @@ ALIGN_TEXT_CHOICES = {
 VALIGN_TEXT_CHOICES = {
     'top': 'TOP', 'middle': 'MIDDLE', 'bottom': 'BOTTOM'}
 SPLIT_CHOICES = ('splitfirst', 'splitlast')
-
+TEXT_TRANSFORM_CHOICES = ('uppercase', 'lowercase')
 
 class IRML2PDF(zope.interface.Interface):
     """This is the main public API of z3c.rml"""

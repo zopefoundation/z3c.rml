@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="test_047_paraStyle_condPageBreak.pdf">
+
+
+<template pageSize="(595,842)" leftMargin="72" showBoundary="1">
+
+<pageTemplate id="main">
+    <pageGraphics>
+        <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
+    </pageGraphics>
+     <frame id="firstLeft" x1="1in" y1="5in" width="3in" height="3.5in"/>
+    <frame id="firstRight" x1="4.27in" y1="5in" width="3in" height="3.5in"/>
+    <frame id="secondLeft" x1="1in" y1="0.75in" width="3in" height="3.5in"/>
+    <frame id="secondRight" x1="4.27in" y1="0.75in" width="3in" height="3.5in"/>
+    </pageTemplate>
+    <pageTemplate id="keepTogether">
+    <pageGraphics>
+        <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
+    </pageGraphics>
+    
+    
+    <frame id="firstLeft" x1="1in" y1="5in" width="3in" height="3.5in"/>
+    <frame id="firstRight" x1="4.27in" y1="5in" width="3in" height="3.5in"/>
+    <frame id="secondLeft" x1="1in" y1="0.75in" width="3in" height="3.5in"/>
+    <frame id="secondRight" x1="4.27in" y1="0.75in" width="3in" height="3.5in"/>
+    </pageTemplate>
+    <pageTemplate id="condPageBreak">
+    <pageGraphics>
+        <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
+    </pageGraphics>
+    <frame id="second" x1="35" y1="55" width="525" height="680"/>
+    </pageTemplate>
+</template>
+
+<stylesheet>
+    <paraStyle name="h1" fontName="Courier-Bold" fontSize="15" spaceBefore = "0.5 cm" />
+    <paraStyle name="FrameBreak" fontName="Helvetica" fontSize="12" leading="14"
+            frameBreakBefore="1" />
+    <paraStyle name="PageBreak" fontName="Helvetica" fontSize="12" leading="14"
+            pageBreakBefore="1" />
+    <paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" />
+    <paraStyle name="Control" fontName="Helvetica" fontSize="12" leading="14"
+            keepWithNext="0" />
+    <paraStyle name="keepTogether" fontName="Helvetica" fontSize="12" leading="14"  
+            keepWithNext="1" />
+    <paraStyle name="noWidows" fontName="Helvetica" fontSize="10" leading="12" allowWidows="0"/>
+    <paraStyle name="yesOrphan" fontName="Helvetica" fontSize="10" leading="12" 
+            allowOrphans="1"/>
+    <paraStyle name="dots" fontName="Helvetica" fontSize="10" leading="12" endDots="."/>
+    <paraStyle name="characters" fontName="Helvetica" fontSize="10" leading="12" endDots="123"/>
+    <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+<story >
+
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="keepTogether"/>
+    <para style="h1" alignment="center">KeepWithNext</para>
+    <nextFrame/>
+    <para style="normal">The <font face="Courier">keepWithNext</font> attribute for the 
+            <font face="Courier">paraStyle</font> tag tells the paragraph, whether it should 
+            always be kept together with the next paragraph or not. This can be useful for 
+            keeping headings together with the following paragraph. The default value is 0.</para>
+    <para style="normal"> The code looks as follows:</para>
+    <codesnippet language="xml"><![CDATA[
+            <paraStyle name="keepApart" keepWithNext="0" />
+            <paraStyle name="keepTogether" keepWithNext="1" />
+    ]]></codesnippet>
+    <nextFrame/>
+    <para style="normal">An example with <font face="Courier">keepWithNext="0"</font>. There is a 
+            spacer underneath.</para>
+    <spacer length="2.7in"/>
+    <para style="Control">This is paragraph 1 with the 
+            <font face="Courier">keepWithNext="0"</font> attribute.</para>
+    <para>This is paragraph 2.</para>
+
+    <nextFrame/>
+    <para style="normal">An example with <font face="Courier">keepWithNext="1"</font>. There is a 
+            spacer underneath</para>
+    <spacer length="2.7in"/>
+    <para style="keepTogether">This is paragraph 1, whose style has the 
+            <font face="Courier">keepWithNext="1"</font> attribute.</para>
+    <para style="normal">This is paragraph 2.</para>
+    <setNextTemplate name="condPageBreak"/>
+    <nextFrame/>
+    <para style="h1" alignment="center">condPageBreak</para>
+    <spacer length="0.75in"/>
+    <para style="normal">The <font face="Courier">&lt;condPageBreak/&gt;</font> tag will move to 
+            the next page if there is not enough space on the page. The length required to 
+            stay on the same page is give by the attribute <font face="Courier">height</font> 
+            which takes a length in the allowed measurements.</para>
+    <spacer length="2in"/>
+    <para style="normal"><font color="(0,0,0,0.5)">Blah blah blah blah blah blah Lieutenant 
+            Commander Data Harry Kim blah  
+            blah blah blah blah blah blah blah blah blah blah blah blah. Blah cloaking device 
+            blah blah Lieutenant Commander Data blah Dr. Pulaski blah blah blah USS Enterprise   
+            blah blah blah emergency transponder. Blah blah Ferrengi blah blah blah blah blah 
+            blah blah blah blah blah blah. Blah blah blah blah blah Tom Paris Archer IV blah blah 
+            Archer IV blah blah Soyuz class science vessel blah Betazoid blah blah blah blah 
+            warship blah blah blah blah blah. Blah blah blah Lieutenant Worf blah blah Lieutenant 
+            Worf Vulcan blah blah blah. Blah blah blah blah blah blah blah Tom Paris blah William 
+            Riker blah blah blah blah blah blah blah Klingon blah Admiral Nakamura blah blah blah 
+            blah blah. Blah blah blah blah blah blah blah Romulan ale blah blah blah asteroid 
+            field blah blah blah blah blah blah blah blah. Blah blah blah blah blah Memory Alpha 
+            blah blah blah blah blah blah blah. Blah blah blah Captain Picard blah blah Romulan 
+            blah blah blah blah blah Admiral Nakamura blah blah. Blah blah blah blah blah blah 
+            blah Starfleet Academy blah blah USS Intrepid blah blah blah blah blah blah blah blah 
+            holodeck blah blah blah blah. Blah blah blah blah blah ...with a phaser! blah blah 
+            blah blah blah Romulan Vulcan blah blah blah. Blah blah quantum flux blah blah blah 
+            blah quantum flux Chief O'Brian blah blah blah blah blah blah blah blah blah. Blah 
+            Counsellor Troi blah blah blah blah blah blah USS Intrepid blah blah blah blah blah 
+            Captain Janeway blah asteroid field blah IKV Pagh blah blah. Blah blah blah blah blah 
+            blah Betazoid blah blah blah blah blah IKV Pagh blah blah Captain Janeway blah blah 
+            IKV Pagh. Blah photon torpedo blah blah blah blah blah blah photon torpedo blah blah 
+            blah blah blah blah blah blah blah Ferrengi blah blah blah blah blah. Blah blah blah 
+            blah United Federation of Planets blah blah blah blah blah blah blah Deep Space Nine 
+            blah blah blah blah blah blah blah blah blah. Blah blah "Intruder alert!" Romulan 
+            blah blah blah blah blah blah blah blah blah. Blah blah blah shuttlecraft Ferrengi 
+            Vulcan blah blah blah blah blah blah Galaxy class vessel blah blah blah blah blah 
+            blah blah. Blah turbolift blah blah scout ship cruiser blah quantum flux blah blah 
+            blah blah blah blah blah blah blah blah blah blah blah William Riker blah blah blah. 
+            Blah blah blah blah blah battlecruiser blah blah blah blah blah blah blah blah Dr. 
+            Pulaski Pacifica blah blah blah blah blah blah turbolift. Blah blah blah Benzite blah 
+            Bajoran blah blah "Borg Invasion imminent!"  blah blah blah blah blah blah blah blah 
+            blood wine. Blah emergency transponder blah Starfleet blah blah blah blah blah blah 
+            blah blah blah blah blah blah blah blah blah shuttle bay 2 blah blah blah. Blah blah 
+            blah blah blah blah blah blah distress signal blah spacedock blah Irumodic Syndrome 
+            blah Romulan ale blah blah blah blah blah "All hands abandon ship! This is not a 
+            drill!" blah blah blah blah blah.</font></para>
+    <para style="normal"><font face="Times-Roman">The conditional page break comes in here and 
+            is set for 3 inches.</font></para>
+    <condPageBreak height="3in"/>
+    <para style="normal">This is on the next page since there was less than three inches
+            till the end of the page.</para>
+    <spacer length="0.5in"/>
+    <para style="normal"><font color="(0,0,0,0.5)">Blah blah blah blah blah blah Lieutenant 
+            Commander Data Harry Kim blah  
+            blah blah blah blah blah blah blah blah blah blah blah blah. Blah cloaking device 
+            blah blah Lieutenant Commander Data blah Dr. Pulaski blah blah blah USS Enterprise   
+            blah blah blah emergency transponder. Blah blah Ferrengi blah blah blah blah blah 
+            blah blah blah blah blah blah. Blah blah blah blah blah Tom Paris Archer IV blah blah 
+            Archer IV blah blah Soyuz class science vessel blah Betazoid blah blah blah blah 
+            warship blah blah blah blah blah. Blah blah blah Lieutenant Worf blah blah Lieutenant 
+            Worf Vulcan blah blah blah. Blah blah blah blah blah blah blah Tom Paris blah William 
+            Riker blah blah blah blah blah blah blah Klingon blah Admiral Nakamura blah blah blah 
+            blah blah. Blah blah blah blah blah blah blah Romulan ale blah blah blah asteroid 
+            field blah blah blah blah blah blah blah blah. Blah blah blah blah blah Memory Alpha 
+            blah blah blah blah blah blah blah. Blah blah blah Captain Picard blah blah Romulan 
+            blah blah blah blah blah Admiral Nakamura blah blah. Blah blah blah blah blah blah 
+            blah Starfleet Academy blah blah USS Intrepid blah blah blah blah blah blah blah blah 
+            holodeck blah blah blah blah. Blah blah blah blah blah ...with a phaser! blah blah 
+            blah blah blah Romulan Vulcan blah blah blah. Blah blah quantum flux blah blah blah 
+            blah quantum flux Chief O'Brian blah blah blah blah blah blah blah blah blah. Blah 
+            Counsellor Troi blah blah blah blah blah blah USS Intrepid blah blah blah blah blah 
+            Captain Janeway blah asteroid field blah IKV Pagh blah blah. Blah blah blah blah blah 
+            blah Betazoid blah blah blah blah blah IKV Pagh blah blah Captain Janeway blah blah 
+            IKV Pagh. Blah photon torpedo blah blah blah blah blah blah photon torpedo blah blah 
+            blah blah blah blah blah blah blah Ferrengi blah blah blah blah blah. Blah blah blah 
+            blah United Federation of Planets blah blah blah blah blah blah blah Deep Space Nine 
+            blah blah blah blah blah blah blah blah blah. Blah blah "Intruder alert!" Romulan 
+            blah blah blah blah blah blah blah blah blah. Blah blah blah shuttlecraft Ferrengi 
+            Vulcan blah blah blah blah blah blah Galaxy class vessel blah blah blah blah blah 
+            blah blah. Blah turbolift blah blah scout ship cruiser blah quantum flux blah blah 
+            blah blah blah blah blah blah blah blah blah blah blah William Riker blah blah blah. 
+            Blah blah blah blah blah battlecruiser blah blah blah blah blah blah blah blah Dr. 
+            Pulaski Pacifica blah blah blah blah blah blah turbolift. Blah blah blah Benzite blah 
+            Bajoran blah blah "Borg Invasion imminent!"  blah blah blah blah blah blah blah blah 
+            blood wine. Blah emergency transponder blah Starfleet blah blah blah blah blah blah 
+            blah blah blah blah blah blah blah blah blah shuttle bay 2 blah blah blah. Blah blah 
+            blah blah blah blah blah blah distress signal blah spacedock blah Irumodic Syndrome 
+            blah Romulan ale blah blah blah blah blah "All hands abandon ship! This is not a 
+            drill!" blah blah blah blah blah.</font></para>
+    <para style="normal"> <font face="Times-Roman">The conditional page break comes in here 
+            and is set for 3 inches.</font></para>
+    <condPageBreak height="3in"/>
+    <spacer length="0.5in"/>
+    <para style="normal">This is at the bottom of the page since there are more than 3in 
+            remaining.</para>
+    <setNextTemplate name="keepTogether"/>
+    <nextFrame/>
+    <para style="h1" alignment="center">frameBreakBefore and pageBreakBefore</para>
+    <nextFrame/>
+    <para style="normal">The <font face="Courier">frameBreakBefore</font> and <font 
+            face="Courier"> pageBeforeBreak</font> are both attributes of the <font 
+            face="Courier">&lt;paraStyle&gt;</font> tag.</para>
+    <para style="normal">The <font face="Courier">frameBreakBefore</font> attribute causes 
+            the new paragraph to go into the next frame, even if there is still space in the 
+            current frame. The default value is 0.</para>
+    <para style="normal">The <font face="Courier">pageBreakBefore</font> attribute causes the 
+            new paragraph to go into the next page, even if there is still space in the current 
+            frame, or if there are other frames remaining on the page. The default value is 0.
+            </para>   
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">frameBreakBefore</font>.
+            <font face="Times-Roman">The next paragraph will be in a new frame.
+            </font></para>
+    <para style="FrameBreak">This paragraph is in a new frame, since its style has the attribute 
+            <font face="Courier">frameBreakBefore="1"</font></para>
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">pageBreakBefore</font>.
+            <font face="Times-Roman">The next paragraph will be on a new page.
+            </font></para>
+    <setNextTemplate name="condPageBreak"/>
+    <para style="PageBreak">This paragraph is on a new page. It missed out the frame in 
+            the lower right corner of the last page, since its style has <font 
+            face="Courier">pageBreakBefore="1"</font></para>
+    <setNextTemplate name="keepTogether"/>
+    <nextFrame/>
+    <para style="h1" alignment="center">allowWidows</para>
+    <nextFrame/>
+    <para style="normal">The <font face="Courier">allowWidows</font> attribute, for the <font 
+            face="Courier">&lt;paraStyle&gt;</font> tag, allows the 
+            paragraph to have a widow, a line of text, separated from the rest of the paragraph, 
+            at the end. The default value for <font face="Courier">allowWidows</font> is 1.</para>
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">allowWidows="1"</font></para>
+    <para style="normal"><font color="grey">Blah blah blah blah SQL blah blah blah blah pizza 
+            blah blah blah blah TeX blah blah blah blah blah. Blah Intercal blah blah blah blah 
+            blah blah TeX OS/2 TFT display blah Linux blah blah blah blah crash! blah blah Sun 
+            Microsystems blah Logo blah blah. Blah blah blah blah blah blah blah blah blah blah 
+            VB Tcl/Tk Fortran blah blah blah awk blah blah blah. Blah blah blah blah blah blah 
+            blah blah blah blah blah blah PGP TCP/IP blah blah blah. Blah cgi Modula-3 SQL blah 
+            blah blah Delphi blah LISP blah BETA mailing lists blah. Blah blah blah blah 
+            pepperoni pizza blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+            monitor blah. Blah blah blah blah blah blah blah blah blah parallel languages blah 
+            blah blah blah blah blah blah blah BEER! blah blah. Blah blah beer blah blah OpenGL 
+            monitor blah blah blah blah. Blah blah blah blah blah blah blah blah blah blah blah 
+            blah "illiterate programming" blah blah C: drive. Blah blah blah.</font></para>
+    <para style="normal"><font face="Times-Roman">This example has a widow (the line above).
+            </font></para>
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">allowWidows="0"</font></para>
+    <para style="noWidows"><font color="(0,0,0,0.5)">Blah blah blah blah SQL blah blah blah blah 
+            pizza 
+            blah blah blah blah TeX blah blah blah blah blah. Blah Intercal blah blah blah blah 
+            blah blah TeX OS/2 TFT display blah Linux blah blah blah blah crash! blah blah Sun 
+            Microsystems blah Logo blah blah. Blah blah blah blah blah blah blah blah blah blah 
+            VB Tcl/Tk Fortran blah blah blah awk blah blah blah. Blah blah blah blah blah blah 
+            blah blah blah blah blah blah PGP TCP/IP blah blah blah. Blah cgi Modula-3 SQL blah 
+            blah blah Delphi blah LISP blah BETA mailing lists blah. Blah blah blah blah 
+            pepperoni pizza blah blah blah blah blah blah blah blah blah blah blah blah blah blah 
+            monitor blah. Blah blah blah blah blah blah blah blah blah parallel languages blah 
+            blah blah blah blah blah blah blah BEER! blah blah. Blah blah beer blah blah OpenGL 
+            monitor blah blah blah blah. Blah blah blah blah blah blah blah blah blah blah blah 
+            blah "illiterate programming" blah blah C: drive. Blah blah blah.</font></para>
+    <para style="normal"><font face="Times-Roman">This example does not have a widow, since 
+            another line has been brought with it.</font></para>
+    <nextFrame/>
+    <para alignment="center" style="h1">allowOrphans</para>
+    <nextFrame/>
+    <para style="normal">The <font face="Courier">allowOrphans</font> attribute allows the 
+            paragraph to have an orphan, a line of text, left in the original frame, separated 
+            from the rest of the paragraph. The default value is for this attribute is 0.</para>
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">allowOrphans="0"</font></para>
+    <spacer length="3.0in"/>
+    <para style="normal"><font face="Times-Roman">There is no orphan below.</font></para>
+    <para style="normal"><font color="grey">Blah blah blah blah SQL blah blah blah blah pizza blah blah blah 
+            blah TeX blah blah blah blah blah. Blah Intercal blah blah blah blah blah blah TeX 
+            OS/2 TFT display blah Linux blah blah blah blah crash! blah blah Sun Microsystems   
+            Logo blah blah. Blah blah blah blah blah blah blah blah blah blah VB Tcl/Tk Fortran 
+            blah blah blah awk blah blah blah. Blah blah blah blah blah blah blah blah blah blah 
+            blah blah PGP TCP/IP blah blah blah. Blah cgi Modula-3 SQL blah blah blah Delphi blah 
+            LISP blah BETA mailing lists blah. Blah blah blah blah pepperoni pizza blah blah blah 
+            blah blah blah blah blah blah blah blah blah blah blah monitor blah. Blah blah blah 
+            blah blah blah blah blah blah parallel languages blah blah blah blah blah blah blah 
+            blah BEER! blah blah. Blah blah beer blah blah OpenGL monitor blah blah blah blah. 
+            Blah blah Phys blah blah blah blah blah blah blah blah blah "illiterate programming" 
+            blah blah C: drive.</font></para>
+    <nextFrame/>
+    <para style="normal">This is an example of <font face="Courier">allowOrphans="1"</font></para>
+    <spacer length="3.0in"/>
+    <para style="normal"><font face="Times-Roman">There is an orphan below.</font></para>
+    <para style="yesOrphan"><font color="grey">Blah blah blah blah SQL blah blah blah blah pizza blah blah blah blah 
+            TeX blah blah blah blah blah. Blah Intercal blah blah blah blah blah blah TeX OS/2 
+            TFT display blah Linux blah blah blah blah crash! blah blah Sun Microsystems blah 
+            Logo blah blah. Blah blah blah blah blah blah blah blah blah blah VB Tcl/Tk Fortran 
+            blah blah blah awk blah blah blah. Blah blah blah blah blah blah blah blah blah blah 
+            blah blah PGP TCP/IP blah blah blah. Blah cgi Modula-3 SQL blah blah blah Delphi blah 
+            LISP blah BETA mailing lists blah. Blah blah blah blah pepperoni pizza blah blah blah 
+            blah blah blah blah blah blah blah blah blah blah blah monitor blah. Blah blah blah 
+            blah blah blah blah blah blah parallel languages blah blah blah blah blah blah blah 
+            blah BEER! blah blah. Blah blah beer blah blah OpenGL monitor blah blah blah blah. 
+            Blah blah Phys blah blah blah blah blah blah blah blah blah "illiterate programming" 
+            blah blah C: drive.</font></para>
+    <setNextTemplate name="condPageBreak"/>
+    <nextFrame/>
+    <para alignment="center" style="h1">endDots</para>
+    <spacer length="0.5in"/>
+    <para style="normal">The <font face="Courier">endDots</font> attribute fills in the rest of the last line of the 
+            paragraph with the characters given for the attribute.</para>
+    <spacer length="0.5in"/>
+    <para style="dots">This paragraph should have dots following it until the end of the line.</para>
+    <spacer length="0.5in"/>
+    <para style="characters">This paragraph should have the characters "123" following it until the end of the 
+            line.</para>
+</story>
+</document>
