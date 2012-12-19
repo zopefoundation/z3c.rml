@@ -19,5 +19,10 @@
 
   <story>
     <title><getName id="DocTitle" /></title>
+
+    <namedString id="DocTitle">The Second Document Title</namedString>
+
+    <title><getName id="DocTitle" /></title>
   </story>
+
 </document>

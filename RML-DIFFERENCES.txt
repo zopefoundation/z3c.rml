@@ -133,12 +133,6 @@ naming.
 
 - cropMarks
 
-- startIndex
-
-- index
-
-- showIndex
-
 - bookmark: -fitType, -left, -top, -right, -zoom, x, y
 
 - bookmarkPage
@@ -146,8 +140,6 @@ naming.
 - join
 
 - length
-
-- namedString
 
 - param: -value
 

@@ -103,7 +103,11 @@ class DrawString(CanvasRMLDirective):
     def getPageNumber(self, elem, canvas):
         return str(canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1)
 
-    handleElements = {'pageNumber': getPageNumber}
+    def getName(self, elem, canvas):
+        return attr.getManager(self).names[elem.get('id')]
+
+    handleElements = {'pageNumber': getPageNumber,
+                      'getName': getName}
 
     def _getText(self, node, canvas):
         text = node.text or u''

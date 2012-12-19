@@ -1171,6 +1171,81 @@ class OutlineAdd(Flowable):
     klass = platypus.OutlineAdd
 
 
+class NamedStringFlowable(reportlab.platypus.flowables.Flowable):
+
+    def __init__(self, manager, id, value):
+        reportlab.platypus.flowables.Flowable.__init__(self)
+        self.manager = manager
+        self.id = id
+        self.value = value
+
+    def wrap(self, *args):
+        return (0, 0)
+
+    def draw(self):
+        self.manager.names[self.id] = self.value
+
+
+class INamedString(interfaces.IRMLDirectiveSignature):
+    """Defines a name for a string."""
+
+    id = attr.String(
+        title=u'Id',
+        description=u'The id under which the value will be known.',
+        required=True)
+
+    value = attr.XMLContent(
+        title=u'Value',
+        description=u'The text that is displayed if the id is called.',
+        required=True)
+
+class NamedString(directive.RMLDirective):
+    signature = INamedString
+
+    def process(self):
+        id, value = self.getAttributeValues(valuesOnly=True)
+        manager = attr.getManager(self)
+        # We have to delay assigning values, otherwise the last one wins.
+        self.parent.flow.append(NamedStringFlowable(manager, id, value))
+
+
+class IShowIndex(interfaces.IRMLDirectiveSignature):
+    """Creates an index in the document."""
+
+    name = attr.String(
+        title=u'Name',
+        description=u'The name of the index.',
+        default='index',
+        required=False)
+
+    dot = attr.String(
+        title=u'Dot',
+        description=u'The character to use as a dot.',
+        required=False)
+
+    style = attr.Style(
+        title=u'Style',
+        description=u'The paragraph style that is applied to the index. ',
+        required=False)
+
+    tableStyle = attr.Style(
+        title=u'Table Style',
+        description=u'The table style that is applied to the index layout. ',
+        required=False)
+
+class ShowIndex(directive.RMLDirective):
+    signature = IShowIndex
+
+    def process(self):
+        args = dict(self.getAttributeValues())
+        manager = attr.getManager(self)
+        index = manager.indexes[args['name']]
+        args['format'] = index.formatFunc.__name__[8:]
+        args['offset'] = index.offset
+        index.setup(**args)
+        self.parent.flow.append(index)
+
+
 class IFlow(interfaces.IRMLDirectiveSignature):
     """A list of flowables."""
     occurence.containing(
@@ -1205,7 +1280,9 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('bookmark', IBookmark),
         occurence.ZeroOrMore('link', ILink),
         occurence.ZeroOrMore('hr', IHorizontalRow),
+        occurence.ZeroOrMore('showIndex', IShowIndex),
         occurence.ZeroOrMore('name', special.IName),
+        occurence.ZeroOrMore('namedString', INamedString),
         )
 
 class Flow(directive.RMLDirective):
@@ -1246,8 +1323,10 @@ class Flow(directive.RMLDirective):
         'bookmark': Bookmark,
         'link': Link,
         'hr': HorizontalRow,
+        'showIndex': ShowIndex,
         # Special Elements
         'name': special.Name,
+        'namedString': NamedString,
         }
 
     def __init__(self, *args, **kw):

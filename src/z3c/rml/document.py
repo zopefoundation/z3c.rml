@@ -22,9 +22,10 @@ import zope.interface
 import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
 from reportlab.lib import colors, fonts
+from reportlab.platypus import tableofcontents
 
 from z3c.rml import attr, canvas, directive, interfaces, occurence
-from z3c.rml import pdfinclude, storyplace, stylesheet, template
+from z3c.rml import pdfinclude, special, storyplace, stylesheet, template
 
 
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
@@ -251,25 +252,60 @@ class ColorDefinition(directive.RMLDirective):
         raise ValueError('At least one color definition must be specified.')
 
 
+class IStartIndex(interfaces.IRMLDirectiveSignature):
+    """Start a new index."""
+
+    name = attr.String(
+        title=u'Name',
+        description=u'The name of the index.',
+        default='index',
+        required=True)
+
+    offset = attr.Integer(
+        title=u'Offset',
+        description=u'The counting offset.',
+        min=0,
+        required=False)
+
+    format = attr.Choice(
+        title=u'Format',
+        description=(u'The format the index is going to use.'),
+        choices=interfaces.LIST_FORMATS,
+        required=False)
+
+class StartIndex(directive.RMLDirective):
+    signature = IStartIndex
+
+    def process(self):
+        kwargs = dict(self.getAttributeValues())
+        name = kwargs['name']
+        manager = attr.getManager(self)
+        manager.indexes[name] = tableofcontents.SimpleIndex(**kwargs)
+
+
 class IDocInit(interfaces.IRMLDirectiveSignature):
     occurence.containing(
+        occurence.ZeroOrMore('name', special.IName),
+        occurence.ZeroOrMore('color', IColorDefinition),
+        occurence.ZeroOrMore('startIndex', IStartIndex),
         occurence.ZeroOrMore('registerType1Face', IRegisterType1Face),
         occurence.ZeroOrMore('registerFont', IRegisterFont),
         occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerCidFont', IRegisterCidFont),
         occurence.ZeroOrMore('registerFontFamily', IRegisterFontFamily),
-        occurence.ZeroOrMore('color', IColorDefinition),
         occurence.ZeroOrMore('addMapping', IAddMapping),
         )
 
 class DocInit(directive.RMLDirective):
     signature = IDocInit
     factories = {
+        'name': special.Name,
+        'color': ColorDefinition,
+        'startIndex': StartIndex,
         'registerType1Face': RegisterType1Face,
         'registerFont': RegisterFont,
         'registerTTFont': RegisterTTFont,
         'registerCidFont': RegisterCidFont,
-        'color': ColorDefinition,
         'addMapping': AddMapping,
         }
 
@@ -328,8 +364,16 @@ class Document(directive.RMLDirective):
         self.names = {}
         self.styles = {}
         self.colors = {}
+        self.indexes = {}
         self.postProcessors = []
         self.filename = '<unknown>'
+
+    def _indexAdd(self, canvas, name, label):
+        self.indexes[name](canvas, name, label)
+
+    def _beforeDocument(self):
+        self.doc.canv._indexAdd = self._indexAdd
+        self.doc.canv.manager = self
 
     def process(self, outputFile=None):
         """Process document"""
@@ -366,6 +410,7 @@ class Document(directive.RMLDirective):
         # Handle Flowable-based documents.
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
+            self.doc.beforeDocument = self._beforeDocument
             self.doc.multiBuild(self.flowables)
 
         # Process all post processors

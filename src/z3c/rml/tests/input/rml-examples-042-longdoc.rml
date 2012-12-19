@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "../rml.dtd">
+<document filename="test_042_longdoc.pdf">
+<docinit>
+
+    <!--here is how to set values for the first template to see -->
+    <name id="chapterName" value="The secret 'grey' chapter"/>
+    <name id="chapterColor" value="grey"/>
+
+    <!--This doesn't work because they never get 'drawn' and don't set their values'
+    <namedString id="chapterName">The secret "grey" chapter</namedString>
+    <namedString id="chapterColor">grey</namedString>
+    -->
+    <startIndex/>
+
+
+
+</docinit>
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+<pageTemplate id="covr">
+
+    	<pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        	<setFont name="Times-Bold" size="20"/>
+        	<drawCentredString x="297" y="720">Examples of long document features</drawCentredString>
+    	</pageGraphics>
+    	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+    </pageTemplate>
+
+    <pageTemplate id="cover">
+
+    	<pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        	<setFont name="Times-Bold" size="20"/>
+        	<drawCentredString x="297" y="620">Examples of long document features</drawCentredString>
+    	</pageGraphics>
+    	<frame id="first" x1="72" y1="72" width="451" height="400"/>
+    </pageTemplate>
+
+
+    <pageTemplate id="main">
+		<pageGraphics>
+		    <!--pageGraphics is parsed once, but yields a collection
+		    of drawing operations which are done lazily each time
+		    we start a page.  Therefore certain elements can be dynamic.
+		    We have a dynamic chapter name, page number, and colour
+		    selected for the bars.
+		    -->
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<setFont name="Helvetica-BoldOblique" size="18"/>
+
+
+			<drawRightString x="523" y="620"><getName id="chapterName"/></drawRightString>
+			<drawRightString x="523" y="40"><pageNumber/></drawRightString>
+
+        	<fill color="rml:chapterColor"/>
+        	<rect x="60" y="56" width="475" height="16" fill="yes" stroke="0"/>
+        	<rect x="60" y="700" width="475" height="16" fill="yes" stroke="0"/>
+
+		</pageGraphics>
+		<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle name="h1"
+	fontName="Helvetica-Bold"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+
+    <paraStyle name="normal"
+	fontName="Helvetica"
+	fontSize="10"
+    spaceBefore="6"
+	/>
+
+    <paraStyle name="code"
+	fontName="Courier"
+	fontSize="8"
+    leftIndent="36"
+    textColor="blue"
+	/>
+
+	<paraStyle name="TOC"
+    fontName="Helvetica"
+    fontSize="12"
+    />
+
+    <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+<story firstPageTemplate="cover">
+
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="cover"/>
+
+<para style="normal">This test case is here to try out various features commonly found in a multi-chapter brochure of catalog.</para>
+
+
+<setNextTemplate name="main"/>
+<nextPage/>
+<para>This page has an undefined colour and chapter name. </para>
+
+
+
+<namedString id="chapterName">The Red Chapter</namedString>
+<namedString id="chapterColor">#FF0000</namedString>
+<nextPage/>
+<para style="normal">The red chapter</para>
+<para style="normal">This is on page 3.  The template should be red, but that's variable.</para>
+<nextPage/>
+<para style="normal">More stuff in the red chapter.  This should be indexed under 'red'.
+   <index item="M&amp;S"/></para>
+
+
+<!--get ready for green-->
+<namedString id="chapterName">The Green Chapter</namedString>
+<namedString id="chapterColor">#00FF00</namedString>
+<!--template is drawn on nextPage -->
+<nextPage/>
+<para style="normal">The green chapter</para>
+<para style="normal">The template should be green, but that's variable.</para>
+<nextPage/>
+<para style="normal">More stuff in the green chapter.</para>
+
+
+<namedString id="chapterName">The Blue Chapter</namedString>
+<namedString id="chapterColor">#0000FF</namedString>
+
+<nextPage/>
+<para style="normal">The blue chapter</para>
+<para style="normal">The template should be blue, but that's variable.</para>
+<nextPage/>
+<para style="normal">More stuff in the blue chapter.</para>
+
+<!--Don't use <name> in the story; it sets when parsed,
+so doing this at end of story will set the default for the
+first chapter to pink.  We should have disallowed this in the DTD.
+<name id="chapterName" value="The secret 'pink' chapter"/>
+<name id="chapterColor" value="pink"/>
+
+-->
+
+<nextFrame/>
+<showIndex/>
+</story>
+</document>

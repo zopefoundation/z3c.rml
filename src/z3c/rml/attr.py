@@ -329,6 +329,10 @@ class Color(RMLAttribute):
         if self.acceptNone and value == 'None':
             return None
         manager = getManager(self.context)
+
+        if value.startswith('rml:'):
+            value = manager.names[value[4:]]
+
         if value in manager.colors:
             return manager.colors[value]
         try:
@@ -476,21 +480,8 @@ class RawXMLContent(RMLAttribute):
 
     def __init__(self, *args, **kw):
         super(RawXMLContent, self).__init__(*args, **kw)
-        # Do it in here, since we have a recursive problem otherwise
-        from z3c.rml import special
-        self.handleElements = {'getName': special.GetName}
-
-    def _substitute(self):
-        # Replace what we can replace
-        for subElement in self.context.element.iterdescendants():
-            if subElement.tag in self.handleElements:
-                substitute = self.handleElements[subElement.tag](
-                    subElement, self.context)
-                substitute.process()
 
     def get(self):
-        self._substitute()
-        # Now create the text
         # ReportLab's paragraph parser does not like attributes from other
         # namespaces; sigh. So we have to improvize.
         text = etree.tounicode(self.context.element)

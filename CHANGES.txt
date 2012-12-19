@@ -23,6 +23,11 @@ CHANGES
 
 - Implemented ``pageNumber`` element for all ``draw*String`` elements.
 
+- Implemented ``NamedString`` directive.
+
+- Implemented ``startIndex`` and ``showIndex`` directive. Also hooked up
+  ``index`` in paragraphs properly. You can now create real book indexes.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.
@@ -37,6 +42,10 @@ CHANGES
 
 - Bug: Specifying a color in any tag inside the paragraph would fail, if the
   color was a referenced name.
+
+- Bug: Moved premature ``getName`` evaluation into runtime to properly handle
+  synamic content now. This is now properly done for any paragraph and
+  draw string variant.
 
 
 1.1.0 (2012-12-18)

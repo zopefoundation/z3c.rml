@@ -55,7 +55,10 @@ class GetName(directive.RMLDirective):
     def process(self):
         id = dict(self.getAttributeValues()).pop('id')
         manager = attr.getManager(self)
-        text = manager.names[id] + (self.element.tail or u'')
+        try:
+            text = manager.names[id] + (self.element.tail or u'')
+        except:
+            import pdb; pdb.set_trace()
         # Now replace the element with the text
         parent = self.element.getparent()
         if parent.text is None:
