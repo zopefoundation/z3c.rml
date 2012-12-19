@@ -26,6 +26,7 @@ from z3c.rml import interfaces
 logging.raiseExceptions = False
 logger = logging.getLogger("z3c.rml")
 
+ABORT_ON_INVALID_DIRECTIVE = False
 
 def DeprecatedDirective(iface, reason):
     zope.interface.directlyProvides(iface, interfaces.IDeprecatedDirective)
@@ -92,18 +93,21 @@ class RMLDirective(object):
             # Ignore all comments
             if isinstance(element, etree._Comment):
                 continue
+            # Raise an error/log any unknown directive.
+            if element.tag not in self.factories:
+                msg = "Directive %r could not be processed and was " \
+                      "ignored. %s" %(element.tag, getFileInfo(self))
+                # Record any tags/elements that could not be processed.
+                logger.warn(msg)
+                if ABORT_ON_INVALID_DIRECTIVE:
+                    raise ValueError(msg)
+                continue
             if select is not None and element.tag not in select:
                 continue
             if ignore is not None and element.tag in ignore:
                 continue
-            # If the element is a directive, process it
-            if element.tag in self.factories:
-                directive = self.factories[element.tag](element, self)
-                directive.process()
-            else:
-                # Record any tags/elements that could not be processed.
-                logger.warn("Directive %r could not be processed and was "
-                            "ignored. %s" %(element.tag, getFileInfo(self)))
+            directive = self.factories[element.tag](element, self)
+            directive.process()
 
     def process(self):
         self.processSubDirectives()
