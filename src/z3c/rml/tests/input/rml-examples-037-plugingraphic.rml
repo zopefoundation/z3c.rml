@@ -1,0 +1,16 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_037_plugingraphic.pdf" invariant="1">
+
+<stylesheet/>
+
+<pageDrawing>
+ <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 38: Plugingraphic</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+
+<plugInGraphic module="z3c.rml.tests.module" function="symbols">n=4,x="1in",y="7in",name="StarFive",dx="15pt",dy="0",size="10pt",fillColor="red",strokeColor="blue",strokeWidth="1.5pt"</plugInGraphic>
+<plugInGraphic module="z3c.rml.tests.module" function="symbols">n=5,x="2in",y="8in",name="StarFive",dx="20pt",dy="0",size="25pt",fillColor="blue",strokeColor="red",strokeWidth="0.5pt"</plugInGraphic>
+<plugInGraphic module="z3c.rml.tests.module" function="symbols">n=7,x="3in",y="9in",name="StarFive",dx="17",dy="0",size="12",fillColor="purple",strokeColor="none"</plugInGraphic>
+</pageDrawing>
+</document>

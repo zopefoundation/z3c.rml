@@ -55,6 +55,11 @@ CHANGES
 - Implemented the ``ABORT_ON_INVALID_DIRECTIVE`` flag, that when set ``True``
   will raise a ``ValueError`` error on the first occurence of a bad tag.
 
+- Implemented ``setFontSize`` directive for page drawings.
+
+- Implemented ``plugInGraphic`` which allows inserting graphics rendered in
+  Python.
+
 - Bug: Due to a logic error, bad directives were never properly detected and
   logged about.
 

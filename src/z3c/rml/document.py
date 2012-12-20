@@ -414,6 +414,7 @@ class Document(directive.RMLDirective):
                 ))
 
             self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
+            self.canvas.manager = self
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
             self.canvas.save()
 

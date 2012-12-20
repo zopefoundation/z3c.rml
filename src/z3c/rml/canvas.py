@@ -633,6 +633,24 @@ class SetFont(CanvasRMLDirective):
     attrMapping = {'name': 'psfontname'}
 
 
+class ISetFontSize(interfaces.IRMLDirectiveSignature):
+    """Set the font size."""
+
+    size = attr.Measurement(
+        title=u'Size',
+        description=(u'The font size.'),
+        required=True)
+
+    leading = attr.Measurement(
+        title=u'Leading',
+        description=(u'The font leading.'),
+        required=False)
+
+class SetFontSize(CanvasRMLDirective):
+    signature = ISetFontSize
+    callable = 'setFontSize'
+
+
 class IScale(interfaces.IRMLDirectiveSignature):
     """Scale the drawing using x and y scaling factors."""
 
@@ -815,6 +833,37 @@ class Bookmark(CanvasRMLDirective):
         canvas.bookmarkPage(**args)
 
 
+class IPlugInGraphic(interfaces.IRMLDirectiveSignature):
+    """Inserts a custom graphic developed in Python."""
+
+    module = attr.String(
+        title=u'Module',
+        description=u'The Python module in which the flowable is located.',
+        required=True)
+
+    function = attr.String(
+        title=u'Function',
+        description=(u'The name of the factory function within the module '
+                     u'that returns the custom flowable.'),
+        required=True)
+
+    params = attr.TextNode(
+        title=u'Parameters',
+        description=(u'A list of parameters encoded as a long string.'),
+        required=False)
+
+class PlugInGraphic(CanvasRMLDirective):
+    signature = IPlugInGraphic
+
+    def process(self):
+        modulePath, functionName, params = self.getAttributeValues(
+            valuesOnly=True)
+        module = __import__(modulePath, {}, {}, [modulePath])
+        function = getattr(module, functionName)
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        function(canvas, params)
+
+
 class IDrawing(interfaces.IRMLDirectiveSignature):
     """A container directive for all directives that draw directly on the
     cnavas."""
@@ -843,6 +892,7 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('fill', IFill),
         occurence.ZeroOrMore('stroke', IStroke),
         occurence.ZeroOrMore('setFont', ISetFont),
+        occurence.ZeroOrMore('setFontSize', ISetFontSize),
         occurence.ZeroOrMore('scale', IScale),
         occurence.ZeroOrMore('translate', ITranslate),
         occurence.ZeroOrMore('rotate', IRotate),
@@ -864,6 +914,7 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('spiderChart', chart.ISpiderChart),
         # Misc
         occurence.ZeroOrMore('bookmark', IBookmark),
+        occurence.ZeroOrMore('plugInGraphic', IPlugInGraphic),
         )
 
 class Drawing(directive.RMLDirective):
@@ -899,6 +950,7 @@ class Drawing(directive.RMLDirective):
         'fill': Fill,
         'stroke': Stroke,
         'setFont': SetFont,
+        'setFontSize': SetFontSize,
         'scale': Scale,
         'translate': Translate,
         'rotate': Rotate,
@@ -915,6 +967,7 @@ class Drawing(directive.RMLDirective):
         'spiderChart': chart.SpiderChart,
         # Misc
         'bookmark': Bookmark,
+        'plugInGraphic': PlugInGraphic,
         }
 
 

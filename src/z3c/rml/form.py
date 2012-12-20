@@ -203,7 +203,10 @@ class IBarCode(IBarCodeBase):
         default=0,
         required=False)
 
-
+    isoScale = attr.Boolean(
+        title=u'Isometric Scaling',
+        description=u'When set, the aspect ration of the barcode is enforced.',
+        required=False)
 
 class BarCode(directive.RMLDirective):
     signature = IBarCode

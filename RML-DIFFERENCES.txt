@@ -8,6 +8,14 @@ library and z3c.rml.
 Incompatibilies
 ---------------
 
+- ``<barCode>``
+
+  * Most barcode attributes available via the API and the flowable are not
+    supported in the drawing version in RML2PDF. I have no idea why!
+
+  * `isoScale`: This attributes forces the bar code to keep the original
+    aspect ratio. This is straight from the API.
+
 - ``<barCodeFlowable>``
 
   * `widthSize`: This is called `width` in this implementation to match the
@@ -42,8 +50,6 @@ naming.
 
 - pre/xpre: -bulletText, -dedent, -text
 
-- plugInFlowable: -params
-
 - blockTable: -repeatRows, -alignment
 
 - drawing
@@ -51,8 +57,6 @@ naming.
 - widget
 
 - evalString
-
-- -keepTogether
 
 - image: -showBoundary, -preserveAspectRatio
 
@@ -68,15 +72,12 @@ naming.
 
 - img
 
-- barCode: -<everything, except, x, y, code>
 
 - checkBox
 
 - letterBoxes
 
 - textBox
-
-- setFont: -leading
 
 - form
 

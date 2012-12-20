@@ -332,7 +332,7 @@ class Color(RMLAttribute):
         self.acceptNone = acceptNone
 
     def fromUnicode(self, value):
-        if self.acceptNone and value == 'None':
+        if self.acceptNone and value.lower() == 'none':
             return None
         manager = getManager(self.context)
 

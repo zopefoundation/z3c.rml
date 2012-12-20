@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-setFontSize.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <pageDrawing>
+    <setFont name="Helvetica" size="9" />
+    <drawString x="1in" y="10in" >Text in Helvetica 9</drawString>
+    <setFont name="Helvetica" size="12" doc:example="" />
+    <drawString x="1in" y="8in" >Text in Helvetica 12</drawString>
+  </pageDrawing>
+
+</document>
