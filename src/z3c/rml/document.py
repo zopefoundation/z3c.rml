@@ -24,7 +24,7 @@ from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
 from reportlab.lib import colors, fonts
 from reportlab.platypus import tableofcontents
 
-from z3c.rml import attr, canvas, directive, interfaces, occurence
+from z3c.rml import attr, canvas, directive, interfaces, list, occurence
 from z3c.rml import pdfinclude, special, storyplace, stylesheet, template
 
 

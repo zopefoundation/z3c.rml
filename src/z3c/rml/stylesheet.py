@@ -567,12 +567,104 @@ class BlockTableStyle(directive.RMLDirective):
         manager.styles[id] = self.style
 
 
+class IMinimalListStyle(interfaces.IRMLDirectiveSignature):
+
+    leftIndent = attr.Measurement(
+        title=u'Left Indentation',
+        description=u'General indentation on the left side.',
+        required=False)
+
+    rightIndent = attr.Measurement(
+        title=u'Right Indentation',
+        description=u'General indentation on the right side.',
+        required=False)
+
+    bulletColor = attr.Color(
+        title=u'Bullet Color',
+        description=u'The color in which the bullet will appear.',
+        required=False)
+
+    bulletFontName = attr.String(
+        title=u'Bullet Font Name',
+        description=u'The font in which the bullet character will be rendered.',
+        required=False)
+
+    bulletFontSize = attr.Measurement(
+        title=u'Bullet Font Size',
+        description=u'The font size of the bullet character.',
+        required=False)
+
+    bulletOffsetY = attr.Measurement(
+        title=u'Bullet Y-Offset',
+        description=u'The vertical offset of the bullet.',
+        required=False)
+
+    bulletDedent = attr.StringOrInt(
+        title=u'Bullet Dedent',
+        description=u'Either pixels of dedent or auto (default).',
+        required=False)
+
+    bulletDir = attr.Choice(
+        title=u'Bullet Layout Direction',
+        description=u'The layout direction of the bullet.',
+        choices=('ltr', 'rtl'),
+        required=False)
+
+    bulletFormat = attr.String(
+        title=u'Bullet Format',
+        description=u'A formatting expression for the bullet text.',
+        required=False)
+
+class IBaseListStyle(IMinimalListStyle):
+
+    start = attr.Combination(
+        title=u'Start Value',
+        description=u'The counter start value.',
+        value_types=(attr.Integer(),
+                     attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES)),
+        required=False)
+
+
+class IListStyle(IBaseListStyle):
+    """Defines a list style and gives it a name."""
+
+    name = attr.String(
+        title=u'Name',
+        description=u'The name of the style.',
+        required=True)
+
+    parent = attr.Style(
+        title=u'Parent',
+        description=(u'The list style that will be used as a base for '
+                     u'this one.'),
+        required=False)
+
+
+class ListStyle(directive.RMLDirective):
+    signature = IListStyle
+
+    def process(self):
+        kwargs = dict(self.getAttributeValues())
+        parent = kwargs.pop(
+            'parent', reportlab.lib.styles.ListStyle(name='List'))
+        name = kwargs.pop('name')
+        style = copy.deepcopy(parent)
+        style.name = name[6:] if name.startswith('style.') else name
+
+        for name, value in kwargs.items():
+            setattr(style, name, value)
+
+        manager = attr.getManager(self)
+        manager.styles[style.name] = style
+
+
 class IStylesheet(interfaces.IRMLDirectiveSignature):
     """A styleheet defines the styles that can be used in the document."""
     occurence.containing(
         occurence.ZeroOrOne('initialize', IInitialize),
         occurence.ZeroOrMore('paraStyle', IParagraphStyle),
         occurence.ZeroOrMore('blockTableStyle', IBlockTableStyle),
+        occurence.ZeroOrMore('listStyle', IListStyle),
         # TODO:
         #occurence.ZeroOrMore('boxStyle', IBoxStyle),
         )
@@ -584,4 +676,5 @@ class Stylesheet(directive.RMLDirective):
         'initialize': Initialize,
         'paraStyle': ParagraphStyle,
         'blockTableStyle': BlockTableStyle,
+        'listStyle': ListStyle,
         }

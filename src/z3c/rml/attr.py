@@ -37,12 +37,12 @@ MISSING = object()
 logger = logging.getLogger("z3c.rml")
 
 
-def getFileInfo(attr):
-    root = attr.context
+def getFileInfo(directive):
+    root = directive
     while root.parent:
         root = root.parent
     return '(file %s, line %i)' % (
-        root.filename, attr.context.element.sourceline)
+        root.filename, directive.element.sourceline)
 
 
 def getManager(context, interface=None):
@@ -87,7 +87,7 @@ class RMLAttribute(zope.schema.Field):
             name = self.deprecatedName
             logger.warn(
                 u'Deprecated attribute "%s": %s %s' % (
-                name, self.deprecatedReason, getFileInfo(self)))
+                name, self.deprecatedReason, getFileInfo(self.context)))
         else:
             name = self.__name__
         # Extract the value.
@@ -102,14 +102,16 @@ class RMLAttribute(zope.schema.Field):
 
 class BaseChoice(RMLAttribute):
     choices = {}
+    doLower = True
 
     def fromUnicode(self, value):
-        value = value.lower()
+        if self.doLower:
+            value = value.lower()
         if value in self.choices:
             return self.choices[value]
         raise ValueError(
             '%r not a valid value for attribute "%s". %s' % (
-            value, self.__name__, getFileInfo(self)))
+            value, self.__name__, getFileInfo(self.context)))
 
 
 class Combination(RMLAttribute):
@@ -127,7 +129,8 @@ class Combination(RMLAttribute):
             except ValueError:
                 pass
         raise ValueError(
-            '"%s" is not a valid value. %s' %(value, getFileInfo(self)))
+            '"%s" is not a valid value. %s' %(
+                value, getFileInfo(self.context)))
 
 
 class String(RMLAttribute, zope.schema.Bytes):
@@ -185,18 +188,21 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
             (self.max_length is not None and len(result) > self.max_length)):
             raise ValueError(
                 'Length of sequence must be at least %s and at most %i. %s' % (
-                self.min_length, self.max_length, getFileInfo(self)))
+                self.min_length, self.max_length,
+                getFileInfo(self.context)))
         return result
 
 
 class Choice(BaseChoice):
     """A choice of several values. The values are always case-insensitive."""
 
-    def __init__(self, choices=None, *args, **kw):
+    def __init__(self, choices=None, doLower=True, *args, **kw):
         super(Choice, self).__init__(*args, **kw)
         if isinstance(choices, (tuple, list)):
-            choices = dict([(val.lower(), val) for val in choices])
+            choices = dict(
+                [(val.lower() if doLower else val, val) for val in choices])
         self.choices = choices
+        self.doLower = doLower
 
 
 class Boolean(BaseChoice):
@@ -252,7 +258,7 @@ class Measurement(RMLAttribute):
                 return unit[1]*float(res.group(1))
         raise ValueError(
             'The value %r is not a valid measurement. %s' % (
-            value, getFileInfo(self)))
+            value, getFileInfo(self.context)))
 
 
 class File(Text):
@@ -278,7 +284,7 @@ class File(Text):
             if result is None:
                 raise ValueError(
                     'The package-path-pair you specified was incorrect. %s' %(
-                    getFileInfo(self)))
+                    getFileInfo(self.context)))
             modulepath, path = result.groups()
             module = __import__(modulepath, {}, {}, (modulepath))
             value = os.path.join(os.path.dirname(module.__file__), path)
@@ -341,7 +347,7 @@ class Color(RMLAttribute):
         except:
             raise ValueError(
                 'The color specification "%s" is not valid. %s' % (
-                value, getFileInfo(self)))
+                value, getFileInfo(self.context)))
 
 def _getStyle(context, value):
     manager = getManager(context)
@@ -354,7 +360,7 @@ def _getStyle(context, value):
         elif value.startswith('style.') and value[6:] in styles:
             return styles[value[6:]]
     raise ValueError('Style %r could not be found. %s' % (
-        value, getFileInfo(self)))
+        value, getFileInfo(context)))
 
 class Style(String):
     """Requires a valid style to be entered.
@@ -467,7 +473,7 @@ class TextNodeGrid(TextNodeSequence):
         if len(result) % self.columns != 0:
             raise ValueError(
                 'Number of elements must be divisible by %i. %s' %(
-                self.columns, getFileInfo(self)))
+                self.columns, getFileInfo(self.context)))
         return [result[i*self.columns:(i+1)*self.columns]
                 for i in range(len(result)/self.columns)]
 

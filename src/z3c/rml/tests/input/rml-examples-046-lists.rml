@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_046_lists.pdf">
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 53: Lists</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica" size="10"/>
+		<drawCenteredString x="297" y="36"><pageNumber countingFrom="1"/></drawCenteredString>
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	<pageTemplate id="main2">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 53: Lists</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica" size="10"/>
+		<drawCenteredString x="297" y="36"><pageNumber countingFrom="1"/></drawCenteredString>
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" />
+	<paraStyle name="bodytext" parent="normal" spaceBefore="6" />
+	<paraStyle name="lpsty" parent="bodytext" spaceAfter="18" />
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="12" spaceBefore = "0.5cm" />
+	<blockTableStyle id="redgreen" spaceBefore="20">
+		<!--blockAlignment value="left"/>
+		<blockValign value="top"/>
+		<blockBottomPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockLeftPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockTopPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockRightPadding length="0" start="0,0" stop="-1,-1"/-->
+		<lineStyle start="0,0" stop="-1,-1" kind="GRID" colorName="green"/>
+		<lineStyle start="0,0" stop="-1,-1" kind="BOX" colorName="red" thickness="2"/>
+		<!--blockBackground colorName="pink" start="0,0" stop="-1,-1"/>
+		<blockBackground colorName="yellow" start="0,0" stop="-1,-1"/-->
+	</blockTableStyle>
+	<listStyle name="blah" spaceAfter="10" bulletType="A" spaceBefore="23" />
+	<listStyle name="square" spaceAfter="10" bulletType="bullet" spaceBefore="23" bulletColor="red" start="square"/>
+</stylesheet>
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="main2"/>
+	<ol>
+		<li><para style="lpsty">A table with 5 rows</para></li>
+		<li>
+			<blockTable style="redgreen" colWidths="50,100,200">
+				<tr><td>1</td><td><para style="bodytext"></para></td><td><para style="normal"></para></td></tr>
+				<tr><td>2</td><td><para style="bodytext">xx </para></td><td><para style="normal">blah </para></td></tr>
+				<tr><td>3</td><td><para style="bodytext">xx xx </para></td><td><para style="normal">blah blah </para></td></tr>
+				<tr><td>4</td><td><para style="bodytext">xx xx xx </para></td><td><para style="normal">blah blah blah </para></td></tr>
+				<tr><td>5</td><td><para style="bodytext">xx xx xx xx </para></td><td><para style="normal">blah blah blah blah </para></td></tr>
+			</blockTable>
+		</li>
+		<li>
+			<para style="normal">A sublist</para>
+		</li>
+		<li value="7">
+			<ol bulletType="i">
+				<li spaceBefore="6"><para style="normal">Another table with 3 rows</para></li>
+				<li>
+					<blockTable style="redgreen" colWidths="60,90,180">
+						<tr><td>1</td><td><para style="bodytext"></para></td><td><para style="normal"></para></td></tr>
+						<tr><td>2</td><td><para style="bodytext">xx </para></td><td><para style="normal">blah </para></td></tr>
+						<tr><td>3</td><td><para style="bodytext">xx xx </para></td><td><para style="normal">blah blah </para></td></tr>
+					</blockTable>
+				</li>
+				<li><para style="normal">We have already seen that the notion of level of grammaticalness is,
+apparently, determined by a corpus of utterance tokens upon which
+conformity has been defined by the paired utterance test.  If the
+position of the trace in (99c) were only relatively inaccessible to
+movement, a descriptively adequate grammar suffices to account for the
+traditional practice of grammarians.  Notice, incidentally, that this
+analysis of a formative as a pair of sets of features cannot be
+arbitrary in the strong generative capacity of the theory.</para>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<para style="normal">An unordered sublist</para>
+		</li>
+		<li>
+			<ul>
+				<li spaceBefore="6"><para style="normal">A table with 2 rows</para></li>
+				<li bulletColor="green" spaceAfter="6">
+					<blockTable style="redgreen" colWidths="60,90,180">
+						<tr><td>1</td><td><para style="bodytext">zz zz zz </para></td><td><para style="normal">duh duh duh </para></td></tr>
+						<tr><td>2</td><td><para style="bodytext">yy yy yy yy </para></td><td><para style="normal">duh duh duh duh </para></td></tr>
+					</blockTable>
+				</li>
+				<li bulletColor="red" value="square"><para style="normal">In the discussion of resumptive pronouns following (81), this
+selectionally introduced contextual feature is to be regarded as a
+parasitic gap construction.  With this clarification, the systematic use
+of complex symbols is not to be considered in determining a descriptive
+fact.  On our assumptions, the notion of level of grammaticalness is
+necessary to impose an interpretation on the strong generative capacity
+of the theory.	It appears that a descriptively adequate grammar is not
+subject to the requirement that branching is not tolerated within the
+dominance scope of a complex symbol.  Comparing these examples with
+their parasitic gap counterparts in (96) and (97), we see that this
+selectionally introduced contextual feature is rather different from a
+parasitic gap construction.</para>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<para style="normal">Of course, the systematic use of complex symbols raises serious doubts
+about a stipulation to place the constructions into these various
+categories.  By combining adjunctions and certain deformations, the
+natural general principle that will subsume this case is to be regarded
+as a descriptive fact.	This suggests that this analysis of a formative
+as a pair of sets of features suffices to account for the requirement
+that branching is not tolerated within the dominance scope of a complex
+symbol.</para>
+		</li>
+	</ol>
+	<ol style="blah">
+		<li><para style="normal">item should be A</para></li>
+		<li><para style="normal">item should be B</para></li>
+	</ol>
+	<ol>
+		<li><para style="normal">item should be 1</para></li>
+		<li><para style="normal">item should be 2</para></li>
+	</ol>
+	<ol bulletType="i">
+		<li><para style="normal">item should be i</para><para style="normal">a second paragraph</para></li>
+		<li><para style="normal">item should be ii</para></li>
+	</ol>
+	<ol bulletType="I">
+		<li><para style="normal">item should be I</para></li>
+		<li><para style="normal">item should be II</para><para style="normal">another paragraph</para></li>
+	</ol>
+
+	<ul style="square">
+		<li><para style="normal">para 1</para></li>
+		<li><para style="normal">para 2</para><para style="normal">another paragraph</para></li>
+		<li value="circle" bulletColor="green"><para style="normal">para 3</para></li>
+	</ul>
+</story>
+</document>

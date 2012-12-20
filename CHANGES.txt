@@ -28,6 +28,10 @@ CHANGES
 - Implemented ``startIndex`` and ``showIndex`` directive. Also hooked up
   ``index`` in paragraphs properly. You can now create real book indexes.
 
+- Implemented ``ol``, ``ul``, and ``li`` directives, which allow highly
+  flexible lists to be created. Also implemented a complimentary ``listStyle``
+  directive.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

@@ -12,13 +12,9 @@ naming.
 
 - docinit: pageMode, pageLayout, useCropMarks
    * alias
-   * name
-   * namedString
    * outlineAdd
-   * registerFontFamily
    * logConfig
    * cropMarks
-   * startIndex
 
 - template: firstPageTemplate
 
@@ -48,25 +44,11 @@ naming.
 
 - widget
 
-- para: -fontName, -fontSize, -leading, -leftIndent, -rightIndent,
-  -firstLineIndent, -spaceBefore, -spaceAfter, -alignement, -bulletFontName,
-  -bulletFontSize, -bulletIndent, -textColor, -backColor, -keepWithText,
-  -wordWrap, -borderColor, -borderWidth, -borderPadding, -borderRadius,
-  -dedent
-
-- title: -<same as para>
-
-  -> Ditto h*
-
 - a
 
 - evalString
 
 - -keepTogether
-
-- pto
-   * pto_trailer
-   * pto_header
 
 - image: -showBoundary, -preserveAspectRatio
 
@@ -166,7 +148,5 @@ naming.
 - -pdfInclude
 
 - rectangle, table row, table cell, etc.: href and/or destination (Test 038)
-
-- ol, ul, li
 
 - -addMapping
