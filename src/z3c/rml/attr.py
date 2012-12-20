@@ -450,7 +450,7 @@ class FirstLevelTextNode(TextNode):
         return text.strip()
 
 
-class TextNodeSequence(Sequence):
+class TextNodeSequence(Sequence, TextNode):
     """A sequence of values retrieved from the element's content."""
 
     def get(self):

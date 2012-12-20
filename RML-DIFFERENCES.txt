@@ -19,6 +19,9 @@ Incompatibilies
   * `tracking`: This is only used for USPS4S and the API actually uses the
     `value` argument for this. Thus this attribute is omitted.
 
+- ``<keepTogether>``: This directive is not implemented in RML2PDF, but there
+  exists an API flowable for it and it seems obviously useful.
+
 To be Done
 ----------
 

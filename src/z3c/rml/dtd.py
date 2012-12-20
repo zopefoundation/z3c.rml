@@ -36,15 +36,20 @@ def generateElement(name, signature):
         subElementList.append(
             occurence.tag + occurence2Symbol.get(occurence.__class__, '')
             )
-    fields = zope.schema.getFields(signature).keys()
-    if len(fields) == 1 and isinstance(fields[0], attr.TextNode):
-        subElementList.append('#PCDATA')
+    fields = zope.schema.getFieldsInOrder(signature)
+    for attrName, field in fields:
+        if isinstance(field, attr.TextNode):
+            subElementList.append('#PCDATA')
+            break
     subElementList = ','.join(subElementList)
     if subElementList:
         subElementList = ' (' + subElementList + ')'
     text = '\n<!ELEMENT %s%s>' %(name, subElementList)
     # Create a list of attributes for this element.
-    for attrName, field in zope.schema.getFieldsInOrder(signature):
+    for attrName, field in fields:
+        # Ignore text nodes, since they are not attributes.
+        if isinstance(field, attr.TextNode):
+            continue
         # Create the type
         if isinstance(field, attr.Choice):
             type = '(' + '|'.join(field.choices.keys()) + ')'
