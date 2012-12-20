@@ -166,22 +166,23 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         description=u'The Page Size.',
         required=False)
 
-    rotation = attr.Integer(
-        title=u'Rotation',
-        description=u'The rotation of the page in multiples of 90 degrees.',
+    autoNextTemplate = attr.String(
+        title=u'Auto Next Page Template',
+        description=u'The page template to use automatically for the next page.',
         required=False)
 
 
 
 class PageTemplate(directive.RMLDirective):
     signature = IPageTemplate
+    attrMapping = {'autoNextTemplate': 'autoNextPageTemplate'}
     factories = {
         'frame': Frame,
         'pageGraphics': PageGraphics,
         }
 
     def process(self):
-        args = dict(self.getAttributeValues())
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
         pagesize = args.pop('pagesize', None)
 
         self.frames = []

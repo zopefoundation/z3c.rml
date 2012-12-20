@@ -1,0 +1,149 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_039_doc_programming.pdf" invariant="1">
+
+<template pageSize="letter" leftMargin="72" showBoundary="1">
+<pageTemplate id="main" pageSize="letter portrait">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	
+	<pageTemplate id="main2" pageSize="letter portrait">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<drawRightString x="523" y="800">RML2PDF Test Suite</drawRightString>
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+	<pageTemplate id="autoNextTemplate" pageSize="letter portrait" autoNextTemplate="autoFollow">
+		<pageGraphics>
+			<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<drawString x="72" y="72">template is autoNextTemplate</drawString>
+		</pageGraphics>
+		<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+	<pageTemplate id="autoFollow" pageSize="letter portrait">
+		<pageGraphics>
+			<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<drawString x="72" y="72">template is autoFollow</drawString>
+		</pageGraphics>
+		<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12"
+		spaceBefore="12" spaceAfter="12"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+<setNextTemplate name="main2"/>
+	<para style="normal">Hello World.  This is a normal paragraph. Blah <font color="red">IPO</font> blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah. Here are some common characters &amp;#x92; = &#x92;
+	</para>
+	<para style="normal">This is another normal paragraph. Blah IPO blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah.
+	</para>
+	<para style="normal">
+	I should NOT have a tiny leading space in front of me!
+	</para>
+	<para style="spaced">This is spaced.  There should be 12 points before and after.</para>
+	<para style="normal">Hello World.  This is a normal paragraph. Blah IPO blah blah blah blah growth forecast blah
+blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
+blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
+proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
+blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
+blah blah forward-thinking blah.
+	</para>
+<docAssign var='currentFrame' expr='doc.frame.id'/>
+<docAssign var='currentPageTemplate' expr='doc.pageTemplate.id'/>
+<docAssign var='aW' expr='availableWidth'/>
+<docAssign var='aH' expr='availableHeight'/>
+<docAssign var='aWH' expr='availableWidth,availableHeight'/>
+<docAssign var='i' expr="3"/>
+<docIf cond='i&gt;3'>
+	<para style="normal">The value of i is larger than 3</para>
+<docElse/>
+	<para style="normal">The value of i is not larger than to 3</para>
+</docIf>
+<docIf cond='i==3'>
+	<para style="normal">The value of i is equal to 3</para>
+<docElse/>
+	<para style="normal">The value of i is not equal to 3</para>
+</docIf>
+<docIf cond='i&lt;3'>
+	<para style="normal">The value of i is less than 3</para>
+<docElse/>
+	<para style="normal">The value of i is not less than to 3</para>
+</docIf>
+<docWhile cond='i'>
+	<docPara expr='i' format='The value of i is %(__expr__)d'/>
+	<docExec stmt='i-=1'/>
+</docWhile>
+<docPara expr='repr(doc._nameSpace)' escape="1"/>
+<docWhile cond="doc.page&lt;3">
+	<nextPage/>
+	<docIf cond="doc.page&lt;3">
+		<para style="normal">This is the thenPart</para>
+		<para style="normal">thenPart.....</para>
+	<docElse/>
+		<para style="normal">This is the elsePart</para>
+		<para style="normal">elsePart.....</para>
+	</docIf>
+</docWhile>
+<para style="normal">Now we should be on page 3</para>
+<setNextTemplate name="autoNextTemplate"/>
+<nextPage/>
+<para style="normal">This should be on a template called autoNextTemplate</para>
+<docAssert cond="doc.pageTemplate.id=='autoNextTemplate'" format="expected doc.pageTemplate.id=='autoNextTemplate'"/>
+<nextPage/>
+<para style="normal">This should be on a template called autoFollow</para>
+<docAssert cond="doc.pageTemplate.id=='autoFollow'" format="expected doc.pageTemplate.id=='autoFollow'"/>
+<setNextTemplate name="autoNextTemplate"/>
+<nextPage/>
+<para style="normal">(2)This should be on a template called autoNextTemplate</para>
+<docAssert cond="doc.pageTemplate.id=='autoNextTemplate'" format="expected doc.pageTemplate.id=='autoNextTemplate'"/>
+<setNextTemplate name="main"/>
+<nextPage/>
+<para style="normal">This should be on a template called main</para>
+<docAssert cond="doc.pageTemplate.id=='main'" format="expected doc.pageTemplate.id=='main'"/>
+
+</story>
+
+</document>

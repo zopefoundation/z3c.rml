@@ -26,20 +26,6 @@ naming.
 
 - blockTable: -repeatRows, -alignment
 
-- docAssert (reportlab.platypus.flowables.DocAssert) (Test 39)
-
-- docAssign (reportlab.platypus.flowables.DocAssign)
-
-- docElse (reportlab.platypus.flowables.DocIf)
-
-- docIf (reportlab.platypus.flowables.DocIf)
-
-- docExec (reportlab.platypus.flowables.DocExec)
-
-- docPara (reportlab.platypus.flowables.DocPara)
-
-- docWhile (reportlab.platypus.flowables.DocWhile)
-
 - drawing
 
 - widget
