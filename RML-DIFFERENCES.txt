@@ -93,25 +93,13 @@ naming.
 
 - frame: -*Padding, -showBoundary
 
-- getName
-
-- color: value -> RGB
-
-- outlineAdd: -key
-
 - cropMarks
-
-- bookmark: -fitType, -left, -top, -right, -zoom, x, y
-
-- bookmarkPage
 
 - join
 
 - length
 
 - param: -value
-
-- registerCidFont: +encName
 
 - setFontSize (plain canvas op)
 

@@ -773,6 +773,48 @@ class LineMode(CanvasRMLDirective):
             canvas.setDash(kw['dash'])
 
 
+class IBookmark(interfaces.IRMLDirectiveSignature):
+    """
+    This creates a bookmark to the current page which can be referred to with
+    the given key elsewhere.
+    """
+
+    name = attr.Text(
+        title=u'Name',
+        description=u'The name of the bookmark.',
+        required=True)
+
+    fit = attr.Choice(
+        title=u'Fit',
+        description=u'The Fit Type.',
+        choices=('XYZ', 'Fit', 'FitH', 'FitV', 'FitR'),
+        required=False)
+
+    zoom = attr.Float(
+        title=u'Zoom',
+        description=u'The zoom level when clicking on the bookmark.',
+        required=False)
+
+    x = attr.Measurement(
+        title=u'X-Position',
+        description=u'The x-position.',
+        required=False)
+
+    y = attr.Measurement(
+        title=u'Y-Position',
+        description=u'The y-position.',
+        required=False)
+
+class Bookmark(CanvasRMLDirective):
+    signature = IBookmark
+
+    def process(self):
+        args = dict(self.getAttributeValues())
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        args['left'], args['top'] = canvas.absolutePosition(args['x'], args['y'])
+        canvas.bookmarkPage(**args)
+
+
 class IDrawing(interfaces.IRMLDirectiveSignature):
     """A container directive for all directives that draw directly on the
     cnavas."""
@@ -820,6 +862,8 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('pieChart', chart.IPieChart),
         occurence.ZeroOrMore('pieChart3D', chart.IPieChart3D),
         occurence.ZeroOrMore('spiderChart', chart.ISpiderChart),
+        # Misc
+        occurence.ZeroOrMore('bookmark', IBookmark),
         )
 
 class Drawing(directive.RMLDirective):
@@ -868,7 +912,9 @@ class Drawing(directive.RMLDirective):
         'linePlot3D': chart.LinePlot3D,
         'pieChart': chart.PieChart,
         'pieChart3D': chart.PieChart3D,
-        'spiderChart': chart.SpiderChart
+        'spiderChart': chart.SpiderChart,
+        # Misc
+        'bookmark': Bookmark,
         }
 
 

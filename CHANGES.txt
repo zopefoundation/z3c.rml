@@ -44,6 +44,10 @@ CHANGES
 
 - Added ``encName`` attribute to ``registerCidFont`` directive.
 
+- Renamed ``bookmark`` to ``bookmarkPage``.
+
+- Created a new Canvas directive called ``bookmark``.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

@@ -181,7 +181,7 @@
       <outlineAdd level="1" tal:content="directive/name">
         Element Name
       </outlineAdd>
-      <bookmark tal:attributes="name directive/id"/>
+      <bookmarkPage tal:attributes="name directive/id"/>
       <para style="deprecation"
             tal:condition="directive/deprecated">
         <b>Deprecated:</b>

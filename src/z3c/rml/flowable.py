@@ -984,7 +984,7 @@ class FixedSize(Flowable):
         self.parent.flow.append(frame)
 
 
-class IBookmark(interfaces.IRMLDirectiveSignature):
+class IBookmarkPage(interfaces.IRMLDirectiveSignature):
     """
     This creates a bookmark to the current page which can be referred to with
     the given key elsewhere.
@@ -1000,10 +1000,20 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
         description=u'The name of the bookmark.',
         required=True)
 
-    fitType = attr.Choice(
-        title=u'Fit Type',
+    fit = attr.Choice(
+        title=u'Fit',
         description=u'The Fit Type.',
-        choices=('Fit', 'FitH', 'FitV', 'FitR'),
+        choices=('XYZ', 'Fit', 'FitH', 'FitV', 'FitR'),
+        required=False)
+
+    top = attr.Measurement(
+        title=u'Top',
+        description=u'The top position.',
+        required=False)
+
+    bottom = attr.Measurement(
+        title=u'Bottom',
+        description=u'The bottom position.',
         required=False)
 
     left = attr.Measurement(
@@ -1016,23 +1026,13 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
         description=u'The right position.',
         required=False)
 
-    top = attr.Measurement(
-        title=u'Top',
-        description=u'The top position.',
-        required=False)
-
-    right = attr.Measurement(
-        title=u'Right',
-        description=u'The right position.',
-        required=False)
-
     zoom = attr.Float(
         title=u'Zoom',
         description=u'The zoom level when clicking on the bookmark.',
         required=False)
 
-class Bookmark(Flowable):
-    signature = IBookmark
+class BookmarkPage(Flowable):
+    signature = IBookmarkPage
     klass = platypus.BookmarkPage
     attrMapping = {'name': 'key', 'fitType': 'fit'}
 
@@ -1277,7 +1277,7 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('pto', IPTO),
         occurence.ZeroOrMore('indent', IIndent),
         occurence.ZeroOrMore('fixedSize', IFixedSize),
-        occurence.ZeroOrMore('bookmark', IBookmark),
+        occurence.ZeroOrMore('bookmarkPage', IBookmarkPage),
         occurence.ZeroOrMore('link', ILink),
         occurence.ZeroOrMore('hr', IHorizontalRow),
         occurence.ZeroOrMore('showIndex', IShowIndex),
@@ -1320,7 +1320,7 @@ class Flow(directive.RMLDirective):
         'pto': PTO,
         'indent': Indent,
         'fixedSize': FixedSize,
-        'bookmark': Bookmark,
+        'bookmarkPage': BookmarkPage,
         'link': Link,
         'hr': HorizontalRow,
         'showIndex': ShowIndex,
