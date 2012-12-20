@@ -1,0 +1,34 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-blockTable-10.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+
+    <title>
+      <font face="Courier">&lt;blockTable&gt;</font> Tag Demo with Links
+    </title>
+
+    <bookmarkPage
+        name="top" fitType="fitv" zoom="2"
+        left="2cm" right="10cm" top="20cm"
+        />
+    <para>Table on the next page.</para>
+
+    <nextPage />
+
+    <blockTable colWidths="50% 50%" rowHeights="1cm">
+      <tr>
+        <td href="http://google.com">Google</td>
+        <td destination="top">TOP</td>
+      </tr>
+    </blockTable>
+
+  </story>
+</document>

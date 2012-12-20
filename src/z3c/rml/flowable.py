@@ -523,6 +523,18 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
         description=u'The space of the line right of the cell.',
         required=False)
 
+    href = attr.Text(
+        title=u'Link URL',
+        description=u'When specified, the cell becomes a link to that URL.',
+        required=False)
+
+    destination = attr.Text(
+        title=u'Link Destination',
+        description=(u'When specified, the cell becomes a link to that '
+                     u'destination.'),
+        required=False)
+
+
 class TableCell(directive.RMLDirective):
     signature = ITableCell
     styleAttributesMapping = (
@@ -545,6 +557,8 @@ class TableCell(directive.RMLDirective):
                         'lineLeftCap', 'lineLeftCount', 'lineLeftSpace')),
         ('LINEAFTER', ('lineRightThickness', 'lineRightColor',
                        'lineRightCap', 'lineRightCount', 'lineRightSpace')),
+        ('HREF', ('href',)),
+        ('DESTINATION', ('destination',)),
         )
 
     def processStyle(self):

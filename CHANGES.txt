@@ -60,6 +60,8 @@ CHANGES
 - Implemented ``plugInGraphic`` which allows inserting graphics rendered in
   Python.
 
+- Added `href` and `destination` to table cells.
+
 - Bug: Due to a logic error, bad directives were never properly detected and
   logged about.
 

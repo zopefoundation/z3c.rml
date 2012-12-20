@@ -30,6 +30,10 @@ Incompatibilies
 - ``<keepTogether>``: This directive is not implemented in RML2PDF, but there
   exists an API flowable for it and it seems obviously useful.
 
+- ``catchForms``: This feature requires PageCatcher, which is a ReportLab
+  commercial product and there is no Open Source alternative.
+
+
 To be Done
 ----------
 
@@ -64,8 +68,6 @@ naming.
 
 - includePdfPages
 
-- plugInGraphic (Test 037)
-
 - figure
 
 - imageFigure
@@ -81,7 +83,6 @@ naming.
 
 - form
 
-- catchForms
 
 - lineMode: -miterLimit
 
@@ -135,6 +136,6 @@ naming.
 
 - -pdfInclude
 
-- rectangle, table row, table cell, etc.: href and/or destination (Test 038)
+- rectangle.: href and/or destination (Test 038)
 
 - -addMapping
