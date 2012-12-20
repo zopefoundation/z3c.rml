@@ -54,21 +54,6 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         description=u'The height of the barcode.',
         required=False)
 
-    strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=(u'The color of the line strokes in the area.'),
-        required=False)
-
-    strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The width of the line strokes in the area.',
-        required=False)
-
-    fillColor = attr.Color(
-        title=u'Fill Color',
-        description=(u'The color of the filled shapes in the area.'),
-        required=False)
-
     barStrokeColor = attr.Color(
         title=u'Bar Stroke Color',
         description=(u'The color of the line strokes in the barcode.'),
@@ -194,6 +179,12 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
     textColor = attr.Color(
         title=u'Text Color',
         description=(u'The color of human readable text.'),
+        required=False)
+
+    # USPS4S
+    routing = attr.String(
+        title=u'Routing',
+        description=u'The routing information string.',
         required=False)
 
 

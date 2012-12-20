@@ -5,6 +5,23 @@ RML2PDF and z3c.rml Implementation Differences
 This document outlines the differences between ReportLab Inc.'s RML2PDF
 library and z3c.rml.
 
+Incompatibilies
+---------------
+
+- ``<barCodeFlowable>``
+
+  * `widthSize`: This is called `width` in this implementation to match the
+    API.
+
+  * `heightSize`: This is called `height` in this implementation to match the
+    API.
+
+  * `tracking`: This is only used for USPS4S and the API actually uses the
+    `value` argument for this. Thus this attribute is omitted.
+
+To be Done
+----------
+
 Each major bullet represents a missing element. Names after the elements are
 missing attributes. A "-" (minus) sign in front of an element or attribute
 denotes a feature not in RML2PDF. The "->" arrow designates a difference in
@@ -30,8 +47,6 @@ naming.
 
 - widget
 
-- a
-
 - evalString
 
 - -keepTogether
@@ -43,9 +58,6 @@ naming.
 - includePdfPages
 
 - plugInGraphic (Test 037)
-
-- barCodeFlowable: tracking, routing, width -> widthSize, height -> heightSize,
-  -strokeWidth, -fillColor
 
 - figure
 
