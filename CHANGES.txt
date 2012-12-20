@@ -42,6 +42,8 @@ CHANGES
     * docPara
     * docWhile
 
+- Added ``encName`` attribute to ``registerCidFont`` directive.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

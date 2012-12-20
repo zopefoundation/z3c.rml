@@ -143,12 +143,21 @@ class IRegisterCidFont(interfaces.IRMLDirectiveSignature):
                      u'be previously registered.'),
         required=True)
 
+    encName = attr.String(
+        title=u'Encoding Name',
+        description=(u'The name of the encoding to use for the font.'),
+        required=False)
+
 class RegisterCidFont(directive.RMLDirective):
     signature = IRegisterCidFont
+    attrMapping = {'faceName': 'face', 'encName': 'encoding'}
 
     def process(self):
-        args = self.getAttributeValues(valuesOnly=True)
-        font = cidfonts.UnicodeCIDFont(*args)
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        if 'encoding' in args:
+            font = cidfonts.CIDFont(**args)
+        else:
+            font = cidfonts.UnicodeCIDFont(**args)
         pdfmetrics.registerFont(font)
 
 

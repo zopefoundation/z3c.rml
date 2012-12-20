@@ -6,6 +6,8 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
   <docinit>
     <registerCidFont faceName="HeiseiMin-W3" doc:example="" />
+    <registerCidFont faceName="HeiseiMin-W3" encName="90ms-RKSJ-H"
+                     doc:example="" />
   </docinit>
   <template>
     <pageTemplate id="main">
@@ -14,6 +16,9 @@
   </template>
   <story>
     <para fontName="HeiseiMin-W3" fontSize="40">
+      日本語は難しいですね！
+    </para>
+    <para spaceBefore="3cm" fontName="HeiseiMin-W3" fontSize="40">
       日本語は難しいですね！
     </para>
   </story>

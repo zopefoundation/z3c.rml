@@ -113,8 +113,6 @@ naming.
 
 - registerCidFont: +encName
 
-- registerFontFamily (pdfmetrics.registerFontFamily())
-
 - setFontSize (plain canvas op)
 
 - log
