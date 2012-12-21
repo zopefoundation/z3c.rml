@@ -21,6 +21,9 @@
     <h1 doc:example="">Header 1</h1>
     <h2 doc:example="">Header 2</h2>
     <h3 doc:example="">Header 3</h3>
+    <h4 doc:example="">Header 4</h4>
+    <h5 doc:example="">Header 5</h5>
+    <h6 doc:example="">Header 6</h6>
     <para doc:example="">Paragraph</para>
     <pre doc:example="">Preformatted <b>text</b> only.</pre>
     <xpre doc:example="">Preformatted with <i>markup</i>.</xpre>

@@ -15,6 +15,7 @@
     <title>
       <font face="Courier">&lt;img&gt;</font> Tag Demo
     </title>
-    <img src="images/replogo.gif" width="200" />
+    <img src="images/replogo.gif" width="200"
+         doc:example="" />
   </story>
 </document>

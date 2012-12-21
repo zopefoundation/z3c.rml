@@ -8,9 +8,6 @@
     </pageTemplate>
   </template>
 
-  <stylesheet>
-  </stylesheet>
-
   <story>
     <title>Test of Encoding: UTF-8</title>
     <para>

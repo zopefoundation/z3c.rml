@@ -4,11 +4,24 @@
 <document
     filename="tag-ul-ol-li.pdf"
     xmlns:doc="http://namespaces.zope.org/rml/doc">
+
   <template>
     <pageTemplate id="main">
       <frame id="first" x1="1cm" y1="1cm" width="19cm" height="26cm"/>
     </pageTemplate>
   </template>
+
+  <stylesheet>
+    <listStyle
+        name="MyList"
+        bulletFontName="Helvetica-Bold"
+        bulletFontSize="8"
+        bulletColor="green"
+        start="diamond"
+        doc:example=""
+        />
+  </stylesheet>
+
   <story>
     <ol bulletColor="orange" bulletFontName="Times-Roman">
       <li bulletColor="gray" bulletFontName="Helvetica">
@@ -16,8 +29,9 @@
       </li>
       <li>
         <ul bulletColor="red" bulletFontName="Times-Roman" bulletFontSize="8"
-            rightIndent="10" bulletOffsetY="-1">
-          <li value="disc" bulletFontName="Helvetica">
+            rightIndent="10" bulletOffsetY="-1" doc:example="">
+          <li value="disc" bulletFontName="Helvetica"
+              doc:example="z3c.rml.list.IUnorderedListItem">
             <para>unordered 1</para>
           </li>
           <li value="square" bulletColor="blue">
@@ -32,5 +46,26 @@
         </ul>
       </li>
     </ol>
+
+    <spacer length="0.5in" />
+
+    <ol bulletColor="orange" bulletFontName="Times-Roman" doc:example="">
+      <li bulletColor="gray" bulletFontName="Helvetica"
+          doc:example="z3c.rml.list.IOrderedListItem">
+        <para>Item 1</para>
+      </li>
+      <li>
+        <para>Item 2</para>
+      </li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <ul style="MyList">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ul>
   </story>
+
 </document>

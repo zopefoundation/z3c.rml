@@ -5,7 +5,7 @@
     filename="tag-saveState-restoreState.pdf"
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
-  <pageDrawing doc:example="z3c.rml.canvas.SaveState">
+  <pageDrawing doc:example="z3c.rml.canvas.ISaveState">
     <setFont name="Helvetica" size="9" />
     <drawString x="1in" y="10in" >Text in Helvetica 9</drawString>
     <saveState />

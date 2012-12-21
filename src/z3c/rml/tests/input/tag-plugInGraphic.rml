@@ -1,0 +1,14 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document
+    filename="tag-pluginGraphic.pdf" invariant="1"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <pageDrawing>
+    <plugInGraphic module="z3c.rml.tests.module" function="symbols"
+                   doc:example="">
+      n=4,x="1in",y="7in",name="StarFive",dx="15pt",dy="0",
+      size="10pt",fillColor="red",strokeColor="blue",
+      strokeWidth="1.5pt"
+    </plugInGraphic>
+  </pageDrawing>
+</document>

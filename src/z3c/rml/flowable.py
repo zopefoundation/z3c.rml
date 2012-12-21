@@ -1099,7 +1099,7 @@ class BookmarkPage(Flowable):
 class IBookmark(interfaces.IRMLDirectiveSignature):
     """
     This creates a bookmark to the current page which can be referred to with
-    the given key elsewhere.
+    the given key elsewhere. (Used inside a story.)
     """
 
     name = attr.Text(

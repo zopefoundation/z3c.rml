@@ -6,9 +6,9 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <pageDrawing>
-    <setFont name="Helvetica" size="9" />
+    <setFontSize size="9" />
     <drawString x="1in" y="10in" >Text in Helvetica 9</drawString>
-    <setFont name="Helvetica" size="12" doc:example="" />
+    <setFontSize size="12" doc:example="" />
     <drawString x="1in" y="8in" >Text in Helvetica 12</drawString>
   </pageDrawing>
 
