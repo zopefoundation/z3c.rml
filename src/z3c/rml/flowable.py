@@ -17,6 +17,7 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import copy
+import logging
 import re
 import reportlab.lib.styles
 import reportlab.platypus
@@ -1333,6 +1334,95 @@ class ShowIndex(directive.RMLDirective):
         self.parent.flow.append(index)
 
 
+class IBaseLogCall(interfaces.IRMLDirectiveSignature):
+
+    message = attr.RawXMLContent(
+        title=u'Message',
+        description=u'The message to be logged.',
+        required=True)
+
+class LogCallFlowable(reportlab.platypus.flowables.Flowable):
+
+    def __init__(self, logger, level, message):
+        self.logger = logger
+        self.level = level
+        self.message = message
+
+    def wrap(self, *args):
+        return (0, 0)
+
+    def draw(self):
+        self.logger.log(self.level, self.message)
+
+class BaseLogCall(directive.RMLDirective):
+    signature = IBaseLogCall
+    level = None
+
+    def process(self):
+        message = self.getAttributeValues(
+            select=('message',), valuesOnly=True)[0]
+        manager = attr.getManager(self)
+        self.parent.flow.append(
+            LogCallFlowable(manager.logger, self.level, message))
+
+class ILog(IBaseLogCall):
+    """Log message at DEBUG level."""
+
+    level = attr.Choice(
+        title=u'Level',
+        description=u'The default log level.',
+        choices=interfaces.LOG_LEVELS,
+        doLower=False,
+        default=logging.INFO,
+        required=True)
+
+class Log(BaseLogCall):
+    signature = ILog
+
+    @property
+    def level(self):
+        return self.getAttributeValues(select=('level',), valuesOnly=True)[0]
+
+class IDebug(IBaseLogCall):
+    """Log message at DEBUG level."""
+
+class Debug(BaseLogCall):
+    signature = IDebug
+    level = logging.DEBUG
+
+
+class IInfo(IBaseLogCall):
+    """Log message at INFO level."""
+
+class Info(BaseLogCall):
+    signature = IInfo
+    level = logging.INFO
+
+
+class IWarning(IBaseLogCall):
+    """Log message at WARNING level."""
+
+class Warning(BaseLogCall):
+    signature = IWarning
+    level = logging.WARNING
+
+
+class IError(IBaseLogCall):
+    """Log message at ERROR level."""
+
+class Error(BaseLogCall):
+    signature = IError
+    level = logging.ERROR
+
+
+class ICritical(IBaseLogCall):
+    """Log message at CRITICAL level."""
+
+class Critical(BaseLogCall):
+    signature = ICritical
+    level = logging.CRITICAL
+
+
 class IFlow(interfaces.IRMLDirectiveSignature):
     """A list of flowables."""
     occurence.containing(
@@ -1372,6 +1462,12 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('showIndex', IShowIndex),
         occurence.ZeroOrMore('name', special.IName),
         occurence.ZeroOrMore('namedString', INamedString),
+        occurence.ZeroOrMore('log', ILog),
+        occurence.ZeroOrMore('debug', IDebug),
+        occurence.ZeroOrMore('info', IInfo),
+        occurence.ZeroOrMore('warning', IWarning),
+        occurence.ZeroOrMore('error', IError),
+        occurence.ZeroOrMore('critical', ICritical),
         )
 
 class Flow(directive.RMLDirective):
@@ -1418,6 +1514,13 @@ class Flow(directive.RMLDirective):
         # Special Elements
         'name': special.Name,
         'namedString': NamedString,
+        # Logging
+        'log': Log,
+        'debug': Debug,
+        'info': Info,
+        'warning': Warning,
+        'error': Error,
+        'critical': Critical,
         }
 
     def __init__(self, *args, **kw):

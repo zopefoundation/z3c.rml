@@ -17,6 +17,7 @@ $Id$
 """
 __docformat__ = "reStructuredText"
 import cStringIO
+import logging
 import sys
 import zope.interface
 import reportlab.pdfgen.canvas
@@ -28,6 +29,7 @@ from z3c.rml import attr, canvas, directive, doclogic, interfaces, list
 from z3c.rml import occurence, pdfinclude, special, storyplace, stylesheet
 from z3c.rml import template
 
+LOGGER_NAME = 'z3c.rml.render'
 
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
     """Register a new Type 1 font face."""
@@ -349,6 +351,55 @@ class CropMarks(directive.RMLDirective):
             setattr(cmp, name, value)
         self.parent.parent.cropMarks = cmp
 
+class ILogConfig(interfaces.IRMLDirectiveSignature):
+    """Configure the render logger."""
+
+    level = attr.Choice(
+        title=u'Level',
+        description=u'The default log level.',
+        choices=interfaces.LOG_LEVELS,
+        doLower=False,
+        required=False)
+
+    format = attr.String(
+        title=u'Format',
+        description=u'The format of the log messages.',
+        required=False)
+
+    filename = attr.File(
+        title=u'File Name',
+        description=u'The path to the file that is being logged.',
+        doNotOpen=True,
+        required=True)
+
+    filemode = attr.Choice(
+        title=u'File Mode',
+        description=u'The mode to open the file in.',
+        choices={'WRITE': 'w', 'APPEND': 'a'},
+        default='a',
+        required=False)
+
+    datefmt = attr.String(
+        title=u'Date Format',
+        description=u'The format of the log message date.',
+        required=False)
+
+class LogConfig(directive.RMLDirective):
+    signature = ILogConfig
+
+    def process(self):
+        args = dict(self.getAttributeValues())
+        logger = logging.Logger(LOGGER_NAME)
+        handler = logging.FileHandler(args['filename'], args['filemode'])
+        formatter = logging.Formatter(
+            args.get('format'), args.get('datefmt'))
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        if 'level' in args:
+            logger.setLevel(args['level'])
+        self.parent.parent.logger = logger
+
+
 class IDocInit(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.ZeroOrMore('color', IColorDefinition),
@@ -359,6 +410,7 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerFontFamily', IRegisterFontFamily),
         occurence.ZeroOrMore('addMapping', IAddMapping),
+        occurence.ZeroOrMore('logConfig', ILogConfig),
         occurence.ZeroOrMore('cropMarks', ICropMarks),
         occurence.ZeroOrMore('startIndex', IStartIndex),
         )
@@ -393,6 +445,7 @@ class DocInit(directive.RMLDirective):
         'registerTTFont': RegisterTTFont,
         'registerCidFont': RegisterCidFont,
         'addMapping': AddMapping,
+        'logConfig': LogConfig,
         'cropMarks': CropMarks,
         'startIndex': StartIndex,
         }
@@ -465,6 +518,7 @@ class Document(directive.RMLDirective):
         self.cropMarks = False
         self.pageLayout = None
         self.pageMode = None
+        self.logger = None
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)

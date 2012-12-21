@@ -60,6 +60,9 @@ class RMLRenderingTestCase(unittest.TestCase):
         attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
+        os.remove(
+            os.path.join(os.path.dirname(__file__), 'render.log'))
+
 
     def runTest(self):
         rml2pdf.go(self._inPath, self._outPath)

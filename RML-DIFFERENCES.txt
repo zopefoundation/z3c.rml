@@ -115,19 +115,5 @@ naming.
 
 - length
 
-- log
-
-- debug
-
-- info
-
-- warning
-
-- error
-
-- critical
-
-- logConfig
-
 - -pdfInclude
 

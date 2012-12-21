@@ -201,6 +201,10 @@ class Choice(BaseChoice):
         if isinstance(choices, (tuple, list)):
             choices = dict(
                 [(val.lower() if doLower else val, val) for val in choices])
+        else:
+            choices = dict(
+                [(key.lower() if doLower else key, val)
+                 for key, val in choices.items()])
         self.choices = choices
         self.doLower = doLower
 

@@ -14,6 +14,7 @@
 """RML to PDF Converter Interfaces
 """
 __docformat__ = "reStructuredText"
+import logging
 import reportlab.lib.enums
 import zope.interface
 import zope.schema
@@ -38,6 +39,12 @@ TEXT_TRANSFORM_CHOICES = ('uppercase', 'lowercase')
 LIST_FORMATS = ('I', 'i', '123',  'ABC', 'abc')
 ORDERED_LIST_TYPES = ('I', 'i', '1', 'A', 'a')
 UNORDERED_BULLET_VALUES = ('circle', 'square', 'disc', 'diamond', 'rarrowhead')
+LOG_LEVELS = {
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL}
 
 class IRML2PDF(zope.interface.Interface):
     """This is the main public API of z3c.rml"""
