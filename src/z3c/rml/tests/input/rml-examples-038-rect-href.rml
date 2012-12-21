@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_038_rect_href.pdf">
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 39: Rect_href</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<fill color="blue"/>
+		<rect href="http://www.google.com" x="0" y="800" width="50" height="42" fill="1"/>
+		<fill color="cyan"/>
+		<rect destination="BACK_PAGE" x="50" y="800" width="50" height="42" fill="1"/>
+		</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	<pageTemplate id="main2">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 39: Rect_href</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<fill color="blue"/>
+		<rect href="http://www.google.com" x="0" y="800" width="50" height="42" fill="1"/>
+		<fill color="cyan"/>
+		<rect destination="BACK_PAGE" x="50" y="800" width="50" height="42" fill="1"/>
+
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle
+	name="h1"
+	fontName="Helvetica-BoldOblique"
+	fontSize="20"
+	leading="24"
+	/>
+
+	<paraStyle
+	name="normal"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+
+
+</stylesheet>
+
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+<setNextTemplate name="main2"/>
+<para style="h1">Testing rectangles with links and destinations</para>
+<para style="normal">This tests that rectangles with hyperlinks
+and internal destinations.  The top left of the page should have a blue link positioned in
+absolute coordinates, and licking it should go to http://www.google.com/.  The cyan rectangle
+next to it should take you to page 3.
+</para>
+
+<para style="normal">
+The left one below should be pink, and should take you to http://www.yahoo.com/ .  The red one should go to the back page.
+</para>
+<illustration width="210" height="100">
+	<fill color="pink"/>
+	<rect href="http://www.yahoo.com/" x="50" y="25" width="50" height="50" fill="1"/>
+	<fill color="red"/>
+	<rect destination="BACK_PAGE" x="100" y="25" width="50" height="50" fill="1"/>
+</illustration>
+
+<para style="normal"> Lots of tags now have <i>href</i> or <i>destination</i> attributes - rectangles,
+table rows, table cells and so on.</para>
+
+<nextFrame/>
+<para>We now fill the document with rubbish to take us forwards to the final page 3</para>
+
+<nextFrame/>
+<para>This is the last page.  This is a destination for some of the buttons on page 1.</para>
+<bookmark name="BACK_PAGE"/>
+</story>
+
+</document>
