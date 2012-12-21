@@ -838,6 +838,50 @@ class KeepTogether(Flowable):
         frame = self.klass(flow.flow, **args)
         self.parent.flow.append(frame)
 
+class IImage(interfaces.IRMLDirectiveSignature):
+    """An image."""
+
+    src = attr.Image(
+        title=u'Image Source',
+        description=u'The file that is used to extract the image data.',
+        onlyOpen=True,
+        required=True)
+
+    width = attr.Measurement(
+        title=u'Image Width',
+        description=u'The width of the image.',
+        required=False)
+
+    height = attr.Measurement(
+        title=u'Image Height',
+        description=u'The height the image.',
+        required=False)
+
+    mask = attr.Color(
+        title=u'Mask',
+        description=u'The color mask used to render the image.',
+        required=False)
+
+    vAlign = attr.Choice(
+        title=u'Vertical Alignment',
+        description=u'The vertical alignment of the image.',
+        choices=interfaces.VALIGN_TEXT_CHOICES,
+        required=False)
+
+class Image(Flowable):
+    signature = IImage
+    klass = reportlab.platypus.flowables.Image
+    attrMapping = {'src': 'filename'}
+
+    def process(self):
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        vAlign = args.pop('vAlign', None)
+        img = self.klass(**args)
+        if vAlign:
+            img.vAlign = vAlign
+        self.parent.flow.append(img)
+
+
 class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
     """An image with flowables around it."""
 
@@ -1049,6 +1093,35 @@ class BookmarkPage(Flowable):
     signature = IBookmarkPage
     klass = platypus.BookmarkPage
     attrMapping = {'name': 'key', 'fitType': 'fit'}
+
+
+class IBookmark(interfaces.IRMLDirectiveSignature):
+    """
+    This creates a bookmark to the current page which can be referred to with
+    the given key elsewhere.
+    """
+
+    name = attr.Text(
+        title=u'Name',
+        description=u'The name of the bookmark.',
+        required=True)
+
+    x = attr.Measurement(
+        title=u'X Coordinate',
+        description=u'The x-position of the bookmark.',
+        default=0,
+        required=False)
+
+    y = attr.Measurement(
+        title=u'Y Coordinate',
+        description=u'The y-position of the bookmark.',
+        default=0,
+        required=False)
+
+class Bookmark(Flowable):
+    signature = IBookmark
+    klass = platypus.Bookmark
+    attrMapping = {'name': 'key', 'x': 'relativeX', 'y': 'relativeY'}
 
 
 class ILink(interfaces.IRMLDirectiveSignature):
@@ -1287,11 +1360,13 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('condPageBreak', IConditionalPageBreak),
         occurence.ZeroOrMore('keepInFrame', IKeepInFrame),
         occurence.ZeroOrMore('keepTogether', IKeepTogether),
+        occurence.ZeroOrMore('img', IImage),
         occurence.ZeroOrMore('imageAndFlowables', IImageAndFlowables),
         occurence.ZeroOrMore('pto', IPTO),
         occurence.ZeroOrMore('indent', IIndent),
         occurence.ZeroOrMore('fixedSize', IFixedSize),
         occurence.ZeroOrMore('bookmarkPage', IBookmarkPage),
+        occurence.ZeroOrMore('bookmark', IBookmark),
         occurence.ZeroOrMore('link', ILink),
         occurence.ZeroOrMore('hr', IHorizontalRow),
         occurence.ZeroOrMore('showIndex', IShowIndex),
@@ -1330,11 +1405,13 @@ class Flow(directive.RMLDirective):
         'condPageBreak': ConditionalPageBreak,
         'keepInFrame': KeepInFrame,
         'keepTogether': KeepTogether,
+        'img': Image,
         'imageAndFlowables': ImageAndFlowables,
         'pto': PTO,
         'indent': Indent,
         'fixedSize': FixedSize,
         'bookmarkPage': BookmarkPage,
+        'bookmark': Bookmark,
         'link': Link,
         'hr': HorizontalRow,
         'showIndex': ShowIndex,

@@ -33,6 +33,14 @@ Incompatibilies
 - ``catchForms``: This feature requires PageCatcher, which is a ReportLab
   commercial product and there is no Open Source alternative.
 
+- ``addMapping``: This is a useful API function that was supported in earlier
+  versions of RML2PDF. It is now gone, but this library still supports it.
+
+- ``drawing``: There is no documentation for this tag and I do not know what
+  it is supposed to do. Thus z3c.rml does not implement it.
+
+- ``widget``: There is no documentation for this tag and I do not know what it
+  is supposed to do. Thus z3c.rml does not implement it.
 
 To be Done
 ----------
@@ -56,10 +64,6 @@ naming.
 
 - blockTable: -repeatRows, -alignment
 
-- drawing
-
-- widget
-
 - evalString
 
 - image: -showBoundary, -preserveAspectRatio
@@ -71,9 +75,6 @@ naming.
 - figure
 
 - imageFigure
-
-- img
-
 
 - checkBox
 
@@ -116,10 +117,6 @@ naming.
 
 - length
 
-- param: -value
-
-- setFontSize (plain canvas op)
-
 - log
 
 - debug
@@ -136,6 +133,3 @@ naming.
 
 - -pdfInclude
 
-- rectangle.: href and/or destination (Test 038)
-
-- -addMapping

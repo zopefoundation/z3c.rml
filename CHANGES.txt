@@ -46,7 +46,9 @@ CHANGES
 
 - Renamed ``bookmark`` to ``bookmarkPage``.
 
-- Created a new Canvas directive called ``bookmark``.
+- Created a new canvas directive called ``bookmark``.
+
+- Added ``img`` directive, which is a simple image flowable.
 
 - Don't show "doc" namespace in reference snippets.
 
@@ -60,7 +62,7 @@ CHANGES
 - Implemented ``plugInGraphic`` which allows inserting graphics rendered in
   Python.
 
-- Added `href` and `destination` to table cells.
+- Added `href` and `destination` to table cells and rectangles.
 
 - Bug: Due to a logic error, bad directives were never properly detected and
   logged about.

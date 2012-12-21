@@ -79,6 +79,11 @@ class BookmarkPage(BaseFlowable):
         self.canv.bookmarkPage(*self.args, **self.kw)
 
 
+class Bookmark(BaseFlowable):
+    def draw(self):
+        self.canv.bookmarkHorizontal(*self.args, **self.kw)
+
+
 class OutlineAdd(BaseFlowable):
     def draw(self):
         if self.kw.get('key', None) is None:

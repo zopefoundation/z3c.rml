@@ -221,6 +221,17 @@ class IRectangle(IShape):
         description=u'The radius of the rounded corners.',
         required=False)
 
+    href = attr.Text(
+        title=u'Link URL',
+        description=u'When specified, the rectangle becomes a link to that URL.',
+        required=False)
+
+    destination = attr.Text(
+        title=u'Link Destination',
+        description=(u'When specified, the rectangle becomes a link to that '
+                     u'destination.'),
+        required=False)
+
 class Rectangle(CanvasRMLDirective):
     signature = IRectangle
     callable = 'rect'
@@ -229,8 +240,24 @@ class Rectangle(CanvasRMLDirective):
     def process(self):
         if 'round' in self.element.keys():
             self.callable = 'roundRect'
-        super(Rectangle, self).process()
+        kwargs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
+        # Create a link
+        url = kwargs.pop('href', None)
+        if url:
+            canvas.linkURL(
+                url,
+                (kwargs['x'], kwargs['y'],
+                 kwargs['x']+kwargs['width'], kwargs['y']+kwargs['height']))
+        dest = kwargs.pop('destination', None)
+        if dest:
+            canvas.linkRect(
+                '', dest,
+                (kwargs['x'], kwargs['y'],
+                 kwargs['x']+kwargs['width'], kwargs['y']+kwargs['height']))
 
+        # Render the rectangle
+        getattr(canvas, self.callable)(**kwargs)
 
 class IGrid(interfaces.IRMLDirectiveSignature):
     """A shape to be drawn on the canvas."""
