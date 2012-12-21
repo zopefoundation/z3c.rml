@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-1.2.0 (unreleased)
+2.0.0 (unreleased)
 ------------------
 
 - Implemented ``saveState`` and ``restoreState`` directives. (LP #666194)
@@ -57,6 +57,9 @@ CHANGES
 - Implemented all logging related directives.
 
 - Implemented ``color`` directive inside the ``initialize`` directive.
+
+- Renamed ``pdfInclude`` to documented ``includePdfPages`` and added `pages`
+  attribute, so that you can only include specific pages.
 
 - Don't show "doc" namespace in reference snippets.
 

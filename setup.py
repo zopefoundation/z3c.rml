@@ -21,7 +21,7 @@ def read(*rnames):
 
 setup (
     name='z3c.rml',
-    version='1.1.1dev',
+    version='2.0.0dev',
     author = "Stephan Richter and the Zope Community",
     author_email = "zope-dev@zope.org",
     description = "An alternative implementation of RML",

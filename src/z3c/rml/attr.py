@@ -193,6 +193,27 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
         return result
 
 
+class IntegerSequence(Sequence):
+    """A sequence of integers."""
+
+    def fromUnicode(self, ustr):
+        ustr = ustr.strip()
+        pieces = self.splitre.split(ustr)
+        numbers = set([])
+        for piece in pieces:
+            # Ignore empty pieces.
+            if not piece:
+                continue
+            # The piece is a range.
+            if '-' in piece:
+                start, end = piece.split('-')
+                # Make range lower and upper bound inclusive.
+                numbers.update(range(int(start), int(end)+1))
+                continue
+            # The piece is just a number
+            numbers.add(int(piece))
+        return list(numbers)
+
 class Choice(BaseChoice):
     """A choice of several values. The values are always case-insensitive."""
 

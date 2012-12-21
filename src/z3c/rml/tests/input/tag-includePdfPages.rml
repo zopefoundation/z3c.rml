@@ -18,9 +18,13 @@
     <para>
       We will now include PDF
     </para>
-    <pdfInclude doc:example=""
+    <includePdfPages
                 filename="[z3c.rml.tests]/input/data/include1.pdf"/>
-    <pdfInclude filename="[z3c.rml.tests]/input/data/include2.pdf"/>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"/>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"
+                     pages="2-3"
+                     doc:example="" />
+
     <nextPage/>
     <para>
       And some more text

@@ -68,7 +68,7 @@ denotes a feature not in RML2PDF. The "->" arrow designates a difference in
 naming.
 
 
-- pre/xpre: -bulletText, -dedent, -text
+- pre/xpre: -bulletText, -dedent
 
 - blockTable: -repeatRows, -alignment
 
@@ -77,8 +77,6 @@ naming.
 - image: -showBoundary, -preserveAspectRatio
 
 - doForm
-
-- includePdfPages
 
 - figure
 
@@ -114,6 +112,4 @@ naming.
 - excelData
 
 - frame: -*Padding, -showBoundary
-
-- -pdfInclude
 

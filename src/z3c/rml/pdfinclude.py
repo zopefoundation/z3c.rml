@@ -23,15 +23,17 @@ from reportlab.platypus import flowables
 from z3c.rml import attr, flowable, interfaces, occurence, page
 
 
-class PDFIncludeFlowable(flowables.Flowable):
+class IncludePdfPagesFlowable(flowables.Flowable):
 
-    def __init__(self, pdf_file, mergeprocessor):
+    def __init__(self, pdf_file, pages, mergeprocessor):
         flowables.Flowable.__init__(self)
         self.pdf_file = pdf_file
         self.proc = mergeprocessor
 
         pdf = pyPdf.PdfFileReader(pdf_file)
         self.num_pages = pdf.getNumPages()
+        self.pages = pages if pages else range(1, self.num_pages+1)
+
         self.width = 10<<32
         self.height = 10<<32
 
@@ -40,9 +42,9 @@ class PDFIncludeFlowable(flowables.Flowable):
 
     def split(self, availWidth, availheight):
         result = []
-        for i in range(self.num_pages):
+        for i in self.pages:
             result.append(flowables.PageBreak())
-            result.append(PDFPageFlowable(self, i, availWidth, availheight))
+            result.append(PDFPageFlowable(self, i-1, availWidth, availheight))
         return result
 
 
@@ -67,17 +69,22 @@ class PDFPageFlowable(flowables.Flowable):
     def split(self, availWidth, availheight):
         return [self]
 
-class IPDFInclude(interfaces.IRMLDirectiveSignature):
-    """Inserts a PDF"""
+class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
+    """Inserts a set of pages from a given PDF."""
 
     filename = attr.File(
         title=u'Path to file',
         description=u'The pdf file to include.',
         required=True)
 
+    pages = attr.IntegerSequence(
+        title=u'Pages',
+        description=u'A list of pages to insert.',
+        required=False)
 
-class PDFInclude(flowable.Flowable):
-    signature = IPDFInclude
+
+class IncludePdfPages(flowable.Flowable):
+    signature = IIncludePdfPages
 
     def getProcessor(self):
         manager = attr.getManager(self, interfaces.IPostProcessorManager)
@@ -92,14 +99,15 @@ class PDFInclude(flowable.Flowable):
         if pyPdf is None:
             raise Exception(
                 'pyPdf is not installed, so this feature is not available.')
-        (pdf_file,) = self.getAttributeValues(valuesOnly=True)
+        args = dict(self.getAttributeValues())
         proc = self.getProcessor()
-        self.parent.flow.append(PDFIncludeFlowable(pdf_file, proc))
+        self.parent.flow.append(
+            IncludePdfPagesFlowable(args['filename'], args.get('pages'), proc))
 
 
-flowable.Flow.factories['pdfInclude'] = PDFInclude
+flowable.Flow.factories['includePdfPages'] = IncludePdfPages
 flowable.IFlow.setTaggedValue(
     'directives',
     flowable.IFlow.getTaggedValue('directives') +
-    (occurence.ZeroOrMore('pdfInclude', IPDFInclude),)
+    (occurence.ZeroOrMore('includePdfPages', IIncludePdfPages),)
     )
