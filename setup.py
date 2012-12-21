@@ -45,6 +45,7 @@ setup (
     namespace_packages = ['z3c'],
     extras_require = dict(
         test = [
+            'coverage',
             'zope.pagetemplate',
             'Pillow'],
         pagetemplate = [
