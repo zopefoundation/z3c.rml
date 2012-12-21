@@ -293,31 +293,116 @@ class StartIndex(directive.RMLDirective):
         manager.indexes[name] = tableofcontents.SimpleIndex(**kwargs)
 
 
+class ICropMarks(interfaces.IRMLDirectiveSignature):
+    """Crop Marks specification"""
+
+    name = attr.String(
+        title=u'Name',
+        description=u'The name of the index.',
+        default='index',
+        required=True)
+
+    borderWidth = attr.Measurement(
+        title=u'Border Width',
+        description=u'The width of the crop mark border.',
+        required=False)
+
+    markColor = attr.Color(
+        title=u'Mark Color',
+        description=u'The color of the crop marks.',
+        required=False)
+
+    markWidth = attr.Measurement(
+        title=u'Mark Width',
+        description=u'The line width of the actual crop marks.',
+        required=False)
+
+    markLength = attr.Measurement(
+        title=u'Mark Length',
+        description=u'The length of the actual crop marks.',
+        required=False)
+
+    markLast = attr.Boolean(
+        title=u'Mark Last',
+        description=u'If set, marks are drawn after the content is rendered.',
+        required=False)
+
+    bleedWidth = attr.Measurement(
+        title=u'Bleed Width',
+        description=(u'The width of the page bleed.'),
+        required=False)
+
+class CropMarksProperties(object):
+    borderWidth = 36
+    markWidth = 0.5
+    markColor = colors.toColor('green')
+    markLength = 18
+    markLast = True
+    bleedWidth = 0
+
+class CropMarks(directive.RMLDirective):
+    signature = ICropMarks
+
+    def process(self):
+        cmp = CropMarksProperties()
+        for name, value in self.getAttributeValues():
+            setattr(cmp, name, value)
+        self.parent.parent.cropMarks = cmp
+
 class IDocInit(interfaces.IRMLDirectiveSignature):
     occurence.containing(
-        occurence.ZeroOrMore('name', special.IName),
         occurence.ZeroOrMore('color', IColorDefinition),
-        occurence.ZeroOrMore('startIndex', IStartIndex),
+        occurence.ZeroOrMore('name', special.IName),
         occurence.ZeroOrMore('registerType1Face', IRegisterType1Face),
         occurence.ZeroOrMore('registerFont', IRegisterFont),
-        occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerCidFont', IRegisterCidFont),
+        occurence.ZeroOrMore('registerTTFont', IRegisterTTFont),
         occurence.ZeroOrMore('registerFontFamily', IRegisterFontFamily),
         occurence.ZeroOrMore('addMapping', IAddMapping),
+        occurence.ZeroOrMore('cropMarks', ICropMarks),
+        occurence.ZeroOrMore('startIndex', IStartIndex),
         )
+
+    pageMode = attr.Choice(
+        title=u'Page Mode',
+        description=(u'The page mode in which the document is opened in '
+                     u'the viewer.'),
+        choices=('UseNone', 'UseOutlines', 'UseThumbs', 'FullScreen'),
+        required=False)
+
+    pageLayout = attr.Choice(
+        title=u'Page Layout',
+        description=(u'The layout in which the pages are displayed in '
+                     u'the viewer.'),
+        choices=('SinglePage', 'OneColumn', 'TwoColumnLeft', 'TwoColumnRight'),
+        required=False)
+
+    useCropMarks = attr.Boolean(
+        title=u'Use Crop Marks',
+        description=u'A flag when set shows crop marks on the page.',
+        required=False)
+
 
 class DocInit(directive.RMLDirective):
     signature = IDocInit
     factories = {
         'name': special.Name,
         'color': ColorDefinition,
-        'startIndex': StartIndex,
         'registerType1Face': RegisterType1Face,
         'registerFont': RegisterFont,
         'registerTTFont': RegisterTTFont,
         'registerCidFont': RegisterCidFont,
         'addMapping': AddMapping,
+        'cropMarks': CropMarks,
+        'startIndex': StartIndex,
         }
+
+    def process(self):
+        kwargs = dict(self.getAttributeValues())
+        self.parent.cropMarks = kwargs.get('useCropMarks', False)
+        self.parent.pageMode = kwargs.get('pageMode')
+        self.parent.pageLayout = kwargs.get('pageLayout')
+        super(DocInit, self).process()
 
 
 class IDocument(interfaces.IRMLDirectiveSignature):
@@ -377,13 +462,24 @@ class Document(directive.RMLDirective):
         self.indexes = {}
         self.postProcessors = []
         self.filename = '<unknown>'
+        self.cropMarks = False
+        self.pageLayout = None
+        self.pageMode = None
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
 
     def _beforeDocument(self):
-        self.doc.canv._indexAdd = self._indexAdd
-        self.doc.canv.manager = self
+        self._initCanvas(self.doc.canv)
+        self.canvas = self.doc.canv
+
+    def _initCanvas(self, canvas):
+        canvas._indexAdd = self._indexAdd
+        canvas.manager = self
+        if self.pageLayout:
+            canvas._doc._catalog.setPageLayout(self.pageLayout)
+        if self.pageMode:
+            canvas._doc._catalog.setPageMode(self.pageMode)
 
     def process(self, outputFile=None):
         """Process document"""
@@ -412,9 +508,10 @@ class Document(directive.RMLDirective):
                 attrMapping={'compression': 'pageCompression',
                              'debug': 'verbosity'}
                 ))
+            kwargs['cropMarks'] = self.cropMarks
 
             self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
-            self.canvas.manager = self
+            self._initCanvas(self.canvas)
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
             self.canvas.save()
 

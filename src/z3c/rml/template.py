@@ -268,6 +268,7 @@ class Template(directive.RMLDirective):
         args += self.parent.getAttributeValues(
             select=('debug', 'compression', 'invariant'),
             attrMapping={'debug': '_debug', 'compression': 'pageCompression'})
+        args += (('cropMarks',  self.parent.cropMarks),)
 
         self.parent.doc = platypus.BaseDocTemplate(
             self.parent.outputFile, **dict(args))

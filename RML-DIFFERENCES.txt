@@ -50,11 +50,10 @@ missing attributes. A "-" (minus) sign in front of an element or attribute
 denotes a feature not in RML2PDF. The "->" arrow designates a difference in
 naming.
 
-- docinit: pageMode, pageLayout, useCropMarks
+- docinit:
    * alias
    * outlineAdd
    * logConfig
-   * cropMarks
 
 - template: firstPageTemplate
 
@@ -82,6 +81,8 @@ naming.
 
 - textBox
 
+- boxStyle
+
 - form
 
 
@@ -93,7 +94,6 @@ naming.
 - paraStyle: fontName -> fontname, fontSize -> fontsize, -keepWithNext,
   -wordWrap, -border*
 
-- boxStyle
 
 - blockTableStyle: -keepWtihNext
 
@@ -110,8 +110,6 @@ naming.
 - excelData
 
 - frame: -*Padding, -showBoundary
-
-- cropMarks
 
 - join
 
