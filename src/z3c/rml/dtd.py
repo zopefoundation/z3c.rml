@@ -77,7 +77,3 @@ def generate(useWrapper=False):
 
 def main():
     print generate()
-
-
-if __name__ == '__main__':
-    print main()

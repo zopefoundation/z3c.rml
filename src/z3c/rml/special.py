@@ -41,33 +41,6 @@ class Name(directive.RMLDirective):
         manager.names[id] = value
 
 
-class IGetName(interfaces.IRMLDirectiveSignature):
-    """Get the text for the id."""
-
-    id = attr.String(
-        title=u'Id',
-        description=u'The id as which the value is known.',
-        required=True)
-
-class GetName(directive.RMLDirective):
-    signature = IGetName
-
-    def process(self):
-        id = dict(self.getAttributeValues()).pop('id')
-        manager = attr.getManager(self)
-        try:
-            text = manager.names[id] + (self.element.tail or u'')
-        except:
-            import pdb; pdb.set_trace()
-        # Now replace the element with the text
-        parent = self.element.getparent()
-        if parent.text is None:
-            parent.text = text
-        else:
-            parent.text += text
-        parent.remove(self.element)
-
-
 class IAlias(interfaces.IRMLDirectiveSignature):
     """Defines an alias for a given style."""
 

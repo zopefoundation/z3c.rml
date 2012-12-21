@@ -2205,4 +2205,3 @@
 <!ELEMENT plugInGraphic (#PCDATA)>
 <!ATTLIST plugInGraphic module CDATA #REQUIRED>
 <!ATTLIST plugInGraphic function CDATA #REQUIRED>
-

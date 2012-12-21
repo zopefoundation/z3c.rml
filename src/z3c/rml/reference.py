@@ -231,7 +231,7 @@ def extractExamples(directory):
     return examples
 
 
-def main():
+def main(outPath=None):
     examples = extractExamples(EXAMPLES_DIRECTORY)
 
     template = pagetemplate.RMLPageTemplateFile('reference.pt')
@@ -241,8 +241,4 @@ def main():
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
     pdf = template(types=getAttributeTypes(), directives=directives)
-    open('rml-reference.pdf', 'wb').write(pdf)
-
-
-if __name__ == '__main__':
-    main()
+    open(outPath or 'rml-reference.pdf', 'wb').write(pdf)
