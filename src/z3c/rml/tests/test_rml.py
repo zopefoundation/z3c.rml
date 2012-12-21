@@ -27,6 +27,8 @@ try:
 except ImportError:
     from PIL import Image
 
+LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')
+
 def gs_command(path):
     return ('gs', '-q', '-sNOPAUSE', '-sDEVICE=png256',
             '-sOutputFile=%s[Page-%%d].png' % path[:-4],
@@ -60,9 +62,8 @@ class RMLRenderingTestCase(unittest.TestCase):
         attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
-        os.remove(
-            os.path.join(os.path.dirname(__file__), 'render.log'))
-
+        if os.path.exists(LOG_FILE):
+            os.remove(LOG_FILE)
 
     def runTest(self):
         rml2pdf.go(self._inPath, self._outPath)

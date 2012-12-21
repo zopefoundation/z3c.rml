@@ -56,6 +56,8 @@ CHANGES
 
 - Implemented all logging related directives.
 
+- Implemented ``color`` directive inside the ``initialize`` directive.
+
 - Don't show "doc" namespace in reference snippets.
 
 - Create a list of RML2PDF and z3c.rml differences.

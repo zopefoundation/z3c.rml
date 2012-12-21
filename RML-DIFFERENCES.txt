@@ -8,6 +8,9 @@ library and z3c.rml.
 Incompatibilies
 ---------------
 
+- ``addMapping``: This is a useful API function that was supported in earlier
+  versions of RML2PDF. It is now gone, but this library still supports it.
+
 - ``<barCode>``
 
   * Most barcode attributes available via the API and the flowable are not
@@ -27,20 +30,34 @@ Incompatibilies
   * `tracking`: This is only used for USPS4S and the API actually uses the
     `value` argument for this. Thus this attribute is omitted.
 
-- ``<keepTogether>``: This directive is not implemented in RML2PDF, but there
-  exists an API flowable for it and it seems obviously useful.
-
 - ``catchForms``: This feature requires PageCatcher, which is a ReportLab
   commercial product and there is no Open Source alternative.
 
-- ``addMapping``: This is a useful API function that was supported in earlier
-  versions of RML2PDF. It is now gone, but this library still supports it.
+- ``docinit``:
+
+  * ``outlineAdd`` directive really does not make much sense here. The API
+    docs claim its availability but the hand-written docs state it must be
+    within a story.
+
+  * ``alias`` directive is completely undocumented in this context.
 
 - ``drawing``: There is no documentation for this tag and I do not know what
   it is supposed to do. Thus z3c.rml does not implement it.
 
+- ``join``: This directive is not implemented due to lack of documentation.
+
+- ``<keepTogether>``: This directive is not implemented in RML2PDF, but there
+  exists an API flowable for it and it seems obviously useful.
+
+- ``length``: This directive is not implemented due to lack of documentation.
+
+- ``template``: The `firstPageTemplate` attribute is not implemented, since it
+  belongs to the ``story`` directive. Several RML2PDF examples use it that way
+  too, so why is it documented differently?
+
 - ``widget``: There is no documentation for this tag and I do not know what it
   is supposed to do. Thus z3c.rml does not implement it.
+
 
 To be Done
 ----------
@@ -50,14 +67,6 @@ missing attributes. A "-" (minus) sign in front of an element or attribute
 denotes a feature not in RML2PDF. The "->" arrow designates a difference in
 naming.
 
-- docinit:
-   * alias
-   * outlineAdd
-   * logConfig
-
-- template: firstPageTemplate
-
-- story: -firstPageTemplate
 
 - pre/xpre: -bulletText, -dedent, -text
 
@@ -85,15 +94,10 @@ naming.
 
 - form
 
-
 - lineMode: -miterLimit
-
-- initialize
-  * color
 
 - paraStyle: fontName -> fontname, fontSize -> fontsize, -keepWithNext,
   -wordWrap, -border*
-
 
 - blockTableStyle: -keepWtihNext
 
@@ -110,10 +114,6 @@ naming.
 - excelData
 
 - frame: -*Padding, -showBoundary
-
-- join
-
-- length
 
 - -pdfInclude
 

@@ -263,6 +263,14 @@ class ColorDefinition(directive.RMLDirective):
                 return
         raise ValueError('At least one color definition must be specified.')
 
+# Initialize also supports the <color> tag.
+stylesheet.Initialize.factories['color'] = ColorDefinition
+stylesheet.IInitialize.setTaggedValue(
+    'directives',
+    stylesheet.IInitialize.getTaggedValue('directives') +
+    (occurence.ZeroOrMore('color', IColorDefinition),)
+    )
+
 
 class IStartIndex(interfaces.IRMLDirectiveSignature):
     """Start a new index."""
