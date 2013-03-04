@@ -57,6 +57,7 @@ setup (
         'pyPdf',
         'reportlab',
         'setuptools',
+        'svg2rlg',
         'zope.interface',
         'zope.schema',
         ],

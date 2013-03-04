@@ -527,6 +527,7 @@ class Document(directive.RMLDirective):
         self.pageLayout = None
         self.pageMode = None
         self.logger = None
+        self.svgs = {}
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
