@@ -500,7 +500,8 @@ class LineStyle(TableStyleCommand):
     def process(self):
         name = self.getAttributeValues(select=('kind',), valuesOnly=True)[0]
         args = [name]
-        args += self.getAttributeValues(ignore=('kind',), valuesOnly=True)
+        args += self.getAttributeValues(ignore=('kind',), valuesOnly=True,
+                                        includeMissing=True)
         self.parent.style.add(*args)
 
 class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
