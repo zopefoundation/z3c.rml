@@ -15,6 +15,7 @@
 
 $Id$
 """
+import logging
 import os
 import subprocess
 import unittest
@@ -62,6 +63,12 @@ class RMLRenderingTestCase(unittest.TestCase):
         attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
+
+        from z3c.rml.document import LOGGER_NAME
+        for handler in logging.getLogger(LOGGER_NAME).handlers:
+            if handler.baseFilename == LOG_FILE:
+                handler.close()
+
         if os.path.exists(LOG_FILE):
             os.remove(LOG_FILE)
 
