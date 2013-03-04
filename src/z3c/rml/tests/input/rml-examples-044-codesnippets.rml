@@ -1,7 +1,7 @@
 <!DOCTYPE document SYSTEM "rml.dtd">
 <document filename="test_044_codesnippets.pdf">
 
-	<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+	<template pagesize="(595, 842)" leftMargin="72" showBoundary="0">
 		<pageTemplate id="main">
 		<pageGraphics>
 		    <setFont name="Helvetica-Bold" size="18"/>

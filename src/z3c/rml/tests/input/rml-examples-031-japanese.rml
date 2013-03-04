@@ -5,8 +5,8 @@
     <registerCidFont faceName="HeiseiMin-W3" />
   </docinit>
 
-<template pageSize="letter" leftMargin="72" showBoundary="1">
-	<pageTemplate id="main" pageSize="(595,842)">
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pagesize="(595,842)">
 	<pageGraphics>
 		<setFont name="Helvetica-BoldOblique" size="18"/>
 		<drawRightString x="504" y="800">RML2PDF Test Suite #31 - Japanese Output</drawRightString>

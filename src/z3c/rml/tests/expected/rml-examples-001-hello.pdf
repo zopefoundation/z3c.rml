@@ -45,7 +45,7 @@ endobj
 5 0 obj
 % Font ZapfDingbats
 << /BaseFont /ZapfDingbats
- /Encoding /StandardEncoding
+ /Encoding /ZapfDingbatsEncoding
  /Name /F3
  /Subtype /Type1
  /Type /Font >>
@@ -57,8 +57,8 @@ endobj
  /Contents 10 0 R
  /MediaBox [ 0
  0
- 595.2756
- 841.8898 ]
+ 612
+ 792 ]
  /Parent 9 0 R
  /Resources << /Font 1 0 R
  /ProcSet [ /PDF
@@ -117,12 +117,12 @@ xref
 0000000398 00000 n
 0000000600 00000 n
 0000000856 00000 n
-0000001026 00000 n
-0000001324 00000 n
-0000001459 00000 n
-0000001728 00000 n
-0000001834 00000 n
-0000002652 00000 n
+0000001030 00000 n
+0000001318 00000 n
+0000001453 00000 n
+0000001722 00000 n
+0000001828 00000 n
+0000002646 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
@@ -132,5 +132,5 @@ trailer
  /Root 7 0 R
  /Size 12 >>
 startxref
-2704
+2698
 %%EOF

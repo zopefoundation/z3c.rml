@@ -3,7 +3,7 @@
 <document filename="test_004_fpt_templates.pdf"> 
 
 
-<template pageSize="(595, 842)" leftMargin="72" showBoundary="1" >
+<template pagesize="(595, 842)" leftMargin="72" showBoundary="1" >
 	<pageTemplate id="secondary">
 	<pageGraphics>
 		<setFont name="Helvetica-BoldOblique" size="18"/>

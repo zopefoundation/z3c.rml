@@ -1,7 +1,7 @@
 <!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by Andy Robinson (Reportlab Inc.) -->
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_010_linkURL.pdf">
-	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
 	<pageTemplate id="main">
 		<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
 	</pageTemplate>

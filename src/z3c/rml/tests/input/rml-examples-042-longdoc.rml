@@ -16,7 +16,7 @@
 
 
 </docinit>
-<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+<template pagesize="(595, 842)" leftMargin="72" showBoundary="0">
 <pageTemplate id="covr">
 
     	<pageGraphics>

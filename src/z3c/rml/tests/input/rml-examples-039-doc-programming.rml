@@ -1,8 +1,8 @@
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_039_doc_programming.pdf" invariant="1">
 
-<template pageSize="letter" leftMargin="72" showBoundary="1">
-<pageTemplate id="main" pageSize="letter portrait">
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+<pageTemplate id="main" pagesize="letter portrait">
 	<pageGraphics>
 		<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
@@ -12,7 +12,7 @@
 	<frame id="second" x1="35" y1="45" width="525" height="590"/>
 	</pageTemplate>
 	
-	<pageTemplate id="main2" pageSize="letter portrait">
+	<pageTemplate id="main2" pagesize="letter portrait">
 	<pageGraphics>
 		<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
@@ -22,7 +22,7 @@
 	</pageGraphics>
 	<frame id="second" x1="35" y1="45" width="525" height="685"/>
 	</pageTemplate>
-	<pageTemplate id="autoNextTemplate" pageSize="letter portrait" autoNextTemplate="autoFollow">
+	<pageTemplate id="autoNextTemplate" pagesize="letter portrait" autoNextTemplate="autoFollow">
 		<pageGraphics>
 			<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>
@@ -32,7 +32,7 @@
 		</pageGraphics>
 		<frame id="second" x1="35" y1="45" width="525" height="685"/>
 	</pageTemplate>
-	<pageTemplate id="autoFollow" pageSize="letter portrait">
+	<pageTemplate id="autoFollow" pagesize="letter portrait">
 		<pageGraphics>
 			<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="760">RML Example 40: Doc_programming</drawString>

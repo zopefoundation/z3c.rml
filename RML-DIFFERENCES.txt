@@ -8,6 +8,16 @@ library and z3c.rml.
 Incompatibilies
 ---------------
 
+- ``<template>``
+
+  * `pageSize`: This is called `pagesize` in this implementation to match the
+    API.
+
+- ``<pageTemplate>``
+
+  * `pageSize`: This is called `pagesize` in this implementation to match the
+    API.
+
 - ``addMapping``: This is a useful API function that was supported in earlier
   versions of RML2PDF. It is now gone, but this library still supports it.
 
