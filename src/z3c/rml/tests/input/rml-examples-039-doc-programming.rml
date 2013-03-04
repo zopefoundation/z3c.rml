@@ -116,7 +116,7 @@ blah blah forward-thinking blah.
 	<docPara expr='i' format='The value of i is %(__expr__)d'/>
 	<docExec stmt='i-=1'/>
 </docWhile>
-<docPara expr='repr(doc._nameSpace)' escape="1"/>
+<docPara expr='"-".join("a b c d e f g".split())' escape="1"/>
 <docWhile cond="doc.page&lt;3">
 	<nextPage/>
 	<docIf cond="doc.page&lt;3">

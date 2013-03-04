@@ -90,7 +90,9 @@ class ComparePDFTestCase(unittest.TestCase):
         test = Image.open(testImage).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
-                self.fail('Image is not the same.')
+                self.fail(
+                    'Image is not the same: %s' % os.path.basename(baseImage)
+                )
 
     def runTest(self):
         # Convert the base PDF to image(s)
