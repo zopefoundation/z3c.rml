@@ -34,14 +34,16 @@ LOGGER_NAME = 'z3c.rml.render'
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
     """Register a new Type 1 font face."""
 
-    afmFile = attr.String(
+    afmFile = attr.File(
         title=u'AFM File',
         description=u'Path to AFM file used to register the Type 1 face.',
+        doNotOpen=True,
         required=True)
 
-    pfbFile = attr.String(
+    pfbFile = attr.File(
         title=u'PFB File',
         description=u'Path to PFB file used to register the Type 1 face.',
+        doNotOpen=True,
         required=True)
 
 class RegisterType1Face(directive.RMLDirective):
@@ -122,9 +124,10 @@ class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
                      u'be previously registered.'),
         required=True)
 
-    fileName = attr.String(
+    fileName = attr.File(
         title=u'File Name',
         description=u'File path of the of the TrueType font.',
+        doNotOpen=True,
         required=True)
 
 class RegisterTTFont(directive.RMLDirective):

@@ -8,6 +8,9 @@
   <docinit doc:example="">
     <registerTTFont faceName="Vera" fileName="Vera.ttf"
                     doc:example="" />
+                <registerTTFont faceName="VeraMono"
+                    fileName="[z3c.rml]/tests/input/VeraMono.ttf"
+                    doc:example="" />
   </docinit>
 
   <template>
@@ -17,7 +20,8 @@
   </template>
 
   <story>
-    <para fontName="Vera" fontSize="40">Hello World!</para>
+    <para fontName="Vera" fontSize="40" leading="50">Hello World!</para>
+    <para fontName="VeraMono" fontSize="40" leading="50">AAA</para>
   </story>
 
 </document>
