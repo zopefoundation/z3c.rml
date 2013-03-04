@@ -114,6 +114,12 @@ def test_suite():
    for filename in os.listdir(inputDir):
        if not filename.endswith(".rml"):
            continue
+
+       if sys.platform.startswith('win') and filename == 'rml-examples-032-images.rml':
+           # The Ghostscript command to convert EPS files in PIL doesn't work
+           # on Windows. It's easy to fix but requires modifying PIL.
+           continue
+
        inPath = os.path.join(inputDir, filename)
        outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
        expectPath = os.path.join(expectDir, filename[:-4] + '.pdf')
