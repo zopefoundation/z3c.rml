@@ -357,10 +357,9 @@ class Image(File):
         if preserve is not None:
             preserve = Boolean().fromUnicode(preserve)
 
-        if width is not None and height is not None:
-            cache_key = '%s-%sx%s' % (value, width, height)
-            if cache_key in manager.svgs:
-                return manager.svgs[cache_key]
+        cache_key = '%s-%sx%s-%s' % (value, width, height, preserve)
+        if cache_key in manager.svgs:
+            return manager.svgs[cache_key]
 
         from gzip import GzipFile
         from reportlab.graphics import renderPM
@@ -393,10 +392,6 @@ class Image(File):
         svg.scale(width / svg.width, height / svg.height)
         svg.width = width
         svg.height = height
-
-        cache_key = '%s-%sx%s' % (value, width, height)
-        if cache_key in manager.svgs:
-            return manager.svgs[cache_key]
 
         svg = renderPM.drawToPIL(svg, dpi=300)
         svg = reportlab.lib.utils.ImageReader(svg)
