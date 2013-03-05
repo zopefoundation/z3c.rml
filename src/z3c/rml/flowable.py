@@ -566,8 +566,14 @@ class TableCell(directive.RMLDirective):
         row = len(self.parent.parent.rows)
         col = len(self.parent.cols)
         for styleAction, attrNames in self.styleAttributesMapping:
-            args = self.getAttributeValues(select=attrNames, valuesOnly=True)
-            if args or len(attrNames) == 0:
+            attrs = []
+            for attr in attrNames:
+                if self.element.get(attr) is not None:
+                    attrs.append(attr)
+            if not attrs:
+                continue
+            args = self.getAttributeValues(select=attrs, valuesOnly=True)
+            if args:
                 self.parent.parent.style.add(
                     styleAction, [col, row], [col, row], *args)
 
