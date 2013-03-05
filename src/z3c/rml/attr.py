@@ -362,7 +362,7 @@ class Color(RMLAttribute):
         manager = getManager(self.context)
 
         if value.startswith('rml:'):
-            value = manager.names[value[4:]]
+            value = manager.get_name(value[4:], '#000000')
 
         if value in manager.colors:
             return manager.colors[value]

@@ -1259,19 +1259,23 @@ class OutlineAdd(Flowable):
     klass = platypus.OutlineAdd
 
 
-class NamedStringFlowable(reportlab.platypus.flowables.Flowable):
+class NamedStringFlowable(reportlab.platypus.flowables.Flowable,
+                          special.TextFlowables):
 
     def __init__(self, manager, id, value):
         reportlab.platypus.flowables.Flowable.__init__(self)
         self.manager = manager
         self.id = id
-        self.value = value
+        self._value = value
+        self.value = u''
 
     def wrap(self, *args):
         return (0, 0)
 
     def draw(self):
-        self.manager.names[self.id] = self.value
+        text = self._getText(self._value, self.manager.canvas,
+                             include_final_tail=False)
+        self.manager.names[self.id] = text
 
 
 class INamedString(interfaces.IRMLDirectiveSignature):
@@ -1294,7 +1298,7 @@ class NamedString(directive.RMLDirective):
         id, value = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self)
         # We have to delay assigning values, otherwise the last one wins.
-        self.parent.flow.append(NamedStringFlowable(manager, id, value))
+        self.parent.flow.append(NamedStringFlowable(manager, id, self.element))
 
 
 class IShowIndex(interfaces.IRMLDirectiveSignature):

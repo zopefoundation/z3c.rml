@@ -24,6 +24,7 @@ import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
 from reportlab.lib import colors, fonts
 from reportlab.platypus import tableofcontents
+from reportlab.platypus.doctemplate import IndexingFlowable
 
 from z3c.rml import attr, canvas, directive, doclogic, interfaces, list
 from z3c.rml import occurence, pdfinclude, special, storyplace, stylesheet
@@ -591,7 +592,7 @@ class Document(directive.RMLDirective):
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
-            self.doc.multiBuild(self.flowables)
+            self.doc.multiBuild(self.flowables, maxPasses=2)
 
         # Process all post processors
         for name, processor in self.postProcessors:
@@ -605,3 +606,27 @@ class Document(directive.RMLDirective):
         # Cleanup.
         colors.toColor.setExtraColorsNameSpace({})
 
+    def get_name(self, name, default=None):
+        if default is None:
+            default = u''
+
+        if name not in self.names:
+            if self.doc._indexingFlowables and isinstance(
+                self.doc._indexingFlowables[-1],
+                DummyIndexingFlowable
+            ):
+                return default
+            self.doc._indexingFlowables.append(DummyIndexingFlowable())
+
+        return self.names.get(name, default)
+
+
+class DummyIndexingFlowable(IndexingFlowable):
+    """A dummy flowable to trick multiBuild into performing +1 pass."""
+
+    def __init__(self):
+        self.i = -1
+
+    def isSatisfied(self):
+        self.i += 1
+        return self.i
