@@ -376,9 +376,9 @@ class Image(File):
         if preserve:
             if width is not None or height is not None:
                 if width is not None and height is None:
-                    height = svg.height * width / svg.height
+                    height = svg.height * width / svg.width
                 elif height is not None and width is None:
-                    width = svg.width * height / svg.width
+                    width = svg.width * height / svg.height
                 elif float(width) / height > float(svg.width) / svg.height:
                     width = svg.width * height / svg.height
                 else:
