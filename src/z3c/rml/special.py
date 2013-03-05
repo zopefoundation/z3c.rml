@@ -64,13 +64,19 @@ class Alias(directive.RMLDirective):
 
 
 class TextFlowables(object):
+    def _getManager(self):
+        if hasattr(self, 'manager'):
+            return self.manager
+        else:
+            return  attr.getManager(self)
+
     def getPageNumber(self, elem, canvas):
         return unicode(
             canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1
         )
 
     def getName(self, elem, canvas):
-        return attr.getManager(self).get_name(
+        return self._getManager().get_name(
             elem.get('id'),
             elem.get('default')
         )
@@ -79,13 +85,13 @@ class TextFlowables(object):
         return do_eval(self._getText(elem, canvas))
 
     def namedString(self, elem, canvas):
-        attr.getManager(self).names[elem.get('id')] = self._getText(
+        self._getManager().names[elem.get('id')] = self._getText(
             elem, canvas, include_final_tail=False
         )
         return u''
 
     def name(self, elem, canvas):
-        attr.getManager(self).names[elem.get('id')] = elem.get('value')
+        self._getManager().names[elem.get('id')] = elem.get('value')
         return u''
 
     handleElements = {'pageNumber': getPageNumber,

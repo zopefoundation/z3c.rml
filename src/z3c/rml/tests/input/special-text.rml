@@ -25,8 +25,11 @@
     <para>Nothing else on this line: <getName id="test2" /></para>
     <para><getName id="test3" default="failed name test 1" /></para>
     <para><getName id="test4" default="failed name test 2" /></para>
-
     <para><evalString> 5 + 7</evalString></para>
+
+    <name id="test5" value="getName inside namedString" />
+    <namedString id="test6">Success: <getName id="test5" default="fail" /></namedString>
+    <para><getName id="test6" default="fail again" /></para>
 
     <nextPage />
 
