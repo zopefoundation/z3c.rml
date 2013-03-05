@@ -9,6 +9,7 @@
 <!ATTLIST docinit pageMode (usenone|fullscreen|usethumbs|useoutlines) #IMPLIED>
 <!ATTLIST docinit pageLayout (twocolumnright|onecolumn|twocolumnleft|singlepage) #IMPLIED>
 <!ATTLIST docinit useCropMarks CDATA #IMPLIED>
+<!ATTLIST docinit printScaling (none|appdefault) #IMPLIED>
 
 <!ELEMENT color>
 <!ATTLIST color id CDATA #REQUIRED>
