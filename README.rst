@@ -8,3 +8,8 @@ format. Like the original implementation, it is based on ReportLab's
 
 You can read all about ``z3c.rml`` and see many examples on how to use it,
 see the "RML Reference":http://svn.zope.org/z3c.rml/trunk/src/z3c/rml/rml-reference.pdf?view=auto
+
+Travis: |buildstatus|_
+
+.. |buildstatus| image:: https://api.travis-ci.org/zopefoundation/z3c.rml.png?branch=master
+.. _buildstatus: https://travis-ci.org/zopefoundation/z3c.rml
