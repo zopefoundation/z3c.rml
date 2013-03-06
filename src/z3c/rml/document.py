@@ -450,13 +450,83 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         description=u'A flag when set shows crop marks on the page.',
         required=False)
 
+    hideToolbar = attr.Boolean(
+        title=u'Hide Toolbar',
+        description=(u'A flag indicating that the toolbar is hidden in '
+                     u'the viewer.'),
+        required=False)
+
+    hideMenubar = attr.Boolean(
+        title=u'Hide Menubar',
+        description=(u'A flag indicating that the menubar is hidden in '
+                     u'the viewer.'),
+        required=False)
+
+    hideWindowUI = attr.Boolean(
+        title=u'Hide Window UI',
+        description=(u'A flag indicating that the window UI is hidden in '
+                     u'the viewer.'),
+        required=False)
+
+    fitWindow = attr.Boolean(
+        title=u'Fir Window',
+        description=u'A flag indicating that the page fits in the viewer.',
+        required=False)
+
+    centerWindow = attr.Boolean(
+        title=u'Center Window',
+        description=(u'A flag indicating that the page fits is centered '
+                     u'in the viewer.'),
+        required=False)
+
+    displayDocTitle = attr.Boolean(
+        title=u'Display Doc Title',
+        description=(u'A flag indicating that the document title is displayed '
+                     u'in the viewer.'),
+        required=False)
+
+    nonFullScreenPageMode = attr.Choice(
+        title=u'Non-Full-Screen Page Mode',
+        description=(u'Non-Full-Screen page mode in the viewer.'),
+        choices=('UseNone', 'UseOutlines', 'UseThumbs', 'UseOC'),
+        required=False)
+
+    direction = attr.Choice(
+        title=u'Text Direction',
+        description=(u'The text direction of the PDF.'),
+        choices=('L2R', 'R2L'),
+        required=False)
+
+    viewArea = attr.Choice(
+        title=u'View Area',
+        description=(u'View Area setting used in the viewer.'),
+        choices=('MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'),
+        required=False)
+
+    viewClip = attr.Choice(
+        title=u'View Clip',
+        description=(u'View Clip setting used in the viewer.'),
+        choices=('MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'),
+        required=False)
+
+    printArea = attr.Choice(
+        title=u'Print Area',
+        description=(u'Print Area setting used in the viewer.'),
+        choices=('MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'),
+        required=False)
+
+    printClip = attr.Choice(
+        title=u'Print Clip',
+        description=(u'Print Clip setting used in the viewer.'),
+        choices=('MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'),
+        required=False)
+
     printScaling = attr.Choice(
         title=u'Print Scaling',
         description=(u'The print scaling mode in which the document is opened '
-        u'in the viewer.'),
+                     u'in the viewer.'),
         choices=('None', 'AppDefault'),
         required=False)
-
 
 class DocInit(directive.RMLDirective):
     signature = IDocInit
@@ -473,12 +543,20 @@ class DocInit(directive.RMLDirective):
         'startIndex': StartIndex,
         }
 
+    viewerOptions = dict(
+        (option[0].lower()+option[1:], option)
+        for option in ['HideToolbar', 'HideMenubar', 'HideWindowUI', 'FitWindow',
+                       'CenterWindow', 'DisplayDocTitle',
+                       'NonFullScreenPageMode', 'Direction', 'ViewArea',
+                       'ViewClip', 'PrintArea', 'PrintClip', 'PrintScaling'])
+
     def process(self):
         kwargs = dict(self.getAttributeValues())
         self.parent.cropMarks = kwargs.get('useCropMarks', False)
         self.parent.pageMode = kwargs.get('pageMode')
         self.parent.pageLayout = kwargs.get('pageLayout')
-        self.parent.printScaling = kwargs.get('printScaling')
+        for name in self.viewerOptions:
+            setattr(self.parent, name, kwargs.get(name))
         super(DocInit, self).process()
 
 
@@ -544,7 +622,8 @@ class Document(directive.RMLDirective):
         self.pageMode = None
         self.logger = None
         self.svgs = {}
-        self.printScaling = None
+        for name in DocInit.viewerOptions:
+            setattr(self, name, None)
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
@@ -560,10 +639,9 @@ class Document(directive.RMLDirective):
             canvas._doc._catalog.setPageLayout(self.pageLayout)
         if self.pageMode:
             canvas._doc._catalog.setPageMode(self.pageMode)
-        if self.printScaling:
-            canvas.setViewerPreference(
-                'PrintScaling', self.printScaling
-            )
+        for name, option in DocInit.viewerOptions.items():
+            if getattr(self, name) is not None:
+                canvas.setViewerPreference(option, getattr(self, name))
 
     def process(self, outputFile=None):
         """Process document"""
