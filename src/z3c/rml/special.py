@@ -61,3 +61,57 @@ class Alias(directive.RMLDirective):
         id, value = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self)
         manager.styles[id] = value
+
+
+class TextFlowables(object):
+    def _getManager(self):
+        if hasattr(self, 'manager'):
+            return self.manager
+        else:
+            return  attr.getManager(self)
+
+    def getPageNumber(self, elem, canvas):
+        return unicode(
+            canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1
+        )
+
+    def getName(self, elem, canvas):
+        return self._getManager().get_name(
+            elem.get('id'),
+            elem.get('default')
+        )
+
+    def evalString(self, elem, canvas):
+        return do_eval(self._getText(elem, canvas))
+
+    def namedString(self, elem, canvas):
+        self._getManager().names[elem.get('id')] = self._getText(
+            elem, canvas, include_final_tail=False
+        )
+        return u''
+
+    def name(self, elem, canvas):
+        self._getManager().names[elem.get('id')] = elem.get('value')
+        return u''
+
+    handleElements = {'pageNumber': getPageNumber,
+                      'getName': getName,
+                      'evalString': evalString,
+                      'namedString': namedString,
+                      'name': name}
+
+    def _getText(self, node, canvas, include_final_tail=True):
+        text = node.text or u''
+        for sub in node.getchildren():
+            if sub.tag in self.handleElements:
+                text += self.handleElements[sub.tag](self, sub, canvas)
+            else:
+                self._getText(sub, canvas)
+            text += sub.tail or u''
+        if include_final_tail:
+            text += node.tail or u''
+        return text
+
+def do_eval(value):
+    # Maybe still not safe
+    return unicode(eval(value.strip(), {'__builtins__': None}, {}))

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "../rml.dtd">
+<document filename="special-text.pdf">
+
+<template pagesize="210mm,297mm" showBoundary="0">
+    <pageTemplate id="main">
+        <frame id="main" x1="15mm" y1="180mm" width="200mm" height="50mm" />
+        <pageGraphics>
+            <drawString x="15mm" y="250mm"><namedString id="test1">tail and invisibility check 1</namedString>drawString thinks: Page number: <pageNumber />, <name id="test3" value="name test 1" />Total pages: <getName id="page-count" default="1" />, Added together: <evalString><pageNumber /> + <getName id="page-count" default="1" /></evalString></drawString>
+        </pageGraphics>
+    </pageTemplate>
+</template>
+
+<story>
+    <para>Para thinks: Page number: <pageNumber />, <name id="test4" value="name test 2" />Total pages: <getName id="page-count" default="1" />, Added together: <evalString><pageNumber /> + <getName id="page-count" default="1" /></evalString></para>
+
+    <blockTable>
+        <tr>
+            <td>No tags supported in plain td: <pageNumber />, <getName id="no" />, <evalString>1 + 1</evalString>, etc.</td>
+        </tr>
+    </blockTable>
+
+    <para><getName id="test1" default="failed test 1" /></para>
+    <para><getName id="test2" default="this default should show" /></para>
+    <para>Nothing else on this line: <getName id="test2" /></para>
+    <para><getName id="test3" default="failed name test 1" /></para>
+    <para><getName id="test4" default="failed name test 2" /></para>
+    <para><evalString> 5 + 7</evalString></para>
+
+    <name id="test5" value="getName inside namedString" />
+    <namedString id="test6">Success: <getName id="test5" default="fail" /></namedString>
+    <para><getName id="test6" default="fail again" /></para>
+
+    <nextPage />
+
+    <para>This is just a page to push up the page number</para>
+
+    <namedString id="page-count"><pageNumber /></namedString>
+</story>
+
+</document>

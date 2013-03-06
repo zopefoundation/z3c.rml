@@ -2,8 +2,8 @@
 <!DOCTYPE document SYSTEM "rml.dtd">
 <document filename="test_048_paragraph_flow_controls.pdf">
 
-<template pageSize="a4" leftMargin="72" showBoundary="1">
-    <pageTemplate id="page1" pageSize="a4 portrait">
+<template pagesize="a4" leftMargin="72" showBoundary="1">
+    <pageTemplate id="page1" pagesize="a4 portrait">
  		<pageGraphics>
             <setFont name="Helvetica-Bold" size="18"/>
     	    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>
@@ -17,7 +17,7 @@
 		<frame id="3" x1="35" y1="45" width="525" height="185"/>
 	</pageTemplate>
    
-<pageTemplate id="continued" pageSize="a4 portrait">
+<pageTemplate id="continued" pagesize="a4 portrait">
 		<pageGraphics>
             <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>

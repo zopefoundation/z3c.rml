@@ -4,8 +4,8 @@
 	<cropMarks borderWidth="10" markWidth="1" markColor="black" markLength="5" markLast="0" bleedWidth="0"/>
 </docinit>
 
-<template pageSize="596,842" leftMargin="72" showBoundary="1">
-	<pageTemplate id="main" pageSize="596,842">
+<template pagesize="596,842" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pagesize="596,842">
 	<pageGraphics>
 	<setFont name="Helvetica-Bold" size="18"/>
     	    <drawString x="35" y="783">RML Example 2: Cmbox</drawString>

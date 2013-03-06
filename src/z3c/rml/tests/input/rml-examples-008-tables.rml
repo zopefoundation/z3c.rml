@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_008_tables.pdf">
-	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
 		<pageTemplate id="main">
 			<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
 		</pageTemplate>

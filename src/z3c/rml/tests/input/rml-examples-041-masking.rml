@@ -1,8 +1,8 @@
 <!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
 <document filename="test_041_masking.pdf" invariant="1">
 
-<template pageSize="a4" leftMargin="72" showBoundary="1">
-	<pageTemplate id="main" pageSize="a4 portrait">
+<template pagesize="a4" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pagesize="a4 portrait">
 	<pageGraphics>
 	<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 42: Masking</drawString>

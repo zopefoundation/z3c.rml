@@ -15,6 +15,7 @@
 
 $Id$
 """
+import logging
 import os
 import subprocess
 import unittest
@@ -62,6 +63,12 @@ class RMLRenderingTestCase(unittest.TestCase):
         attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
+
+        from z3c.rml.document import LOGGER_NAME
+        for handler in logging.getLogger(LOGGER_NAME).handlers:
+            if handler.baseFilename == LOG_FILE:
+                handler.close()
+
         if os.path.exists(LOG_FILE):
             os.remove(LOG_FILE)
 
@@ -83,7 +90,9 @@ class ComparePDFTestCase(unittest.TestCase):
         test = Image.open(testImage).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
-                self.fail('Image is not the same.')
+                self.fail(
+                    'Image is not the same: %s' % os.path.basename(baseImage)
+                )
 
     def runTest(self):
         # Convert the base PDF to image(s)
@@ -114,6 +123,12 @@ def test_suite():
    for filename in os.listdir(inputDir):
        if not filename.endswith(".rml"):
            continue
+
+       if sys.platform.startswith('win') and filename == 'rml-examples-032-images.rml':
+           # The Ghostscript command to convert EPS files in PIL doesn't work
+           # on Windows. It's easy to fix but requires modifying PIL.
+           continue
+
        inPath = os.path.join(inputDir, filename)
        outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
        expectPath = os.path.join(expectDir, filename[:-4] + '.pdf')

@@ -1,8 +1,8 @@
 <!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
 <document filename="test_001_hello.pdf" invariant="1">
 
-<template pageSize="letter" leftMargin="72" showBoundary="1">
-	<pageTemplate id="main" pageSize="letter portrait">
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pagesize="letter portrait">
 	<pageGraphics>
 		<setFont name="Helvetica-BoldOblique" size="18"/>
 		<drawRightString x="523" y="800">RML2PDF Test Suite</drawRightString>

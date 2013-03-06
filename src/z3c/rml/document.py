@@ -24,6 +24,7 @@ import reportlab.pdfgen.canvas
 from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
 from reportlab.lib import colors, fonts
 from reportlab.platypus import tableofcontents
+from reportlab.platypus.doctemplate import IndexingFlowable
 
 from z3c.rml import attr, canvas, directive, doclogic, interfaces, list
 from z3c.rml import occurence, pdfinclude, special, storyplace, stylesheet
@@ -34,14 +35,16 @@ LOGGER_NAME = 'z3c.rml.render'
 class IRegisterType1Face(interfaces.IRMLDirectiveSignature):
     """Register a new Type 1 font face."""
 
-    afmFile = attr.String(
+    afmFile = attr.File(
         title=u'AFM File',
         description=u'Path to AFM file used to register the Type 1 face.',
+        doNotOpen=True,
         required=True)
 
-    pfbFile = attr.String(
+    pfbFile = attr.File(
         title=u'PFB File',
         description=u'Path to PFB file used to register the Type 1 face.',
+        doNotOpen=True,
         required=True)
 
 class RegisterType1Face(directive.RMLDirective):
@@ -122,9 +125,10 @@ class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
                      u'be previously registered.'),
         required=True)
 
-    fileName = attr.String(
+    fileName = attr.File(
         title=u'File Name',
         description=u'File path of the of the TrueType font.',
+        doNotOpen=True,
         required=True)
 
 class RegisterTTFont(directive.RMLDirective):
@@ -397,7 +401,14 @@ class LogConfig(directive.RMLDirective):
 
     def process(self):
         args = dict(self.getAttributeValues())
-        logger = logging.Logger(LOGGER_NAME)
+
+        # cleanup win paths like:
+        # ....\\input\\file:///D:\\trunk\\...
+        if sys.platform[:3].lower() == "win":
+            if args['filename'].startswith('file:///'):
+                args['filename'] = args['filename'][len('file:///'):]
+
+        logger = logging.getLogger(LOGGER_NAME)
         handler = logging.FileHandler(args['filename'], args['filemode'])
         formatter = logging.Formatter(
             args.get('format'), args.get('datefmt'))
@@ -581,7 +592,7 @@ class Document(directive.RMLDirective):
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
-            self.doc.multiBuild(self.flowables)
+            self.doc.multiBuild(self.flowables, maxPasses=2)
 
         # Process all post processors
         for name, processor in self.postProcessors:
@@ -595,3 +606,27 @@ class Document(directive.RMLDirective):
         # Cleanup.
         colors.toColor.setExtraColorsNameSpace({})
 
+    def get_name(self, name, default=None):
+        if default is None:
+            default = u''
+
+        if name not in self.names:
+            if self.doc._indexingFlowables and isinstance(
+                self.doc._indexingFlowables[-1],
+                DummyIndexingFlowable
+            ):
+                return default
+            self.doc._indexingFlowables.append(DummyIndexingFlowable())
+
+        return self.names.get(name, default)
+
+
+class DummyIndexingFlowable(IndexingFlowable):
+    """A dummy flowable to trick multiBuild into performing +1 pass."""
+
+    def __init__(self):
+        self.i = -1
+
+    def isSatisfied(self):
+        self.i += 1
+        return self.i
