@@ -7,7 +7,7 @@ format. Like the original implementation, it is based on ReportLab's
 ``reportlab`` library.
 
 You can read all about ``z3c.rml`` and see many examples on how to use it,
-see the "RML Reference":http://svn.zope.org/z3c.rml/trunk/src/z3c/rml/rml-reference.pdf?view=auto
+see the "RML Reference":https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/rml/rml-reference.pdf?raw=true
 
 Travis: |buildstatus|_
 
