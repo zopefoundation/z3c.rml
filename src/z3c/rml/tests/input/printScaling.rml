@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "../rml.dtd">
+<document filename="printScaling.pdf">
+
+<docinit printScaling="None">
+</docinit>
+
+<template pagesize="210mm,297mm" showBoundary="0">
+
+    <pageTemplate id="main">
+        <frame id="main" x1="15mm" y1="180mm" width="200mm" height="50mm" />
+    </pageTemplate>
+</template>
+
+<story>
+    <para>This document should print at actual size by default</para>
+</story>
+
+</document>

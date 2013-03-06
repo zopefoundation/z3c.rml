@@ -442,6 +442,13 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         description=u'A flag when set shows crop marks on the page.',
         required=False)
 
+    printScaling = attr.Choice(
+        title=u'Print Scaling',
+        description=(u'The print scaling mode in which the document is opened '
+        u'in the viewer.'),
+        choices=('None', 'AppDefault'),
+        required=False)
+
 
 class DocInit(directive.RMLDirective):
     signature = IDocInit
@@ -463,6 +470,7 @@ class DocInit(directive.RMLDirective):
         self.parent.cropMarks = kwargs.get('useCropMarks', False)
         self.parent.pageMode = kwargs.get('pageMode')
         self.parent.pageLayout = kwargs.get('pageLayout')
+        self.parent.printScaling = kwargs.get('printScaling')
         super(DocInit, self).process()
 
 
@@ -527,6 +535,7 @@ class Document(directive.RMLDirective):
         self.pageLayout = None
         self.pageMode = None
         self.logger = None
+        self.printScaling = None
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
@@ -542,6 +551,10 @@ class Document(directive.RMLDirective):
             canvas._doc._catalog.setPageLayout(self.pageLayout)
         if self.pageMode:
             canvas._doc._catalog.setPageMode(self.pageMode)
+        if self.printScaling:
+            canvas.setViewerPreference(
+                'PrintScaling', self.printScaling
+            )
 
     def process(self, outputFile=None):
         """Process document"""
