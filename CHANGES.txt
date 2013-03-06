@@ -5,6 +5,9 @@ CHANGES
 2.1.0 (unreleased)
 ------------------
 
+- Implemeneted viewer preference "PrintScaling" which allows you to set the
+  default print size to the actual document size which is good if you're
+  printing anything that requires precision. [Kyle MacFarlane]
 
 - Added SVG support to the ``image`` and ``imageAndFlowables`` tags. [Kyle
   MacFarlane]
