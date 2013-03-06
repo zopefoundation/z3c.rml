@@ -21,20 +21,11 @@ CHANGES
   a vector graphic but instead a 300 DPI bitmap that is automatically scaled
   to the correct size with little quality loss.
 
-- Fixed any failing tests, including all Windows tests. [Kyle MacFarlane]
-
 - Added ability to look for font files in packages. [Kyle MacFarlane]
-
-- Fixed the table borders not printing or even appearing in some
-  viewers. [Kyle MacFarlane]
 
 - Documented the ``pageSize`` versus ``pagesize`` attribute difference on
   ``template`` and ``pageTemplate`` elements compared to RML2PDF. [Kyle
   MacFarlane]
-
-- Improved performance by not applying a copy of the default style to every
-  table cell and also by not even trying to initialise the attributes if lxml
-  says they don't exist. [Kyle MacFarlane]
 
 - ``namedString`` element now evaluates its contents so you can use things
   like ``pageNumber`` inside of it. [Kyle MacFarlane]
@@ -49,6 +40,20 @@ CHANGES
 - ``getName`` element now supports forward references This means you can now
  do things like "Page X of Y". This only works in the ``drawString`` and
  ``para`` elements. [Kyle MacFarlane]
+
+- Improved performance by not applying a copy of the default style to every
+  table cell and also by not even trying to initialise the attributes if lxml
+  says they don't exist. [Kyle MacFarlane]
+
+- ``MergePostProcessor`` class did not copy document info and table of
+  contents (aka Outlines) of ``inputFile1``. That meant that if you used any
+  ``includePdfPages`` or ``mergePage`` directives you lost any ``outlineAdd``
+  directive effect. [Alex Garel]
+
+- Fixed any failing tests, including all Windows tests. [Kyle MacFarlane]
+
+- Fixed the table borders not printing or even appearing in some
+  viewers. [Kyle MacFarlane]
 
 - Updated ``bootstrap.py`` and ``buildout.cfg`` to work with the latest
   version of ``zc.buildout``.

@@ -18,6 +18,7 @@ from z3c.rml import attr, directive, interfaces
 
 try:
     import pyPdf
+    from pyPdf.generic import NameObject
 except ImportError:
     # We don't want to require pyPdf, if you do not want to use the features
     # in this module.
@@ -31,6 +32,9 @@ class MergePostProcessor(object):
     def process(self, inputFile1):
         input1 = pyPdf.PdfFileReader(inputFile1)
         output = pyPdf.PdfFileWriter()
+        output._info.getObject().update(input1.documentInfo)
+        output._root.getObject()[NameObject("/Outlines")] = (
+            output._addObject(input1.trailer["/Root"]["/Outlines"]))
         for (num, page) in enumerate(input1.pages):
             if num in self.operations:
                 for mergeFile, mergeNumber in self.operations[num]:
