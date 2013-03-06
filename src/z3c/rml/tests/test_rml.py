@@ -115,6 +115,26 @@ class ComparePDFTestCase(unittest.TestCase):
             n += 1
 
 
+class CompareFileTestCase(unittest.TestCase):
+
+    def __init__(self, testPath, contains):
+        self._testPath = testPath
+        self._contains = contains
+        unittest.TestCase.__init__(self)
+
+    def runTest(self):
+        f = open(self._testPath, 'rb')
+        try:
+            contents = f.read()
+
+            if self._contains not in contents:
+                self.fail(
+                    'PDF file does not contain: %s' % self._contains
+                )
+        finally:
+            f.close()
+
+
 def test_suite():
    suite = unittest.TestSuite()
    inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
@@ -138,11 +158,15 @@ def test_suite():
        TestCase = type(filename[:-4], (RMLRenderingTestCase,), {})
        case = TestCase(inPath, outPath)
        suite.addTest(case)
-
        # ** Test PDF rendering correctness **
        TestCase = type('compare-'+filename[:-4], (ComparePDFTestCase,), {})
        case = TestCase(expectPath, outPath)
        suite.addTest(case)
+
+       if filename == 'printScaling.rml':
+            TestCase = type('compare-file-'+filename[:-4], (CompareFileTestCase,), {})
+            case = TestCase(outPath, '<< /PrintScaling /None >>')
+            suite.addTest(case)
 
    return suite
 
