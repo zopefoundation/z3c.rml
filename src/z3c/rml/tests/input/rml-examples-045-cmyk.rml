@@ -7,8 +7,8 @@
 	<color id="BLUE25" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV" density=".25"/>
 </docinit>
 
-<template pageSize="letter" leftMargin="72" showBoundary="0">
-	<pageTemplate id="main" pageSize="A4">
+<template pagesize="letter" leftMargin="72" showBoundary="0">
+	<pageTemplate id="main" pagesize="A4">
 	<pageGraphics>
 		<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 46: Cmyk</drawString>

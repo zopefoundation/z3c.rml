@@ -15,7 +15,7 @@
   </stylesheet>
 
   <template
-      pageSize="(21cm, 29cm)"
+      pagesize="(21cm, 29cm)"
       rotation="180"
       leftMargin="1cm"
       rightMargin="2cm"

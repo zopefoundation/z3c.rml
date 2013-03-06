@@ -3,7 +3,7 @@
 <document filename="test_029_keepinframe.pdf" debug="0" invariant="0" compression="1">
 
 
-<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
 	<pageTemplate id="main">
 	<pageGraphics>
 		<setFont name="Helvetica-BoldOblique" size="18"/>

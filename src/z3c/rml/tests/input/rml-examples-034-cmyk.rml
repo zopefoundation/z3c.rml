@@ -5,8 +5,8 @@
 	<color id="CMYK_BLACK" RGB="PCMYKColor(0, 0, 0, 100)"/>
 </docinit>
 
-<template pageSize="letter" leftMargin="72" showBoundary="1">
-	<pageTemplate id="main" pageSize="A4">
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pagesize="A4">
 	<pageGraphics>
 		<setFont name="Helvetica-BoldOblique" size="18"/>
 		<drawRightString x="523" y="800">RML2PDF Test Suite</drawRightString>

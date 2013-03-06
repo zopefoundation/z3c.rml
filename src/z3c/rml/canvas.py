@@ -19,7 +19,7 @@ __docformat__ = "reStructuredText"
 import zope.interface
 import reportlab.pdfgen.canvas
 from z3c.rml import attr, directive, interfaces, occurence, stylesheet
-from z3c.rml import chart, flowable, form, page
+from z3c.rml import chart, flowable, form, page, special
 
 
 class IShape(interfaces.IRMLDirectiveSignature):
@@ -96,28 +96,9 @@ class IDrawString(interfaces.IRMLDirectiveSignature):
         description=(u'The string/text that is put onto the canvas.'),
         required=True)
 
-class DrawString(CanvasRMLDirective):
+class DrawString(CanvasRMLDirective, special.TextFlowables):
     signature = IDrawString
     callable = 'drawString'
-
-    def getPageNumber(self, elem, canvas):
-        return str(canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1)
-
-    def getName(self, elem, canvas):
-        return attr.getManager(self).names[elem.get('id')]
-
-    handleElements = {'pageNumber': getPageNumber,
-                      'getName': getName}
-
-    def _getText(self, node, canvas):
-        text = node.text or u''
-        for sub in node.iterdescendants():
-            if sub.tag in self.handleElements:
-                text += self.handleElements[sub.tag](self, sub, canvas)
-            else:
-                self._getText(sub, canvas)
-        text += node.tail or u''
-        return text
 
     def process(self):
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas

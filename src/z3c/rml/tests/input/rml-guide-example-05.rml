@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
 <!DOCTYPE document SYSTEM "rml.dtd">
 <document filename="example_5.pdf">
-  <template pageSize="(21cm, 29.7cm)"
+  <template pagesize="(21cm, 29.7cm)"
         leftMargin="2.5cm"
         rightMargin="2.5cm"
         topMargin="2.5cm"

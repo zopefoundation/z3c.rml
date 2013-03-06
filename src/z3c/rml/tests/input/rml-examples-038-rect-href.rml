@@ -3,7 +3,7 @@
 <document filename="test_038_rect_href.pdf">
 
 
-<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
 <pageTemplate id="main">
 	<pageGraphics>
 		<setFont name="Helvetica-Bold" size="18"/>

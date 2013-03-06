@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="eucjp" standalone="no" ?> 
+<?xml version="1.0" encoding="utf-8" standalone="no" ?> 
 <!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
 <document filename="test_017_outlines.pdf"> 
 
 
-<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+<template pagesize="(595, 842)" leftMargin="72" showBoundary="0">
 	<pageTemplate id="main">
 		<pageGraphics>
 			<setFont name="Helvetica-BoldOblique" size="18"/>
@@ -38,7 +38,7 @@
 <setNextTemplate name="main"/>
 <outlineAdd level="1">Level 1 Again</outlineAdd>
 <para style="h1">Level 1 Again</para>
-<outlineAdd level="1">Ampersand (&amp;) and Japanese (¤Ş¤¿¤Ï¤´´õË¾¤Î¥Û¥Æ¥ë¤ò1¤ÄÁªÂò¤·¤Æ¤¯¤À¤µ¤¤) Test</outlineAdd>
+<outlineAdd level="1">Ampersand (&amp;) and Japanese (ã¾ãŸã¯ã”å¸Œæœ›ã®ãƒ›ãƒ†ãƒ«ã‚’1ã¤é¸æŠã—ã¦ãã ã•ã„) Test</outlineAdd>
 <para>Check that the ampersand (&amp;) appears correctly in the outline/bookmark list.</para>
 <nextFrame/>
 
