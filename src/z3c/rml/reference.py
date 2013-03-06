@@ -25,10 +25,11 @@ from pygments.lexers import XmlLexer
 from z3c.rml import attr, document, interfaces, pagetemplate
 
 
-INPUT_URL = ('http://svn.zope.org/*checkout*/z3c.rml/trunk/src/z3c/'
+INPUT_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
              'rml/tests/input/%s')
-EXPECTED_URL = ('http://svn.zope.org/z3c.rml/trunk/src/z3c/'
-                'rml/tests/expected/%s?view=auto')
+EXPECTED_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
+                'rml/tests/expected/%s?raw=true')
+
 EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
 IGNORE_ATTRIBUTES = ('RMLAttribute', 'BaseChoice')
 CONTENT_FIELD_TYPES = (
