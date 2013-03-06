@@ -5,6 +5,22 @@ CHANGES
 2.1.0 (unreleased)
 ------------------
 
+- Implemented all PDF viewer preferences. [Kyle MacFarlane]
+
+  * HideToolbar
+  * HideMenubar
+  * HideWindowUI
+  * FitWindow
+  * CenterWindow
+  * DisplayDocTitle
+  * NonFullScreenPageMode
+  * Direction
+  * ViewArea
+  * ViewClip
+  * PrintArea
+  * PrintClip
+  * PrintScaling
+
 - Implemeneted viewer preference "PrintScaling" which allows you to set the
   default print size to the actual document size which is good if you're
   printing anything that requires precision. [Kyle MacFarlane]
@@ -38,8 +54,8 @@ CHANGES
   reference isn't resolved after the second pass. [Kyle MacFarlane]
 
 - ``getName`` element now supports forward references This means you can now
- do things like "Page X of Y". This only works in the ``drawString`` and
- ``para`` elements. [Kyle MacFarlane]
+  do things like "Page X of Y". This only works in the ``drawString`` and
+  ``para`` elements. [Kyle MacFarlane]
 
 - Improved performance by not applying a copy of the default style to every
   table cell and also by not even trying to initialise the attributes if lxml
