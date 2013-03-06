@@ -9,6 +9,18 @@
 <!ATTLIST docinit pageMode (usenone|fullscreen|usethumbs|useoutlines) #IMPLIED>
 <!ATTLIST docinit pageLayout (twocolumnright|onecolumn|twocolumnleft|singlepage) #IMPLIED>
 <!ATTLIST docinit useCropMarks CDATA #IMPLIED>
+<!ATTLIST docinit hideToolbar CDATA #IMPLIED>
+<!ATTLIST docinit hideMenubar CDATA #IMPLIED>
+<!ATTLIST docinit hideWindowUI CDATA #IMPLIED>
+<!ATTLIST docinit fitWindow CDATA #IMPLIED>
+<!ATTLIST docinit centerWindow CDATA #IMPLIED>
+<!ATTLIST docinit displayDocTitle CDATA #IMPLIED>
+<!ATTLIST docinit nonFullScreenPageMode (usenone|useoc|usethumbs|useoutlines) #IMPLIED>
+<!ATTLIST docinit direction (l2r|r2l) #IMPLIED>
+<!ATTLIST docinit viewArea (trimbox|artbox|bleedbox|cropbox|mediabox) #IMPLIED>
+<!ATTLIST docinit viewClip (trimbox|artbox|bleedbox|cropbox|mediabox) #IMPLIED>
+<!ATTLIST docinit printArea (trimbox|artbox|bleedbox|cropbox|mediabox) #IMPLIED>
+<!ATTLIST docinit printClip (trimbox|artbox|bleedbox|cropbox|mediabox) #IMPLIED>
 <!ATTLIST docinit printScaling (none|appdefault) #IMPLIED>
 
 <!ELEMENT color>

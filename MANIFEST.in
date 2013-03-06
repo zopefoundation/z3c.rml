@@ -1,0 +1,13 @@
+include *.rst
+include *.txt
+include *.py
+include .travis.yml
+include buildout.cfg
+include tox.ini
+
+recursive-include src *
+recursive-exclude src/z3c/rml/tests/output *.png *.pdf
+recursive-exclude src/z3c/rml/tests/expected *.png
+
+global-exclude *.pyc
+
