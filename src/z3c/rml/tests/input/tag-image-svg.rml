@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-image-svg.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="10mm" y="10mm" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="100mm" y="10mm" width="50mm" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="10mm" y="100mm" height="50mm" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="100mm" y="100mm" width="50mm" preserveAspectRatio="true" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="10mm" y="200mm" height="50mm" preserveAspectRatio="true" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svg"
+        x="100mm" y="200mm" width="20mm" height="50mm" preserveAspectRatio="true" />
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.svgz"
+        x="150mm" y="250mm" width="20mm" height="50mm" preserveAspectRatio="true" />
+
+  </pageDrawing>
+</document>

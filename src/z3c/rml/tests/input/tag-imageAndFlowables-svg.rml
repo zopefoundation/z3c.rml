@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-imageAndFlowables.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+    <title>
+      <font face="Courier">&lt;imageAndFlowables&gt;</font> Tag Demo
+    </title>
+    <para>
+      This tag sets and image an flowables around it. This paragraph clearly
+      still goes accross the entire frame width. We need some more text to
+      demonstrate that.
+    </para>
+    <imageAndFlowables
+        imageName="images/cylinder.svg"
+        imageHeight="40"
+        imageWidth="40"
+        imageMask="white"
+        imageLeftPadding="20"
+        imageRightPadding="20"
+        imageTopPadding="20"
+        imageBottomPadding="20"
+        imageSide="left">
+      <h1>Wrap around</h1>
+      <para>This text should wrap around the image.</para>
+      <para>
+        A lot more text goes here. A lot more text goes here. A lot more text
+        goes here. A lot more text goes here. A lot more text goes here. A lot
+        more text goes here.
+      </para>
+      <para>
+        A lot more text goes here. A lot more text goes here. A lot more text
+        goes here. A lot more text goes here. A lot more text goes here. A lot
+        more text goes here. A lot more text goes here. A lot more text goes
+        here. A lot more text goes here. A lot more text goes here. A lot more
+        text goes here. A lot more text goes here.
+      </para>
+    </imageAndFlowables>
+    <imageAndFlowables
+        imageName="images/cylinder.svg"
+        imageWidth="200"
+        imageMask="white"
+        imageSide="left"
+        doc:example="">
+      <h1>Wrap around</h1>
+      <para>This text should wrap around the image.</para>
+    </imageAndFlowables>
+  </story>
+</document>

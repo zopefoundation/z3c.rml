@@ -337,10 +337,68 @@ class Image(File):
         self.onlyOpen = onlyOpen
 
     def fromUnicode(self, value):
+        if value.lower().endswith('.svg') or value.lower().endswith('.svgz'):
+            return self._load_svg(value)
         fileObj = super(Image, self).fromUnicode(value)
         if self.onlyOpen:
             return fileObj
         return reportlab.lib.utils.ImageReader(fileObj)
+
+    def _load_svg(self, value):
+        manager = getManager(self.context)
+
+        width = self.context.element.get('width')
+        if width is not None:
+            width = Measurement().fromUnicode(width)
+        height = self.context.element.get('height')
+        if height is not None:
+            height = Measurement().fromUnicode(height)
+        preserve = self.context.element.get('preserveAspectRatio')
+        if preserve is not None:
+            preserve = Boolean().fromUnicode(preserve)
+
+        cache_key = '%s-%sx%s-%s' % (value, width, height, preserve)
+        if cache_key in manager.svgs:
+            return manager.svgs[cache_key]
+
+        from gzip import GzipFile
+        from reportlab.graphics import renderPM
+        from svg2rlg import Renderer
+        from xml.etree import cElementTree
+
+        fileObj = super(Image, self).fromUnicode(value)
+        svg = fileObj.getvalue()
+        if svg[:2] == '\037\213':
+            svg = GzipFile(fileobj=fileObj).read()
+        svg = cElementTree.fromstring(svg)
+        svg = Renderer(value).render(svg)
+
+        if preserve:
+            if width is not None or height is not None:
+                if width is not None and height is None:
+                    height = svg.height * width / svg.width
+                elif height is not None and width is None:
+                    width = svg.width * height / svg.height
+                elif float(width) / height > float(svg.width) / svg.height:
+                    width = svg.width * height / svg.height
+                else:
+                    height = svg.height * width / svg.width
+        else:
+            if width is None:
+                width = svg.width
+            if height is None:
+                height = svg.height
+
+        svg.scale(width / svg.width, height / svg.height)
+        svg.width = width
+        svg.height = height
+
+        svg = renderPM.drawToPIL(svg, dpi=300)
+        svg = reportlab.lib.utils.ImageReader(svg)
+        svg.read = True # A hack to get ImageReader through as an open Image
+                        # when used with imageAndFlowables
+        manager.svgs[cache_key] = svg
+        return svg
 
 
 class Color(RMLAttribute):
