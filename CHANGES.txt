@@ -5,7 +5,53 @@ CHANGES
 2.1.0 (unreleased)
 ------------------
 
-- ...
+
+- Added SVG support to the ``image`` and ``imageAndFlowables`` tags. [Kyle
+  MacFarlane]
+
+  Approach: Convert the drawing to a PIL ``Image`` instance and pass that
+  around just like a regular image. The big problem is that in the conversion
+  from ``Drawing`` to ``Image`` stroke width can often get messed up and
+  become too thick. I think this is maybe down to how scaling is done but you
+  can avoid it by editing the SVGs you want to insert. You also lose any
+  transparency and get a white background. Basically you no longer really have
+  a vector graphic but instead a 300 DPI bitmap that is automatically scaled
+  to the correct size with little quality loss.
+
+- Fixed any failing tests, including all Windows tests. [Kyle MacFarlane]
+
+- Added ability to look for font files in packages. [Kyle MacFarlane]
+
+- Fixed the table borders not printing or even appearing in some
+  viewers. [Kyle MacFarlane]
+
+- Documented the ``pageSize`` versus ``pagesize`` attribute difference on
+  ``template`` and ``pageTemplate`` elements compared to RML2PDF. [Kyle
+  MacFarlane]
+
+- Improved performance by not applying a copy of the default style to every
+  table cell and also by not even trying to initialise the attributes if lxml
+  says they don't exist. [Kyle MacFarlane]
+
+- ``namedString`` element now evaluates its contents so you can use things
+  like ``pageNumber`` inside of it. [Kyle MacFarlane]
+
+- Implemented ``evalString`` using Python's ``eval()`` with builtins
+  disabled. [Kyle MacFarlane]
+
+- ``getName`` element now checks if it has a default attribute. This is used
+  as a width measurement for a first pass or as the actual value if the
+  reference isn't resolved after the second pass. [Kyle MacFarlane]
+
+- ``getName`` element now supports forward references This means you can now
+ do things like "Page X of Y". This only works in the ``drawString`` and
+ ``para`` elements. [Kyle MacFarlane]
+
+- Updated ``bootstrap.py`` and ``buildout.cfg`` to work with the latest
+  version of ``zc.buildout``.
+
+- Updated build to use latest lxml.
+
 
 2.0.0 (2012-12-21)
 ------------------

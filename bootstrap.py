@@ -18,11 +18,7 @@ The script accepts buildout command-line options, so you can
 use the -c option to specify an alternate configuration file.
 """
 
-import os
-import shutil
-import sys
-import tempfile
-
+import os, shutil, sys, tempfile
 from optparse import OptionParser
 
 tmpeggs = tempfile.mkdtemp()
@@ -52,10 +48,10 @@ parser.add_option("-t", "--accept-buildout-test-releases",
                         "bootstrap and buildout will get the newest releases "
                         "even if they are alphas or betas."))
 parser.add_option("-c", "--config-file",
-                  help=("Specify the path to the buildout configuration "
-                        "file to be used."))
+                   help=("Specify the path to the buildout configuration "
+                         "file to be used."))
 parser.add_option("-f", "--find-links",
-                  help=("Specify a URL to search for buildout releases"))
+                   help=("Specify a URL to search for buildout releases"))
 
 
 options, args = parser.parse_args()
@@ -65,8 +61,7 @@ options, args = parser.parse_args()
 
 to_reload = False
 try:
-    import pkg_resources
-    import setuptools
+    import pkg_resources, setuptools
     if not hasattr(pkg_resources, '_distribute'):
         to_reload = True
         raise ImportError
@@ -78,8 +73,7 @@ except ImportError:
     except ImportError:
         from urllib2 import urlopen
 
-    exec(urlopen('http://python-distribute.org/distribute_setup.py').read(), 
-         ez)
+    exec(urlopen('http://python-distribute.org/distribute_setup.py').read(), ez)
     setup_args = dict(to_dir=tmpeggs, download_delay=0, no_fake=True)
     ez['use_setuptools'](**setup_args)
 
@@ -95,7 +89,7 @@ except ImportError:
 ######################################################################
 # Install buildout
 
-ws = pkg_resources.working_set
+ws  = pkg_resources.working_set
 
 cmd = [sys.executable, '-c',
        'from setuptools.command.easy_install import main; main()',
@@ -119,7 +113,6 @@ if version is None and not options.accept_buildout_test_releases:
     # Figure out the most recent final version of zc.buildout.
     import setuptools.package_index
     _final_parts = '*final-', '*final'
-
     def _final_version(parsed_version):
         for part in parsed_version:
             if (part[:1] == '*') and (part not in _final_parts):

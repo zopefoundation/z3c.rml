@@ -1,2 +1,12 @@
+*.pyc
+__pycache__
+
+.installed.cfg
+bin
+develop-eggs
+dist
+parts
+
+src/*.egg-info
 src/z3c/rml/tests/expected/*.png
 src/z3c/rml/tests/output/*
