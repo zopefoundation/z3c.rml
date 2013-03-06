@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML Directive Implementation
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import logging
 import zope.interface
 import zope.schema

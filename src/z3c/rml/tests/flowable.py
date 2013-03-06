@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Style Related Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import reportlab.platypus.flowables
 
 

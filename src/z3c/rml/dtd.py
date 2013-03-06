@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Generate a DTD from the code
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import zope.schema
 
 from z3c.rml import attr, document, occurence

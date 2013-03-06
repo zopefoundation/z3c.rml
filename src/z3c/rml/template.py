@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Style Related Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import zope.interface
 from reportlab import platypus
 from z3c.rml import attr, directive, interfaces, occurence

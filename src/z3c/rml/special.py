@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Special Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 from z3c.rml import attr, directive, interfaces
 
 

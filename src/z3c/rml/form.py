@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Page Drawing Related Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import types
 import reportlab.pdfbase.pdfform
 from z3c.rml import attr, directive, interfaces, occurence

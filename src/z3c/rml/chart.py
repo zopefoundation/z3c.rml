@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Chart Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import reportlab.lib.formatters
 from reportlab.graphics import shapes
 from reportlab.graphics.charts import barcharts, lineplots, piecharts

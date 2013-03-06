@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """Testing all XML Locale functionality.
-
-$Id: test_rml.py 74170 2007-04-16 08:42:13Z srichter $
 """
 import os
 import unittest

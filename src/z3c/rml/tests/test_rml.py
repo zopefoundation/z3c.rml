@@ -12,8 +12,6 @@
 #
 ##############################################################################
 """Testing all XML Locale functionality.
-
-$Id$
 """
 import logging
 import os

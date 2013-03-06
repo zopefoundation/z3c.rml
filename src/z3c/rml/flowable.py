@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Flowable Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import copy
 import logging
 import re

@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML Attribute Implementation
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import cStringIO
 import logging
 import os

@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Page Drawing Related Element Processing
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import zope.interface
 import reportlab.pdfgen.canvas
 from z3c.rml import attr, directive, interfaces, occurence, stylesheet

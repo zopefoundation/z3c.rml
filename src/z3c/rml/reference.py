@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML Reference Generator
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import copy
 import re
 import os

@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML ``document`` element
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import cStringIO
 import logging
 import sys

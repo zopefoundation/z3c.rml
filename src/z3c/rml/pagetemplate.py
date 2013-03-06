@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Page Template Support
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import zope
 from z3c.rml import rml2pdf
 

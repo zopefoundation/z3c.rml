@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """Condition Implementation
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import reportlab
 import sys
 import zope.interface

@@ -12,11 +12,7 @@
 #
 ##############################################################################
 """Paragraph-internal XML parser extensions.
-
-$Id: flowable.py 76814 2007-06-19 20:12:41Z srichter $
 """
-__docformat__ = "reStructuredText"
-
 import copy
 import inspect
 

@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML to PDF Converter
-
-$Id$
 """
-__docformat__ = "reStructuredText"
 import cStringIO
 import os
 import sys

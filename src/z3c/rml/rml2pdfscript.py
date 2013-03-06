@@ -12,10 +12,7 @@
 #
 ##############################################################################
 """RML to PDF Converter
-
-$Id: rml2pdf.py 74160 2007-04-15 22:04:24Z srichter $
 """
-__docformat__ = "reStructuredText"
 import subprocess
 import sys
 import os
