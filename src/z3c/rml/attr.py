@@ -28,7 +28,7 @@ import zope.interface
 import zope.schema
 from lxml import etree
 
-from z3c.rml import interfaces
+from z3c.rml import interfaces, SampleStyleSheet
 
 MISSING = object()
 logger = logging.getLogger("z3c.rml")
@@ -48,7 +48,11 @@ def getManager(context, interface=None):
         from z3c.rml import interfaces
         interface = interfaces.IManager
     # Walk up the path until the manager is found
-    while (not interface.providedBy(context) and context is not None):
+    # Using interface.providedBy is much slower because it does many more checks
+    while (
+        context is not None and
+        not interface in context.__class__.__dict__.get('__implemented__', {})
+    ):
         context = context.parent
     # If no manager was found, raise an error
     if context is None:
@@ -431,8 +435,7 @@ class Color(RMLAttribute):
 
 def _getStyle(context, value):
     manager = getManager(context)
-    for styles in (manager.styles,
-                   reportlab.lib.styles.getSampleStyleSheet().byName):
+    for styles in (manager.styles, SampleStyleSheet.byName):
         if value in styles:
             return styles[value]
         elif 'style.' + value in styles:
@@ -448,7 +451,7 @@ class Style(String):
     Whether the style is a paragraph, table or box style is irrelevant, except
     that it has to fit the tag.
     """
-    default = reportlab.lib.styles.getSampleStyleSheet().byName['Normal']
+    default = SampleStyleSheet.byName['Normal']
 
     def fromUnicode(self, value):
         return _getStyle(self.context, value)
@@ -570,7 +573,7 @@ class RawXMLContent(RMLAttribute):
     def get(self):
         # ReportLab's paragraph parser does not like attributes from other
         # namespaces; sigh. So we have to improvize.
-        text = etree.tounicode(self.context.element)
+        text = etree.tounicode(self.context.element, pretty_print=False)
         text = text[text.find('>')+1:text.rfind('<')]
         return text
 

@@ -18,7 +18,7 @@ import reportlab.lib.styles
 import reportlab.graphics.widgets.markers
 from reportlab.graphics import renderPDF, shapes
 from reportlab.lib import colors
-from z3c.rml import interfaces, attr
+from z3c.rml import attr, interfaces, SampleStyleSheet
 
 def myPreformatted(params):
     return reportlab.platypus.Preformatted('''
@@ -32,7 +32,7 @@ def myPreformatted(params):
         plugin. Hey, this is a long text from a plugin. Hey, this is a long
         text from a plugin. Hey, this is a long text from a plugin. Hey, this
         is a long text from a plugin.''',
-        reportlab.lib.styles.getSampleStyleSheet()['Normal'])
+        SampleStyleSheet['Normal'])
 
 class LinkURL(reportlab.platypus.flowables.Flowable):
     def __init__(self, link):
@@ -49,7 +49,7 @@ def linkURL(params):
     params = eval(params)
     return (
         reportlab.platypus.Paragraph(
-            params[0], reportlab.lib.styles.getSampleStyleSheet()['Normal']),
+            params[0], SampleStyleSheet['Normal']),
         LinkURL(*params))
 
 class IMarker(interfaces.IRMLDirectiveSignature):

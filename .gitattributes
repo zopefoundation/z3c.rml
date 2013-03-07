@@ -1,0 +1,2 @@
+*.pdf -crlf diff=astextplain
+*.PDF -crlf diff=astextplain
