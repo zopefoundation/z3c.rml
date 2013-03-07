@@ -14,7 +14,7 @@
 """ReportLab fixups.
 """
 __docformat__ = "reStructuredText"
-from reportlab.pdfbase import pdfform
+from reportlab.pdfbase import pdfform, pdfmetrics, ttfonts
 from reportlab.pdfbase.pdfpattern import PDFPattern
 from reportlab.graphics import testshapes
 
@@ -30,6 +30,10 @@ def resetFonts():
     # testshapes._setup registers the Vera fonts every time which is a little
     # slow on all platforms. On Windows it lists the entire system font
     # directory and registers them all which is very slow.
+    pdfmetrics.registerFont(ttfonts.TTFont("Vera", "Vera.ttf"))
+    pdfmetrics.registerFont(ttfonts.TTFont("VeraBd", "VeraBd.ttf"))
+    pdfmetrics.registerFont(ttfonts.TTFont("VeraIt", "VeraIt.ttf"))
+    pdfmetrics.registerFont(ttfonts.TTFont("VeraBI", "VeraBI.ttf"))
     for f in ('Times-Roman','Courier','Helvetica','Vera', 'VeraBd', 'VeraIt',
               'VeraBI'):
         if f not in testshapes._FONTS:

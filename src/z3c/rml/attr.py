@@ -242,6 +242,20 @@ class Boolean(BaseChoice):
                '1': True, '0': False,
                }
 
+class TextBoolean(BaseChoice):
+    '''A boolean value as text.
+
+    ReportLab sometimes exposes low-level APIs, so we have to provide values
+    that are directly inserted into the PDF.
+
+    For "true" the values "true", "yes", and "1" are allowed. For "false", the
+    values "false", "no", "1" are allowed.
+    '''
+    choices = {'true': 'true', 'false': 'false',
+               'yes': 'true', 'no': 'false',
+               '1': 'true', '0': 'false',
+               }
+
 
 class BooleanWithDefault(Boolean):
     '''This is a boolean field that can also receive the value "default".'''

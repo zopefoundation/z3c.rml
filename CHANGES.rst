@@ -57,6 +57,8 @@ CHANGES
   do things like "Page X of Y". This only works in the ``drawString`` and
   ``para`` elements. [Kyle MacFarlane]
 
+- General performance improvements. [Kyle MacFarlane]
+
 - Improved performance by not applying a copy of the default style to every
   table cell and also by not even trying to initialise the attributes if lxml
   says they don't exist. [Kyle MacFarlane]

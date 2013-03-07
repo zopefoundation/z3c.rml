@@ -450,36 +450,36 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         description=u'A flag when set shows crop marks on the page.',
         required=False)
 
-    hideToolbar = attr.Boolean(
+    hideToolbar = attr.TextBoolean(
         title=u'Hide Toolbar',
         description=(u'A flag indicating that the toolbar is hidden in '
                      u'the viewer.'),
         required=False)
 
-    hideMenubar = attr.Boolean(
+    hideMenubar = attr.TextBoolean(
         title=u'Hide Menubar',
         description=(u'A flag indicating that the menubar is hidden in '
                      u'the viewer.'),
         required=False)
 
-    hideWindowUI = attr.Boolean(
+    hideWindowUI = attr.TextBoolean(
         title=u'Hide Window UI',
         description=(u'A flag indicating that the window UI is hidden in '
                      u'the viewer.'),
         required=False)
 
-    fitWindow = attr.Boolean(
-        title=u'Fir Window',
+    fitWindow = attr.TextBoolean(
+        title=u'Fit Window',
         description=u'A flag indicating that the page fits in the viewer.',
         required=False)
 
-    centerWindow = attr.Boolean(
+    centerWindow = attr.TextBoolean(
         title=u'Center Window',
         description=(u'A flag indicating that the page fits is centered '
                      u'in the viewer.'),
         required=False)
 
-    displayDocTitle = attr.Boolean(
+    displayDocTitle = attr.TextBoolean(
         title=u'Display Doc Title',
         description=(u'A flag indicating that the document title is displayed '
                      u'in the viewer.'),
