@@ -25,7 +25,7 @@ import zope.schema
 from reportlab.lib import styles, pygments2xpre
 from xml.sax.saxutils import unescape
 from z3c.rml import attr, directive, interfaces, occurence
-from z3c.rml import form, platypus, special, stylesheet
+from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
 
 try:
     import reportlab.graphics.barcode
@@ -188,7 +188,7 @@ class IPreformatted(IMinimalParagraphBase):
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
                      u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Code'],
+        default=SampleStyleSheet['Code'],
         required=False)
 
     text = attr.RawXMLContent(
@@ -218,7 +218,7 @@ class IXPreformatted(IParagraphBase):
         description=(u'The paragraph style that is applied to the paragraph. '
                      u'See the ``paraStyle`` tag for creating a paragraph '
                      u'style.'),
-        default=reportlab.lib.styles.getSampleStyleSheet()['Normal'],
+        default=SampleStyleSheet['Normal'],
         required=False)
 
     text = attr.RawXMLContent(
@@ -277,7 +277,11 @@ class Paragraph(Flowable):
     styleAttributes = zope.schema.getFieldNames(stylesheet.IBaseParagraphStyle)
 
     def processStyle(self, style):
-        attrs = self.getAttributeValues(select=self.styleAttributes)
+        attrs = []
+        for attr in self.styleAttributes:
+            if self.element.get(attr) is not None:
+                attrs.append(attr)
+        attrs = self.getAttributeValues(select=attrs)
         if attrs:
             style = copy.deepcopy(style)
             for name, value in attrs:

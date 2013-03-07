@@ -579,6 +579,7 @@ class IDocument(interfaces.IRMLDirectiveSignature):
     debug = attr.Boolean(
         title=u'Debug',
         description=u'A flag to activate the debug output.',
+        default=False,
         required=False)
 
     compression = attr.BooleanWithDefault(
@@ -622,6 +623,7 @@ class Document(directive.RMLDirective):
         self.pageMode = None
         self.logger = None
         self.svgs = {}
+        self.attributesCache = {}
         for name in DocInit.viewerOptions:
             setattr(self, name, None)
 
@@ -648,6 +650,10 @@ class Document(directive.RMLDirective):
         # Reset all reportlab global variables. This is very important for
         # ReportLab not to fail.
         reportlab.rl_config._reset()
+
+        debug = self.getAttributeValues(select=('debug',), valuesOnly=True)[0]
+        if not debug:
+            reportlab.rl_config.shapeChecking = 0
 
         # Add our colors mapping to the default ones.
         colors.toColor.setExtraColorsNameSpace(self.colors)
@@ -694,6 +700,7 @@ class Document(directive.RMLDirective):
 
         # Cleanup.
         colors.toColor.setExtraColorsNameSpace({})
+        reportlab.rl_config.shapeChecking = 1
 
     def get_name(self, name, default=None):
         if default is None:
