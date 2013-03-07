@@ -17,7 +17,8 @@ import copy
 import reportlab.lib.styles
 import reportlab.lib.enums
 import reportlab.platypus
-from z3c.rml import attr, directive, interfaces, occurence, special
+from z3c.rml import attr, directive, interfaces, occurence, SampleStyleSheet, \
+    special
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):
@@ -202,7 +203,7 @@ class ParagraphStyle(directive.RMLDirective):
     def process(self):
         kwargs = dict(self.getAttributeValues())
         parent = kwargs.pop(
-            'parent', reportlab.lib.styles.getSampleStyleSheet()['Normal'])
+            'parent', SampleStyleSheet['Normal'])
         name = kwargs.pop('name')
         style = copy.deepcopy(parent)
         style.name = name[6:] if name.startswith('style.') else name

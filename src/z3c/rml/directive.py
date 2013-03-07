@@ -19,6 +19,7 @@ import zope.schema
 
 from lxml import etree
 from z3c.rml import interfaces
+from z3c.rml.attr import getManager
 
 logging.raiseExceptions = False
 logger = logging.getLogger("z3c.rml")
@@ -48,8 +49,18 @@ class RMLDirective(object):
     def getAttributeValues(self, ignore=None, select=None, attrMapping=None,
                            includeMissing=False, valuesOnly=False):
         """See interfaces.IRMLDirective"""
+        manager = getManager(self)
+        cache = '%s.%s' % (self.signature.__module__, self.signature.__name__)
+        if cache in manager.attributesCache:
+            fields = manager.attributesCache[cache]
+        else:
+            fields = []
+            for name, attr in zope.schema.getFieldsInOrder(self.signature):
+                fields.append((name, attr))
+            manager.attributesCache[cache] = fields
+
         items = []
-        for name, attr in zope.schema.getFieldsInOrder(self.signature):
+        for name, attr in fields:
             # Only add the attribute to the list, if it is supposed there
             if ((ignore is None or name not in ignore) and
                 (select is None or name in select)):

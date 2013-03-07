@@ -27,7 +27,11 @@ def resetPdfForm():
     pdfform.ZADB = PDFPattern(pdfform.ZaDbPattern)
 
 def resetFonts():
-    for f in testshapes._setup():
+    # testshapes._setup registers the Vera fonts every time which is a little
+    # slow on all platforms. On Windows it lists the entire system font
+    # directory and registers them all which is very slow.
+    for f in ('Times-Roman','Courier','Helvetica','Vera', 'VeraBd', 'VeraIt',
+              'VeraBI'):
         if f not in testshapes._FONTS:
             testshapes._FONTS.append(f)
 
