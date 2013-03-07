@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.1.0 (unreleased)
+2.1.0 (2013-03-07)
 ------------------
 
 - Implemented all PDF viewer preferences. [Kyle MacFarlane]
