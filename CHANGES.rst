@@ -21,9 +21,7 @@ CHANGES
   * PrintClip
   * PrintScaling
 
-- Implemeneted viewer preference "PrintScaling" which allows you to set the
-  default print size to the actual document size which is good if you're
-  printing anything that requires precision. [Kyle MacFarlane]
+  They are all available via the ``docinit`` tag.
 
 - Added SVG support to the ``image`` and ``imageAndFlowables`` tags. [Kyle
   MacFarlane]
@@ -37,7 +35,8 @@ CHANGES
   a vector graphic but instead a 300 DPI bitmap that is automatically scaled
   to the correct size with little quality loss.
 
-- Added ability to look for font files in packages. [Kyle MacFarlane]
+- Added ability to look for font files in packages using the standard
+  "[package.path]/dir/filename" notation. [Kyle MacFarlane]
 
 - Documented the ``pageSize`` versus ``pagesize`` attribute difference on
   ``template`` and ``pageTemplate`` elements compared to RML2PDF. [Kyle
@@ -53,7 +52,7 @@ CHANGES
   as a width measurement for a first pass or as the actual value if the
   reference isn't resolved after the second pass. [Kyle MacFarlane]
 
-- ``getName`` element now supports forward references This means you can now
+- ``getName`` element now supports forward references. This means you can now
   do things like "Page X of Y". This only works in the ``drawString`` and
   ``para`` elements. [Kyle MacFarlane]
 
@@ -68,7 +67,8 @@ CHANGES
   ``includePdfPages`` or ``mergePage`` directives you lost any ``outlineAdd``
   directive effect. [Alex Garel]
 
-- Fixed any failing tests, including all Windows tests. [Kyle MacFarlane]
+- Fixed any failing tests, including the ones failing on Windows. [Kyle
+  MacFarlane]
 
 - Fixed the table borders not printing or even appearing in some
   viewers. [Kyle MacFarlane]
@@ -76,7 +76,7 @@ CHANGES
 - Updated ``bootstrap.py`` and ``buildout.cfg`` to work with the latest
   version of ``zc.buildout``.
 
-- Updated build to use latest lxml.
+- Updated build to use latest version of lxml.
 
 
 2.0.0 (2012-12-21)
