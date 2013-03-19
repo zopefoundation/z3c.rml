@@ -104,7 +104,7 @@ class IFrame(interfaces.IRMLDirectiveSignature):
         default=0,
         required=False)
 
-    showBoundary = attr.Boolean(
+    showBoundary = attr.Color(
         title=u'Show Boundary',
         description=u'A flag to show the boundary of the frame.',
         required=False)
