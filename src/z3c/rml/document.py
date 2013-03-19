@@ -611,7 +611,7 @@ class Document(directive.RMLDirective):
         'pageDrawing': canvas.PageDrawing,
         }
 
-    def __init__(self, element):
+    def __init__(self, element, canvas_cls = None):
         super(Document, self).__init__(element, None)
         self.names = {}
         self.styles = {}
@@ -627,6 +627,9 @@ class Document(directive.RMLDirective):
         self.attributesCache = {}
         for name in DocInit.viewerOptions:
             setattr(self, name, None)
+        if not canvas_cls:
+            canvas_cls =  reportlab.pdfgen.canvas.Canvas
+        self.canvas_cls = canvas_cls
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
@@ -679,7 +682,7 @@ class Document(directive.RMLDirective):
                 ))
             kwargs['cropMarks'] = self.cropMarks
 
-            self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
+            self.canvas = self.canvas_cls(tempOutput, **kwargs)
             self._initCanvas(self.canvas)
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
             self.canvas.save()
@@ -688,7 +691,8 @@ class Document(directive.RMLDirective):
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
-            self.doc.multiBuild(self.flowables, maxPasses=2)
+            self.doc.multiBuild(self.flowables, maxPasses=2,
+                                **{'canvasmaker': self.canvas_cls } )
 
         # Process all post processors
         for name, processor in self.postProcessors:
