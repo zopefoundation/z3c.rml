@@ -2,10 +2,10 @@
 CHANGES
 =======
 
-2.1.1 (unreleased)
+2.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added a new console script "rml2pdf" that renders an RML file to PDF.
 
 
 2.1.0 (2013-03-07)

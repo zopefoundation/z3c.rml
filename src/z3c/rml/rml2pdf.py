@@ -61,5 +61,10 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     doc.process(outputFile)
 
 
+def main(args=None):
+    if args is None:
+        args = sys.argv[1:]
+    go(*args)
+
 if __name__ == '__main__':
     canvas = go(sys.argv[1])

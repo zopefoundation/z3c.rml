@@ -86,6 +86,7 @@ setup (
         ],
     entry_points={
         'console_scripts': [
+            'rml2pdf = z3c.rml.rml2pdf:main',
             'dtd = z3c.rml.dtd:main',
             'reference = z3c.rml.reference:main'],
         },
