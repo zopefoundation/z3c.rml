@@ -176,5 +176,17 @@
                      barHeight="0.4in" barWidth="0.009in" />
     <spacer length="10mm" />
 
+    <para>QR</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="QR" value="www.python.org" />
+    <spacer length="10mm" />
+
+    <para>QR with several options</para>
+    <spacer length="5mm" />
+    <barCodeFlowable code="QR" value="www.python.org"
+                     barStrokeColor="blue" barFillColor="red"
+                     />
+    <spacer length="10mm" />
+
   </story>
 </document>
