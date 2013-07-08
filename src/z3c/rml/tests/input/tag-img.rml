@@ -17,5 +17,19 @@
     </title>
     <img src="images/replogo.gif" width="200"
          doc:example="" />
+
+    <para>Preserve aspect ratio with width specified.</para>
+    <img src="images/replogo.gif" width="5cm"
+         preserveAspectRatio="true" />
+
+    <para>Preserve aspect ratio with height specified.</para>
+    <img src="images/replogo.gif" height="5cm"
+         preserveAspectRatio="true" />
+
+    <para>Preserve aspect ratio with both width and height specified. This
+      behaves like a bounding box.</para>
+    <img src="images/replogo.gif" width="5cm" height="5cm"
+         preserveAspectRatio="true" doc:example="" />
+
   </story>
 </document>

@@ -18,8 +18,9 @@ Incompatibilies
   * `pageSize`: This is called `pagesize` in this implementation to match the
     API.
 
-- ``addMapping``: This is a useful API function that was supported in earlier
-  versions of RML2PDF. It is now gone, but this library still supports it.
+- ``<addMapping>``: This is a useful API function that was supported in
+  earlier versions of RML2PDF. It is now gone, but this library still supports
+  it.
 
 - ``<barCode>``
 
@@ -40,10 +41,10 @@ Incompatibilies
   * `tracking`: This is only used for USPS4S and the API actually uses the
     `value` argument for this. Thus this attribute is omitted.
 
-- ``catchForms``: This feature requires PageCatcher, which is a ReportLab
+- ``<catchForms>``: This feature requires PageCatcher, which is a ReportLab
   commercial product and there is no Open Source alternative.
 
-- ``docinit``:
+- ``<docinit>``:
 
   * ``outlineAdd`` directive really does not make much sense here. The API
     docs claim its availability but the hand-written docs state it must be
@@ -51,22 +52,25 @@ Incompatibilies
 
   * ``alias`` directive is completely undocumented in this context.
 
-- ``drawing``: There is no documentation for this tag and I do not know what
+- ``<drawing>``: There is no documentation for this tag and I do not know what
   it is supposed to do. Thus z3c.rml does not implement it.
 
-- ``join``: This directive is not implemented due to lack of documentation.
+- ``<img>``: Support for `preserveAspectRatio` attribute, which is not
+  available in RML or ReportLab.
+
+- ``<join>``: This directive is not implemented due to lack of documentation.
 
 - ``<keepTogether>``: This directive is not implemented in RML2PDF, but there
   exists an API flowable for it and it seems obviously useful.
 
-- ``length``: This directive is not implemented due to lack of documentation.
+- ``<length>``: This directive is not implemented due to lack of documentation.
 
-- ``template``: The `firstPageTemplate` attribute is not implemented, since it
-  belongs to the ``story`` directive. Several RML2PDF examples use it that way
-  too, so why is it documented differently?
+- ``<template>``: The `firstPageTemplate` attribute is not implemented, since
+  it belongs to the ``<story>`` directive. Several RML2PDF examples use it
+  that way too, so why is it documented differently?
 
-- ``widget``: There is no documentation for this tag and I do not know what it
-  is supposed to do. Thus z3c.rml does not implement it.
+- ``<widget>``: There is no documentation for this tag and I do not know what
+  it is supposed to do. Thus z3c.rml does not implement it.
 
 
 To be Done

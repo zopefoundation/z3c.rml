@@ -751,6 +751,7 @@
 <!ATTLIST img src CDATA #REQUIRED>
 <!ATTLIST img width CDATA #IMPLIED>
 <!ATTLIST img height CDATA #IMPLIED>
+<!ATTLIST img preserveAspectRatio CDATA #IMPLIED>
 <!ATTLIST img mask CDATA #IMPLIED>
 <!ATTLIST img vAlign (middle|top|bottom) #IMPLIED>
 

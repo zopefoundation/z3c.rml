@@ -7,6 +7,9 @@ CHANGES
 
 - Added a new console script "rml2pdf" that renders an RML file to PDF.
 
+- Added ``preserveAspectRatio`` to ``img`` tag flowable. The attribute was
+  already supported for the ``image`` tag.
+
 
 2.1.0 (2013-03-07)
 ------------------

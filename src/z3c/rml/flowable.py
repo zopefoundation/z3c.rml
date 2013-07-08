@@ -22,7 +22,7 @@ import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
-from reportlab.lib import styles, pygments2xpre
+from reportlab.lib import styles, pygments2xpre, utils
 from xml.sax.saxutils import unescape
 from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
@@ -865,6 +865,14 @@ class IImage(interfaces.IRMLDirectiveSignature):
         description=u'The height the image.',
         required=False)
 
+    preserveAspectRatio = attr.Boolean(
+        title=u'Preserve Aspect Ratio',
+        description=(u'If set, the aspect ratio of the image is kept. When '
+                     u'both, width and height, are specified, the image '
+                     u'will be fitted into that bounding box.'),
+        default=False,
+        required=False)
+
     mask = attr.Color(
         title=u'Mask',
         description=u'The color mask used to render the image.',
@@ -883,6 +891,29 @@ class Image(Flowable):
 
     def process(self):
         args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        preserveAspectRatio = args.pop('preserveAspectRatio', False)
+        if preserveAspectRatio:
+            img = utils.ImageReader(args['filename'])
+            args['filename'].seek(0)
+            iw, ih = img.getSize()
+            if 'width' in args and 'height' not in args:
+                args['height'] = args['width'] * ih / iw
+            elif 'width' not in args and 'height' in args:
+                args['width'] = args['height'] * iw / ih
+            elif 'width' in args and 'height' in args:
+                # In this case, the width and height specify a bounding box
+                # and the size of the image within that box is maximized.
+                if args['width'] * ih / iw <= args['height']:
+                    args['height'] = args['width'] * ih / iw
+                elif args['height'] * iw / ih < args['width']:
+                    args['width'] = args['height'] * iw / ih
+                else:
+                    # This should not happen.
+                    raise ValueError('Cannot keep image in bounding box.')
+            else:
+                # No size was specified, so do nothing.
+                pass
+
         vAlign = args.pop('vAlign', None)
         img = self.klass(**args)
         if vAlign:
