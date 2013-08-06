@@ -645,7 +645,7 @@ class Document(directive.RMLDirective):
             if getattr(self, name) is not None:
                 canvas.setViewerPreference(option, getattr(self, name))
 
-    def process(self, outputFile=None):
+    def process(self, outputFile=None, maxPasses=2):
         """Process document"""
         # Reset all reportlab global variables. This is very important for
         # ReportLab not to fail.
@@ -687,7 +687,7 @@ class Document(directive.RMLDirective):
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
-            self.doc.multiBuild(self.flowables, maxPasses=2)
+            self.doc.multiBuild(self.flowables, maxPasses=maxPasses)
 
         # Process all post processors
         for name, processor in self.postProcessors:

@@ -878,6 +878,12 @@ class IImage(interfaces.IRMLDirectiveSignature):
         description=u'The color mask used to render the image.',
         required=False)
 
+    align = attr.Choice(
+        title=u'Alignment',
+        description=u'The alignment of the image within the frame.',
+        choices=interfaces.ALIGN_TEXT_CHOICES,
+        required=False)
+
     vAlign = attr.Choice(
         title=u'Vertical Alignment',
         description=u'The vertical alignment of the image.',
@@ -887,7 +893,7 @@ class IImage(interfaces.IRMLDirectiveSignature):
 class Image(Flowable):
     signature = IImage
     klass = reportlab.platypus.flowables.Image
-    attrMapping = {'src': 'filename'}
+    attrMapping = {'src': 'filename', 'align': 'hAlign'}
 
     def process(self):
         args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
@@ -915,7 +921,10 @@ class Image(Flowable):
                 pass
 
         vAlign = args.pop('vAlign', None)
+        hAlign = args.pop('hAlign', None)
         img = self.klass(**args)
+        if hAlign:
+            img.hAlign = hAlign
         if vAlign:
             img.vAlign = vAlign
         self.parent.flow.append(img)

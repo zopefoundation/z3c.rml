@@ -753,6 +753,7 @@
 <!ATTLIST img height CDATA #IMPLIED>
 <!ATTLIST img preserveAspectRatio CDATA #IMPLIED>
 <!ATTLIST img mask CDATA #IMPLIED>
+<!ATTLIST img align (left|decimal|right|center|centre) #IMPLIED>
 <!ATTLIST img vAlign (middle|top|bottom) #IMPLIED>
 
 <!ELEMENT imageAndFlowables>

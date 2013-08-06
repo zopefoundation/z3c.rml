@@ -18,6 +18,11 @@
     <img src="images/replogo.gif" width="200"
          doc:example="" />
 
+    <para>Align top-left of available space.</para>
+    <img src="images/replogo.gif" width="200"
+         align="left" vAlign="top"
+         doc:example="" />
+
     <para>Preserve aspect ratio with width specified.</para>
     <img src="images/replogo.gif" width="5cm"
          preserveAspectRatio="true" />

@@ -2,10 +2,13 @@
 CHANGES
 =======
 
-2.2.1 (unreleased)
+2.2.1 (2013-08-06)
 ------------------
 
-- Nothing changed yet.
+- Make the number of max rendering passes configurable by exposing the setting
+  in the API.
+
+- Added `align` attribute to ``img`` tag.
 
 
 2.2.0 (2013-07-08)
