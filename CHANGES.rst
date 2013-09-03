@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.3.0 (unreleased)
+2.3.0 (2013-09-03)
 ------------------
 
 - Added ``title``, ``subject``, ``author``, and ``creator`` attributes to
