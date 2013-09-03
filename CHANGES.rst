@@ -2,10 +2,13 @@
 CHANGES
 =======
 
-2.2.2 (unreleased)
+2.3.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added ``title``, ``subject``, ``author``, and ``creator`` attributes to
+  ``document`` element. Those are set as PDF annotations, which are now
+  commonly used to hint viewers window titles, etc. (Those fields are not
+  available in RML2PDF.)
 
 
 2.2.1 (2013-08-06)

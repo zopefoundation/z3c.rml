@@ -576,6 +576,26 @@ class IDocument(interfaces.IRMLDirectiveSignature):
                      u'file was provided.'),
         required=True)
 
+    title = attr.String(
+        title=u'Title',
+        description=(u'The "Title" annotation for the PDF document.'),
+        required=False)
+
+    subject = attr.String(
+        title=u'Subject',
+        description=(u'The "Subject" annotation for the PDF document.'),
+        required=False)
+
+    author = attr.String(
+        title=u'Author',
+        description=(u'The "Author" annotation for the PDF document.'),
+        required=False)
+
+    creator = attr.String(
+        title=u'Creator',
+        description=(u'The "Creator" annotation for the PDF document.'),
+        required=False)
+
     debug = attr.Boolean(
         title=u'Debug',
         description=u'A flag to activate the debug output.',
@@ -644,6 +664,13 @@ class Document(directive.RMLDirective):
         for name, option in DocInit.viewerOptions.items():
             if getattr(self, name) is not None:
                 canvas.setViewerPreference(option, getattr(self, name))
+        # Setting annotations.
+        data = dict(self.getAttributeValues(
+                select=('title', 'subject', 'author', 'creator')))
+        canvas.setTitle(data.get('title'))
+        canvas.setSubject(data.get('subject'))
+        canvas.setAuthor(data.get('author'))
+        canvas.setCreator(data.get('creator'))
 
     def process(self, outputFile=None, maxPasses=2):
         """Process document"""

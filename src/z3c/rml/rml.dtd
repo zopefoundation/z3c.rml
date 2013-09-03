@@ -1,6 +1,10 @@
 
 <!ELEMENT document (docinit?,stylesheet?,template?,story?,pageInfo?,pageDrawing*)>
 <!ATTLIST document filename CDATA #REQUIRED>
+<!ATTLIST document title CDATA #IMPLIED>
+<!ATTLIST document subject CDATA #IMPLIED>
+<!ATTLIST document author CDATA #IMPLIED>
+<!ATTLIST document creator CDATA #IMPLIED>
 <!ATTLIST document debug CDATA #IMPLIED>
 <!ATTLIST document compression CDATA #IMPLIED>
 <!ATTLIST document invariant CDATA #IMPLIED>
