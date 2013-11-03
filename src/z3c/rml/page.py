@@ -17,12 +17,12 @@ import cStringIO
 from z3c.rml import attr, directive, interfaces
 
 try:
-    import pyPdf
-    from pyPdf.generic import NameObject
+    import PyPDF2
+    from PyPDF2.generic import NameObject
 except ImportError:
     # We don't want to require pyPdf, if you do not want to use the features
     # in this module.
-    pyPdf = None
+    PyPDF2 = None
 
 class MergePostProcessor(object):
 
@@ -30,15 +30,15 @@ class MergePostProcessor(object):
         self.operations = {}
 
     def process(self, inputFile1):
-        input1 = pyPdf.PdfFileReader(inputFile1)
-        output = pyPdf.PdfFileWriter()
+        input1 = PyPDF2.PdfFileReader(inputFile1)
+        output = PyPDF2.PdfFileWriter()
         output._info.getObject().update(input1.documentInfo)
         output._root.getObject()[NameObject("/Outlines")] = (
             output._addObject(input1.trailer["/Root"]["/Outlines"]))
         for (num, page) in enumerate(input1.pages):
             if num in self.operations:
                 for mergeFile, mergeNumber in self.operations[num]:
-                    merger = pyPdf.PdfFileReader(mergeFile)
+                    merger = PyPDF2.PdfFileReader(mergeFile)
                     mergerPage = merger.getPage(mergeNumber)
                     mergerPage.mergePage(page)
                     page = mergerPage
@@ -76,7 +76,7 @@ class MergePage(directive.RMLDirective):
         return procs['MERGE']
 
     def process(self):
-        if pyPdf is None:
+        if PyPDF2 is None:
             raise Exception(
                 'pyPdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)

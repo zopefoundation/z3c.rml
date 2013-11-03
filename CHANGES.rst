@@ -5,7 +5,7 @@ CHANGES
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Switch from ``pyPdf`` to the newer ``PyPDF2`` library.
 
 
 2.3.0 (2013-09-03)
