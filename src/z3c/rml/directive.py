@@ -31,11 +31,13 @@ def DeprecatedDirective(iface, reason):
     iface.setTaggedValue('deprecatedReason', reason)
     return iface
 
-def getFileInfo(directive):
+def getFileInfo(directive, element=None):
     root = directive
     while root.parent:
         root = root.parent
-    return '(file %s, line %i)' %(root.filename, directive.element.sourceline)
+    if element is None:
+        element = directive.element
+    return '(file %s, line %i)' %(root.filename, element.sourceline)
 
 class RMLDirective(object):
     zope.interface.implements(interfaces.IRMLDirective)
@@ -104,7 +106,7 @@ class RMLDirective(object):
             # Raise an error/log any unknown directive.
             if element.tag not in self.factories:
                 msg = "Directive %r could not be processed and was " \
-                      "ignored. %s" %(element.tag, getFileInfo(self))
+                      "ignored. %s" %(element.tag, getFileInfo(self, element))
                 # Record any tags/elements that could not be processed.
                 logger.warn(msg)
                 if ABORT_ON_INVALID_DIRECTIVE:
