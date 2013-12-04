@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.3.1 (unreleased)
+2.3.1 (2013-12-03)
 ------------------
 
 - Report correct element during error reporting.
