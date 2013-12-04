@@ -15,9 +15,9 @@
 """
 __docformat__ = "reStructuredText"
 try:
-    import pyPdf
+    import PyPDF2
 except ImportError:
-    pyPdf = None
+    PyPDF2 = None
 from reportlab.platypus import flowables
 
 from z3c.rml import attr, flowable, interfaces, occurence, page
@@ -30,7 +30,7 @@ class IncludePdfPagesFlowable(flowables.Flowable):
         self.pdf_file = pdf_file
         self.proc = mergeprocessor
 
-        pdf = pyPdf.PdfFileReader(pdf_file)
+        pdf = PyPDF2.PdfFileReader(pdf_file)
         self.num_pages = pdf.getNumPages()
         self.pages = pages if pages else range(1, self.num_pages+1)
 
@@ -96,9 +96,9 @@ class IncludePdfPages(flowable.Flowable):
         return procs['MERGE']
 
     def process(self):
-        if pyPdf is None:
+        if PyPDF2 is None:
             raise Exception(
-                'pyPdf is not installed, so this feature is not available.')
+                'PyPDF2 is not installed, so this feature is not available.')
         args = dict(self.getAttributeValues())
         proc = self.getProcessor()
         self.parent.flow.append(

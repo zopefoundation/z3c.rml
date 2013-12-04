@@ -77,7 +77,7 @@ setup (
     install_requires=[
         'Pygments',
         'lxml',
-        'pyPdf',
+        'PyPDF2',
         'reportlab',
         'setuptools',
         'svg2rlg',
@@ -95,4 +95,3 @@ setup (
     include_package_data=True,
     zip_safe=False,
     )
-
