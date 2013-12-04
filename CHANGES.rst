@@ -5,7 +5,10 @@ CHANGES
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Report correct element during error reporting.
+
+- ``registerFontFamily`` never worked until now, since the directive was not
+  properly registered.
 
 
 2.3.0 (2013-09-03)

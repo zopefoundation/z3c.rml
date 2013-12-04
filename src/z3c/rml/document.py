@@ -194,10 +194,11 @@ class IRegisterFontFamily(interfaces.IRMLDirectiveSignature):
 
 class RegisterFontFamily(directive.RMLDirective):
     signature = IRegisterFontFamily
+    attrMapping = {'name': 'family'}
 
     def process(self):
-        args = self.getAttributeValues(valuesOnly=True)
-        pdfmetrics.registerFontFamily(*args)
+        args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
+        pdfmetrics.registerFontFamily(**args)
 
 
 class IColorDefinition(interfaces.IRMLDirectiveSignature):
@@ -537,6 +538,7 @@ class DocInit(directive.RMLDirective):
         'registerFont': RegisterFont,
         'registerTTFont': RegisterTTFont,
         'registerCidFont': RegisterCidFont,
+        'registerFontFamily': RegisterFontFamily,
         'addMapping': AddMapping,
         'logConfig': LogConfig,
         'cropMarks': CropMarks,
