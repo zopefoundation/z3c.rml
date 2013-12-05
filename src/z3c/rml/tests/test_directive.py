@@ -38,7 +38,7 @@ def test_abort_on_invalid_tag():
       Traceback (most recent call last):
       ...
       ValueError: Directive 'bad' could not be processed and was ignored.
-      (file bad.rml, line 1)
+      (file bad.rml, line 2)
 
     Cleanup:
 
