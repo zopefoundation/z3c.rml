@@ -683,9 +683,11 @@ class BlockTable(Flowable):
     def process(self):
         attrs = dict(self.getAttributeValues())
         # Get the table style; create a new one, if none is found
-        self.style = attrs.pop('style', None)
-        if self.style is None:
+        style = attrs.pop('style', None)
+        if style is None:
             self.style = reportlab.platypus.tables.TableStyle()
+        else:
+            self.style = copy.deepcopy(style)
         hAlign = attrs.pop('alignment', None)
         # Extract all table rows and cells
         self.rows = []
