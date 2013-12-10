@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.4.1 (unreleased)
+2.4.1 (2013-12-10)
 ------------------
 
 - Fixed a bug when rendering a table with the same style twice. Unfortuantely,
