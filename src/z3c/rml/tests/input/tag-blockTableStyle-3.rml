@@ -1,0 +1,35 @@
+<!DOCTYPE document SYSTEM "rml.dtd"> 
+<document filename="tag-blockTableStyle-2.pdf">
+    <pageInfo pageSize="A4" />
+    <template showBoundary="0">
+    <pageTemplate id="main">
+        <frame id="first" x1="10mm" y1="15mm" width="190mm" height="272mm"/>
+    </pageTemplate>
+    </template>
+
+<stylesheet>
+    <blockTableStyle id="my-table-style">
+    <blockFont name="Helvetica-Bold" size="6" start="0,0" stop="-1,-1"/>
+    </blockTableStyle>
+</stylesheet>
+
+<story>
+    <blockTable style="my-table-style" colWidths="50% 50%">
+    <tr>
+        <td>Item1</td>
+        <td align="right">$1.00</td>
+    </tr>
+    <tr>
+        <td>Item2</td>
+        <td align="right">$2.00</td>
+    </tr>
+    </blockTable>
+    <blockTable style="my-table-style" colWidths="50% 50%">
+    <tr>
+        <td>Item3</td>
+        <td align="right">$3.00</td>
+    </tr>
+    </blockTable>
+</story>
+
+</document>
