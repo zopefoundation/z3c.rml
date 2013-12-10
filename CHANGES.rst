@@ -5,7 +5,9 @@ CHANGES
 2.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed a bug when rendering a table with the same style twice. Unfortuantely,
+  Reportlab modifies a style during usage, so that a copy mustbe created for
+  each use. [Marcin Nowak]
 
 
 2.4.0 (2013-12-05)
