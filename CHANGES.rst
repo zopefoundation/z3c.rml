@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.5.0 (unreleased)
+2.5.0 (2013-12-10)
 ------------------
 
 - Reimplamented ``includePdfPages`` directive to use the new PyPDF2 merger
