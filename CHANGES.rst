@@ -2,10 +2,12 @@
 CHANGES
 =======
 
-2.4.2 (unreleased)
+2.5.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Reimplamented ``includePdfPages`` directive to use the new PyPDF2 merger
+  component that supports simple appending of pages. Also optimized page
+  creation and minimized file loading. All of this resulted in a 95% speedup.
 
 
 2.4.1 (2013-12-10)
