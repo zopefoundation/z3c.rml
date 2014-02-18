@@ -183,6 +183,13 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         title=u'Routing',
         description=u'The routing information string.',
         required=False)
+    
+    # QR
+    barLevel = attr.Choice(
+        title=u'Bar Level',
+        description=u'The error correction level for QR code',
+        choices=['L', 'M', 'Q', 'H'],
+        required=False)
 
 
 class IBarCode(IBarCodeBase):
