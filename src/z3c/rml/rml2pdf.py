@@ -19,6 +19,7 @@ import sys
 import zope.interface
 from lxml import etree
 from z3c.rml import document, interfaces
+import argparse
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
@@ -42,7 +43,7 @@ def parseString(xml, removeEncodingLine=True, filename=None):
 
 def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     if dtdDir is not None:
-        sys.stderr.write('The ``dtdDir`` option is not yet supported.')
+        sys.stderr.write('The ``dtdDir`` option is not yet supported.\n')
 
     xmlFile = open(xmlInputName, 'r')
     root = etree.parse(xmlFile).getroot()
@@ -63,8 +64,20 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
 
 def main(args=None):
     if args is None:
-        args = sys.argv[1:]
+        parser = argparse.ArgumentParser(
+            prog='rml2pdf',
+            description='Converts file in RML format into PDF file.',
+            epilog='Copyright (c) 2007 Zope Foundation and Contributors.'
+        )
+        parser.add_argument('xmlInputName', help='RML file to be processed')
+        parser.add_argument('outputFileName', nargs='?', help='output PDF file name')
+        parser.add_argument('outDir', nargs='?', help='output directory')
+        parser.add_argument('dtdDir', nargs='?', help='directory with XML DTD (not yet supported)')
+        pargs = parser.parse_args()
+        args = (pargs.xmlInputName, pargs.outputFileName, pargs.outDir, pargs.dtdDir)
+
     go(*args)
+
 
 if __name__ == '__main__':
     canvas = go(sys.argv[1])
