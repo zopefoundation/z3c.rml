@@ -33,8 +33,6 @@ class ConcatenationPostProcessor(object):
         input1 = PyPDF2.PdfFileReader(inputFile1)
         merger = PyPDF2.PdfFileMerger()
         merger.output._info.getObject().update(input1.documentInfo)
-        merger.output.getOutlineRoot().update(
-            input1.trailer["/Root"]["/Outlines"])
 
         prev_insert = 0
         for start_page, inputFile2, pages, num_pages in self.operations:

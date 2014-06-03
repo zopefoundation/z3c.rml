@@ -23,6 +23,11 @@
     <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"/>
     <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"
                      pages="2-3"
+                     />
+    <includePdfPages
+                filename="[z3c.rml.tests]/input/data/include-bookmarks1.pdf"
+                />
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include-bookmarks2.pdf"
                      doc:example="" />
 
     <nextPage/>
