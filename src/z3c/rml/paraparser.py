@@ -23,8 +23,8 @@ import reportlab.platypus.paraparser
 class PageNumberFragment(reportlab.platypus.paraparser.ParaFrag):
     """A fragment whose `text` is computed at access time."""
 
-    def __init__(self, attributes):
-        reportlab.platypus.paraparser.ParaFrag.__init__(self)
+    def __init__(self, **attributes):
+        reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.counting_from = attributes.get('countingFrom', 1)
 
     @property
@@ -50,8 +50,8 @@ class PageNumberFragment(reportlab.platypus.paraparser.ParaFrag):
 class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
     """A fragment whose `text` is computed at access time."""
 
-    def __init__(self, attributes):
-        reportlab.platypus.paraparser.ParaFrag.__init__(self)
+    def __init__(self, **attributes):
+        reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.id = attributes['id']
         self.default = attributes.get('default')
 
@@ -78,8 +78,8 @@ class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
 class EvalStringFragment(reportlab.platypus.paraparser.ParaFrag):
     """A fragment whose `text` is evaluated at access time."""
 
-    def __init__(self, attributes):
-        reportlab.platypus.paraparser.ParaFrag.__init__(self)
+    def __init__(self, **attributes):
+        reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.frags = []
 
     @property
@@ -97,10 +97,8 @@ class EvalStringFragment(reportlab.platypus.paraparser.ParaFrag):
 class NameFragment(reportlab.platypus.paraparser.ParaFrag):
     """A fragment whose attribute `value` is set to a variable."""
 
-    def __init__(self, attributes):
-        reportlab.platypus.paraparser.ParaFrag.__init__(self)
-        self.id = attributes['id']
-        self.value = attributes['value']
+    def __init__(self, **attributes):
+        reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
 
     @property
     def text(self):
@@ -131,7 +129,7 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         self.in_eval = False
 
     def startDynamic(self, attributes, klass):
-        frag = klass(attributes)
+        frag = klass(**attributes)
         frag.__dict__.update(self._stack[-1].__dict__)
         frag.fontName = reportlab.lib.fonts.tt2ps(
             frag.fontName, frag.bold, frag.italic)
@@ -145,16 +143,16 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         if not self.in_eval:
             self._pop()
 
-    def start_pageNumber(self, attributes):
+    def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)
 
-    def end_pageNumber(self):
+    def end_pagenumber(self):
         self.endDynamic()
 
-    def start_getName(self, attributes):
+    def start_getname(self, attributes):
         self.startDynamic(attributes, GetNameFragment)
 
-    def end_getName(self):
+    def end_getname(self):
         self.endDynamic()
 
     def start_name(self, attributes):
@@ -163,11 +161,11 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     def end_name(self):
         self.endDynamic()
 
-    def start_evalString(self, attributes):
+    def start_evalstring(self, attributes):
         self.startDynamic(attributes, EvalStringFragment)
         self.in_eval = True
 
-    def end_evalString(self):
+    def end_evalstring(self):
         self.in_eval = False
         self.endDynamic()
 
@@ -180,4 +178,4 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
 
 # Monkey-patch reportlabs global parser instance. Wah.
 import reportlab.platypus.paragraph
-reportlab.platypus.paragraph._parser = Z3CParagraphParser()
+reportlab.platypus.paragraph.ParaParser = Z3CParagraphParser
