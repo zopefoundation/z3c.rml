@@ -86,3 +86,22 @@ class MergePage(directive.RMLDirective):
         proc = self.getProcessor()
         pageOperations = proc.operations.setdefault(outPage, [])
         pageOperations.append((inputFile, inPage))
+
+
+class MergePageInPageTemplate(MergePage):
+
+    def process(self):
+        if PyPDF2 is None:
+            raise Exception(
+                'pyPdf is not installed, so this feature is not available.')
+        inputFile, inPage = self.getAttributeValues(valuesOnly=True)
+
+        onPage = self.parent.pt.onPage
+        def drawOnCanvas(canvas, doc):
+            onPage(canvas, doc)
+            outPage = canvas.getPageNumber()-1
+            proc = self.getProcessor()
+            pageOperations = proc.operations.setdefault(outPage, [])
+            pageOperations.append((inputFile, inPage))
+
+        self.parent.pt.onPage = drawOnCanvas

@@ -16,7 +16,7 @@
 import zope.interface
 from reportlab import platypus
 from z3c.rml import attr, directive, interfaces, occurence
-from z3c.rml import canvas, flowable, stylesheet
+from z3c.rml import canvas, flowable, page, stylesheet
 
 
 class IStory(flowable.IFlow):
@@ -136,7 +136,9 @@ class PageGraphics(directive.RMLDirective):
     signature = IPageGraphics
 
     def process(self):
+        onPage = self.parent.pt.onPage
         def drawOnCanvas(canv, doc):
+            onPage(canv, doc)
             canv.saveState()
             self.canvas = canv
             drawing = canvas.Drawing(self.element, self)
@@ -151,6 +153,7 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.OneOrMore('frame', IFrame),
         occurence.ZeroOrOne('pageGraphics', IPageGraphics),
+        occurence.ZeroOrOne('mergePage', page.IMergePage),
         )
 
     id = attr.Text(
@@ -176,6 +179,7 @@ class PageTemplate(directive.RMLDirective):
     factories = {
         'frame': Frame,
         'pageGraphics': PageGraphics,
+        'mergePage': page.MergePageInPageTemplate,
         }
 
     def process(self):
