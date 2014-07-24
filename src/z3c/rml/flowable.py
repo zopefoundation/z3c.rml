@@ -22,7 +22,7 @@ import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
-from reportlab.lib import styles, pygments2xpre, utils
+from reportlab.lib import styles, utils
 from xml.sax.saxutils import unescape
 from z3c.rml import attr, directive, interfaces, occurence
 from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
@@ -35,6 +35,33 @@ except ImportError:
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.createBarcodeDrawing = None
+
+# XXX:Copy of reportlab.lib.pygments2xpre.pygments2xpre to fix bug in Python 2.
+def pygments2xpre(s, language="python"):
+    "Return markup suitable for XPreformatted"
+    try:
+        from pygments import highlight
+        from pygments.formatters import HtmlFormatter
+    except ImportError:
+        return s
+
+    from pygments.lexers import get_lexer_by_name
+
+    l = get_lexer_by_name(language)
+
+    h = HtmlFormatter()
+    # XXX: Does not work in Python 2, since pygments creates non-unicode
+    # outpur snippets.
+    #from io import StringIO
+    from cStringIO import StringIO
+    out = StringIO()
+    highlight(s,l,h,out)
+    styles = [(cls, style.split(';')[0].split(':')[1].strip())
+                for cls, (style, ttype, level) in h.class2style.items()
+                if cls and style and style.startswith('color:')]
+    from reportlab.lib.pygments2xpre import _2xpre
+    return _2xpre(out.getvalue(),styles)
+
 
 class Flowable(directive.RMLDirective):
     klass=None
@@ -254,8 +281,7 @@ class CodeSnippet(XPreformatted):
         lang = args.pop('language', None)
         args['text'] = unescape(args['text'])
         if lang is not None:
-            args['text'] = pygments2xpre.pygments2xpre(
-                args['text'], lang.lower())
+            args['text'] = pygments2xpre(args['text'], lang.lower())
         if 'style' not in args:
             args['style'] = attr._getStyle(self, 'Code')
         self.parent.flow.append(self.klass(**args))
