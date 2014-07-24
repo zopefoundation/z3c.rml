@@ -2,10 +2,20 @@
 CHANGES
 =======
 
-2.5.1 (unreleased)
+2.6.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Implemented ability to use the ``mergePage`` tag inside the ``pageTemplate``
+  tag. This way you can use a PDF as a background for a page.
+
+- Updated code to work with ReportLab 3.x, specifically the latest 3.1.8. This
+  includes a monkeypatch to the code formatter for Python 2.
+
+- Updated code to work with PyPDF2 1.21. There is a bug in 1.22 that prohibits
+  us from upgrading fully.
+
+- Changed buildout to create a testable set of scripts on Ubuntu. In the
+  process all package versions were nailed for testing.
 
 
 2.5.0 (2013-12-10)

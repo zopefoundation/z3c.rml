@@ -254,7 +254,7 @@
 <!ATTLIST template title CDATA #IMPLIED>
 <!ATTLIST template author CDATA #IMPLIED>
 
-<!ELEMENT pageTemplate (frame+,pageGraphics?)>
+<!ELEMENT pageTemplate (frame+,pageGraphics?,mergePage?)>
 <!ATTLIST pageTemplate id CDATA #REQUIRED>
 <!ATTLIST pageTemplate pagesize CDATA #IMPLIED>
 <!ATTLIST pageTemplate autoNextTemplate CDATA #IMPLIED>
@@ -272,6 +272,10 @@
 <!ATTLIST frame showBoundary CDATA #IMPLIED>
 
 <!ELEMENT pageGraphics>
+
+<!ELEMENT mergePage>
+<!ATTLIST mergePage filename CDATA #REQUIRED>
+<!ATTLIST mergePage page CDATA #REQUIRED>
 
 <!ELEMENT story (spacer*,illustration*,pre*,xpre*,codesnippet*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,h4*,h5*,h6*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,img*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmarkPage*,bookmark*,link*,hr*,showIndex*,name*,namedString*,log*,debug*,info*,warning*,error*,critical*,docAssign*,docExec*,docPara*,docIf*,docElse*,docWhile*,ol*,ul*,includePdfPages*,storyPlace*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
@@ -333,6 +337,7 @@
 <!ATTLIST barCodeFlowable shortHeight CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable textColor CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable routing CDATA #IMPLIED>
+<!ATTLIST barCodeFlowable barLevel (q|h|m|l) #IMPLIED>
 <!ATTLIST barCodeFlowable value CDATA #REQUIRED>
 
 <!ELEMENT outlineAdd (#PCDATA)>
@@ -1098,6 +1103,7 @@
 <!ATTLIST barCode shortHeight CDATA #IMPLIED>
 <!ATTLIST barCode textColor CDATA #IMPLIED>
 <!ATTLIST barCode routing CDATA #IMPLIED>
+<!ATTLIST barCode barLevel (q|h|m|l) #IMPLIED>
 <!ATTLIST barCode x CDATA #IMPLIED>
 <!ATTLIST barCode y CDATA #IMPLIED>
 <!ATTLIST barCode isoScale CDATA #IMPLIED>

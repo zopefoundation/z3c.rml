@@ -77,8 +77,9 @@ setup (
     install_requires=[
         'Pygments',
         'lxml',
-        'PyPDF2',
-        'reportlab',
+         # XXX: PyPDF2 1.22 does not work.
+        'PyPDF2==1.21',
+        'reportlab>=3.0',
         'setuptools',
         'svg2rlg',
         'zope.interface',
