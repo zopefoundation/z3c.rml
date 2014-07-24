@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.6.0 (unreleased)
+2.6.0 (2014-07-24)
 ------------------
 
 - Implemented ability to use the ``mergePage`` tag inside the ``pageTemplate``
