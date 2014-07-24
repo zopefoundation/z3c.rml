@@ -21,8 +21,8 @@ try:
 except ImportError:
     # zope.pagetemplate package has not been installed
     import types
-    zope.pagetemplate = types.ModuleType('barcode')
-    zope.pagetemplate.pagetemplatefile = types.ModuleType('barcode')
+    zope.pagetemplate = types.ModuleType('pagetemplate')
+    zope.pagetemplate.pagetemplatefile = types.ModuleType('pagetemplatefile')
     zope.pagetemplate.pagetemplatefile.PageTemplateFile = object
 
 
