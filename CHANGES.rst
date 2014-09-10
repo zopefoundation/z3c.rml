@@ -5,7 +5,7 @@ CHANGES
 2.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed package name.
 
 
 2.7.0 (2014-09-10)
