@@ -4,6 +4,7 @@ __pycache__
 .installed.cfg
 .tox
 bin
+build
 develop-eggs
 dist
 parts
