@@ -614,6 +614,14 @@ class IMinimalListStyle(interfaces.IRMLDirectiveSignature):
         description=u'A formatting expression for the bullet text.',
         required=False)
 
+    bulletType = attr.Choice(
+        title=u'Bullet Type',
+        description=u'The type of number to display.',
+        choices=interfaces.ORDERED_LIST_TYPES + \
+                interfaces.UNORDERED_BULLET_VALUES,
+        doLower=False,
+        required=False)
+
 class IBaseListStyle(IMinimalListStyle):
 
     start = attr.Combination(

@@ -20,6 +20,14 @@
         start="diamond"
         doc:example=""
         />
+    <listStyle
+        name="MyEnum"
+        bulletFontName="Helvetica-Bold"
+        bulletFontSize="8"
+        bulletFormat="(%s)"
+        bulletType="a"
+        doc:example=""
+        />
   </stylesheet>
 
   <story>
@@ -66,6 +74,15 @@
       <li><para>Two</para></li>
       <li><para>Three</para></li>
     </ul>
+
+    <spacer length="0.5in" />
+
+    <ol style="MyEnum">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
   </story>
 
 </document>

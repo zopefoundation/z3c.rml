@@ -2,10 +2,12 @@
 CHANGES
 =======
 
-2.6.1 (unreleased)
+2.7.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added ``bulletType`` sypport for the ``listStyle`` tag.
+
+- Added "bullet" as a valid unordered list type value.
 
 
 2.6.0 (2014-07-24)
