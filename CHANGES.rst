@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.7.0 (unreleased)
+2.7.0 (2014-09-10)
 ------------------
 
 - Added ``bulletType`` sypport for the ``listStyle`` tag.

@@ -42,7 +42,7 @@ TESTS_REQUIRE = [
     ]
 
 setup (
-    version='2.7.0dev',
+    version='2.7.0',
     author="Stephan Richter and the Zope Community",
     author_email="zope-dev@zope.org",
     description="An alternative implementation of RML",
