@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.7.1 (unreleased)
+2.7.1 (2014-09-10)
 ------------------
 
 - Fixed package name.
