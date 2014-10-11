@@ -27,6 +27,13 @@ import zope.interface
 import zope.schema
 from lxml import etree
 
+try:
+    from importlib import import_module
+except ImportError:
+    # XXX Python 2.6 doesn't have importlib
+    def import_module(modulepath):
+        return __import__(modulepath, {}, {}, (modulepath))
+
 from z3c.rml import interfaces, SampleStyleSheet
 
 MISSING = object()
@@ -325,7 +332,7 @@ class File(Text):
                     'The package-path-pair you specified was incorrect. %s' %(
                     getFileInfo(self.context)))
             modulepath, path = result.groups()
-            module = __import__(modulepath, {}, {}, (modulepath))
+            module = import_module(modulepath)
             value = os.path.join(os.path.dirname(module.__file__), path)
         # If there is a drive name in the path, then we want a local file to
         # be opened. This is only interesting for Windows of course.
