@@ -85,7 +85,6 @@ setup (
         'reportlab>=3.0',
         'setuptools',
         'six',
-        'svg2rlg',
         'zope.interface',
         'zope.schema',
         ],

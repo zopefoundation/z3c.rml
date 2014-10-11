@@ -384,12 +384,12 @@ class Image(File):
 
         from gzip import GzipFile
         from reportlab.graphics import renderPM
-        from svg2rlg import Renderer
         from xml.etree import cElementTree
+        from z3c.rml.svg2rlg import Renderer
 
         fileObj = super(Image, self).fromUnicode(value)
         svg = fileObj.getvalue()
-        if svg[:2] == '\037\213':
+        if svg[:2] == b'\037\213':
             svg = GzipFile(fileobj=fileObj).read()
         svg = cElementTree.fromstring(svg)
         svg = Renderer(value).render(svg)

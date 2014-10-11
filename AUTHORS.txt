@@ -1,3 +1,8 @@
 - Stephan Richter (stephan.richter_at_gmail.com)
 
 This package is based on ReportLab Inc.'s ReportLab library.
+
+
+The package svg2rlg was rolled into this package for Python 3 compatibility.
+
+- Runar Tenfjord (svg2rlg)
