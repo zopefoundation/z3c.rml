@@ -84,13 +84,17 @@ class ComparePDFTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def assertSameImage(self, baseImage, testImage):
-        base = Image.open(baseImage).getdata()
-        test = Image.open(testImage).getdata()
+        base_file = open(baseImage, 'rb')
+        test_file = open(testImage, 'rb')
+        base = Image.open(base_file).getdata()
+        test = Image.open(test_file).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
                 self.fail(
                     'Image is not the same: %s' % os.path.basename(baseImage)
                 )
+        base_file.close()
+        test_file.close()
 
     def runTest(self):
         # Convert the base PDF to image(s)

@@ -108,7 +108,7 @@ class RMLDirective(object):
                 msg = "Directive %r could not be processed and was " \
                       "ignored. %s" %(element.tag, getFileInfo(self, element))
                 # Record any tags/elements that could not be processed.
-                logger.warn(msg)
+                logger.warning(msg)
                 if ABORT_ON_INVALID_DIRECTIVE:
                     raise ValueError(msg)
                 continue

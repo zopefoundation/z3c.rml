@@ -226,6 +226,8 @@ def extractExamples(directory):
                 xml = highlightRML(xml)
                 example['code'] = xml
 
+        rmlFile.close()
+
     return examples
 
 
@@ -239,4 +241,6 @@ def main(outPath=None):
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
     pdf = template(types=getAttributeTypes(), directives=directives)
-    open(outPath or 'rml-reference.pdf', 'wb').write(pdf)
+    file_ = open(outPath or 'rml-reference.pdf', 'wb')
+    file_.write(pdf)
+    file_.close()
