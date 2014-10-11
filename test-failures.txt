@@ -1,21 +1,65 @@
-Fails in Python 2 and 3
+Python 2.6
+
+    - rml-examples-029-keepinframe.rml
+    - tag-barChart.rml
+    - tag-fixedSize.rml
+    - tag-barChart3d.rml
+    - tag-keepInFrame.rml
+
+
+Python 2.7
+
     - rml-examples-029-keepinframe.rml
 
-    We've had problems with the keepinframe before: https://github.com/zopefoundation/z3c.rml/commit/bce7f7f25bda98a7101b3e2cf5b28fd988e505c9#commitcomment-2760056
+
+Python 3.3
+
+    - rml-examples-029-keepinframe.rml
+    - tag-mergePage.rml
+    - tag-includePdfPages.rml
+    - tag-registerTTFont.rml
+
+
+Python 3.4
+
+    - rml-examples-029-keepinframe.rml
+    - tag-mergePage.rml
+    - tag-includePdfPages.rml
+    - tag-registerTTFont.rml
+
+
+
+tag-barChart.rml
+tag-fixedSize.rml
+tag-barChart3d.rml
+tag-keepInFrame.rml
+
+    I think these tests fail due to differences between ReportLab 2.7 and 3.0+.
+
+    Should we drop Python 2.6 support because there's already more hacks for 2.6 than to 2/3 compatibility.
+
+    If ReportLab have dropped Python 2.6 support then shouldn't z3c.rml follow?
+
+
+rml-examples-029-keepinframe.rml
+
+    Look at how many times we've modified this PDF to make the tests pass: https://github.com/zopefoundation/z3c.rml/commits/master/src/z3c/rml/tests/expected/rml-examples-029-keepinframe.pdf
+
+    There's definitely a bug here and it's not just the PDF getting corrupted.
 
     This test passes when run by itself, but fails when the whole suite is run.
 
-    I've narrowed it down to a conflict with tag-addMapping.rml as when you run both at the same time keepinframe fails.
+    I think I've narrowed it down to a conflict with tag-addMapping.rml as when you run both at the same time keepinframe fails.
 
 
-Fails in Python 3
+tag-mergePage.rml
+tag-includePdfPages.rml
 
-    These tests fail but I'm not sure why. It's either bugs in PyPDF2 under Python 3 or a problem with PyPDF2 writing to BytesIO.
-
-    - tag-mergePage.rml
-    - tag-includePdfPages.rml
+    I think these fail due to a bug in PyPDF2 under Python 3? Needs investigating.
 
 
-    This test fails due to another bug in ReportLab 3 on line 468 in reportlab.pdfbase.ttfonts.
+tag-registerTTFont.rml
 
-    - tag-registerTTFont.rml
+    This test fails due to a bug in ReportLab 3 on line 468 in reportlab.pdfbase.ttfonts.
+
+    It's not possible to monkey patch and would require copying in a pretty big chunk of code.
