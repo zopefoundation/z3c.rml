@@ -18,7 +18,7 @@ from z3c.rml import rml2pdf
 
 try:
     import zope.pagetemplate.pagetemplatefile
-except ImportError, err:
+except ImportError as err:
     raise
     # zope.pagetemplate package has not been installed
     import types
