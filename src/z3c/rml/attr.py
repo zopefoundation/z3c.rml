@@ -571,7 +571,7 @@ class TextNodeGrid(TextNodeSequence):
                 'Number of elements must be divisible by %i. %s' %(
                 self.columns, getFileInfo(self.context)))
         return [result[i*self.columns:(i+1)*self.columns]
-                for i in range(len(result)/self.columns)]
+                for i in range(len(result)//self.columns)]
 
 
 class RawXMLContent(RMLAttribute):
