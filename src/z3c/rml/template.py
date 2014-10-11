@@ -131,8 +131,8 @@ class Frame(directive.RMLDirective):
 class IPageGraphics(canvas.IDrawing):
     """Define the page graphics for the page template."""
 
+@zope.interface.implementer(interfaces.ICanvasManager)
 class PageGraphics(directive.RMLDirective):
-    zope.interface.implements(interfaces.ICanvasManager)
     signature = IPageGraphics
 
     def process(self):

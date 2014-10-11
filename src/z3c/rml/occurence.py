@@ -75,9 +75,8 @@ def containing(*occurences):
     f_locals['__interface_tagged_values__'] = {'directives': occurences}
 
 
+@zope.interface.implementer(IOccurence)
 class Occurence(object):
-    zope.interface.implements(IOccurence)
-
     tag = fieldproperty.FieldProperty(IOccurence['tag'])
     signature = fieldproperty.FieldProperty(IOccurence['signature'])
     condition = fieldproperty.FieldProperty(IOccurence['condition'])

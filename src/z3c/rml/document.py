@@ -617,11 +617,11 @@ class IDocument(interfaces.IRMLDirectiveSignature):
                      u'the exact contents.'),
         required=False)
 
+@zope.interface.implementer(interfaces.IManager,
+                            interfaces.IPostProcessorManager,
+                            interfaces.ICanvasManager)
 class Document(directive.RMLDirective):
     signature = IDocument
-    zope.interface.implements(interfaces.IManager,
-                              interfaces.IPostProcessorManager,
-                              interfaces.ICanvasManager)
 
     factories = {
         'docinit': DocInit,

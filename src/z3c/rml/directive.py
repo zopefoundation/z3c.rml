@@ -39,8 +39,8 @@ def getFileInfo(directive, element=None):
         element = directive.element
     return '(file %s, line %i)' %(root.filename, element.sourceline)
 
+@zope.interface.implementer(interfaces.IRMLDirective)
 class RMLDirective(object):
-    zope.interface.implements(interfaces.IRMLDirective)
     signature = None
     factories = {}
 
