@@ -23,7 +23,6 @@ import reportlab.lib.pagesizes
 import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
-import urllib
 import zope.interface
 import zope.schema
 from lxml import etree
@@ -307,7 +306,7 @@ class File(Text):
     The value itself can eith be be a relative or absolute path. Additionally
     the following syntax is supported: [path.to.python.mpackage]/path/to/file
     """
-    open = staticmethod(urllib.urlopen)
+    open = staticmethod(six.moves.urllib.request.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
     doNotOpen = False
