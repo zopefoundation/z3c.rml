@@ -1,0 +1,35 @@
+Fails in all?
+    - rml-examples-029-keepinframe.rml
+
+    We've had problems with the keepinframe before: https://github.com/zopefoundation/z3c.rml/commit/bce7f7f25bda98a7101b3e2cf5b28fd988e505c9#commitcomment-2760056
+
+    This test passes when run by itself, but fails when the whole suite is run.
+
+    I've narrowed it down to a conflict with tag-addMapping.rml as when you run both at the same time keepinframe fails.
+
+
+Fails in Python 3
+
+    inspect.currentframe() doesn't accept a arguments in Python 3.
+
+    In fact, I went all the way back to the Python 2.1 docs and can't find reference to it ever accepting arguments.
+
+    Even removing the paramter makes these tests fail so we need to find an alternative.
+
+    - rml-guide-example-05.rml
+    - tag-para.rml
+    - tag-index.rml
+    - special-text.rml
+    - tag-log.rml
+    - tag-name.rml
+
+
+    These tests fail but I'm not sure why. It's either bugs in PyPDF2 under Python 3 or a problem with PyPDF2 writing to BytesIO.
+
+    - tag-mergePage.rml
+    - tag-includePdfPages.rml
+
+
+    This test fails due to another bug in ReportLab 3 on line 468 in reportlab.pdfbase.ttfonts.
+
+    - tag-registerTTFont.rml
