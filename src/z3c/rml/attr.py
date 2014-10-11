@@ -275,12 +275,12 @@ class Measurement(RMLAttribute):
         self.allowStar = allowStar
 
     units = [
-	(re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
-	(re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
-	(re.compile('^(-?[0-9\.]+)\s*mm$'), reportlab.lib.units.mm),
-	(re.compile('^(-?[0-9\.]+)\s*pt$'), 1),
-	(re.compile('^(-?[0-9\.]+)\s*$'), 1)
-        ]
+        (re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
+        (re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
+        (re.compile('^(-?[0-9\.]+)\s*mm$'), reportlab.lib.units.mm),
+        (re.compile('^(-?[0-9\.]+)\s*pt$'), 1),
+        (re.compile('^(-?[0-9\.]+)\s*$'), 1)
+    ]
 
     allowPercentage = False
     allowStar = False
@@ -292,7 +292,7 @@ class Measurement(RMLAttribute):
             return value
         if value.endswith('%') and self.allowPercentage:
             return value
-	for unit in self.units:
+        for unit in self.units:
             res = unit[0].search(value, 0)
             if res:
                 return unit[1]*float(res.group(1))
