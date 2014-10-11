@@ -15,6 +15,7 @@
 """
 import copy
 import inspect
+import six
 
 import reportlab.lib.fonts
 import reportlab.platypus.paraparser
@@ -86,7 +87,7 @@ class EvalStringFragment(reportlab.platypus.paraparser.ParaFrag):
     def text(self):
         text = u''
         for frag in self.frags:
-            if isinstance(frag, basestring):
+            if isinstance(frag, six.string_types):
                 text += frag
             else:
                 text += frag.text

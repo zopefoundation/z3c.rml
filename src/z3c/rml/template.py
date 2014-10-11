@@ -13,6 +13,7 @@
 ##############################################################################
 """Style Related Element Processing
 """
+import six
 import zope.interface
 from reportlab import platypus
 from z3c.rml import attr, directive, interfaces, occurence
@@ -122,7 +123,7 @@ class Frame(directive.RMLDirective):
         args = dict(self.getAttributeValues())
         # Deal with percentages
         for name, dir in (('x1', 0), ('y1', 1), ('width', 0), ('height', 1)):
-            if isinstance(args[name], basestring) and args[name].endswith('%'):
+            if isinstance(args[name], six.string_types) and args[name].endswith('%'):
                 args[name] = float(args[name][:-1])/100*size[dir]
         frame = platypus.Frame(**args)
         self.parent.frames.append(frame)
