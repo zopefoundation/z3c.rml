@@ -144,8 +144,12 @@ class Text(RMLAttribute, zope.schema.Text):
     """A simple unicode string."""
 
 
-class String(Text):
-    """Formerly a simple Bytes string, now the same as Text."""
+if six.PY2:
+    class String(RMLAttribute, zope.schema.Bytes):
+        """A simple Bytes string."""
+else:
+    class String(Text):
+        """Formerly a simple Bytes string, now the same as Text."""
 
 
 class Integer(RMLAttribute, zope.schema.Int):

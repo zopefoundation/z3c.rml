@@ -1,4 +1,4 @@
-Fails in all?
+Fails in Python 2 and 3
     - rml-examples-029-keepinframe.rml
 
     We've had problems with the keepinframe before: https://github.com/zopefoundation/z3c.rml/commit/bce7f7f25bda98a7101b3e2cf5b28fd988e505c9#commitcomment-2760056
