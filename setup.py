@@ -15,6 +15,7 @@
 """
 import os
 from setuptools import setup, find_packages
+import sys
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
@@ -33,6 +34,12 @@ def alltests():
     options = zope.testrunner.options.get_options(args, defaults)
     suites = list(zope.testrunner.find.find_suites(options))
     return unittest.TestSuite(suites)
+
+if sys.version_info < (2, 7):
+    # XXX ReportLab dropped Python 2.6 support
+    REPORTLAB_VERSION = '<3.0'
+else:
+    REPORTLAB_VERSION = '>=3.0'
 
 TESTS_REQUIRE = [
     'Pillow',
@@ -82,7 +89,7 @@ setup (
         'lxml',
          # XXX: PyPDF2 1.22 does not work.
         'PyPDF2==1.21',
-        'reportlab>=3.0',
+        'reportlab' + REPORTLAB_VERSION,
         'setuptools',
         'six',
         'zope.interface',
