@@ -14,8 +14,8 @@
 """Paragraph-internal XML parser extensions.
 """
 import copy
-import inspect
 import six
+import sys
 
 import reportlab.lib.fonts
 import reportlab.platypus.paraparser
@@ -31,7 +31,7 @@ class PageNumberFragment(reportlab.platypus.paraparser.ParaFrag):
     @property
     def text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = inspect.currentframe(4)
+        frame = sys._getframe(4)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:
@@ -59,7 +59,7 @@ class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
     @property
     def text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = inspect.currentframe(4)
+        frame = sys._getframe(4)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:
@@ -104,7 +104,7 @@ class NameFragment(reportlab.platypus.paraparser.ParaFrag):
     @property
     def text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = inspect.currentframe(4)
+        frame = sys._getframe(4)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:

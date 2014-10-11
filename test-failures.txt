@@ -10,20 +10,6 @@ Fails in Python 2 and 3
 
 Fails in Python 3
 
-    inspect.currentframe() doesn't accept a arguments in Python 3.
-
-    In fact, I went all the way back to the Python 2.1 docs and can't find reference to it ever accepting arguments.
-
-    Even removing the paramter makes these tests fail so we need to find an alternative.
-
-    - rml-guide-example-05.rml
-    - tag-para.rml
-    - tag-index.rml
-    - special-text.rml
-    - tag-log.rml
-    - tag-name.rml
-
-
     These tests fail but I'm not sure why. It's either bugs in PyPDF2 under Python 3 or a problem with PyPDF2 writing to BytesIO.
 
     - tag-mergePage.rml
