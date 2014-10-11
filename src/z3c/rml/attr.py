@@ -219,7 +219,7 @@ class Choice(BaseChoice):
 
     def __init__(self, choices=None, doLower=True, *args, **kw):
         super(Choice, self).__init__(*args, **kw)
-        if isinstance(choices, (tuple, list)):
+        if not isinstance(choices, dict):
             choices = dict(
                 [(val.lower() if doLower else val, val) for val in choices])
         else:
