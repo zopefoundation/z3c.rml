@@ -199,7 +199,7 @@ def extractExamples(directory):
     for filename in os.listdir(directory):
         if not filename.endswith('.rml'):
             continue
-        rmlFile = open(os.path.join(directory, filename), 'r')
+        rmlFile = open(os.path.join(directory, filename), 'rb')
         root = etree.parse(rmlFile).getroot()
         elements = root.xpath('//@doc:example/parent::*',
                               namespaces={'doc': EXAMPLE_NS})

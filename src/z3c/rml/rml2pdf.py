@@ -34,7 +34,7 @@ def parseString(xml, removeEncodingLine=True, filename=None):
     doc = document.Document(root)
     if filename:
         doc.filename = filename
-    output = six.StringIO()
+    output = six.BytesIO()
     doc.process(output)
     output.seek(0)
     return output
@@ -44,7 +44,7 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     if dtdDir is not None:
         sys.stderr.write('The ``dtdDir`` option is not yet supported.')
 
-    xmlFile = open(xmlInputName, 'r')
+    xmlFile = open(xmlInputName, 'rb')
     root = etree.parse(xmlFile).getroot()
     doc = document.Document(root)
     doc.filename = xmlInputName

@@ -34,6 +34,7 @@ The first step is to create a page template:
   ...
   ... </document>
   ... ''')
+  463
 
 The ``context`` namespace will be created during rendering. I get back to this
 later. In th enext step we instantiate the page template:
@@ -45,7 +46,7 @@ All we have to do now is to render the template. The context of the template
 is effectively the keyword arguments dictionary:
 
   >>> rmlPageTemplate(names=(u'Roy', u'Daniel', u'Julian', u'Stephan'))
-  '%PDF-1.4...'
+  b'%PDF-1.4...'
 
 You can uncomment the following line to write out the PDF in the current
 working directory:

@@ -44,7 +44,7 @@ class MergePostProcessor(object):
                     page = mergerPage
             output.addPage(page)
 
-        outputFile = six.StringIO()
+        outputFile = six.BytesIO()
         output.write(outputFile)
         return outputFile
 

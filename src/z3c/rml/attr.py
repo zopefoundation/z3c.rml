@@ -133,12 +133,12 @@ class Combination(RMLAttribute):
                 value, getFileInfo(self.context)))
 
 
-class String(RMLAttribute, zope.schema.Bytes):
-    """A simple Bytes string."""
-
-
 class Text(RMLAttribute, zope.schema.Text):
     """A simple unicode string."""
+
+
+class String(Text):
+    """Formerly a simple Bytes string, now the same as Text."""
 
 
 class Integer(RMLAttribute, zope.schema.Int):
@@ -336,7 +336,7 @@ class File(Text):
             return value
         # Open/Download the file
         fileObj = self.open(value)
-        sio = six.StringIO(fileObj.read())
+        sio = six.BytesIO(fileObj.read())
         fileObj.close()
         sio.seek(0)
         return sio

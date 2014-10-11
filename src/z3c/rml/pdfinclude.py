@@ -52,7 +52,7 @@ class ConcatenationPostProcessor(object):
             merger.append(
                 inputFile1, pages=(prev_insert, num_pages))
 
-        outputFile = six.StringIO()
+        outputFile = six.BytesIO()
         merger.write(outputFile)
         return outputFile
 

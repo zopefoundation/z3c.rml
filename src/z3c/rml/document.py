@@ -693,7 +693,7 @@ class Document(directive.RMLDirective):
 
         # Create a temporary output file, so that post-processors can
         # massage the output
-        self.outputFile = tempOutput = six.StringIO()
+        self.outputFile = tempOutput = six.BytesIO()
 
         # Process common sub-directives
         self.processSubDirectives(select=('docinit', 'stylesheet'))
