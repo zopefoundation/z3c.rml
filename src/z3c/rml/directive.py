@@ -83,7 +83,7 @@ class RMLDirective(object):
         # Sort the items based on the section
         if select is not None:
             select = list(select)
-            items = sorted(items, key=lambda (n, v): select.index(n))
+            items = sorted(items, key=lambda n: select.index(n[0]))
 
         # If the attribute name does not match the internal API
         # name, then convert the name to the internal one
