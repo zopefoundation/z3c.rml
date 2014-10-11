@@ -133,6 +133,7 @@ class RegisterTTFont(directive.RMLDirective):
 
     def process(self):
         args = self.getAttributeValues(valuesOnly=True)
+        args[0] = args[0].encode('utf-8')
         font = ttfonts.TTFont(*args)
         pdfmetrics.registerFont(font)
 
