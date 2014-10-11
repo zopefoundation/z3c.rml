@@ -13,7 +13,8 @@ The first step is to create a page template:
 
   >>> import tempfile
   >>> ptFileName = tempfile.mktemp('.pt')
-  >>> open(ptFileName, 'w').write('''\
+  >>> file_ = open(ptFileName, 'w')
+  >>> file_.write('''\
   ... <?xml version="1.0" encoding="UTF-8" ?>
   ... <!DOCTYPE document SYSTEM "rml.dtd">
   ... <document filename="template.pdf"
@@ -35,6 +36,7 @@ The first step is to create a page template:
   ... </document>
   ... ''')
   463
+  >>> file_.close()
 
 The ``context`` namespace will be created during rendering. I get back to this
 later. In th enext step we instantiate the page template:

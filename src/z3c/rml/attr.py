@@ -92,7 +92,7 @@ class RMLAttribute(zope.schema.Field):
         if (interfaces.IDeprecated.providedBy(self) and
             self.deprecatedName in self.context.element.attrib):
             name = self.deprecatedName
-            logger.warn(
+            logger.warning(
                 u'Deprecated attribute "%s": %s %s' % (
                 name, self.deprecatedReason, getFileInfo(self.context)))
         else:
