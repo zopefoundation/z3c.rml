@@ -77,7 +77,7 @@ class RMLAttribute(zope.schema.Field):
         """See zope.schema.interfaces.IField"""
         if self.context is None:
             raise ValueError('Attribute not bound to a context.')
-        return super(RMLAttribute, self).fromUnicode(unicode(ustr))
+        return super(RMLAttribute, self).fromUnicode(six.text_type(ustr))
 
     def get(self):
         """See zope.schema.interfaces.IField"""
@@ -533,7 +533,7 @@ class TextNode(RMLAttribute):
     def get(self):
         if self.context.element.text is None:
             return u''
-        return unicode(self.context.element.text).strip()
+        return six.text_type(self.context.element.text).strip()
 
 
 class FirstLevelTextNode(TextNode):
