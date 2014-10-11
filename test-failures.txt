@@ -34,9 +34,9 @@ tag-fixedSize.rml
 tag-barChart3d.rml
 tag-keepInFrame.rml
 
-    I think these tests fail due to differences between ReportLab 2.7 and 3.0+.
+    I think these tests fail due to default style differences between ReportLab 2.7 and 3.0+?
 
-    Should we drop Python 2.6 support because there's already more hacks for 2.6 than to 2/3 compatibility.
+    Should we drop Python 2.6 support because there's already more hacks for 2.6 than 2/3 compatibility?
 
     If ReportLab have dropped Python 2.6 support then shouldn't z3c.rml follow?
 
@@ -57,9 +57,11 @@ tag-includePdfPages.rml
 
     I think these fail due to a bug in PyPDF2 under Python 3? Needs investigating.
 
+    When these are fixed remember to also check for any file handles left open otherwise Python 3 will spit out ResourceWarnings.
+
 
 tag-registerTTFont.rml
 
     This test fails due to a bug in ReportLab 3 on line 468 in reportlab.pdfbase.ttfonts.
 
-    It's not possible to monkey patch and would require copying in a pretty big chunk of code.
+    It's not a small monkey patch and would require copying in a pretty big chunk of code.
