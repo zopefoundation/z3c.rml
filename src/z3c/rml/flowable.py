@@ -53,7 +53,7 @@ def pygments2xpre(s, language="python"):
     # XXX: Does not work in Python 2, since pygments creates non-unicode
     # outpur snippets.
     #from io import StringIO
-    from cStringIO import StringIO
+    from six import StringIO
     out = StringIO()
     highlight(s,l,h,out)
     styles = [(cls, style.split(';')[0].split(':')[1].strip())

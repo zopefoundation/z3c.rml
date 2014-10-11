@@ -14,7 +14,7 @@
 """``pdfInclude`` Directive.
 """
 __docformat__ = "reStructuredText"
-import cStringIO
+import six
 try:
     import PyPDF2
     from PyPDF2.generic import NameObject
@@ -52,7 +52,7 @@ class ConcatenationPostProcessor(object):
             merger.append(
                 inputFile1, pages=(prev_insert, num_pages))
 
-        outputFile = cStringIO.StringIO()
+        outputFile = six.StringIO()
         merger.write(outputFile)
         return outputFile
 

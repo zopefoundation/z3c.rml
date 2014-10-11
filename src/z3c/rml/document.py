@@ -13,8 +13,8 @@
 ##############################################################################
 """RML ``document`` element
 """
-import cStringIO
 import logging
+import six
 import sys
 import zope.interface
 import reportlab.pdfgen.canvas
@@ -693,7 +693,7 @@ class Document(directive.RMLDirective):
 
         # Create a temporary output file, so that post-processors can
         # massage the output
-        self.outputFile = tempOutput = cStringIO.StringIO()
+        self.outputFile = tempOutput = six.StringIO()
 
         # Process common sub-directives
         self.processSubDirectives(select=('docinit', 'stylesheet'))

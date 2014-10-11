@@ -13,10 +13,10 @@
 ##############################################################################
 """RML Attribute Implementation
 """
-import cStringIO
 import logging
 import os
 import re
+import six
 import reportlab.graphics.widgets.markers
 import reportlab.lib.colors
 import reportlab.lib.pagesizes
@@ -337,7 +337,7 @@ class File(Text):
             return value
         # Open/Download the file
         fileObj = self.open(value)
-        sio = cStringIO.StringIO(fileObj.read())
+        sio = six.StringIO(fileObj.read())
         fileObj.close()
         sio.seek(0)
         return sio

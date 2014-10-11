@@ -13,8 +13,8 @@
 ##############################################################################
 """RML to PDF Converter
 """
-import cStringIO
 import os
+import six
 import sys
 import zope.interface
 from lxml import etree
@@ -34,7 +34,7 @@ def parseString(xml, removeEncodingLine=True, filename=None):
     doc = document.Document(root)
     if filename:
         doc.filename = filename
-    output = cStringIO.StringIO()
+    output = six.StringIO()
     doc.process(output)
     output.seek(0)
     return output
