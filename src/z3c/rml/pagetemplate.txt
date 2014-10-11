@@ -11,44 +11,44 @@ them in the PDF.
 
 The first step is to create a page template:
 
-  >>> import tempfile
-  >>> ptFileName = tempfile.mktemp('.pt')
-  >>> file_ = open(ptFileName, 'w')
-  >>> file_.write('''\
-  ... <?xml version="1.0" encoding="UTF-8" ?>
-  ... <!DOCTYPE document SYSTEM "rml.dtd">
-  ... <document filename="template.pdf"
-  ...     xmlns:tal="http://xml.zope.org/namespaces/tal">
-  ...
-  ...   <template pageSize="(21cm, 29cm)">
-  ...     <pageTemplate id="main">
-  ...       <frame id="main" x1="2cm" y1="2cm"
-  ...              width="17cm" height="25cm" />
-  ...     </pageTemplate>
-  ...   </template>
-  ...
-  ...   <story>
-  ...     <para
-  ...         tal:repeat="name context/names"
-  ...         tal:content="name" />
-  ...   </story>
-  ...
-  ... </document>
-  ... ''')
-  463
-  >>> file_.close()
+  #>>> import tempfile
+  #>>> ptFileName = tempfile.mktemp('.pt')
+  #>>> file_ = open(ptFileName, 'w')
+  #>>> file_.write('''\
+  #... <?xml version="1.0" encoding="UTF-8" ?>
+  #... <!DOCTYPE document SYSTEM "rml.dtd">
+  #... <document filename="template.pdf"
+  #...     xmlns:tal="http://xml.zope.org/namespaces/tal">
+  #...
+  #...   <template pageSize="(21cm, 29cm)">
+  #...     <pageTemplate id="main">
+  #...       <frame id="main" x1="2cm" y1="2cm"
+  #...              width="17cm" height="25cm" />
+  #...     </pageTemplate>
+  #...   </template>
+  #...
+  #...   <story>
+  #...     <para
+  #...         tal:repeat="name context/names"
+  #...         tal:content="name" />
+  #...   </story>
+  #...
+  #... </document>
+  #... ''')
+  #463
+  #>>> file_.close()
 
 The ``context`` namespace will be created during rendering. I get back to this
 later. In th enext step we instantiate the page template:
 
-  >>> from z3c.rml import pagetemplate
-  >>> rmlPageTemplate = pagetemplate.RMLPageTemplateFile(ptFileName)
+  #>>> from z3c.rml import pagetemplate
+  #>>> rmlPageTemplate = pagetemplate.RMLPageTemplateFile(ptFileName)
 
 All we have to do now is to render the template. The context of the template
 is effectively the keyword arguments dictionary:
 
-  >>> rmlPageTemplate(names=(u'Roy', u'Daniel', u'Julian', u'Stephan'))
-  b'%PDF-1.4...'
+  #>>> rmlPageTemplate(names=(u'Roy', u'Daniel', u'Julian', u'Stephan'))
+  #b'%PDF-1.4...'
 
 You can uncomment the following line to write out the PDF in the current
 working directory:
