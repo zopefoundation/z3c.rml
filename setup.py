@@ -77,8 +77,7 @@ setup (
     install_requires=[
         'Pygments',
         'lxml',
-         # XXX: PyPDF2 1.22 does not work.
-        'PyPDF2==1.21',
+        'PyPDF2>=1.21',
         'reportlab>=3.0',
         'setuptools',
         'svg2rlg',
