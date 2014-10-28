@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.7.2 (unreleased)
+2.7.2 (2014-10-28)
 ------------------
 
 - Now the latest PyPDF2 versions are supported.
