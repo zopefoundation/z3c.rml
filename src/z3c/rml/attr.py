@@ -26,14 +26,7 @@ import reportlab.lib.utils
 import zope.interface
 import zope.schema
 from lxml import etree
-
-try:
-    from importlib import import_module
-except ImportError:
-    # XXX Python 2.6 doesn't have importlib
-    def import_module(modulepath):
-        return __import__(modulepath, {}, {}, (modulepath))
-
+from importlib import import_module
 from z3c.rml import interfaces, SampleStyleSheet
 
 MISSING = object()

@@ -146,19 +146,15 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)
-    start_pageNumber = start_pagenumber # XXX Python 2.6 with RL < 3.0
 
     def end_pagenumber(self):
         self.endDynamic()
-    end_pageNumber = end_pagenumber # XXX Python 2.6 with RL < 3.0
 
     def start_getname(self, attributes):
         self.startDynamic(attributes, GetNameFragment)
-    start_getName = start_getname # XXX Python 2.6 with RL < 3.0
 
     def end_getname(self):
         self.endDynamic()
-    end_getName = end_getname # XXX Python 2.6 with RL < 3.0
 
     def start_name(self, attributes):
         self.startDynamic(attributes, NameFragment)
@@ -169,12 +165,10 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     def start_evalstring(self, attributes):
         self.startDynamic(attributes, EvalStringFragment)
         self.in_eval = True
-    start_evalString = start_evalstring # XXX Python 2.6 with RL < 3.0
 
     def end_evalstring(self):
         self.in_eval = False
         self.endDynamic()
-    end_evalString = end_evalstring # XXX Python 2.6 with RL < 3.0
 
     def handle_data(self, data):
         if not self.in_eval:
