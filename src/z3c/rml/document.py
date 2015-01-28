@@ -710,6 +710,11 @@ class Document(directive.RMLDirective):
             self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
             self._initCanvas(self.canvas)
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
+
+            if hasattr(self.canvas, 'AcroForm'):
+                # Makes default values appear in ReportLab >= 3.1.44
+                self.canvas.AcroForm.needAppearances = 'true'
+
             self.canvas.save()
 
         # Handle Flowable-based documents.

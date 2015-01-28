@@ -80,7 +80,7 @@ setup (
         'Pygments',
         'lxml',
         'PyPDF2>=1.21',
-        'reportlab>=3.0',
+        'reportlab>=3.1.44',
         'setuptools',
         'six',
         'zope.interface',

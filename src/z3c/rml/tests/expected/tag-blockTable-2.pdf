@@ -1,140 +1,65 @@
 %PDF-1.4
 %“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
-% 'BasicFonts': class PDFDictionary 
 1 0 obj
-% The standard fonts dictionary
-<< /F1 2 0 R
- /F2 3 0 R
- /F3 4 0 R
- /F4 5 0 R
- /F5 6 0 R >>
+<< /F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R /F5 6 0 R >>
 endobj
-% 'F1': class PDFType1Font 
 2 0 obj
-% Font Helvetica
-<< /BaseFont /Helvetica
- /Encoding /WinAnsiEncoding
- /Name /F1
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F2': class PDFType1Font 
 3 0 obj
-% Font Courier-Bold
-<< /BaseFont /Courier-Bold
- /Encoding /WinAnsiEncoding
- /Name /F2
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F3': class PDFType1Font 
 4 0 obj
-% Font Helvetica-Bold
-<< /BaseFont /Helvetica-Bold
- /Encoding /WinAnsiEncoding
- /Name /F3
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F4': class PDFType1Font 
 5 0 obj
-% Font Helvetica-Oblique
-<< /BaseFont /Helvetica-Oblique
- /Encoding /WinAnsiEncoding
- /Name /F4
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F5': class PDFType1Font 
 6 0 obj
-% Font Symbol
-<< /BaseFont /Symbol
- /Encoding /SymbolEncoding
- /Name /F5
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Symbol /Encoding /SymbolEncoding /Name /F5 /Subtype /Type1 /Type /Font >>
 endobj
-% 'Page1': class PDFPage 
 7 0 obj
-% Page dictionary
-<< /Contents 11 0 R
- /MediaBox [ 0
- 0
- 595.2756
- 841.8898 ]
- /Parent 10 0 R
- /Resources << /Font 1 0 R
- /ProcSet [ /PDF
- /Text
- /ImageB
- /ImageC
- /ImageI ] >>
- /Rotate 0
- /Trans <<  >>
- /Type /Page >>
+<< /Contents 11 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 10 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 /Trans <<  >> 
+  /Type /Page >>
 endobj
-% 'R8': class PDFCatalog 
 8 0 obj
-% Document Root
-<< /Outlines 12 0 R
- /PageMode /UseNone
- /Pages 10 0 R
- /Type /Catalog >>
+<< /Outlines 12 0 R /PageMode /UseNone /Pages 10 0 R /Type /Catalog >>
 endobj
-% 'R9': class PDFInfo 
 9 0 obj
-<< /Author (\(anonymous\))
- /CreationDate (D:20121217140300+05'00')
- /Creator (\(unspecified\))
- /Keywords ()
- /Producer (ReportLab PDF Library - www.reportlab.com)
- /Subject (\(unspecified\))
- /Title (\(anonymous\)) >>
+<< /Author (\(anonymous\)) /CreationDate (D:20150128023711+00'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+  /Title (\(anonymous\)) >>
 endobj
-% 'R10': class PDFPages 
 10 0 obj
-% page tree
-<< /Count 1
- /Kids [ 7 0 R ]
- /Type /Pages >>
+<< /Count 1 /Kids [ 7 0 R ] /Type /Pages >>
 endobj
-% 'R11': class PDFStream 
 11 0 obj
-% page stream
-<< /Filter [ /ASCII85Decode
- /FlateDecode ]
- /Length 386 >>
+<< /Filter [ /ASCII85Decode /FlateDecode ] /Length 386 >>
 stream
 Gatn!b>*^E(kq]0]YdmHM1r_35Y6nBUTE7<oEBc]nH)!H(I#R0:i8&.7+6n=k.dGT["QL/ZJVqgXu4(T5TKV$,aj>"_l`XG2rCAR2W73&1?%rVAC+GsKJt$;(T6&)ocBWI'uGo^<*(l]j*3h.Gm=5+TW$W97H[*Fp%p8l29a"#&a9.CS#U2i\N\'QU-U0phThNW;NdFrN]81O6DRYalYT'pbfF8a%EKAQ0e#MTCk>P\3l&9u':aN!HA@paN5gST9m`r]acm[-D=^q4T7&\YFf[YHUH;BVk%\`(;p'dIWW.QPMO'a+B/#P7T4Jq)SZp)hX<k%<l@cH?ch+)`CX\pR)=Vh[5Q>?:[XW^tY0mV$U\-]NG:M1':(d4bn@^J"Ic=3~>endstream
 endobj
-% 'R12': class PDFOutlines 
 12 0 obj
-<< /Count 0
- /Type /Outlines >>
+<< /Count 0 /Type /Outlines >>
 endobj
 xref
 0 13
 0000000000 65535 f
-0000000113 00000 n
-0000000257 00000 n
-0000000422 00000 n
-0000000593 00000 n
-0000000768 00000 n
-0000000949 00000 n
-0000001105 00000 n
-0000001384 00000 n
-0000001520 00000 n
-0000001790 00000 n
-0000001897 00000 n
-0000002427 00000 n
+0000000075 00000 n
+0000000149 00000 n
+0000000259 00000 n
+0000000367 00000 n
+0000000482 00000 n
+0000000600 00000 n
+0000000706 00000 n
+0000000915 00000 n
+0000001004 00000 n
+0000001240 00000 n
+0000001303 00000 n
+0000001785 00000 n
 trailer
 << /ID 
- % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\2514PW\375b\346M\037u\307 \354\014_\254) (\2514PW\375b\346M\037u\307 \354\014_\254)] 
-
- /Info 9 0 R
- /Root 8 0 R
- /Size 13 >>
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com)
+ [(\265`|\200\234C\310\030\347\017\305\\\201\2000\276) (\265`|\200\234C\310\030\347\017\305\\\201\2000\276)]
+ /Info 9 0 R /Root 8 0 R /Size 13 >>
 startxref
-2479
+1835
 %%EOF
