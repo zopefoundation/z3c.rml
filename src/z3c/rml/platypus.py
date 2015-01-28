@@ -24,7 +24,8 @@ from z3c.rml import interfaces
 class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
 
     def __init__(self, maxWidth, maxHeight, content=[], mergeSpace=1,
-                 mode='shrink', name=''):
+                 mode='shrink', name='', hAlign='LEFT', vAlign='BOTTOM',
+                 fakeWidth=None):
         self.name = name
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
@@ -36,7 +37,10 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)
         if mergeSpace is None: mergeSpace = overlapAttachedSpace
         self.mergespace = mergeSpace
-        self._content = content
+        self._content = content or []
+        self.vAlign = vAlign
+        self.hAlign = hAlign
+        self.fakeWidth = fakeWidth
 
 
 class BaseFlowable(reportlab.platypus.flowables.Flowable):
