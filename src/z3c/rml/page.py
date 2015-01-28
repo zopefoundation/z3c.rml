@@ -25,6 +25,37 @@ except ImportError:
     PyPDF2 = None
 
 
+if PyPDF2 is not None and six.PY3:
+    # Monkey patch PyPDF2 for Python 3 compatibility
+    # https://github.com/mstamy2/PyPDF2/pull/172
+    class ASCII85Decode(object):
+        def decode(data, decodeParms=None):
+            if isinstance(data, str):
+                data = data.encode('ascii')
+            import struct
+            n = b = 0
+            out = bytearray()
+            for c in data:
+                if ord('!') <= c and c <= ord('u'):
+                    n += 1
+                    b = b*85+(c-33)
+                    if n == 5:
+                        out += struct.pack(b'>L',b)
+                        n = b = 0
+                elif c == ord('z'):
+                    assert n == 0
+                    out += b'\0\0\0\0'
+                elif c == ord('~'):
+                    if n:
+                        for _ in range(5-n):
+                            b = b*85+84
+                        out += struct.pack(b'>L',b)[:n-1]
+                    break
+            return bytes(out)
+        decode = staticmethod(decode)
+    PyPDF2.filters.ASCII85Decode = ASCII85Decode
+
+
 class MergePostProcessor(object):
 
     def __init__(self):
