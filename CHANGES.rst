@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.8.0 (unreleased)
+2.8.0 (2015-02-02)
 ------------------
 
 - Get version of reference manual from package version.
