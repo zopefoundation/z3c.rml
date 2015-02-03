@@ -5,6 +5,8 @@ CHANGES
 2.8.0 (unreleased)
 ------------------
 
+- Get version of reference manual from package version.
+
 - Added the ability to specify any set of characters as the "bullet content"
   like it is supported by ReportLab.
 
