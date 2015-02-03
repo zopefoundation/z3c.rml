@@ -20,11 +20,14 @@ import zope.interface
 
 from z3c.rml import interfaces
 
-# Fix problem with reportlab 2.0
+# Fix problem with reportlab 3.1.44
 class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
+    pass
 
     def __init__(self, maxWidth, maxHeight, content=[], mergeSpace=1,
-                 mode='shrink', name=''):
+                 mode='shrink', name='', hAlign='LEFT', vAlign='BOTTOM',
+                 fakeWidth=None):
+
         self.name = name
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
@@ -37,6 +40,9 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         if mergeSpace is None: mergeSpace = overlapAttachedSpace
         self.mergespace = mergeSpace
         self._content = content
+        self.vAlign = vAlign
+        self.hAlign = hAlign
+        self.fakeWidth = fakeWidth
 
 
 class BaseFlowable(reportlab.platypus.flowables.Flowable):

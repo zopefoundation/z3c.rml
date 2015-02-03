@@ -1,118 +1,57 @@
 %PDF-1.4
 %“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
-% 'BasicFonts': class PDFDictionary 
 1 0 obj
-% The standard fonts dictionary
-<< /F1 2 0 R
- /F2 3 0 R
- /F3 4 0 R >>
+<< /F1 2 0 R /F2 3 0 R /F3 4 0 R >>
 endobj
-% 'F1': class PDFType1Font 
 2 0 obj
-% Font Helvetica
-<< /BaseFont /Helvetica
- /Encoding /WinAnsiEncoding
- /Name /F1
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F2': class PDFType1Font 
 3 0 obj
-% Font Courier-Bold
-<< /BaseFont /Courier-Bold
- /Encoding /WinAnsiEncoding
- /Name /F2
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font >>
 endobj
-% 'F3': class PDFType1Font 
 4 0 obj
-% Font Helvetica-Bold
-<< /BaseFont /Helvetica-Bold
- /Encoding /WinAnsiEncoding
- /Name /F3
- /Subtype /Type1
- /Type /Font >>
+<< /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font >>
 endobj
-% 'Page1': class PDFPage 
 5 0 obj
-% Page dictionary
-<< /Contents 9 0 R
- /MediaBox [ 0
- 0
- 595.2756
- 841.8898 ]
- /Parent 8 0 R
- /Resources << /Font 1 0 R
- /ProcSet [ /PDF
- /Text
- /ImageB
- /ImageC
- /ImageI ] >>
- /Rotate 0
- /Trans <<  >>
- /Type /Page >>
+<< /Contents 9 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 /Trans <<  >> 
+  /Type /Page >>
 endobj
-% 'R6': class PDFCatalog 
 6 0 obj
-% Document Root
-<< /Outlines 10 0 R
- /PageMode /UseNone
- /Pages 8 0 R
- /Type /Catalog >>
+<< /Outlines 10 0 R /PageMode /UseNone /Pages 8 0 R /Type /Catalog >>
 endobj
-% 'R7': class PDFInfo 
 7 0 obj
-<< /Author (\(anonymous\))
- /CreationDate (D:20121217140300+05'00')
- /Creator (\(unspecified\))
- /Keywords ()
- /Producer (ReportLab PDF Library - www.reportlab.com)
- /Subject (\(unspecified\))
- /Title (\(anonymous\)) >>
+<< /Author (\(anonymous\)) /CreationDate (D:20150202225108+05'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+  /Title (\(anonymous\)) >>
 endobj
-% 'R8': class PDFPages 
 8 0 obj
-% page tree
-<< /Count 1
- /Kids [ 5 0 R ]
- /Type /Pages >>
+<< /Count 1 /Kids [ 5 0 R ] /Type /Pages >>
 endobj
-% 'R9': class PDFStream 
 9 0 obj
-% page stream
-<< /Filter [ /ASCII85Decode
- /FlateDecode ]
- /Length 634 >>
+<< /Filter [ /ASCII85Decode /FlateDecode ] /Length 634 >>
 stream
 GatU0_2d5''YG[\%s+Ps'!RReUoJ`C[A]@:WKbRI]tkj@:0\dFPeXD=!b,"6#S[Y614D%Nh?8G0]nl^4CZ%4jA55B<Z2u9Y,%Nq./K52N_ZB#+1Q#>"=Lc+]:QT&u$a2i_(=8<"T@j:1\dFW]"\DtDWPA'<UX($DrPkdN(8<P\mpG#IaZSq:UPpkr<Rf1KcTYh9Y.,/=bHE^Ij='K4G:&Q!V;CLe>P0aA=]r-dQBOt@[OlZ;"/E*P#S&*Yg9!fWa\0+TkH\9J!</d"J%.C:^6)[DSNUV=(9OR),mpL=.TO2D=;e5"b(phG=hn\o`i]ju[l$l!*)O<a8J28:&gq($oRKfJ]JHh^c2rAp>Oa'4P;eg!"sna48&<?46DLcUiNLZYDm:$T?Ih_O*)I9#`VZ(9ds8+><B-,e5XQpVb<9Ds_:UjqklLNc'LV3fr*kpS`]/1?\93;D=N%@!TD&!XRHH(7>1KkUlmBMBV4&dAk3l".nm[C'-s^m3i2%@sQ`WSao@+dqTaKjqUKd9QEaEDlY`u"miO->j9E&@QIBU]P``1ZYrb`KtKnVuQR*Lj4(n'7,'&LbDVq:o?0!`jY3Yj+;7B,V*XXpd`VGG7kD&J8b"4JWG?8*As"#l*i!W~>endstream
 endobj
-% 'R10': class PDFOutlines 
 10 0 obj
-<< /Count 0
- /Type /Outlines >>
+<< /Count 0 /Type /Outlines >>
 endobj
 xref
 0 11
 0000000000 65535 f
-0000000113 00000 n
-0000000233 00000 n
-0000000398 00000 n
-0000000569 00000 n
-0000000742 00000 n
-0000001019 00000 n
-0000001154 00000 n
-0000001423 00000 n
-0000001528 00000 n
-0000002305 00000 n
+0000000075 00000 n
+0000000129 00000 n
+0000000239 00000 n
+0000000347 00000 n
+0000000462 00000 n
+0000000669 00000 n
+0000000757 00000 n
+0000000993 00000 n
+0000001055 00000 n
+0000001784 00000 n
 trailer
 << /ID 
- % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\2514PW\375b\346M\037u\307 \354\014_\254) (\2514PW\375b\346M\037u\307 \354\014_\254)] 
-
- /Info 7 0 R
- /Root 6 0 R
- /Size 11 >>
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com)
+ [(&,K\344\016o!\355\037#\245:\265;Ey) (&,K\344\016o!\355\037#\245:\265;Ey)]
+ /Info 7 0 R /Root 6 0 R /Size 11 >>
 startxref
-2357
+1834
 %%EOF

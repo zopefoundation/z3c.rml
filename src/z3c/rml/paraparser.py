@@ -141,7 +141,7 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
 
     def endDynamic(self):
         if not self.in_eval:
-            self._pop()
+            self._stack.pop()
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)
