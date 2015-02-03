@@ -21,17 +21,28 @@ import reportlab.lib.fonts
 import reportlab.platypus.paraparser
 
 
-class PageNumberFragment(reportlab.platypus.paraparser.ParaFrag):
+class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
+    @property
+    def text(self):
+        if not hasattr(self, '_text'):
+            self._text = self._get_text()
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        self._text = value
+
+
+class PageNumberFragment(ParaFragWrapper):
     """A fragment whose `text` is computed at access time."""
 
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.counting_from = attributes.get('countingFrom', 1)
 
-    @property
-    def text(self):
+    def _get_text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(4)
+        frame = sys._getframe(5)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:
@@ -48,7 +59,7 @@ class PageNumberFragment(reportlab.platypus.paraparser.ParaFrag):
         return str(canvas.getPageNumber() + int(self.counting_from) - 1)
 
 
-class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
+class GetNameFragment(ParaFragWrapper):
     """A fragment whose `text` is computed at access time."""
 
     def __init__(self, **attributes):
@@ -56,10 +67,9 @@ class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
         self.id = attributes['id']
         self.default = attributes.get('default')
 
-    @property
-    def text(self):
+    def _get_text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(4)
+        frame = sys._getframe(5)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:
@@ -76,15 +86,14 @@ class GetNameFragment(reportlab.platypus.paraparser.ParaFrag):
         return canvas.manager.get_name(self.id, self.default)
 
 
-class EvalStringFragment(reportlab.platypus.paraparser.ParaFrag):
+class EvalStringFragment(ParaFragWrapper):
     """A fragment whose `text` is evaluated at access time."""
 
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.frags = []
 
-    @property
-    def text(self):
+    def _get_text(self):
         text = u''
         for frag in self.frags:
             if isinstance(frag, six.string_types):
@@ -95,16 +104,15 @@ class EvalStringFragment(reportlab.platypus.paraparser.ParaFrag):
         return do_eval(text)
 
 
-class NameFragment(reportlab.platypus.paraparser.ParaFrag):
+class NameFragment(ParaFragWrapper):
     """A fragment whose attribute `value` is set to a variable."""
 
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
 
-    @property
-    def text(self):
+    def _get_text(self):
         # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(4)
+        frame = sys._getframe(5)
         canvas = frame.f_locals.get('canvas', None)
 
         if canvas is None:
