@@ -627,8 +627,14 @@ class IBaseListStyle(IMinimalListStyle):
     start = attr.Combination(
         title=u'Start Value',
         description=u'The counter start value.',
-        value_types=(attr.Integer(),
-                     attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES)),
+        value_types=(
+            # Numeric start value.
+            attr.Integer(),
+            # Bullet types.
+            attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES),
+            # Arbitrary text.
+            attr.String(),
+            ),
         required=False)
 
 

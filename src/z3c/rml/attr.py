@@ -121,6 +121,14 @@ class Combination(RMLAttribute):
         super(Combination, self).__init__(*args, **kw)
         self.value_types = value_types
 
+    @property
+    def element(self):
+        return self.context.element
+
+    @property
+    def parent(self):
+        return self.context.parent
+
     def fromUnicode(self, value):
         for value_type in self.value_types:
             bound = value_type.bind(self)

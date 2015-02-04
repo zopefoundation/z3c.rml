@@ -22,7 +22,7 @@ import zope.schema.interfaces
 from lxml import etree
 from xml.sax import saxutils
 from pygments.lexers import XmlLexer
-from z3c.rml import attr, document, interfaces, pagetemplate
+from z3c.rml import attr, document, interfaces, pagetemplate, __version__
 
 
 INPUT_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
@@ -240,7 +240,10 @@ def main(outPath=None):
     processSignature('document', document.IDocument, examples, directives)
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
-    pdf = template(types=getAttributeTypes(), directives=directives)
+    pdf = template(
+        version=__version__,
+        types=getAttributeTypes(),
+        directives=directives)
     file_ = open(outPath or 'rml-reference.pdf', 'wb')
     file_.write(pdf)
     file_.close()

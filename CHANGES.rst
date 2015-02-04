@@ -2,11 +2,21 @@
 CHANGES
 =======
 
-2.7.3 (unreleased)
+2.8.1 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
+
+2.8.0 (2015-02-02)
+------------------
+
+- Get version of reference manual from package version.
+
+- Added the ability to specify any set of characters as the "bullet content"
+  like it is supported by ReportLab.
+
+- Fixed code to work with ReportLab 3.1.44.
 
 2.7.2 (2014-10-28)
 ------------------

@@ -28,6 +28,14 @@
         bulletType="a"
         doc:example=""
         />
+    <listStyle
+        name="CustomBulletTextList"
+        start="Item:"
+        bulletFontSize="10pt"
+        bulletOffsetY="0pt"
+        bulletDedent="30"
+        leftIndent="30"
+        />
   </stylesheet>
 
   <story>
@@ -82,6 +90,14 @@
       <li><para>Two</para></li>
       <li><para>Three</para></li>
     </ol>
+
+    <spacer length="0.5in" />
+
+    <ul style="CustomBulletTextList">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ul>
 
   </story>
 
