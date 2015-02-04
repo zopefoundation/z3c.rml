@@ -399,15 +399,8 @@ class LogConfig(directive.RMLDirective):
 
     def process(self):
         args = dict(self.getAttributeValues())
-
-        # cleanup win paths like:
-        # ....\\input\\file:///D:\\trunk\\...
-        if sys.platform[:3].lower() == "win":
-            if args['filename'].startswith('file:///'):
-                args['filename'] = args['filename'][len('file:///'):]
-
         logger = logging.getLogger(LOGGER_NAME)
-        handler = logging.FileHandler(args['filename'], args['filemode'])
+        handler = logging.FileHandler(args['filename'][8:], args['filemode'])
         formatter = logging.Formatter(
             args.get('format'), args.get('datefmt'))
         handler.setFormatter(formatter)

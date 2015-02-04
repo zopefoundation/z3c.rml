@@ -326,7 +326,7 @@ by all the means available to reportlab.lib.colours. Currently, you
 <i>If this is not italic</i>, <b>and this is not bold</b>, even normal angle brackets are broken.
 </para>
 <nextPage/>
-<imageAndFlowables imageName="images/replogo.gif" imageWidth="141" imageHeight="90">
+<imageAndFlowables imageName="[z3c.rml.tests]/input/images/replogo.gif" imageWidth="141" imageHeight="90">
 <para style="h1">Test imageAndFlowables tag with paras</para>
 <para style="style1">We should have an image on the <b>right</b> side of the paragraphs here. The imageAndFlowables
 tag can take an arbitrarary number of flowables and try to flow them round an image sepcified by attributes
@@ -353,7 +353,7 @@ base component does not readily tolerate problems of phonemic and
 morphological analysis.
 </para>
 </imageAndFlowables>
-<imageAndFlowables imageName="images/replogo.gif" imageWidth="141" imageHeight="90" imageSide="left">
+<imageAndFlowables imageName="[z3c.rml.tests]/input/images/replogo.gif" imageWidth="141" imageHeight="90" imageSide="left">
 <para style="h1">Test imageAndFlowables tag with paras</para>
 <para style="style1">We should have an image on the <b>right</b> side of the paragraphs here.
 </para>

@@ -9,8 +9,8 @@
     <pageGraphics>
         <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
         <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
     </pageGraphics>
      <frame id="firstLeft" x1="1in" y1="5in" width="3in" height="3.5in"/>
@@ -22,8 +22,8 @@
     <pageGraphics>
         <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
         <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
     </pageGraphics>
     
@@ -37,8 +37,8 @@
     <pageGraphics>
         <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 55 : Condpagebreak</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
         <drawCentredString x="297" y="36"><pageNumber countingFrom="1"/></drawCentredString>
     </pageGraphics>
     <frame id="second" x1="35" y1="55" width="525" height="680"/>

@@ -330,11 +330,18 @@ class File(Text):
                     getFileInfo(self.context)))
             modulepath, path = result.groups()
             module = import_module(modulepath)
-            value = os.path.join(os.path.dirname(module.__file__), path)
-        # If there is a drive name in the path, then we want a local file to
-        # be opened. This is only interesting for Windows of course.
-        if os.path.splitdrive(value)[0]:
-            value = 'file:///' + value
+            if six.PY2:
+                value = os.path.join(os.path.dirname(module.__file__), path)
+            else:
+                # PEP 420 namespace support means that a module can have
+                # multiple paths
+                for module_path in module.__path__:
+                    value = os.path.join(module_path, path)
+                    if os.path.exists(value):
+                        break
+        # Under Python 3 all platforms need a protocol for local files
+        if not six.moves.urllib.parse.urlparse(value).scheme:
+            value = 'file:///' + os.path.abspath(value)
         # If the file is not to be opened, simply return the path.
         if self.doNotOpen:
             return value

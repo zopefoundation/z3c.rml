@@ -21,7 +21,7 @@
       demonstrate that.
     </para>
     <imageAndFlowables
-        imageName="images/cylinder.svg"
+        imageName="[z3c.rml.tests]/input/images/cylinder.svg"
         imageHeight="40"
         imageWidth="40"
         imageMask="white"
@@ -46,7 +46,7 @@
       </para>
     </imageAndFlowables>
     <imageAndFlowables
-        imageName="images/cylinder.svg"
+        imageName="[z3c.rml.tests]/input/images/cylinder.svg"
         imageWidth="200"
         imageMask="white"
         imageSide="left"

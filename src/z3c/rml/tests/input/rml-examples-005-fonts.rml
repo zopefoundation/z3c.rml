@@ -5,7 +5,7 @@
 	<docinit>
 		<registerType1Face afmFile="DarkGardenMK.afm" pfbFile="DarkGardenMK.pfb"/>
 		<registerFont name="DarkGardenMK" faceName="DarkGardenMK" encName="WinAnsiEncoding"/>
-		<registerTTFont faceName="Vera" fileName="Vera.ttf"/>
+		<registerTTFont faceName="Vera" fileName="[z3c.rml.tests]/input/Vera.ttf"/>
 	</docinit>
 	<template>
 		<pageTemplate id="main">

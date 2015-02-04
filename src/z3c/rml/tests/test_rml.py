@@ -19,7 +19,7 @@ import subprocess
 import unittest
 import sys
 import z3c.rml.tests
-from z3c.rml import rml2pdf, attr
+from z3c.rml import rml2pdf
 
 try:
     import Image
@@ -42,23 +42,11 @@ class RMLRenderingTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def setUp(self):
-        # Switch file opener for Image attibute
-        self._fileOpen = attr.File.open
-        def testOpen(img, filename):
-            # cleanup win paths like:
-            # ....\\input\\file:///D:\\trunk\\...
-            if sys.platform[:3].lower() == "win":
-                if filename.startswith('file:///'):
-                    filename = filename[len('file:///'):]
-            path = os.path.join(os.path.dirname(self._inPath), filename)
-            return open(path, 'rb')
-        attr.File.open = testOpen
         import z3c.rml.tests.module
         sys.modules['module'] = z3c.rml.tests.module
         sys.modules['mymodule'] = z3c.rml.tests.module
 
     def tearDown(self):
-        attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
 
@@ -144,11 +132,6 @@ def test_suite():
    expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
    for filename in os.listdir(inputDir):
        if not filename.endswith(".rml"):
-           continue
-
-       if sys.platform.startswith('win') and filename == 'rml-examples-032-images.rml':
-           # The Ghostscript command to convert EPS files in PIL doesn't work
-           # on Windows. It's easy to fix but requires modifying PIL.
            continue
 
        inPath = os.path.join(inputDir, filename)
