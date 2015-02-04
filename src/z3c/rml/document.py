@@ -714,6 +714,10 @@ class Document(directive.RMLDirective):
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
+            def callback(event, value):
+                if event == 'PASS':
+                    self.doc.current_pass = value
+            self.doc.setProgressCallBack(callback)
             self.doc.multiBuild(self.flowables, maxPasses=maxPasses)
 
         # Process all post processors

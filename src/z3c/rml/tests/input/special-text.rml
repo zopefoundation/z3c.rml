@@ -35,7 +35,27 @@
 
     <para>This is just a page to push up the page number</para>
 
+    <blockTable>
+        <tr>
+            <td>
+                <para><b>Below should say "15 of 3":</b></para><para><evalString>9 * <pageNumber /> - <getName id="page-count" default="0" /></evalString> of <getName id="page-count" default="0" /></para>
+            </td>
+        </tr>
+    </blockTable>
+
+    <nextPage />
+
+    <para>This is just a page to push up the page number</para>
+
     <namedString id="page-count"><pageNumber /></namedString>
+
+    <blockTable>
+        <tr>
+            <td>
+                <para><b>Below should say "24 of 3":</b></para><para><evalString>9 * <pageNumber /> - <getName id="page-count" default="0" /></evalString> of <getName id="page-count" default="0" /></para>
+            </td>
+        </tr>
+    </blockTable>
 </story>
 
 </document>

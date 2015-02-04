@@ -13,7 +13,6 @@
 ##############################################################################
 """Paragraph-internal XML parser extensions.
 """
-import copy
 import six
 import sys
 
@@ -24,43 +23,63 @@ import reportlab.platypus.paraparser
 class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
     @property
     def text(self):
-        if not hasattr(self, '_text'):
-            self._text = self._get_text()
-        return self._text
+        key = self._get_pass_key()
+        if not hasattr(self, key):
+            setattr(self, key, self._get_text())
+        return getattr(self, key)
 
     @text.setter
     def text(self, value):
-        self._text = value
+        key = self._get_pass_key()
+        setattr(self, key, value)
+
+    def _get_pass_key(self):
+        return '_text_%s' % self._get_canvas()._doctemplate.current_pass
+
+    def _get_canvas(self):
+        canvas = None
+        i = 5
+
+        while canvas is None:
+            try:
+                frame = sys._getframe(i)
+            except ValueError:
+                raise Exception("Can't use <%s> in this location." % self.__tag__)
+
+            # Guess 1: We're in a paragraph in a story.
+            canvas = frame.f_locals.get('canvas', None)
+
+            if canvas is None:
+                # Guess 2: We're in a template
+                canvas = frame.f_locals.get('canv', None)
+
+            if canvas is None:
+                # Guess 3: We're in evalString or namedString
+                canvas = getattr(frame.f_locals.get('self', None), 'canv', None)
+
+            i += 1
+
+        return canvas
 
 
 class PageNumberFragment(ParaFragWrapper):
     """A fragment whose `text` is computed at access time."""
+
+    __tag__ = 'pageNumber'
 
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
         self.counting_from = attributes.get('countingFrom', 1)
 
     def _get_text(self):
-        # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(5)
-        canvas = frame.f_locals.get('canvas', None)
-
-        if canvas is None:
-            # Guess 2: We're in a template
-            canvas = frame.f_locals.get('canv', None)
-
-        if canvas is None:
-            # Guess 3: We're in evalString or namedString
-            canvas = getattr(frame.f_locals.get('self', None), 'canv', None)
-
-        if canvas is None:
-            raise Exception("Can't use <pageNumber/> in this location.")
-
+        canvas = self._get_canvas()
         return str(canvas.getPageNumber() + int(self.counting_from) - 1)
 
 
 class GetNameFragment(ParaFragWrapper):
     """A fragment whose `text` is computed at access time."""
+
+    __tag__ = 'getName'
 
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
@@ -68,30 +87,18 @@ class GetNameFragment(ParaFragWrapper):
         self.default = attributes.get('default')
 
     def _get_text(self):
-        # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(5)
-        canvas = frame.f_locals.get('canvas', None)
-
-        if canvas is None:
-            # Guess 2: We're in a template
-            canvas = frame.f_locals.get('canv', None)
-
-        if canvas is None:
-            # Guess 3: We're in evalString or namedString
-            canvas = getattr(frame.f_locals.get('self', None), 'canv', None)
-
-        if canvas is None:
-            raise Exception("Can't use <getName/> in this location.")
-
+        canvas = self._get_canvas()
         return canvas.manager.get_name(self.id, self.default)
 
 
 class EvalStringFragment(ParaFragWrapper):
     """A fragment whose `text` is evaluated at access time."""
 
+    __tag__ = 'evalString'
+
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
-        self.frags = []
+        self.frags = attributes.get('frags', [])
 
     def _get_text(self):
         text = u''
@@ -107,25 +114,13 @@ class EvalStringFragment(ParaFragWrapper):
 class NameFragment(ParaFragWrapper):
     """A fragment whose attribute `value` is set to a variable."""
 
+    __tag__ = 'name'
+
     def __init__(self, **attributes):
         reportlab.platypus.paraparser.ParaFrag.__init__(self, **attributes)
 
     def _get_text(self):
-        # Guess 1: We're in a paragraph in a story.
-        frame = sys._getframe(5)
-        canvas = frame.f_locals.get('canvas', None)
-
-        if canvas is None:
-            # Guess 2: We're in a template
-            canvas = frame.f_locals.get('canv', None)
-
-        if canvas is None:
-            # Guess 3: We're in evalString or namedString
-            canvas = getattr(frame.f_locals.get('self', None), 'canv', None)
-
-        if canvas is None:
-            raise Exception("Can't use <name> in this location.")
-
+        canvas = self._get_canvas()
         canvas.manager.names[self.id] = self.value
         return u''
 
@@ -140,6 +135,7 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     def startDynamic(self, attributes, klass):
         frag = klass(**attributes)
         frag.__dict__.update(self._stack[-1].__dict__)
+        frag.__tag__ = klass.__tag__
         frag.fontName = reportlab.lib.fonts.tt2ps(
             frag.fontName, frag.bold, frag.italic)
         if self.in_eval:

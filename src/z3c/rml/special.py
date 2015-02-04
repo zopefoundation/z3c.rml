@@ -112,4 +112,7 @@ class TextFlowables(object):
 
 def do_eval(value):
     # Maybe still not safe
-    return six.text_type(eval(value.strip(), {'__builtins__': None}, {}))
+    value = value.strip()
+    if value:
+        return six.text_type(eval(value.strip(), {'__builtins__': None}, {}))
+    return u''
