@@ -341,6 +341,12 @@ class IImage(interfaces.IRMLDirectiveSignature):
         default=False,
         required=False)
 
+    mask = attr.Color(
+        title=u'Mask',
+        description=u'The color mask used to render the image.',
+        required=False,
+        acceptAuto=True)
+
 class Image(CanvasRMLDirective):
     signature = IImage
     callable = 'drawImage'

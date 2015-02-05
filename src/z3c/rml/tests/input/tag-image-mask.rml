@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document
+    filename="tag-image-svg.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+  <pageDrawing>
+
+    <image file="[z3c.rml.tests]/input/images/cylinder.png"
+        x="10mm" y="10mm" mask="auto" />
+
+  </pageDrawing>
+</document>

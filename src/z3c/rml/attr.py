@@ -443,13 +443,16 @@ class Color(RMLAttribute):
     specification.
     """
 
-    def __init__(self, acceptNone=False, *args, **kw):
+    def __init__(self, acceptNone=False, acceptAuto=False, *args, **kw):
         super(Color, self).__init__(*args, **kw)
         self.acceptNone = acceptNone
+        self.acceptAuto = acceptAuto
 
     def fromUnicode(self, value):
         if self.acceptNone and value.lower() == 'none':
             return None
+        if self.acceptAuto and value.lower() == 'auto':
+            return 'auto'
         manager = getManager(self.context)
 
         if value.startswith('rml:'):

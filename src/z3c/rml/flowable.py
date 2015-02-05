@@ -904,7 +904,8 @@ class IImage(interfaces.IRMLDirectiveSignature):
     mask = attr.Color(
         title=u'Mask',
         description=u'The color mask used to render the image.',
-        required=False)
+        required=False,
+        acceptAuto=True)
 
     align = attr.Choice(
         title=u'Alignment',
@@ -980,7 +981,8 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
     imageMask = attr.Color(
         title=u'Mask',
         description=u'The height the image.',
-        required=False)
+        required=False,
+        acceptAuto=True)
 
     imageLeftPadding = attr.Measurement(
         title=u'Image Left Padding',
