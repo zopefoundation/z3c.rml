@@ -903,7 +903,8 @@ class IImage(interfaces.IRMLDirectiveSignature):
 
     mask = attr.Color(
         title=u'Mask',
-        description=u'The color mask used to render the image.',
+        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        default='auto',
         required=False,
         acceptAuto=True)
 
@@ -980,7 +981,8 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
 
     imageMask = attr.Color(
         title=u'Mask',
-        description=u'The height the image.',
+        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        default='auto',
         required=False,
         acceptAuto=True)
 
