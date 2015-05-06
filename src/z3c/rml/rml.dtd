@@ -339,6 +339,7 @@
 <!ATTLIST barCodeFlowable textColor CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable routing CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable barLevel (q|h|m|l) #IMPLIED>
+<!ATTLIST barCodeFlowable barBorder CDATA #IMPLIED>
 <!ATTLIST barCodeFlowable value CDATA #REQUIRED>
 
 <!ELEMENT outlineAdd (#PCDATA)>
@@ -1108,6 +1109,7 @@
 <!ATTLIST barCode textColor CDATA #IMPLIED>
 <!ATTLIST barCode routing CDATA #IMPLIED>
 <!ATTLIST barCode barLevel (q|h|m|l) #IMPLIED>
+<!ATTLIST barCode barBorder CDATA #IMPLIED>
 <!ATTLIST barCode x CDATA #IMPLIED>
 <!ATTLIST barCode y CDATA #IMPLIED>
 <!ATTLIST barCode isoScale CDATA #IMPLIED>
