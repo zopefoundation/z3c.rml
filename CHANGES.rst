@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.8.1 (unreleased)
+2.8.1 (2015-05-05)
 ------------------
 
 - Added `barBorder` attribute to ``barCode`` and ``barCodeFlowable``
