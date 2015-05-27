@@ -2,11 +2,18 @@
 CHANGES
 =======
 
-2.8.1 (unreleased)
+2.8.2 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
+
+2.8.1 (2015-05-05)
+------------------
+
+- Added `barBorder` attribute to ``barCode`` and ``barCodeFlowable``
+  tags. This attribute controls the thickness of a white border around a QR
+  code.
 
 2.8.0 (2015-02-02)
 ------------------

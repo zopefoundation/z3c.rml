@@ -191,6 +191,11 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         choices=['L', 'M', 'Q', 'H'],
         required=False)
 
+    barBorder = attr.Measurement(
+        title=u'Bar Border',
+        description=u'The width of the border around a QR code.',
+        required=False)
+
 
 class IBarCode(IBarCodeBase):
     """A barcode graphic."""
