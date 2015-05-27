@@ -34,7 +34,10 @@ class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
         setattr(self, key, value)
 
     def _get_pass_key(self):
-        return '_text_%s' % self._get_canvas()._doctemplate.current_pass
+        canvas = self._get_canvas()
+        return '_text_%s_%s' % (
+            canvas._doctemplate.current_pass, canvas.getPageNumber()
+        )
 
     def _get_canvas(self):
         canvas = None
