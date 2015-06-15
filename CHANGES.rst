@@ -2,11 +2,18 @@
 CHANGES
 =======
 
-2.8.2 (unreleased)
+2.9.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added support for more numbering schemes for ordered lists. The following
+  new `bulletType` values are supported:
 
+  * 'l' - Numbers as lower-cased text.
+  * 'L' - Numbers as upper-cased text.
+  * 'o' - Lower-cased ordinal with numbers converted to text.
+  * 'O' - Upper-cased ordinal with numbers converted to text.
+  * 'r' - Lower-cased ordinal with numbers.
+  * 'R' - Upper-cased ordinal with numbers.
 
 2.8.1 (2015-05-05)
 ------------------
