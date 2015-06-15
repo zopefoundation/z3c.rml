@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.9.1 (unreleased)
+2.9.1 (2015-06-15)
 ------------------
 
 - Add missing file missing from brow-bag 2.9.0 release.
