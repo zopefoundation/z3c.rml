@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.9.0 (unreleased)
+2.9.0 (2015-06-15)
 ------------------
 
 - Added support for more numbering schemes for ordered lists. The following
