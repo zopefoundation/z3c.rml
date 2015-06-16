@@ -30,7 +30,7 @@ class Number2Words(object):
 
     units_ordinal = [
         "zeroth", "first", "second", "third", "fourth", "fifth", "sixth",
-        "seventh", "eighth", "nineth", "tenth", "eleventh", "twelfth",
+        "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth",
         "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth",
         "eighteenth", "nineteenth",
         ]

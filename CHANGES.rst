@@ -5,7 +5,7 @@ CHANGES
 2.9.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix spelling "nineth" to "ninth".
 
 
 2.9.1 (2015-06-15)
