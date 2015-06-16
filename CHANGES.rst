@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.9.2 (unreleased)
+2.9.2 (2015-06-16)
 ------------------
 
 - Fix spelling "nineth" to "ninth".
