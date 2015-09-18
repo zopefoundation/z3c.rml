@@ -138,7 +138,7 @@ def test_suite():
    inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
    outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
    expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
-   for filename in os.listdir(inputDir):
+   for filename in sorted(os.listdir(inputDir)):
        if not filename.endswith(".rml"):
            continue
 
