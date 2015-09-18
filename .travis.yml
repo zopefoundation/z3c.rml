@@ -1,5 +1,13 @@
 language: python
 sudo: false
+# We need ghostscript at least 9.15 and japanese minch fonts
+addons:
+    apt:
+        sources:
+        - debian-sid
+        packages:
+        - ghostscript
+        - fonts-takao-mincho
 env:
     - TOXENV=py27
 install:
