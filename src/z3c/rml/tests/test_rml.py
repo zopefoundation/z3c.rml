@@ -15,9 +15,13 @@
 """
 import logging
 import os
+import copy
 import subprocess
 import unittest
 import sys
+
+from reportlab.lib import fonts
+
 import z3c.rml.tests
 from z3c.rml import rml2pdf, attr
 
@@ -57,7 +61,15 @@ class RMLRenderingTestCase(unittest.TestCase):
         sys.modules['module'] = z3c.rml.tests.module
         sys.modules['mymodule'] = z3c.rml.tests.module
 
+        # Some of the rmls change reportlab font mapping. Save it here and
+        # restore in tearDown().
+        self._orig_tt2ps_map = copy.deepcopy(fonts._tt2ps_map)
+        self._orig_ps2tt_map = copy.deepcopy(fonts._ps2tt_map)
+
     def tearDown(self):
+        fonts._tt2ps_map = self._orig_tt2ps_map
+        fonts._ps2tt_map = self._orig_ps2tt_map
+
         attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
