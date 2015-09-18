@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-2.9.3 (unreleased)
+2.9.3 (2015-09-18)
 ------------------
 
 - Support transparent images in <image> tag
