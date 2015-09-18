@@ -365,6 +365,8 @@ class Image(CanvasRMLDirective):
                 else:
                     kwargs['height'] = imgY * kwargs['width'] / imgX
 
+        kwargs['mask'] = 'auto'  # Support transparent images too
+
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
         getattr(canvas, self.callable)(**kwargs)
 
