@@ -2,11 +2,42 @@
 CHANGES
 =======
 
-2.8.2 (unreleased)
+2.9.4 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
+
+2.9.3 (2015-09-18)
+------------------
+
+- Support transparent images in <image> tag
+
+
+2.9.2 (2015-06-16)
+------------------
+
+- Fix spelling "nineth" to "ninth".
+
+
+2.9.1 (2015-06-15)
+------------------
+
+- Add missing file missing from brow-bag 2.9.0 release.
+
+
+2.9.0 (2015-06-15)
+------------------
+
+- Added support for more numbering schemes for ordered lists. The following
+  new `bulletType` values are supported:
+
+  * 'l' - Numbers as lower-cased text.
+  * 'L' - Numbers as upper-cased text.
+  * 'o' - Lower-cased ordinal with numbers converted to text.
+  * 'O' - Upper-cased ordinal with numbers converted to text.
+  * 'r' - Lower-cased ordinal with numbers.
+  * 'R' - Upper-cased ordinal with numbers.
 
 2.8.1 (2015-05-05)
 ------------------
