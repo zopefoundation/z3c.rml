@@ -79,7 +79,7 @@ setup (
     install_requires=[
         'Pygments',
         'lxml',
-        'PyPDF2>=1.21',
+        'PyPDF2>=1.25.1',
         'reportlab>=3.1.44',
         'setuptools',
         'six',
