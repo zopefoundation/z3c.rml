@@ -1,5 +1,13 @@
 language: python
 sudo: false
+# We need ghostscript at least 9.15 and japanese minch fonts
+addons:
+    apt:
+        sources:
+        - debian-sid
+        packages:
+        - ghostscript
+        - fonts-takao-mincho
 env:
     - TOXENV=py27
     - TOXENV=py33
@@ -10,8 +18,3 @@ script:
     - tox
 notifications:
     email: false
-before_install:
-    - wget http://downloads.ghostscript.com/public/binaries/ghostscript-9.15-linux-x86_64.tgz
-    - tar -xvf ghostscript-9.15-linux-x86_64.tgz
-    - mv ghostscript-9.15-linux-x86_64/gs-915-linux_x86_64 ghostscript-9.15-linux-x86_64/gs
-    - export PATH=$PWD/ghostscript-9.15-linux-x86_64:$PATH
