@@ -15,8 +15,10 @@
 """
 __docformat__ = "reStructuredText"
 
+import six
+
 def toOrdinal(num):
-    str_num = unicode(num)
+    str_num = six.text_type(num)
     str_num += "tsnrhtdd"[(num/10%10 != 1) * (num % 10<4) * num%10::4]
     return str_num
 

@@ -13,21 +13,20 @@
 ##############################################################################
 """RML Attribute Implementation
 """
-import cStringIO
 import logging
 import os
 import re
+import six
 import reportlab.graphics.widgets.markers
 import reportlab.lib.colors
 import reportlab.lib.pagesizes
 import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
-import urllib
 import zope.interface
 import zope.schema
 from lxml import etree
-
+from importlib import import_module
 from z3c.rml import interfaces, SampleStyleSheet
 
 MISSING = object()
@@ -77,7 +76,7 @@ class RMLAttribute(zope.schema.Field):
         """See zope.schema.interfaces.IField"""
         if self.context is None:
             raise ValueError('Attribute not bound to a context.')
-        return super(RMLAttribute, self).fromUnicode(unicode(ustr))
+        return super(RMLAttribute, self).fromUnicode(six.text_type(ustr))
 
     def get(self):
         """See zope.schema.interfaces.IField"""
@@ -86,7 +85,7 @@ class RMLAttribute(zope.schema.Field):
         if (interfaces.IDeprecated.providedBy(self) and
             self.deprecatedName in self.context.element.attrib):
             name = self.deprecatedName
-            logger.warn(
+            logger.warning(
                 u'Deprecated attribute "%s": %s %s' % (
                 name, self.deprecatedReason, getFileInfo(self.context)))
         else:
@@ -142,12 +141,16 @@ class Combination(RMLAttribute):
                 value, getFileInfo(self.context)))
 
 
-class String(RMLAttribute, zope.schema.Bytes):
-    """A simple Bytes string."""
-
-
 class Text(RMLAttribute, zope.schema.Text):
     """A simple unicode string."""
+
+
+if six.PY2:
+    class String(RMLAttribute, zope.schema.Bytes):
+        """A simple Bytes string."""
+else:
+    class String(Text):
+        """Formerly a simple Bytes string, now the same as Text."""
 
 
 class Integer(RMLAttribute, zope.schema.Int):
@@ -228,7 +231,7 @@ class Choice(BaseChoice):
 
     def __init__(self, choices=None, doLower=True, *args, **kw):
         super(Choice, self).__init__(*args, **kw)
-        if isinstance(choices, (tuple, list)):
+        if not isinstance(choices, dict):
             choices = dict(
                 [(val.lower() if doLower else val, val) for val in choices])
         else:
@@ -283,12 +286,12 @@ class Measurement(RMLAttribute):
         self.allowStar = allowStar
 
     units = [
-	(re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
-	(re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
-	(re.compile('^(-?[0-9\.]+)\s*mm$'), reportlab.lib.units.mm),
-	(re.compile('^(-?[0-9\.]+)\s*pt$'), 1),
-	(re.compile('^(-?[0-9\.]+)\s*$'), 1)
-        ]
+        (re.compile('^(-?[0-9\.]+)\s*in$'), reportlab.lib.units.inch),
+        (re.compile('^(-?[0-9\.]+)\s*cm$'), reportlab.lib.units.cm),
+        (re.compile('^(-?[0-9\.]+)\s*mm$'), reportlab.lib.units.mm),
+        (re.compile('^(-?[0-9\.]+)\s*pt$'), 1),
+        (re.compile('^(-?[0-9\.]+)\s*$'), 1)
+    ]
 
     allowPercentage = False
     allowStar = False
@@ -300,7 +303,7 @@ class Measurement(RMLAttribute):
             return value
         if value.endswith('%') and self.allowPercentage:
             return value
-	for unit in self.units:
+        for unit in self.units:
             res = unit[0].search(value, 0)
             if res:
                 return unit[1]*float(res.group(1))
@@ -315,7 +318,6 @@ class File(Text):
     The value itself can eith be be a relative or absolute path. Additionally
     the following syntax is supported: [path.to.python.mpackage]/path/to/file
     """
-    open = staticmethod(urllib.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
     doNotOpen = False
@@ -334,18 +336,28 @@ class File(Text):
                     'The package-path-pair you specified was incorrect. %s' %(
                     getFileInfo(self.context)))
             modulepath, path = result.groups()
-            module = __import__(modulepath, {}, {}, (modulepath))
-            value = os.path.join(os.path.dirname(module.__file__), path)
-        # If there is a drive name in the path, then we want a local file to
-        # be opened. This is only interesting for Windows of course.
-        if os.path.splitdrive(value)[0]:
-            value = 'file:///' + value
+            module = import_module(modulepath)
+            if six.PY2:
+                value = os.path.join(os.path.dirname(module.__file__), path)
+            else:
+                # PEP 420 namespace support means that a module can have
+                # multiple paths
+                for module_path in module.__path__:
+                    value = os.path.join(module_path, path)
+                    if os.path.exists(value):
+                        break
+        # Under Python 3 all platforms need a protocol for local files
+        if not six.moves.urllib.parse.urlparse(value).scheme:
+            value = 'file:///' + os.path.abspath(value)
         # If the file is not to be opened, simply return the path.
         if self.doNotOpen:
             return value
         # Open/Download the file
-        fileObj = self.open(value)
-        sio = cStringIO.StringIO(fileObj.read())
+        # We can't use urlopen directly because it has problems with data URIs
+        # in 2.7 and 3.3 which are resolved in 3.4. Fortunately Reportlab
+        # already has a utility function to help us work around this issue.
+        fileObj = reportlab.lib.utils.open_for_read(value)
+        sio = six.BytesIO(fileObj.read())
         fileObj.close()
         sio.seek(0)
         return sio
@@ -386,12 +398,12 @@ class Image(File):
 
         from gzip import GzipFile
         from reportlab.graphics import renderPM
-        from svg2rlg import Renderer
         from xml.etree import cElementTree
+        from z3c.rml.svg2rlg import Renderer
 
         fileObj = super(Image, self).fromUnicode(value)
         svg = fileObj.getvalue()
-        if svg[:2] == '\037\213':
+        if svg[:2] == b'\037\213':
             svg = GzipFile(fileobj=fileObj).read()
         svg = cElementTree.fromstring(svg)
         svg = Renderer(value).render(svg)
@@ -433,13 +445,16 @@ class Color(RMLAttribute):
     specification.
     """
 
-    def __init__(self, acceptNone=False, *args, **kw):
+    def __init__(self, acceptNone=False, acceptAuto=False, *args, **kw):
         super(Color, self).__init__(*args, **kw)
         self.acceptNone = acceptNone
+        self.acceptAuto = acceptAuto
 
     def fromUnicode(self, value):
         if self.acceptNone and value.lower() == 'none':
             return None
+        if self.acceptAuto and value.lower() == 'auto':
+            return 'auto'
         manager = getManager(self.context)
 
         if value.startswith('rml:'):
@@ -541,7 +556,7 @@ class TextNode(RMLAttribute):
     def get(self):
         if self.context.element.text is None:
             return u''
-        return unicode(self.context.element.text).strip()
+        return six.text_type(self.context.element.text).strip()
 
 
 class FirstLevelTextNode(TextNode):
@@ -580,7 +595,7 @@ class TextNodeGrid(TextNodeSequence):
                 'Number of elements must be divisible by %i. %s' %(
                 self.columns, getFileInfo(self.context)))
         return [result[i*self.columns:(i+1)*self.columns]
-                for i in range(len(result)/self.columns)]
+                for i in range(len(result)//self.columns)]
 
 
 class RawXMLContent(RMLAttribute):

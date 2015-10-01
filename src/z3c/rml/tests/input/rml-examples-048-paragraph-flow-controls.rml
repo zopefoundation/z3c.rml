@@ -8,8 +8,8 @@
             <setFont name="Helvetica-Bold" size="18"/>
     	    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>
             <setFont name="Helvetica-Oblique" size="12" />
-    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+    		<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
     		</pageGraphics>
 
 		<frame id="1" x1="35" y1="450" width="525" height="185"/>
@@ -22,8 +22,8 @@
             <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 48: Paragraph flow controls</drawString>
             <setFont name="Helvetica-Oblique" size="12" />
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-			<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+			<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
 
 		</pageGraphics>
 

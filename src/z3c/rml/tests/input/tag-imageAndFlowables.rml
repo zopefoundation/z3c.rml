@@ -21,7 +21,7 @@
       demonstrate that.
     </para>
     <imageAndFlowables
-        imageName="images/replogo.gif"
+        imageName="[z3c.rml.tests]/input/images/replogo.gif"
         imageWidth="200"
         imageMask="white"
         imageLeftPadding="20"
@@ -45,7 +45,7 @@
       </para>
     </imageAndFlowables>
     <imageAndFlowables
-        imageName="images/replogo.gif"
+        imageName="[z3c.rml.tests]/input/images/replogo.gif"
         imageWidth="200"
         imageMask="white"
         imageSide="left"

@@ -341,6 +341,13 @@ class IImage(interfaces.IRMLDirectiveSignature):
         default=False,
         required=False)
 
+    mask = attr.Color(
+        title=u'Mask',
+        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        default='auto',
+        required=False,
+        acceptAuto=True)
+
 class Image(CanvasRMLDirective):
     signature = IImage
     callable = 'drawImage'
@@ -364,8 +371,6 @@ class Image(CanvasRMLDirective):
                     kwargs['width'] = imgX * kwargs['height'] / imgY
                 else:
                     kwargs['height'] = imgY * kwargs['width'] / imgX
-
-        kwargs['mask'] = 'auto'  # Support transparent images too
 
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
         getattr(canvas, self.callable)(**kwargs)

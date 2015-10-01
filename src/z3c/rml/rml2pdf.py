@@ -13,8 +13,8 @@
 ##############################################################################
 """RML to PDF Converter
 """
-import cStringIO
 import os
+import six
 import sys
 import zope.interface
 from lxml import etree
@@ -24,7 +24,7 @@ zope.interface.moduleProvides(interfaces.IRML2PDF)
 
 
 def parseString(xml, removeEncodingLine=True, filename=None):
-    if isinstance(xml, unicode) and removeEncodingLine:
+    if isinstance(xml, six.text_type) and removeEncodingLine:
         # RML is a unicode string, but oftentimes documents declare their
         # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
         # ignore that directive. Thus we remove it.
@@ -34,7 +34,7 @@ def parseString(xml, removeEncodingLine=True, filename=None):
     doc = document.Document(root)
     if filename:
         doc.filename = filename
-    output = cStringIO.StringIO()
+    output = six.BytesIO()
     doc.process(output)
     output.seek(0)
     return output
@@ -44,7 +44,7 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     if dtdDir is not None:
         sys.stderr.write('The ``dtdDir`` option is not yet supported.')
 
-    xmlFile = open(xmlInputName, 'r')
+    xmlFile = open(xmlInputName, 'rb')
     root = etree.parse(xmlFile).getroot()
     doc = document.Document(root)
     doc.filename = xmlInputName
@@ -59,6 +59,10 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
 
     # Create a Reportlab canvas by processing the document
     doc.process(outputFile)
+
+    if outputFile:
+        outputFile.close()
+    xmlFile.close()
 
 
 def main(args=None):

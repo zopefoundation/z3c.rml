@@ -39,7 +39,7 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)
         if mergeSpace is None: mergeSpace = overlapAttachedSpace
         self.mergespace = mergeSpace
-        self._content = content
+        self._content = content or []
         self.vAlign = vAlign
         self.hAlign = hAlign
         self.fakeWidth = fakeWidth

@@ -10,6 +10,8 @@ addons:
         - fonts-takao-mincho
 env:
     - TOXENV=py27
+    - TOXENV=py33
+    - TOXENV=py34
 install:
     - travis_retry pip install tox
 script:

@@ -1,0 +1,27 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="tag-pagenumber.pdf">
+    <template>
+        <pageTemplate id="main">
+            <frame id="first" x1="0" y1="0" width="100" height="100"/>
+        </pageTemplate>
+    </template>
+
+    <story>
+        <blockTable repeatRows="1">
+            <tr><td><para>Header <pageNumber /></para></td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+            <tr><td>Lorem ipsum</td></tr>
+        </blockTable>
+    </story>
+</document>

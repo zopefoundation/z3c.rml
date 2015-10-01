@@ -32,7 +32,7 @@
     <h1>This is page 1.</h1>
     <link destination="TITLE">
       <imageAndFlowables
-          imageName="images/replogo.gif"
+          imageName="[z3c.rml.tests]/input/images/replogo.gif"
           imageSide="left">
         <para>Go to title.</para>
       </imageAndFlowables>

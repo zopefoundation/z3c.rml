@@ -14,6 +14,7 @@
 """Condition Implementation
 """
 import reportlab
+import six
 import sys
 import zope.interface
 import zope.schema
@@ -39,10 +40,16 @@ class IOccurence(zope.interface.Interface):
         description=u'The description of the occurence.',
         required=True)
 
-    tag = zope.schema.BytesLine(
-        title=u'Tag',
-        description=u'The tag of the sub-directive within the directive',
-        required=True)
+    if six.PY2:
+        tag = zope.schema.BytesLine(
+            title=u'Tag',
+            description=u'The tag of the sub-directive within the directive',
+            required=True)
+    else:
+        tag = zope.schema.TextLine(
+            title=u'Tag',
+            description=u'The tag of the sub-directive within the directive',
+            required=True)
 
     signature = zope.schema.Field(
         title=u'Signature',
@@ -75,9 +82,8 @@ def containing(*occurences):
     f_locals['__interface_tagged_values__'] = {'directives': occurences}
 
 
+@zope.interface.implementer(IOccurence)
 class Occurence(object):
-    zope.interface.implements(IOccurence)
-
     tag = fieldproperty.FieldProperty(IOccurence['tag'])
     signature = fieldproperty.FieldProperty(IOccurence['signature'])
     condition = fieldproperty.FieldProperty(IOccurence['condition'])

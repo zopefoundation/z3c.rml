@@ -61,7 +61,7 @@
       <tr>
         <td>
           <illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -74,7 +74,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -87,7 +87,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -119,7 +119,7 @@
       </tr>
       <tr>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -132,7 +132,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -145,7 +145,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -177,7 +177,7 @@
       </tr>
       <tr>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -190,7 +190,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>
@@ -203,7 +203,7 @@
           </illustration>
         </td>
         <td><illustration width="141" height="90">
-            <image file="images/replogo.gif"
+            <image file="[z3c.rml.tests]/input/images/replogo.gif"
                    x="0" y="0" width="141" height="90"/>
             <stroke color="deepskyblue"/>
             <lineMode width="3"/>

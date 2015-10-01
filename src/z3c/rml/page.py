@@ -13,7 +13,7 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import cStringIO
+import six
 from z3c.rml import attr, directive, interfaces
 
 try:
@@ -52,7 +52,7 @@ class MergePostProcessor(object):
                     page = mergerPage
             output.addPage(page)
 
-        outputFile = cStringIO.StringIO()
+        outputFile = six.BytesIO()
         output.write(outputFile)
         return outputFile
 

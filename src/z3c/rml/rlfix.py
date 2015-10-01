@@ -14,9 +14,14 @@
 """ReportLab fixups.
 """
 __docformat__ = "reStructuredText"
+import copy
 from reportlab.pdfbase import pdfform, pdfmetrics, ttfonts
 from reportlab.pdfbase.pdfpattern import PDFPattern
 from reportlab.graphics import testshapes
+from reportlab.lib import fonts
+
+_ps2tt_map_original = copy.deepcopy(fonts._ps2tt_map)
+_tt2ps_map_original = copy.deepcopy(fonts._tt2ps_map)
 
 def resetPdfForm():
     pdfform.PDFDOCENC = PDFPattern(pdfform.PDFDocEncodingPattern)
@@ -38,6 +43,8 @@ def resetFonts():
               'VeraBI'):
         if f not in testshapes._FONTS:
             testshapes._FONTS.append(f)
+    fonts._ps2tt_map = copy.deepcopy(_ps2tt_map_original)
+    fonts._tt2ps_map = copy.deepcopy(_tt2ps_map_original)
 
 def setSideLabels():
     from reportlab.graphics.charts import piecharts
@@ -66,7 +73,8 @@ _type2formatter.update({
 
 # Make sure that the counter gets increased for our new formatters as well.
 
-from reportlab.platypus.flowables import ListFlowable, LIIndenter, _LIParams
+from reportlab.platypus.flowables import ListFlowable, LIIndenter, _LIParams, \
+    _computeBulletWidth
 
 def ListFlowable_getContent(self):
     value = self._start

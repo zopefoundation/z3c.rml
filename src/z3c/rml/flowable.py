@@ -53,7 +53,7 @@ def pygments2xpre(s, language="python"):
     # XXX: Does not work in Python 2, since pygments creates non-unicode
     # outpur snippets.
     #from io import StringIO
-    from cStringIO import StringIO
+    from six import StringIO
     out = StringIO()
     highlight(s,l,h,out)
     styles = [(cls, style.split(';')[0].split(':')[1].strip())
@@ -903,8 +903,10 @@ class IImage(interfaces.IRMLDirectiveSignature):
 
     mask = attr.Color(
         title=u'Mask',
-        description=u'The color mask used to render the image.',
-        required=False)
+        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        default='auto',
+        required=False,
+        acceptAuto=True)
 
     align = attr.Choice(
         title=u'Alignment',
@@ -979,8 +981,10 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
 
     imageMask = attr.Color(
         title=u'Mask',
-        description=u'The height the image.',
-        required=False)
+        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        default='auto',
+        required=False,
+        acceptAuto=True)
 
     imageLeftPadding = attr.Measurement(
         title=u'Image Left Padding',

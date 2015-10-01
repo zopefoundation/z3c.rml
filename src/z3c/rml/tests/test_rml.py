@@ -15,15 +15,11 @@
 """
 import logging
 import os
-import copy
 import subprocess
 import unittest
 import sys
-
-from reportlab.lib import fonts
-
 import z3c.rml.tests
-from z3c.rml import rml2pdf, attr
+from z3c.rml import rml2pdf
 
 try:
     import Image
@@ -46,31 +42,11 @@ class RMLRenderingTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def setUp(self):
-        # Switch file opener for Image attibute
-        self._fileOpen = attr.File.open
-        def testOpen(img, filename):
-            # cleanup win paths like:
-            # ....\\input\\file:///D:\\trunk\\...
-            if sys.platform[:3].lower() == "win":
-                if filename.startswith('file:///'):
-                    filename = filename[len('file:///'):]
-            path = os.path.join(os.path.dirname(self._inPath), filename)
-            return open(path, 'rb')
-        attr.File.open = testOpen
         import z3c.rml.tests.module
         sys.modules['module'] = z3c.rml.tests.module
         sys.modules['mymodule'] = z3c.rml.tests.module
 
-        # Some of the rmls change reportlab font mapping. Save it here and
-        # restore in tearDown().
-        self._orig_tt2ps_map = copy.deepcopy(fonts._tt2ps_map)
-        self._orig_ps2tt_map = copy.deepcopy(fonts._ps2tt_map)
-
     def tearDown(self):
-        fonts._tt2ps_map = self._orig_tt2ps_map
-        fonts._ps2tt_map = self._orig_ps2tt_map
-
-        attr.File.open = self._fileOpen
         del sys.modules['module']
         del sys.modules['mymodule']
 
@@ -96,13 +72,17 @@ class ComparePDFTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def assertSameImage(self, baseImage, testImage):
-        base = Image.open(baseImage).getdata()
-        test = Image.open(testImage).getdata()
+        base_file = open(baseImage, 'rb')
+        test_file = open(testImage, 'rb')
+        base = Image.open(base_file).getdata()
+        test = Image.open(test_file).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
                 self.fail(
                     'Image is not the same: %s' % os.path.basename(baseImage)
                 )
+        base_file.close()
+        test_file.close()
 
     def runTest(self):
         # Convert the base PDF to image(s)
@@ -150,13 +130,8 @@ def test_suite():
    inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
    outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
    expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
-   for filename in sorted(os.listdir(inputDir)):
+   for filename in os.listdir(inputDir):
        if not filename.endswith(".rml"):
-           continue
-
-       if sys.platform.startswith('win') and filename == 'rml-examples-032-images.rml':
-           # The Ghostscript command to convert EPS files in PIL doesn't work
-           # on Windows. It's easy to fix but requires modifying PIL.
            continue
 
        inPath = os.path.join(inputDir, filename)
@@ -175,7 +150,7 @@ def test_suite():
 
        if filename == 'printScaling.rml':
             TestCase = type('compare-file-'+filename[:-4], (CompareFileTestCase,), {})
-            case = TestCase(outPath, '<< /PrintScaling /None >>')
+            case = TestCase(outPath, b'<< /PrintScaling /None >>')
             suite.addTest(case)
 
    return suite

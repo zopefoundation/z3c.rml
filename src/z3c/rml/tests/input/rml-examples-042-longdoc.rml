@@ -22,8 +22,8 @@
     	<pageGraphics>
 		    <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
         	<setFont name="Times-Bold" size="20"/>
         	<drawCentredString x="297" y="720">Examples of long document features</drawCentredString>
     	</pageGraphics>
@@ -35,8 +35,8 @@
     	<pageGraphics>
 		    <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
         	<setFont name="Times-Bold" size="20"/>
         	<drawCentredString x="297" y="620">Examples of long document features</drawCentredString>
     	</pageGraphics>
@@ -54,8 +54,8 @@
 		    -->
 		    <setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">RML Example 43: Longdoc</drawString>
-			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
 			<setFont name="Helvetica-BoldOblique" size="18"/>
 
 

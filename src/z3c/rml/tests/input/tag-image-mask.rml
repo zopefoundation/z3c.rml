@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+<document filename="tag-image-mask.pdf">
+
+  <template>
+    <pageTemplate id="main">
+        <pageGraphics>
+            <image file="[z3c.rml.tests]/input/images/cylinder.png" x="10mm" y="10mm" mask="auto" />
+            <image file="[z3c.rml.tests]/input/images/cylinder.png" x="30mm" y="10mm" />
+        </pageGraphics>
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+    <img src="[z3c.rml.tests]/input/images/cylinder.png" width="20mm" height="20mm" mask="auto" />
+    <img src="[z3c.rml.tests]/input/images/cylinder.png" width="20mm" height="20mm" />
+  </story>
+</document>

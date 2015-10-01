@@ -39,8 +39,8 @@ def getFileInfo(directive, element=None):
         element = directive.element
     return '(file %s, line %i)' %(root.filename, element.sourceline)
 
+@zope.interface.implementer(interfaces.IRMLDirective)
 class RMLDirective(object):
-    zope.interface.implements(interfaces.IRMLDirective)
     signature = None
     factories = {}
 
@@ -83,7 +83,7 @@ class RMLDirective(object):
         # Sort the items based on the section
         if select is not None:
             select = list(select)
-            items = sorted(items, key=lambda (n, v): select.index(n))
+            items = sorted(items, key=lambda n: select.index(n[0]))
 
         # If the attribute name does not match the internal API
         # name, then convert the name to the internal one
@@ -108,7 +108,7 @@ class RMLDirective(object):
                 msg = "Directive %r could not be processed and was " \
                       "ignored. %s" %(element.tag, getFileInfo(self, element))
                 # Record any tags/elements that could not be processed.
-                logger.warn(msg)
+                logger.warning(msg)
                 if ABORT_ON_INVALID_DIRECTIVE:
                     raise ValueError(msg)
                 continue

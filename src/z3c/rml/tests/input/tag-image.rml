@@ -19,10 +19,5 @@
            x="2in" y="2in" width="0.5in" height="3in"
            doc:example=""/>
 
-    <image file="[z3c.rml.tests]/input/images/replogo.png"
-           x="4in" y="7.3in" height="1in"
-           preserveAspectRatio="true"
-           doc:example=""/>
-
   </pageDrawing>
 </document>

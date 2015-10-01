@@ -13,6 +13,7 @@
 ##############################################################################
 """Special Element Processing
 """
+import six
 from z3c.rml import attr, directive, interfaces
 
 
@@ -68,7 +69,7 @@ class TextFlowables(object):
             return  attr.getManager(self)
 
     def getPageNumber(self, elem, canvas):
-        return unicode(
+        return six.text_type(
             canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1
         )
 
@@ -111,4 +112,7 @@ class TextFlowables(object):
 
 def do_eval(value):
     # Maybe still not safe
-    return unicode(eval(value.strip(), {'__builtins__': None}, {}))
+    value = value.strip()
+    if value:
+        return six.text_type(eval(value.strip(), {'__builtins__': None}, {}))
+    return u''

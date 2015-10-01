@@ -13,8 +13,8 @@
 ##############################################################################
 """RML ``document`` element
 """
-import cStringIO
 import logging
+import six
 import sys
 import zope.interface
 import reportlab.pdfgen.canvas
@@ -399,15 +399,8 @@ class LogConfig(directive.RMLDirective):
 
     def process(self):
         args = dict(self.getAttributeValues())
-
-        # cleanup win paths like:
-        # ....\\input\\file:///D:\\trunk\\...
-        if sys.platform[:3].lower() == "win":
-            if args['filename'].startswith('file:///'):
-                args['filename'] = args['filename'][len('file:///'):]
-
         logger = logging.getLogger(LOGGER_NAME)
-        handler = logging.FileHandler(args['filename'], args['filemode'])
+        handler = logging.FileHandler(args['filename'][8:], args['filemode'])
         formatter = logging.Formatter(
             args.get('format'), args.get('datefmt'))
         handler.setFormatter(formatter)
@@ -617,11 +610,11 @@ class IDocument(interfaces.IRMLDirectiveSignature):
                      u'the exact contents.'),
         required=False)
 
+@zope.interface.implementer(interfaces.IManager,
+                            interfaces.IPostProcessorManager,
+                            interfaces.ICanvasManager)
 class Document(directive.RMLDirective):
     signature = IDocument
-    zope.interface.implements(interfaces.IManager,
-                              interfaces.IPostProcessorManager,
-                              interfaces.ICanvasManager)
 
     factories = {
         'docinit': DocInit,
@@ -693,7 +686,7 @@ class Document(directive.RMLDirective):
 
         # Create a temporary output file, so that post-processors can
         # massage the output
-        self.outputFile = tempOutput = cStringIO.StringIO()
+        self.outputFile = tempOutput = six.BytesIO()
 
         # Process common sub-directives
         self.processSubDirectives(select=('docinit', 'stylesheet'))
@@ -710,12 +703,21 @@ class Document(directive.RMLDirective):
             self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
             self._initCanvas(self.canvas)
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
+
+            if hasattr(self.canvas, 'AcroForm'):
+                # Makes default values appear in ReportLab >= 3.1.44
+                self.canvas.AcroForm.needAppearances = 'true'
+
             self.canvas.save()
 
         # Handle Flowable-based documents.
         elif self.element.find('template') is not None:
             self.processSubDirectives(select=('template', 'story'))
             self.doc.beforeDocument = self._beforeDocument
+            def callback(event, value):
+                if event == 'PASS':
+                    self.doc.current_pass = value
+            self.doc.setProgressCallBack(callback)
             self.doc.multiBuild(self.flowables, maxPasses=maxPasses)
 
         # Process all post processors

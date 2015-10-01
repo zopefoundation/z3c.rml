@@ -96,7 +96,7 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
         p = subprocess.Popen(program, executable=py, env=env,
             stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
-    except Exception, e:
+    except Exception as e:
         raise Exception("Subprocess error: %s" % e)
 
     # Do we need to improve the implementation and kill the subprocess which will

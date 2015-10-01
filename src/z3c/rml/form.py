@@ -183,6 +183,7 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         title=u'Routing',
         description=u'The routing information string.',
         required=False)
+
     # QR
     barLevel = attr.Choice(
         title=u'Bar Level',

@@ -6,7 +6,7 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <docinit doc:example="">
-    <registerTTFont faceName="Vera" fileName="Vera.ttf" />
+    <registerTTFont faceName="Vera" fileName="[z3c.rml.tests]/input/Vera.ttf" />
     <addMapping faceName="times" bold="1" italic="0" psName="Vera"
                 doc:example="" />
   </docinit>

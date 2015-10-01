@@ -1,68 +1,344 @@
 %PDF-1.4
 %“Œ‹ž ReportLab Generated PDF document http://www.reportlab.com
+% 'BasicFonts': class PDFDictionary 
 1 0 obj
-<< /F1 2 0 R /F2 3 0 R >>
+% The standard fonts dictionary
+<< /F1 2 0 R
+ /F2 3 0 R >>
 endobj
+% 'F1': class PDFType1Font 
 2 0 obj
-<< /BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font >>
+% Font Helvetica
+<< /BaseFont /Helvetica
+ /Encoding /WinAnsiEncoding
+ /Name /F1
+ /Subtype /Type1
+ /Type /Font >>
 endobj
+% 'F2': class PDFDictionary 
 3 0 obj
-<< /BaseFont /HeiseiMin-W3 /DescendantFonts [ << /BaseFont /HeiseiMin-W3 /CIDSystemInfo << /Ordering (Japan1) /Registry (Adobe) /Supplement 2 >> /DW 1000 /FontDescriptor << /Ascent 723 /CapHeight 709 /Descent -241 /Flags 6 /FontBBox [ -123 -257 1001 910 ] /FontName /HeiseiMin-W3 
-  /ItalicAngle 0 /StemV 69 /Type /FontDescriptor /XHeight 450 >> /Subtype /CIDFontType0 /Type /Font 
-  /W [ 1 [ 250 333 408 500 ] 5 [ 500 833 778 180 333 ] 10 [ 333 500 564 250 333 250 278 500 ] 18 26 500 27 
-  28 278 29 31 564 32 [ 444 921 722 667 ] 36 [ 667 722 611 556 722 ] 41 
-  [ 722 333 389 722 611 889 722 ] 48 [ 722 556 722 667 556 611 722 ] 55 [ 722 944 722 ] 58 [ 722 611 333 500 333 469 500 333 444 500 
-  444 500 444 333 500 ] 73 [ 500 278 ] 75 
-  [ 278 500 278 778 500 ] 80 82 500 83 [ 333 389 278 500 ] 87 [ 500 722 500 ] 90 [ 500 444 480 200 480 333 ] 
-  97 [ 278 ] 99 [ 200 ] 101 [ 333 500 ] 103 [ 500 167 ] 107 [ 500 ] 
-  109 [ 500 333 ] 111 [ 333 556 ] 113 [ 556 500 ] 117 [ 250 ] 119 [ 350 333 444 ] 
-  123 [ 500 ] 126 [ 444 333 ] 128 137 333 138 [ 1000 889 276 611 722 889 310 667 278 ] 147 
-  [ 278 500 722 500 564 760 564 760 ] 157 158 300 159 [ 500 300 750 ] 162 163 750 164 
-  169 722 170 [ 667 611 ] 172 174 611 175 178 333 
-  179 185 722 187 191 722 192 [ 556 444 ] 194 203 
-  444 204 207 278 208 214 500 216 222 500 
-  223 [ 556 722 611 500 389 980 444 ] 231 [ 500 ] 323 [ 500 ] 325 [ 500 ] 327 389 
-  500 ] >> ] /Encoding /UniJIS-UCS2-H /Name /F2 /Subtype /Type0 /Type /Font >>
+<< /BaseFont /HeiseiMin-W3
+ /DescendantFonts [ << /BaseFont /HeiseiMin-W3
+ /CIDSystemInfo << /Ordering (Japan1)
+ /Registry (Adobe)
+ /Supplement 2 >>
+ /DW 1000
+ /FontDescriptor << /Ascent 723
+ /CapHeight 709
+ /Descent -241
+ /Flags 6
+ /FontBBox [ -123
+ -257
+ 1001
+ 910 ]
+ /FontName /HeiseiMin-W3
+ /ItalicAngle 0
+ /StemV 69
+ /Type /FontDescriptor
+ /XHeight 450 >>
+ /Subtype /CIDFontType0
+ /Type /Font
+ /W [ 1
+ [ 250
+ 333
+ 408
+ 500 ]
+ 5
+ [ 500
+ 833
+ 778
+ 180
+ 333 ]
+ 10
+ [ 333
+ 500
+ 564
+ 250
+ 333
+ 250
+ 278
+ 500 ]
+ 18
+ 26
+ 500
+ 27
+ 28
+ 278
+ 29
+ 31
+ 564
+ 32
+ [ 444
+ 921
+ 722
+ 667 ]
+ 36
+ [ 667
+ 722
+ 611
+ 556
+ 722 ]
+ 41
+ [ 722
+ 333
+ 389
+ 722
+ 611
+ 889
+ 722 ]
+ 48
+ [ 722
+ 556
+ 722
+ 667
+ 556
+ 611
+ 722 ]
+ 55
+ [ 722
+ 944
+ 722 ]
+ 58
+ [ 722
+ 611
+ 333
+ 500
+ 333
+ 469
+ 500
+ 333
+ 444
+ 500
+ 444
+ 500
+ 444
+ 333
+ 500 ]
+ 73
+ [ 500
+ 278 ]
+ 75
+ [ 278
+ 500
+ 278
+ 778
+ 500 ]
+ 80
+ 82
+ 500
+ 83
+ [ 333
+ 389
+ 278
+ 500 ]
+ 87
+ [ 500
+ 722
+ 500 ]
+ 90
+ [ 500
+ 444
+ 480
+ 200
+ 480
+ 333 ]
+ 97
+ [ 278 ]
+ 99
+ [ 200 ]
+ 101
+ [ 333
+ 500 ]
+ 103
+ [ 500
+ 167 ]
+ 107
+ [ 500 ]
+ 109
+ [ 500
+ 333 ]
+ 111
+ [ 333
+ 556 ]
+ 113
+ [ 556
+ 500 ]
+ 117
+ [ 250 ]
+ 119
+ [ 350
+ 333
+ 444 ]
+ 123
+ [ 500 ]
+ 126
+ [ 444
+ 333 ]
+ 128
+ 137
+ 333
+ 138
+ [ 1000
+ 889
+ 276
+ 611
+ 722
+ 889
+ 310
+ 667
+ 278 ]
+ 147
+ [ 278
+ 500
+ 722
+ 500
+ 564
+ 760
+ 564
+ 760 ]
+ 157
+ 158
+ 300
+ 159
+ [ 500
+ 300
+ 750 ]
+ 162
+ 163
+ 750
+ 164
+ 169
+ 722
+ 170
+ [ 667
+ 611 ]
+ 172
+ 174
+ 611
+ 175
+ 178
+ 333
+ 179
+ 185
+ 722
+ 187
+ 191
+ 722
+ 192
+ [ 556
+ 444 ]
+ 194
+ 203
+ 444
+ 204
+ 207
+ 278
+ 208
+ 214
+ 500
+ 216
+ 222
+ 500
+ 223
+ [ 556
+ 722
+ 611
+ 500
+ 389
+ 980
+ 444 ]
+ 231
+ [ 500 ]
+ 323
+ [ 500 ]
+ 325
+ [ 500 ]
+ 327
+ 389
+ 500 ] >> ]
+ /Encoding /UniJIS-UCS2-H
+ /Name /F2
+ /Subtype /Type0
+ /Type /Font >>
 endobj
+% 'Page1': class PDFPage 
 4 0 obj
-<< /Contents 8 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 7 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 /Trans <<  >> 
-  /Type /Page >>
+% Page dictionary
+<< /Contents 8 0 R
+ /MediaBox [ 0
+ 0
+ 595.2756
+ 841.8898 ]
+ /Parent 7 0 R
+ /Resources << /Font 1 0 R
+ /ProcSet [ /PDF
+ /Text
+ /ImageB
+ /ImageC
+ /ImageI ] >>
+ /Rotate 0
+ /Trans <<  >>
+ /Type /Page >>
 endobj
+% 'R5': class PDFCatalog 
 5 0 obj
-<< /Outlines 9 0 R /PageMode /UseNone /Pages 7 0 R /Type /Catalog >>
+% Document Root
+<< /Outlines 9 0 R
+ /PageMode /UseNone
+ /Pages 7 0 R
+ /Type /Catalog >>
 endobj
+% 'R6': class PDFInfo 
 6 0 obj
-<< /Author (\(anonymous\)) /CreationDate (D:20150202225108+05'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
-  /Title (\(anonymous\)) >>
+<< /Author (\(anonymous\))
+ /CreationDate (D:20121220004523+05'00')
+ /Creator (\(unspecified\))
+ /Keywords ()
+ /Producer (ReportLab PDF Library - www.reportlab.com)
+ /Subject (\(unspecified\))
+ /Title (\(anonymous\)) >>
 endobj
+% 'R7': class PDFPages 
 7 0 obj
-<< /Count 1 /Kids [ 4 0 R ] /Type /Pages >>
+% page tree
+<< /Count 1
+ /Kids [ 4 0 R ]
+ /Type /Pages >>
 endobj
+% 'R8': class PDFStream 
 8 0 obj
-<< /Filter [ /ASCII85Decode /FlateDecode ] /Length 200 >>
+% page stream
+<< /Filter [ /ASCII85Decode
+ /FlateDecode ]
+ /Length 200 >>
 stream
 Gb!$=]a@(\$qBtXhr,MS[-":R]sFZ$M\$GnS*1%7,5V:k[>9J1!0Rmapi8>&Wl8hH7UTe0DAb"0$TNkHgL4UKh7_im<r/IDa,DWbckNm:[K*_NA+6X1pd8@Y%i[$#&?0[27K)'jkFs[?o-,_S1t/R_jEa`cd$b/"dTEmB$5$'B=4jUBm9BV]b:*\XoFH9;mKqMU99K~>endstream
 endobj
+% 'R9': class PDFOutlines 
 9 0 obj
-<< /Count 0 /Type /Outlines >>
+<< /Count 0
+ /Type /Outlines >>
 endobj
 xref
 0 10
 0000000000 65535 f
-0000000075 00000 n
-0000000119 00000 n
-0000000229 00000 n
-0000001750 00000 n
-0000001957 00000 n
-0000002044 00000 n
-0000002280 00000 n
-0000002342 00000 n
-0000002637 00000 n
+0000000113 00000 n
+0000000221 00000 n
+0000000387 00000 n
+0000002359 00000 n
+0000002636 00000 n
+0000002770 00000 n
+0000003039 00000 n
+0000003144 00000 n
+0000003486 00000 n
 trailer
 << /ID 
- % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(&,K\344\016o!\355\037#\245:\265;Ey) (&,K\344\016o!\355\037#\245:\265;Ey)]
- /Info 6 0 R /Root 5 0 R /Size 10 >>
+ % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
+ [(\(H\034\005*\356\310m\004\220\254\206\030\343%\225) (\(H\034\005*\356\310m\004\220\254\206\030\343%\225)] 
+
+ /Info 6 0 R
+ /Root 5 0 R
+ /Size 10 >>
 startxref
-2686
+3537
 %%EOF
