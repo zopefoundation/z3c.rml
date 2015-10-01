@@ -17,7 +17,6 @@ import logging
 import os
 import re
 import six
-import urllib
 import reportlab.graphics.widgets.markers
 import reportlab.lib.colors
 import reportlab.lib.pagesizes
@@ -319,10 +318,6 @@ class File(Text):
     The value itself can eith be be a relative or absolute path. Additionally
     the following syntax is supported: [path.to.python.mpackage]/path/to/file
     """
-    if six.PY2:
-        open = staticmethod(urllib.urlopen)
-    else:
-        open = staticmethod(urllib.request.urlopen)
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
 
     doNotOpen = False
@@ -358,7 +353,10 @@ class File(Text):
         if self.doNotOpen:
             return value
         # Open/Download the file
-        fileObj = self.open(value)
+        # We can't use urlopen directly because it has problems with data URIs
+        # in 2.7 and 3.3 which are resolved in 3.4. Fortunately Reportlab
+        # already has a utility function to help us work around this issue.
+        fileObj = reportlab.lib.utils.open_for_read(value)
         sio = six.BytesIO(fileObj.read())
         fileObj.close()
         sio.seek(0)
