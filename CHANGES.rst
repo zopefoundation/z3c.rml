@@ -5,7 +5,7 @@ CHANGES
 2.9.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Support for python 3.3 and 3.4
 
 
 2.9.3 (2015-09-18)
