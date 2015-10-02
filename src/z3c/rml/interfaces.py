@@ -38,8 +38,9 @@ SPLIT_CHOICES = ('splitfirst', 'splitlast')
 TEXT_TRANSFORM_CHOICES = ('uppercase', 'lowercase')
 LIST_FORMATS = ('I', 'i', '123',  'ABC', 'abc')
 ORDERED_LIST_TYPES = ('I', 'i', '1', 'A', 'a', 'l', 'L', 'O', 'o', 'R', 'r')
-UNORDERED_BULLET_VALUES = ('bullet', 'circle', 'square', 'disc', 'diamond',
-                           'rarrowhead')
+UNORDERED_BULLET_VALUES = (
+    'bulletchar', 'bullet', 'circle', 'square', 'disc', 'diamond',
+    'rarrowhead')
 LOG_LEVELS = {
     'DEBUG': logging.DEBUG,
     'INFO': logging.INFO,

@@ -80,7 +80,7 @@ class TextFlowables(object):
         )
 
     def evalString(self, elem, canvas):
-        return do_eval(self._getText(elem, canvas))
+        return do_eval(self._getText(elem, canvas, False))
 
     def namedString(self, elem, canvas):
         self._getManager().names[elem.get('id')] = self._getText(
