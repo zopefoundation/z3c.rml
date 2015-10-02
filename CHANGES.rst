@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.0.0 (unreleased)
+3.0.0 (2015-10-02)
 ------------------
 
 - Support for python 3.3 and 3.4
