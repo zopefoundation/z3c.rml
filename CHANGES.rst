@@ -6,6 +6,7 @@ CHANGES
 ------------------
 
 - Support for python 3.3 and 3.4
+- Fix "Unresolved bookmark" issue
 
 
 2.9.3 (2015-09-18)
