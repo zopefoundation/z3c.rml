@@ -2,11 +2,12 @@
 CHANGES
 =======
 
-2.9.4 (unreleased)
+3.0.0 (unreleased)
 ------------------
 
 - Support for python 3.3 and 3.4
-- Fix "Unresolved bookmark" issue
+
+- Fix "Unresolved bookmark" issue.
 
 
 2.9.3 (2015-09-18)
