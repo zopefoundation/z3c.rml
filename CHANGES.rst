@@ -7,7 +7,13 @@ CHANGES
 
 - Support for python 3.3 and 3.4
 
+- Add 'bulletchar' as a valid unordered bullet type.
+
+- Added nice help to rml2pdf script.
+
 - Fix "Unresolved bookmark" issue.
+
+- Fix Issue #10.
 
 
 2.9.3 (2015-09-18)
