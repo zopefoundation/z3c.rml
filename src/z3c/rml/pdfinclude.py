@@ -34,41 +34,23 @@ class ConcatenationPostProcessor(object):
         merger = PyPDF2.PdfFileMerger()
         merger.output._info.getObject().update(input1.documentInfo)
 
-        prev_insert = 0
+        merger.append(inputFile1)
+
         for start_page, inputFile2, pages, num_pages in self.operations:
-            if prev_insert < start_page:
-                merger.append(inputFile1, pages=(prev_insert, start_page))
+            # Remove blank pages, that we reserved in IncludePdfPagesFlowable
+            # and insert real pdf here
+            del merger.pages[start_page:start_page + num_pages]
             if not pages:
-                merger.append(inputFile2)
+                merger.merge(start_page, inputFile2)
             else:
                 # Note, users start counting at 1. ;-)
-                for page in pages:
-                    merger.append(inputFile2, pages=(page-1, page))
-            prev_insert = start_page + num_pages
-
-        input1 = PyPDF2.PdfFileReader(inputFile1)
-        num_pages = input1.getNumPages()
-        if prev_insert < num_pages:
-            merger.append(
-                inputFile1, pages=(prev_insert, num_pages))
+                for pcnt, pn in enumerate(pages):
+                    merger.merge(start_page + pcnt, inputFile2,
+                                 pages=(pn-1, pn), import_bookmarks=False)
 
         outputFile = six.BytesIO()
         merger.write(outputFile)
         return outputFile
-
-
-class PDFPageFlowable(flowables.Flowable):
-
-    def __init__(self, width, height):
-        flowables.Flowable.__init__(self)
-        self.width = width
-        self.height = height
-
-    def draw(self):
-        pass
-
-    def split(self, availWidth, availheight):
-        return [self]
 
 
 class IncludePdfPagesFlowable(flowables.Flowable):
@@ -99,9 +81,15 @@ class IncludePdfPagesFlowable(flowables.Flowable):
             (start_page, self.pdf_file, self.pages, num_pages))
 
         result = []
+
+        # Insert blank pages instead of pdf for now, to correctly number the
+        # pages. We will replace these blank pages with included PDF in
+        # ConcatenationPostProcessor.
         for i in pages:
+            # Add empty spacer so platypus don't complain about too many empty
+            # pages
+            result.append(flowables.Spacer(0, 0))
             result.append(flowables.PageBreak())
-            result.append(PDFPageFlowable(availWidth, availheight))
         return result
 
 
