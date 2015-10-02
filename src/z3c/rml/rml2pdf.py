@@ -50,7 +50,7 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
         xmlFile = xmlInputName
         xmlInputName = 'input.pdf'
     else:
-        xmlFile = open(xmlInputName, 'r')
+        xmlFile = open(xmlInputName, 'rb')
     root = etree.parse(xmlFile).getroot()
     doc = document.Document(root)
     doc.filename = xmlInputName
