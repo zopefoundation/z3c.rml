@@ -11,6 +11,8 @@ CHANGES
 
 - Added nice help to rml2pdf script.
 
+- Allow "go()" to accept input and output file objects.
+
 - Fix "Unresolved bookmark" issue.
 
 - Fix Issue #10.
