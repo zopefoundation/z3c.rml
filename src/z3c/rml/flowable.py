@@ -1553,6 +1553,24 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('critical', ICritical),
         )
 
+
+class ITopPadder(interfaces.IRMLDirectiveSignature):
+    """
+    TopPadder
+    """
+
+class TopPadder(Flowable):
+    signature = ITopPadder
+    klass = reportlab.platypus.flowables.TopPadder
+    attrMapping = {}
+
+    def process(self):
+        flow = Flow(self.element, self.parent)
+        flow.process()
+        frame = self.klass(flow.flow[0])
+        self.parent.flow.append(frame)
+
+
 class Flow(directive.RMLDirective):
 
     factories = {
@@ -1604,6 +1622,7 @@ class Flow(directive.RMLDirective):
         'warning': Warning,
         'error': Error,
         'critical': Critical,
+        'topPadder': TopPadder,
         }
 
     def __init__(self, *args, **kw):
