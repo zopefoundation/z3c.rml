@@ -806,8 +806,8 @@ class Renderer:
 
             # default styles
             style = {
-                'color':'none',
-                'fill':'none',
+                'color':'black',
+                'fill':'black',
                 'stroke':'none',
                 'font-family':'Helvetica',
                 'font-size':'12'
