@@ -842,7 +842,7 @@ class Renderer:
 
             height = self.drawing.height
             self.mainGroup.scale(1, -1)
-            self.mainGroup.translate(0, -height)
+            self.mainGroup.translate(-float(minx), -height-float(miny))
             self.drawing.add(self.mainGroup)
 
             self.level -= 1
