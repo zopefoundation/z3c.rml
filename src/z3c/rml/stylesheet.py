@@ -156,6 +156,28 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'Characters/Dots at the end of a paragraph.',
         required=False)
 
+    splitLongWords = attr.Boolean(
+        title=u'Split Long Words',
+        description=(u'Try to split long words at the end of a line.'),
+        default=True
+        required=False)
+
+    underlineProportion = attr.Float(
+        title=u'Underline Proportion',
+        description=(u'When set to non-zero value, it provides the scaling '
+                     u'factor for the width of the underine based on '
+                     u'current font size.'),
+        min=0.0,
+        default=0.0,
+        required=False)
+
+    bulletAnchor = attr.Choice(
+        title=u'Bullet Anchor',
+        description=u'The place at which the bullet is anchored.',
+        choices=interfaces.BULLET_ANCHOR_CHOICES,
+        default='start',
+        required=False)
+
     # Attributes not part of the official style attributes, but are accessed
     # by the paragraph renderer.
 

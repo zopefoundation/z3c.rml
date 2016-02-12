@@ -2,10 +2,21 @@
 CHANGES
 =======
 
-3.0.1 (unreleased)
+3.1.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Feature: Added new paragraph style attributes ``splitLongWords``,
+  ``underlineProportion``, and ``bulletAnchor``.
+
+- Feature: Added ``topPadder`` directive. Patch by Alvin Gonzales.
+
+- Bug: Default SVG fill is black. Patch by Alvin Gonzales.
+
+- Bug: Fixes drawing incorrectly showing when the SVG `viewBox` is not
+  anchored at coordinate (0, 0). Patch by Alvin Gonzales.
+
+- Test: Updated versions.cfg to reference the latest releases of all
+  dependencies.
 
 
 3.0.0 (2015-10-02)

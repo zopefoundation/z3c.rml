@@ -22,25 +22,37 @@ import zope.schema
 from z3c.rml.occurence import ZeroOrMore, ZeroOrOne, OneOrMore
 
 JOIN_CHOICES = {'round': 1, 'mitered': 0, 'bevelled': 2}
+
 CAP_CHOICES = {'default': 0, 'butt': 0, 'round': 1, 'square': 2}
+
 ALIGN_CHOICES = {
     'left': reportlab.lib.enums.TA_LEFT,
     'right': reportlab.lib.enums.TA_RIGHT,
     'center': reportlab.lib.enums.TA_CENTER,
     'centre': reportlab.lib.enums.TA_CENTER,
     'justify': reportlab.lib.enums.TA_JUSTIFY}
+
 ALIGN_TEXT_CHOICES = {
     'left': 'LEFT', 'right': 'RIGHT', 'center': 'CENTER', 'centre': 'CENTER',
     'decimal': 'DECIMAL'}
+
 VALIGN_TEXT_CHOICES = {
     'top': 'TOP', 'middle': 'MIDDLE', 'bottom': 'BOTTOM'}
+
 SPLIT_CHOICES = ('splitfirst', 'splitlast')
+
 TEXT_TRANSFORM_CHOICES = ('uppercase', 'lowercase')
+
+BULLET_ANCHOR_CHOICES = ('start', 'middle', 'end', 'numeric')
+
 LIST_FORMATS = ('I', 'i', '123',  'ABC', 'abc')
+
 ORDERED_LIST_TYPES = ('I', 'i', '1', 'A', 'a', 'l', 'L', 'O', 'o', 'R', 'r')
+
 UNORDERED_BULLET_VALUES = (
     'bulletchar', 'bullet', 'circle', 'square', 'disc', 'diamond',
     'rarrowhead')
+
 LOG_LEVELS = {
     'DEBUG': logging.DEBUG,
     'INFO': logging.INFO,
