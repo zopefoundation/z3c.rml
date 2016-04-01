@@ -22,7 +22,12 @@ except ImportError:
     PyPDF2 = None
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, flowable, interfaces, occurence, page
+from z3c.rml import attr, flowable, interfaces, occurence
+
+# by default False to avoid burping on
+# PdfReadWarning: Multiple definitions in dictionary at byte xxx
+STRICT = False
+
 
 class ConcatenationPostProcessor(object):
 
@@ -30,8 +35,8 @@ class ConcatenationPostProcessor(object):
         self.operations = []
 
     def process(self, inputFile1):
-        input1 = PyPDF2.PdfFileReader(inputFile1)
-        merger = PyPDF2.PdfFileMerger()
+        input1 = PyPDF2.PdfFileReader(inputFile1, strict=STRICT)
+        merger = PyPDF2.PdfFileMerger(strict=STRICT)
         merger.output._info.getObject().update(input1.documentInfo)
 
         merger.append(inputFile1)
@@ -70,7 +75,7 @@ class IncludePdfPagesFlowable(flowables.Flowable):
     def split(self, availWidth, availheight):
         pages = self.pages
         if not pages:
-            pdf = PyPDF2.PdfFileReader(self.pdf_file)
+            pdf = PyPDF2.PdfFileReader(self.pdf_file, strict=STRICT)
             num_pages = pdf.getNumPages()
             pages = range(num_pages)
         else:

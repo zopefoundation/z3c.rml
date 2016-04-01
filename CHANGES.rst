@@ -18,6 +18,9 @@ CHANGES
 - Test: Updated versions.cfg to reference the latest releases of all
   dependencies.
 
+- Bug: Avoid raising an exception of PdfReadWarning when including PDFs.
+  Patch by Adam Groszer.
+
 
 3.0.0 (2015-10-02)
 ------------------

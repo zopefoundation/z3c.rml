@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-pdfInclude.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title>Test Include PDF</title>
+    <para>
+      We will now include PDF
+    </para>
+    <includePdfPages
+                filename="[z3c.rml.tests]/input/data/bad1-dupekey.pdf"/>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/bad1-dupekey.pdf"/>
+
+    <nextPage/>
+    <para>
+      And some more text
+    </para>
+
+  </story>
+</document>
