@@ -159,7 +159,7 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
     splitLongWords = attr.Boolean(
         title=u'Split Long Words',
         description=(u'Try to split long words at the end of a line.'),
-        default=True
+        default=True,
         required=False)
 
     underlineProportion = attr.Float(
