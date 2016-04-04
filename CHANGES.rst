@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.1.0 (unreleased)
+3.1.0 (2016-04-04)
 ------------------
 
 - Feature: Added new paragraph style attributes ``splitLongWords``,
