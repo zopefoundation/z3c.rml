@@ -81,9 +81,17 @@ class ComparePDFTestCase(unittest.TestCase):
                 if True:
                     # output the result as base64 for travis debugging
                     # flip the above condition to activate this code
-                    test_file.seek(0)
                     print()
                     print(os.system("gs --version"))
+
+                    base_file.seek(0)
+                    print(baseImage)
+                    print(base_file.read().encode('base64'))
+                    print(self._basePath)
+                    with open(self._basePath, 'rb') as base_pdf:
+                        print(base_pdf.read().encode('base64'))
+
+                    test_file.seek(0)
                     print(testImage)
                     print(test_file.read().encode('base64'))
                     print(self._testPath)
