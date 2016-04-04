@@ -78,12 +78,17 @@ class ComparePDFTestCase(unittest.TestCase):
         test = Image.open(test_file).getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
-                # output the result as base64 for travis debugging
-                test_file.seek(0)
-                print()
-                print(os.environ)
-                print(testImage)
-                print(test_file.read().encode('base64'))
+                if True:
+                    # output the result as base64 for travis debugging
+                    # flip the above condition to activate this code
+                    test_file.seek(0)
+                    print()
+                    print(os.system("gs --version"))
+                    print(testImage)
+                    print(test_file.read().encode('base64'))
+                    print(self._testPath)
+                    with open(self._testPath, 'rb') as test_pdf:
+                        print(test_pdf.read().encode('base64'))
                 self.fail(
                     'Image is not the same: %s' % os.path.basename(baseImage)
                 )
