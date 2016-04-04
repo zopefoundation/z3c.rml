@@ -81,6 +81,7 @@ class ComparePDFTestCase(unittest.TestCase):
                 # output the result as base64 for travis debugging
                 base_file.seek(0)
                 print()
+                print(os.environ)
                 print(testImage)
                 print(test_file.read().encode('base64'))
                 self.fail(
