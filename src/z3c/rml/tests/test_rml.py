@@ -79,7 +79,7 @@ class ComparePDFTestCase(unittest.TestCase):
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
                 # output the result as base64 for travis debugging
-                base_file.seek(0)
+                test_file.seek(0)
                 print()
                 print(os.environ)
                 print(testImage)
