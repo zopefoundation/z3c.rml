@@ -1,12 +1,8 @@
 language: python
 sudo: false
-before_install:
-    - sudo apt-get update
 # We need ghostscript at least 9.15 and japanese minch fonts
 addons:
     apt:
-        sources:
-        - debian-sid
         packages:
         - ghostscript
         - fonts-takao-mincho
