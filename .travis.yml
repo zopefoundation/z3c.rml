@@ -1,11 +1,19 @@
 language: python
 sudo: false
-# We need ghostscript at least 9.15 and japanese minch fonts
+# Get japanese minch fonts. Don't use debian-sid because it frequently breaks
 addons:
     apt:
         packages:
-        - ghostscript
         - fonts-takao-mincho
+# Python 3.5 isn't currently installed by default
+python:
+    - "3.5"
+# The version of GS in the repos is too old
+before_install:
+    - wget http://downloads.ghostscript.com/public/binaries/ghostscript-9.15-linux-x86_64.tgz
+    - tar -xvf ghostscript-9.15-linux-x86_64.tgz
+    - mv ghostscript-9.15-linux-x86_64/gs-915-linux_x86_64 ghostscript-9.15-linux-x86_64/gs
+    - export PATH=$PWD/ghostscript-9.15-linux-x86_64:$PATH
 env:
     - TOXENV=py27
     - TOXENV=py33
