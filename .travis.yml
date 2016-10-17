@@ -10,7 +10,7 @@ python:
     - "3.5"
 # The version of GS in the repos is too old
 before_install:
-    - wget http://downloads.ghostscript.com/public/binaries/ghostscript-9.20-linux-x86_64.tgz
+    - wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-9.20-linux-x86_64.tgz
     - tar -xvf ghostscript-9.20-linux-x86_64.tgz
     - mv ghostscript-9.20-linux-x86_64/gs-920-linux_x86_64 ghostscript-9.20-linux-x86_64/gs
     - export PATH=$PWD/ghostscript-9.20-linux-x86_64:$PATH
