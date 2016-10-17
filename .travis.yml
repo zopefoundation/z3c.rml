@@ -1,26 +1,26 @@
 language: python
 sudo: false
-# Get japanese minch fonts. Don't use debian-sid because it frequently breaks
+# Get japanese minch fonts
 addons:
     apt:
         packages:
         - fonts-takao-mincho
-# Python 3.5 isn't currently installed by default
+# Python 3.5 isn't currently installed by default on Travis so it must be listed here.
+# However this causes Travis to detect all environments as 3.5 so to fix that we need
+# to list all versions here and use tox-travis insead of TOXENV.
 python:
+    - "2.7"
+    - "3.3"
+    - "3.4"
     - "3.5"
-# The version of GS in the repos is too old
+# The version of GS in the repos is too old and using debian-sid often breaks
 before_install:
     - wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs920/ghostscript-9.20-linux-x86_64.tgz
     - tar -xvf ghostscript-9.20-linux-x86_64.tgz
     - mv ghostscript-9.20-linux-x86_64/gs-920-linux_x86_64 ghostscript-9.20-linux-x86_64/gs
     - export PATH=$PWD/ghostscript-9.20-linux-x86_64:$PATH
-env:
-    - TOXENV=py27
-    - TOXENV=py33
-    - TOXENV=py34
-    - TOXENV=py35
 install:
-    - travis_retry pip install tox
+    - travis_retry pip install tox-travis
 script:
     - tox
 notifications:
