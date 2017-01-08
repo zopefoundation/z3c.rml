@@ -213,7 +213,7 @@ class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
 class IncludePdfPages(flowable.Flowable):
     signature = IIncludePdfPages
 
-    ConcatenationPostProcessorFactory = ConcatenationPostProcessor
+    ConcatenationPostProcessorFactory = PdfTkConcatenationPostProcessor
 
     def getProcessor(self):
         manager = attr.getManager(self, interfaces.IPostProcessorManager)
