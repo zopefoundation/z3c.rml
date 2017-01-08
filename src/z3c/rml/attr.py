@@ -182,7 +182,7 @@ class StringOrInt(RMLAttribute):
 class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
     """A list of values of a specified type."""
 
-    splitre = re.compile('[ \t\n,;]*')
+    splitre = re.compile('[ \t\n,;]+')
 
     def __init__(self, splitre=None, *args, **kw):
         super(Sequence, self).__init__(*args, **kw)
