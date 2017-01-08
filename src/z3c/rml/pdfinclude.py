@@ -14,7 +14,13 @@
 """``pdfInclude`` Directive.
 """
 __docformat__ = "reStructuredText"
+
+import logging
+import os
+import subprocess
 import six
+import tempfile
+
 try:
     import PyPDF2
     from PyPDF2.generic import NameObject
@@ -24,10 +30,50 @@ from reportlab.platypus import flowables
 
 from z3c.rml import attr, flowable, interfaces, occurence
 
+log = logging.getLogger(__name__)
+
 # by default False to avoid burping on
 # PdfReadWarning: Multiple definitions in dictionary at byte xxx
 STRICT = False
 
+def _letter(val, base=ord('A'), radix=26):
+    __traceback_info__ = val, base
+    index = val - 1
+    if index < 0:
+        raise ValueError('Value must be greater than 0.')
+    s = ''
+    while True:
+        val, off = divmod(index, radix)
+        index = val - 1
+        s = chr(base + off) + s
+        if not val:
+            return s
+
+def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
+    print '-'*78
+    print cmd
+    print '-'*78
+    log.debug('Command: ' + cmd)
+    if captureOutput:
+        stdout = stderr = subprocess.PIPE
+    else:
+        stdout = stderr = None
+    p = subprocess.Popen(
+        cmd, stdout=stdout, stderr=stderr,
+        shell=True, cwd=cwd)
+    stdout, stderr = p.communicate()
+    if stdout is None:
+        stdout = "See output above"
+    if stderr is None:
+        stderr = "See output above"
+    if p.returncode != 0 and not ignoreErrors:
+        log.error(u'An error occurred while running command: %s' % cmd)
+        log.error('Error Output: \n%s' % stderr)
+        raise ValueError('Shell Process had non-zero error code: {}. \n'
+                         'Stdout: {}\n'
+                         'StdErr: {}'.format(p.returncode, stdout, stderr))
+    log.debug('Output: \n%s' % stdout)
+    return stdout
 
 class ConcatenationPostProcessor(object):
 
@@ -40,22 +86,76 @@ class ConcatenationPostProcessor(object):
         merger.output._info.getObject().update(input1.documentInfo)
 
         merger.append(inputFile1)
+        import pprint
+        pprint.pprint(self.operations)
 
-        for start_page, inputFile2, pages, num_pages in self.operations:
+        for start_page, inputFile2, page_ranges, num_pages in self.operations:
             # Remove blank pages, that we reserved in IncludePdfPagesFlowable
             # and insert real pdf here
             del merger.pages[start_page:start_page + num_pages]
-            if not pages:
-                merger.merge(start_page, inputFile2)
-            else:
+            curr_page = start_page
+            for page_range in page_ranges:
+                prs, pre = page_range
                 # Note, users start counting at 1. ;-)
-                for pcnt, pn in enumerate(pages):
-                    merger.merge(start_page + pcnt, inputFile2,
-                                 pages=(pn-1, pn), import_bookmarks=False)
+                merger.merge(
+                    curr_page, inputFile2, pages=(prs-1, pre-1),
+                    import_bookmarks=False)
 
         outputFile = six.BytesIO()
         merger.write(outputFile)
         return outputFile
+
+
+class PdfTkConcatenationPostProcessor(object):
+
+    def __init__(self):
+        self.operations = []
+
+    def process(self, inputFile1):
+        dir = tempfile.mkdtemp()
+        file_path = os.path.join(dir, 'A.pdf')
+        with open(file_path, 'wb') as file:
+            file.write(inputFile1.read())
+
+        file_map = {'A': file_path}
+        file_id = 2
+        merges = []
+
+        curr_page = 0
+        for start_page, inputFile2, page_ranges, num_pages in self.operations:
+            # Catch up with the main file.
+            if curr_page < start_page:
+                # Convert curr_page to human counting, start_page is okay,
+                # since pdftk is upper-bound inclusive.
+                merges.append('A%i-%i' % (curr_page+1, start_page))
+            curr_page = start_page + num_pages
+
+            # Store file.
+            file_letter = _letter(file_id)
+            file_path = os.path.join(dir, file_letter+'.pdf')
+            inputFile2.seek(0)
+            with open(file_path, 'wb') as file:
+                file.write(inputFile2.read())
+            file_map[file_letter] = file_path
+            file_id += 1
+
+            for (prs, pre) in page_ranges:
+                # pdftk uses lower and upper bound inclusive!
+                merges.append('%s%i-%i' % (file_letter, prs, pre-1))
+
+        mergedFile = os.path.join(dir, 'merged.pdf')
+        do('pdftk %s cat %s output %s' % (
+            ' '.join('%s="%s"' % (l, p) for l, p in file_map.items()),
+            ' '.join(merges),
+            mergedFile))
+
+        outputFile = os.path.join(dir, 'output.pdf')
+        do('pdftk %s/A.pdf dump_data > %s/in.info' % (dir, dir))
+        do('pdftk %s update_info %s/in.info output %s' % (
+            mergedFile, dir, outputFile))
+
+        with open(outputFile, 'rb') as file:
+            return six.BytesIO(file.read())
 
 
 class IncludePdfPagesFlowable(flowables.Flowable):
@@ -113,11 +213,13 @@ class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
 class IncludePdfPages(flowable.Flowable):
     signature = IIncludePdfPages
 
+    ConcatenationPostProcessorFactory = ConcatenationPostProcessor
+
     def getProcessor(self):
         manager = attr.getManager(self, interfaces.IPostProcessorManager)
         procs = dict(manager.postProcessors)
         if 'CONCAT' not in procs:
-            proc = ConcatenationPostProcessor()
+            proc = self.ConcatenationPostProcessorFactory()
             manager.postProcessors.append(('CONCAT', proc))
             return proc
         return procs['CONCAT']
