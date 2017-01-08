@@ -2,10 +2,30 @@
 CHANGES
 =======
 
-3.1.1 (unreleased)
+3.2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve ``IntegerSequence`` field to return ranges using lists of two
+  numbers instead of listing them all out.
+
+- Extended ``IntegerSequence`` to allow specification of first number and
+  lower/upper bound inclusion.
+
+- Updated ``ConcatenationPostProcessor`` to handle the new integer sequence
+  data structure. Since this is so much more efficient for the merging
+  library, there was a 5x improvement when including PDFs with page ranges.
+
+- Implemented a PdfTk-based concatenation post-processor. PdfTk is very fast,
+  but unfortunatelya lot of the gain is lost, since the outline must be merged
+  in manually. The PdfTk post-processor can be enabled by::
+
+    from z3c.rml import pdfinclude
+    pdfinclude.IncludePdfPages.ConcatenationPostProcessorFactory = \
+        pdfinclude.PdfTkConcatenationPostProcessor
+
+- Fix initial blank page when PDF inclusion is first flowable. [Kyle MacFarlane]
+
+- Support for Python 3.5 [Kyle MacFarlane]
 
 
 3.1.0 (2016-04-04)
