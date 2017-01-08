@@ -208,6 +208,17 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
 class IntegerSequence(Sequence):
     """A sequence of integers."""
 
+    def __init__(
+            self,
+            numberingStartsAt=0,
+            lowerBoundInclusive=True,
+            upperBoundInclusive=True,
+            *args, **kw):
+        super(Sequence, self).__init__(*args, **kw)
+        self.numberingStartsAt = numberingStartsAt
+        self.lowerBoundInclusive = lowerBoundInclusive
+        self.upperBoundInclusive = upperBoundInclusive
+
     def fromUnicode(self, ustr):
         ustr = ustr.strip()
         pieces = self.splitre.split(ustr)
@@ -218,13 +229,24 @@ class IntegerSequence(Sequence):
                 continue
             # The piece is a range.
             if '-' in piece:
-                start, end = piece.split('-')
+                start, end = map(int, piece.split('-'))
+                # Make sure internally numbering starts as 0
+                start -= self.numberingStartsAt
+                end -= self.numberingStartsAt
+                # Apply lower-bound exclusive.
+                if not self.lowerBoundInclusive:
+                    start += 1
+                # Apply upper-bound inclusive.
+                if self.upperBoundInclusive:
+                    end += 1
                 # Make range lower and upper bound inclusive.
-                numbers.append((int(start), int(end)+1))
+                numbers.append((start, end))
                 continue
             # The piece is just a number
-            numbers.append((int(piece), int(piece)+1))
-        return list(numbers)
+            value = int(piece)
+            value -= self.numberingStartsAt
+            numbers.append((value, value+1))
+        return numbers
 
 class Choice(BaseChoice):
     """A choice of several values. The values are always case-insensitive."""
