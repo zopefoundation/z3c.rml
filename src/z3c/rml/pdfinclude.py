@@ -19,7 +19,7 @@ import logging
 import os
 import subprocess
 import six
-import tempfile
+from backports import tempfile
 
 try:
     import PyPDF2
@@ -50,9 +50,6 @@ def _letter(val, base=ord('A'), radix=26):
             return s
 
 def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
-    print '-'*78
-    print cmd
-    print '-'*78
     log.debug('Command: ' + cmd)
     if captureOutput:
         stdout = stderr = subprocess.PIPE
@@ -75,6 +72,7 @@ def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     log.debug('Output: \n%s' % stdout)
     return stdout
 
+
 class ConcatenationPostProcessor(object):
 
     def __init__(self):
@@ -86,8 +84,6 @@ class ConcatenationPostProcessor(object):
         merger.output._info.getObject().update(input1.documentInfo)
 
         merger.append(inputFile1)
-        import pprint
-        pprint.pprint(self.operations)
 
         for start_page, inputFile2, page_ranges, num_pages in self.operations:
             # Remove blank pages, that we reserved in IncludePdfPagesFlowable
@@ -96,9 +92,8 @@ class ConcatenationPostProcessor(object):
             curr_page = start_page
             for page_range in page_ranges:
                 prs, pre = page_range
-                # Note, users start counting at 1. ;-)
                 merger.merge(
-                    curr_page, inputFile2, pages=(prs-1, pre-1),
+                    curr_page, inputFile2, pages=(prs, pre),
                     import_bookmarks=False)
 
         outputFile = six.BytesIO()
@@ -108,11 +103,13 @@ class ConcatenationPostProcessor(object):
 
 class PdfTkConcatenationPostProcessor(object):
 
+    EXECUTABLE = 'pdftk'
+    PRESERVE_OUTLINE = True
+
     def __init__(self):
         self.operations = []
 
-    def process(self, inputFile1):
-        dir = tempfile.mkdtemp()
+    def _process(self, inputFile1, dir):
         file_path = os.path.join(dir, 'A.pdf')
         with open(file_path, 'wb') as file:
             file.write(inputFile1.read())
@@ -140,22 +137,32 @@ class PdfTkConcatenationPostProcessor(object):
             file_id += 1
 
             for (prs, pre) in page_ranges:
-                # pdftk uses lower and upper bound inclusive!
-                merges.append('%s%i-%i' % (file_letter, prs, pre-1))
+                # pdftk uses lower and upper bound inclusive.
+                merges.append('%s%i-%i' % (file_letter, prs+1, pre))
 
         mergedFile = os.path.join(dir, 'merged.pdf')
-        do('pdftk %s cat %s output %s' % (
+        do('%s %s cat %s output %s' % (
+            self.EXECUTABLE,
             ' '.join('%s="%s"' % (l, p) for l, p in file_map.items()),
             ' '.join(merges),
             mergedFile))
 
+        if not self.PRESERVE_OUTLINE:
+            with open(mergedFile, 'rb') as file:
+                return six.BytesIO(file.read())
+
         outputFile = os.path.join(dir, 'output.pdf')
-        do('pdftk %s/A.pdf dump_data > %s/in.info' % (dir, dir))
-        do('pdftk %s update_info %s/in.info output %s' % (
-            mergedFile, dir, outputFile))
+        do('%s %s/A.pdf dump_data > %s/in.info' % (
+            self.EXECUTABLE, dir, dir))
+        do('%s %s update_info %s/in.info output %s' % (
+            self.EXECUTABLE, mergedFile, dir, outputFile))
 
         with open(outputFile, 'rb') as file:
             return six.BytesIO(file.read())
+
+    def process(self, inputFile1):
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            return self._process(inputFile1, tmpdirname)
 
 
 class IncludePdfPagesFlowable(flowables.Flowable):
@@ -176,7 +183,7 @@ class IncludePdfPagesFlowable(flowables.Flowable):
         pages = self.pages
         if not pages:
             pdf = PyPDF2.PdfFileReader(self.pdf_file, strict=STRICT)
-            pages = [(1, pdf.getNumPages()+1)]
+            pages = [(0, pdf.getNumPages())]
 
         num_pages = sum(pr[1]-pr[0] for pr in pages)
 
@@ -207,18 +214,22 @@ class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
     pages = attr.IntegerSequence(
         title=u'Pages',
         description=u'A list of pages to insert.',
+        numberingStartsAt=1,
         required=False)
 
 
 class IncludePdfPages(flowable.Flowable):
     signature = IIncludePdfPages
 
-    ConcatenationPostProcessorFactory = PdfTkConcatenationPostProcessor
+    ConcatenationPostProcessorFactory = ConcatenationPostProcessor
 
     def getProcessor(self):
         manager = attr.getManager(self, interfaces.IPostProcessorManager)
         procs = dict(manager.postProcessors)
         if 'CONCAT' not in procs:
+            log.debug(
+                'Using concetation post-processor: %s',
+                self.ConcatenationPostProcessorFactory)
             proc = self.ConcatenationPostProcessorFactory()
             manager.postProcessors.append(('CONCAT', proc))
             return proc
