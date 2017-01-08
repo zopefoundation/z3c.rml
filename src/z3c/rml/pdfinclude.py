@@ -167,17 +167,24 @@ class PdfTkConcatenationPostProcessor(object):
 
 class IncludePdfPagesFlowable(flowables.Flowable):
 
-    def __init__(self, pdf_file, pages, concatprocessor):
+    def __init__(self, pdf_file, pages, concatprocessor,
+                 included_on_first_page):
         flowables.Flowable.__init__(self)
         self.pdf_file = pdf_file
         self.proc = concatprocessor
         self.pages = pages
+        self.included_on_first_page = included_on_first_page
 
-        self.width = 10<<32
-        self.height = 10<<32
+        if self.included_on_first_page:
+            self.width = 0
+            self.height = 0
+        else:
+            self.width = 10<<32
+            self.height = 10<<32
 
-    def draw():
-        return NotImplementedError('PDFPages shall be drawn not me')
+    def draw(self):
+        if self.included_on_first_page:
+            self.split(None, None)
 
     def split(self, availWidth, availheight):
         pages = self.pages
@@ -188,6 +195,8 @@ class IncludePdfPagesFlowable(flowables.Flowable):
         num_pages = sum(pr[1]-pr[0] for pr in pages)
 
         start_page = self.canv.getPageNumber()
+        if self.included_on_first_page:
+            start_page -= 1
         self.proc.operations.append(
             (start_page, self.pdf_file, pages, num_pages))
 
@@ -242,7 +251,9 @@ class IncludePdfPages(flowable.Flowable):
         args = dict(self.getAttributeValues())
         proc = self.getProcessor()
         self.parent.flow.append(
-            IncludePdfPagesFlowable(args['filename'], args.get('pages'), proc))
+            IncludePdfPagesFlowable(
+                args['filename'], args.get('pages'), proc, not self.parent.flow
+            ))
 
 
 flowable.Flow.factories['includePdfPages'] = IncludePdfPages
