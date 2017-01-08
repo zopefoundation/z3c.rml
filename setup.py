@@ -77,9 +77,10 @@ setup (
             'zope.pagetemplate']
         ),
     install_requires=[
-        'Pygments',
-        'lxml',
         'PyPDF2>=1.25.1',
+        'Pygments',
+        'backports.tempfile',
+        'lxml',
         'reportlab>=3.1.44',
         'setuptools',
         'six',
