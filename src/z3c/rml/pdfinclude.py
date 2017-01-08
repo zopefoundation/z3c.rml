@@ -76,21 +76,19 @@ class IncludePdfPagesFlowable(flowables.Flowable):
         pages = self.pages
         if not pages:
             pdf = PyPDF2.PdfFileReader(self.pdf_file, strict=STRICT)
-            num_pages = pdf.getNumPages()
-            pages = range(num_pages)
-        else:
-            num_pages = len(pages)
+            pages = [(1, pdf.getNumPages()+1)]
+
+        num_pages = sum(pr[1]-pr[0] for pr in pages)
 
         start_page = self.canv.getPageNumber()
         self.proc.operations.append(
-            (start_page, self.pdf_file, self.pages, num_pages))
-
-        result = []
+            (start_page, self.pdf_file, pages, num_pages))
 
         # Insert blank pages instead of pdf for now, to correctly number the
         # pages. We will replace these blank pages with included PDF in
         # ConcatenationPostProcessor.
-        for i in pages:
+        result = []
+        for i in range(num_pages):
             # Add empty spacer so platypus don't complain about too many empty
             # pages
             result.append(flowables.Spacer(0, 0))

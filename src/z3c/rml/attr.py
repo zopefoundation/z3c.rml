@@ -211,7 +211,7 @@ class IntegerSequence(Sequence):
     def fromUnicode(self, ustr):
         ustr = ustr.strip()
         pieces = self.splitre.split(ustr)
-        numbers = set([])
+        numbers = []
         for piece in pieces:
             # Ignore empty pieces.
             if not piece:
@@ -220,10 +220,10 @@ class IntegerSequence(Sequence):
             if '-' in piece:
                 start, end = piece.split('-')
                 # Make range lower and upper bound inclusive.
-                numbers.update(range(int(start), int(end)+1))
+                numbers.append((int(start), int(end)+1))
                 continue
             # The piece is just a number
-            numbers.add(int(piece))
+            numbers.append((int(piece), int(piece)+1))
         return list(numbers)
 
 class Choice(BaseChoice):
