@@ -708,7 +708,7 @@ def parseDashArray(array):
     if array == 'none':
         return None
 
-    return map(parseLength, re.split('[ ,]+', array))
+    return list(map(parseLength, re.split('[ ,]+', array)))
 
 def parseOpacity(value):
     try:
@@ -963,7 +963,7 @@ class Renderer:
             if len(points) == 0:
                 return
 
-            points = map(parseLength, re.split('[ ,]+', points))
+            points = list(map(parseLength, re.split('[ ,]+', points)))
 
             # Need to use two shapes, because standard RLG polylines
             # do not support filling...
@@ -985,7 +985,7 @@ class Renderer:
             if len(points) == 0:
                 return
 
-            points = map(parseLength, re.split('[ ,]+', points))
+            points = list(map(parseLength, re.split('[ ,]+', points)))
 
             shape = Polygon(points)
             self.addShape(parent, node, shape)
@@ -1018,7 +1018,7 @@ class Renderer:
                     else:
                         values = default
 
-                return map(parseLength, values.split())
+                return list(map(parseLength, values.split()))
 
             def getPos(values, i, default = None):
                 if i >= len(values):
