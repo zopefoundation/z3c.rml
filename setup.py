@@ -68,7 +68,7 @@ setup (
         'Programming Language :: Python :: Implementation :: CPython',
         'Natural Language :: English',
         'Operating System :: OS Independent'],
-    url='http://pypi.python.org/pypi/z3c.rml',
+    url='https://github.com/zopefoundation/z3c.rml',
     packages=find_packages('src'),
     package_dir={'':'src'},
     namespace_packages=['z3c'],
