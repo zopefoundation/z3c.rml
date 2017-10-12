@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.2.0 (2017-01-08)
+3.2.0 (unreleased)
 ------------------
 
 - Improve ``IntegerSequence`` field to return ranges using lists of two
