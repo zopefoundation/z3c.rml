@@ -78,12 +78,16 @@ class ComparePDFTestCase(unittest.TestCase):
         base = base_image.getdata()
         test_image = Image.open(test_file)
         test = test_image.getdata()
+        err_count = 0
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
+                err_count += 1
+
                 if False:
                     from base64 import b64encode
                     import PIL
                     differ = PIL.ImageChops.subtract(base_image, test_image)
+                    differ.show()
                     # output the result as base64 for travis debugging
                     # flip the above condition to activate this code
                     print()
@@ -102,8 +106,6 @@ class ComparePDFTestCase(unittest.TestCase):
                     print(self._testPath)
                     with open(self._testPath, 'rb') as test_pdf:
                         print(b64encode(test_pdf.read()))
-
-                    differ.show()
 
                 self.fail(
                     'Image is not the same: %s' % os.path.basename(baseImage))
@@ -152,6 +154,15 @@ class CompareFileTestCase(unittest.TestCase):
 
 
 def test_suite():
+    if False:
+        # Debug info
+        import pkg_resources
+        print("Environment\n===========")
+        print("reportlab:")
+        print(pkg_resources.get_distribution('reportlab').version)
+        print("ghostscript:")
+        os.system("gs --version")
+
     suite = unittest.TestSuite()
     here = os.path.dirname(z3c.rml.tests.__file__)
     inputDir = os.path.join(here, 'input')
