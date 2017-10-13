@@ -74,11 +74,16 @@ class ComparePDFTestCase(unittest.TestCase):
     def assertSameImage(self, baseImage, testImage):
         base_file = open(baseImage, 'rb')
         test_file = open(testImage, 'rb')
-        base = Image.open(base_file).getdata()
-        test = Image.open(test_file).getdata()
+        base_image = Image.open(base_file)
+        base = base_image.getdata()
+        test_image = Image.open(test_file)
+        test = test_image.getdata()
         for i in range(len(base)):
             if (base[i] - test[i]) != 0:
                 if False:
+                    from base64 import b64encode
+                    import PIL
+                    differ = PIL.ImageChops.subtract(base_image, test_image)
                     # output the result as base64 for travis debugging
                     # flip the above condition to activate this code
                     print()
@@ -86,17 +91,19 @@ class ComparePDFTestCase(unittest.TestCase):
 
                     base_file.seek(0)
                     print(baseImage)
-                    print(base_file.read().encode('base64'))
+                    print(b64encode(base_file.read()))
                     print(self._basePath)
                     with open(self._basePath, 'rb') as base_pdf:
-                        print(base_pdf.read().encode('base64'))
+                        print(b64encode(base_pdf.read()))
 
                     test_file.seek(0)
                     print(testImage)
-                    print(test_file.read().encode('base64'))
+                    print(b64encode(test_file.read()))
                     print(self._testPath)
                     with open(self._testPath, 'rb') as test_pdf:
-                        print(test_pdf.read().encode('base64'))
+                        print(b64encode(test_pdf.read()))
+
+                    differ.show()
 
                 self.fail(
                     'Image is not the same: %s' % os.path.basename(baseImage))
