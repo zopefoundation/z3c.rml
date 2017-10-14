@@ -1,0 +1,29 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_000_simple.pdf" invariant="1">
+
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+  <pageTemplate id="main">
+    <header x="1.3cm" y="25.3cm" height="1.8cm" width="18.6cm">
+      <para fontSize="12.0" fontName="Helvetica" >This is header</para>
+    </header>
+    <frame id="first" x1="1.3cm" y1="100.0" width="18.6cm" height="630"/>
+    <footer x="1.3cm" y="1cm" height="1cm" width="18.6cm">
+      <para fontSize="12.0" fontName="Helvetica" >This is footer</para>
+    </footer>
+    <footer x="16.3cm" y="1cm" height="1cm" width="2cm">
+      <para alignment="right" fontSize="12.0" fontName="Helvetica" >
+        <pageNumber/> of <getName id="lastPage"/></para>
+    </footer>
+  </pageTemplate>
+</template>
+
+<stylesheet/>
+
+<story>
+  <h1>This is page 1</h1>
+  <nextPage/>
+  <h1>This is page 2</h1>
+  <namedString id="lastPage"><pageNumber/></namedString>
+</story>
+
+</document>

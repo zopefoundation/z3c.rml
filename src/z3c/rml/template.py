@@ -150,6 +150,26 @@ class PageGraphics(directive.RMLDirective):
         self.parent.pt.onPage = drawOnCanvas
 
 
+class Header(PageGraphics):
+
+    def process(self):
+        onPage = self.parent.pt.onPage
+
+        def drawOnCanvas(canv, doc):
+            onPage(canv, doc)
+            canv.saveState()
+            self.canvas = canv
+            place = canvas.Place(self.element, self)
+            place.process()
+            canv.restoreState()
+
+        self.parent.pt.onPage = drawOnCanvas
+
+
+class Footer(Header):
+    pass
+
+
 class IPageTemplate(interfaces.IRMLDirectiveSignature):
     """Define a page template."""
     occurence.containing(
@@ -181,6 +201,8 @@ class PageTemplate(directive.RMLDirective):
         'frame': Frame,
         'pageGraphics': PageGraphics,
         'mergePage': page.MergePageInPageTemplate,
+        'header': Header,
+        'footer': Footer,
         }
 
     def process(self):

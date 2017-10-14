@@ -73,6 +73,23 @@ Incompatibilies
   it is supposed to do. Thus z3c.rml does not implement it.
 
 
+Extensions
+----------
+
+z3c.rml implements ``<header>`` and ``<footer>`` directives. These go inside
+``<pageTemplate>`` directives, and are equivalent to having
+``<pageGraphics><place>`` and take the same arguments as ``<pageGraphics>``.
+
+The purpose of these directives is to be able to handle headers and footers
+differently then from other graphical elements when dealing with other
+formats than PDF.
+
+If you want one left aligned header or footer, and one right aligned, you
+simply add multiple headers or footers.
+
+See src/z3c/rml/tests/input/rml-examples-050-header-footer.rml for an example.
+
+
 To be Done
 ----------
 
