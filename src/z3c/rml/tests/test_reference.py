@@ -17,6 +17,7 @@ import os
 import unittest
 from z3c.rml import reference
 
+
 class ReferenceTestCase(unittest.TestCase):
 
     level = 3
@@ -28,4 +29,4 @@ class ReferenceTestCase(unittest.TestCase):
 
 
 def test_suite():
-   return unittest.TestSuite([ReferenceTestCase()])
+    return unittest.TestSuite([ReferenceTestCase()])

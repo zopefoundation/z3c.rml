@@ -28,6 +28,7 @@ except ImportError:
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')
 
+
 def gs_command(path):
     return ('gs', '-q', '-sNOPAUSE', '-sDEVICE=png256',
             '-sOutputFile=%s[Page-%%d].png' % path[:-4],

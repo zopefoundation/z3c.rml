@@ -138,6 +138,7 @@ class PageGraphics(directive.RMLDirective):
 
     def process(self):
         onPage = self.parent.pt.onPage
+
         def drawOnCanvas(canv, doc):
             onPage(canv, doc)
             canv.saveState()
@@ -171,7 +172,6 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         title=u'Auto Next Page Template',
         description=u'The page template to use automatically for the next page.',
         required=False)
-
 
 
 class PageTemplate(directive.RMLDirective):
@@ -259,6 +259,7 @@ class ITemplate(interfaces.IRMLDirectiveSignature):
         description=u'The author of the PDF document.',
         required=False)
 
+
 class Template(directive.RMLDirective):
     signature = ITemplate
     factories = {
@@ -270,7 +271,7 @@ class Template(directive.RMLDirective):
         args += self.parent.getAttributeValues(
             select=('debug', 'compression', 'invariant'),
             attrMapping={'debug': '_debug', 'compression': 'pageCompression'})
-        args += (('cropMarks',  self.parent.cropMarks),)
+        args += (('cropMarks', self.parent.cropMarks),)
 
         self.parent.doc = platypus.BaseDocTemplate(
             self.parent.outputFile, **dict(args))

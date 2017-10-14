@@ -22,6 +22,7 @@ bad_rml = '''\
 </document>
 '''
 
+
 def test_abort_on_invalid_tag():
     """
 
@@ -46,7 +47,7 @@ def test_abort_on_invalid_tag():
 
     """
 
+
 def test_suite():
     return doctest.DocTestSuite(
         optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
-

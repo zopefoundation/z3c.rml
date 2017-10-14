@@ -22,4 +22,3 @@ def test_suite():
     return doctest.DocFileSuite(
         '../pagetemplate.txt',
         optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
-

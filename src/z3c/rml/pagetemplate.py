@@ -20,11 +20,11 @@ try:
     import zope.pagetemplate.pagetemplatefile
 except ImportError as err:
     raise
-    # zope.pagetemplate package has not been installed
-    import types
-    zope.pagetemplate = types.ModuleType('pagetemplate')
-    zope.pagetemplate.pagetemplatefile = types.ModuleType('pagetemplatefile')
-    zope.pagetemplate.pagetemplatefile.PageTemplateFile = object
+    ## zope.pagetemplate package has not been installed, uncomment this to mock
+    # import types
+    # zope.pagetemplate = types.ModuleType('pagetemplate')
+    # zope.pagetemplate.pagetemplatefile = types.ModuleType('pagetemplatefile')
+    # zope.pagetemplate.pagetemplatefile.PageTemplateFile = object
 
 
 class RMLPageTemplateFile(zope.pagetemplate.pagetemplatefile.PageTemplateFile):

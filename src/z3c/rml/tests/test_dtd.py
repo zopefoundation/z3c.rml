@@ -17,6 +17,7 @@ import os
 import unittest
 from z3c.rml import dtd
 
+
 class DTDTestCase(unittest.TestCase):
 
     level = 2
@@ -28,4 +29,4 @@ class DTDTestCase(unittest.TestCase):
 
 
 def test_suite():
-   return unittest.TestSuite([DTDTestCase()])
+    return unittest.TestSuite([DTDTestCase()])

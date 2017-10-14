@@ -28,30 +28,30 @@ class RMLRenderingTestCase(RMLRenderingTestCase):
 
 
 def test_suite():
-   suite = unittest.TestSuite()
-   return suite
-   inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
-   outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
-   expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
-   for filename in os.listdir(inputDir):
-       if not filename.endswith(".rml"):
-           continue
-       inPath = os.path.join(inputDir, filename)
-       outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
-       expectPath = os.path.join(expectDir, filename[:-4] + '.pdf')
+    suite = unittest.TestSuite()
+    if False:
+        inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
+        outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
+        expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
+        for filename in os.listdir(inputDir):
+            if not filename.endswith(".rml"):
+                continue
+            inPath = os.path.join(inputDir, filename)
+            outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
+            expectPath = os.path.join(expectDir, filename[:-4] + '.pdf')
 
-       # ** Test RML to PDF rendering **
-       # Create new type, so that we can get test matching
-       TestCase = type(filename[:-4], (RMLRenderingTestCase,), {})
-       case = TestCase(inPath, outPath)
-       suite.addTest(case)
+            # ** Test RML to PDF rendering **
+            # Create new type, so that we can get test matching
+            TestCase = type(filename[:-4], (RMLRenderingTestCase,), {})
+            case = TestCase(inPath, outPath)
+            suite.addTest(case)
 
-       # ** Test PDF rendering correctness **
-       TestCase = type('compare-'+filename[:-4], (ComparePDFTestCase,), {})
-       case = TestCase(expectPath, outPath)
-       suite.addTest(case)
+            # ** Test PDF rendering correctness **
+            TestCase = type('compare-'+filename[:-4], (ComparePDFTestCase,), {})
+            case = TestCase(expectPath, outPath)
+            suite.addTest(case)
 
-   return suite
+    return suite
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
