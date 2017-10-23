@@ -27,6 +27,8 @@ CHANGES
 
 - Support for Python 3.5 [Kyle MacFarlane]
 
+- attr.getFileInfo() crashed if the context element wasn't parsed.
+
 
 3.1.0 (2016-04-04)
 ------------------

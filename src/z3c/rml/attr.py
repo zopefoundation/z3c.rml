@@ -37,6 +37,10 @@ def getFileInfo(directive):
     root = directive
     while root.parent:
         root = root.parent
+    # Elements added through API won't have a sourceline
+    if directive.element.sourceline is None:
+        return '(file %s)' % (root.filename)
+
     return '(file %s, line %i)' % (
         root.filename, directive.element.sourceline)
 
