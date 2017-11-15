@@ -99,9 +99,24 @@ class RMLDirective(object):
 
     def processSubDirectives(self, select=None, ignore=None):
         # Go through all children of the directive and try to process them.
-        for element in self.element.getchildren():
+        self._processDirectives(self.element.getchildren(), select, ignore)
+
+    def _processDirectives(self, elements, select=None, ignore=None):
+        # Process elements, with possible recursion from namespaces.
+        for element in elements:
             # Ignore all comments
             if isinstance(element, etree._Comment):
+                continue
+
+            # Check for namespaces
+            if element.tag[0] == '{':
+                import wingdbstub
+
+                # This is a namespace. In the future we may want some sort
+                # of plugins here. Right now, we just want the contents parsed,
+                # so we pretend the namespaces children is direct children
+                # of this directive.
+                self._processDirectives(element.getchildren(), select, ignore)
                 continue
             # Raise an error/log any unknown directive.
             if element.tag not in self.factories:
