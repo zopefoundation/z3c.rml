@@ -2,7 +2,16 @@
 CHANGES
 =======
 
-3.2.0 (unreleased)
+3.3.0 (unreleased)
+------------------
+
+- Add support for non-rml header and footer statements
+  This is to be able to support export to Open Document Format.
+
+- Dropped Support for Python 3.3
+
+
+3.2.0 (2017-01-08)
 ------------------
 
 - Improve ``IntegerSequence`` field to return ranges using lists of two
