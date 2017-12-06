@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.3.0 (unreleased)
+3.3.0 (2017-12-06)
 ------------------
 
 - Add support for non-rml header and footer statements
