@@ -190,7 +190,7 @@ def test_suite():
         if filename == 'printScaling.rml':
             TestCase = type('compare-file-'+filename[:-4],
                             (CompareFileTestCase,), {})
-            case = TestCase(outPath, b'<< /PrintScaling /None >>')
+            case = TestCase(outPath, b'/PrintScaling /None')
             suite.addTest(case)
 
     return suite
