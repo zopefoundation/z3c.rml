@@ -200,7 +200,7 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
         raw_values = self.splitre.split(ustr)
         result = [self.value_type.bind(self.context).fromUnicode(raw.strip())
                   for raw in raw_values]
-        if ((self.min_length is not None and len(result) < self.min_length) and
+        if ((self.min_length is not None and len(result) < self.min_length) or
             (self.max_length is not None and len(result) > self.max_length)):
             raise ValueError(
                 'Length of sequence must be at least %s and at most %i. %s' % (

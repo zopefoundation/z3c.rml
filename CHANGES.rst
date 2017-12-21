@@ -5,7 +5,7 @@ CHANGES
 3.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- attr.Sequence's min_lenght and max_length was ineffective
 
 
 3.3.0 (2017-12-06)
