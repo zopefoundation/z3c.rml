@@ -14,6 +14,7 @@
 """RML to PDF Converter Interfaces
 """
 __docformat__ = "reStructuredText"
+import collections
 import logging
 import reportlab.lib.enums
 import zope.interface
@@ -21,9 +22,13 @@ import zope.schema
 
 from z3c.rml.occurence import ZeroOrMore, ZeroOrOne, OneOrMore
 
-JOIN_CHOICES = {'round': 1, 'mitered': 0, 'bevelled': 2}
+JOIN_CHOICES = collections.OrderedDict([
+    ('round', 1), ('mitered', 0), ('bevelled', 2)
+])
 
-CAP_CHOICES = {'default': 0, 'butt': 0, 'round': 1, 'square': 2}
+CAP_CHOICES = collections.OrderedDict([
+    ('default', 0), ('butt', 0), ('round', 1), ('square', 2)
+])
 
 ALIGN_CHOICES = {
     'left': reportlab.lib.enums.TA_LEFT,
@@ -32,9 +37,11 @@ ALIGN_CHOICES = {
     'centre': reportlab.lib.enums.TA_CENTER,
     'justify': reportlab.lib.enums.TA_JUSTIFY}
 
-ALIGN_TEXT_CHOICES = {
-    'left': 'LEFT', 'right': 'RIGHT', 'center': 'CENTER', 'centre': 'CENTER',
-    'decimal': 'DECIMAL'}
+ALIGN_TEXT_CHOICES = collections.OrderedDict([
+    ('left', 'LEFT'), ('right', 'RIGHT'),
+    ('center', 'CENTER'), ('centre', 'CENTER'),
+    ('decimal', 'DECIMAL')
+])
 
 VALIGN_TEXT_CHOICES = {
     'top': 'TOP', 'middle': 'MIDDLE', 'bottom': 'BOTTOM'}
@@ -53,12 +60,14 @@ UNORDERED_BULLET_VALUES = (
     'bulletchar', 'bullet', 'circle', 'square', 'disc', 'diamond',
     'rarrowhead')
 
-LOG_LEVELS = {
-    'DEBUG': logging.DEBUG,
-    'INFO': logging.INFO,
-    'WARNING': logging.WARNING,
-    'ERROR': logging.ERROR,
-    'CRITICAL': logging.CRITICAL}
+LOG_LEVELS = collections.OrderedDict([
+    ('DEBUG', logging.DEBUG),
+    ('INFO', logging.INFO),
+    ('WARNING', logging.WARNING),
+    ('ERROR', logging.ERROR),
+    ('CRITICAL', logging.CRITICAL),
+])
+
 
 class IRML2PDF(zope.interface.Interface):
     """This is the main public API of z3c.rml"""
