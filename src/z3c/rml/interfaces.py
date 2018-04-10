@@ -41,7 +41,7 @@ VALIGN_TEXT_CHOICES = {
 
 SPLIT_CHOICES = ('splitfirst', 'splitlast')
 
-TEXT_TRANSFORM_CHOICES = ('uppercase', 'lowercase')
+TEXT_TRANSFORM_CHOICES = ('none', 'uppercase', 'lowercase', 'capitalize')
 
 BULLET_ANCHOR_CHOICES = ('start', 'middle', 'end', 'numeric')
 
