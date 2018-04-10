@@ -72,7 +72,7 @@
 <!ATTLIST addMapping psName CDATA #REQUIRED>
 
 <!ELEMENT logConfig>
-<!ATTLIST logConfig level (DEBUG|INFO|WARNING|CRITICAL|ERROR) #IMPLIED>
+<!ATTLIST logConfig level (DEBUG|INFO|WARNING|ERROR|CRITICAL) #IMPLIED>
 <!ATTLIST logConfig format CDATA #IMPLIED>
 <!ATTLIST logConfig filename CDATA #REQUIRED>
 <!ATTLIST logConfig filemode (write|append) #IMPLIED>
@@ -132,7 +132,7 @@
 <!ATTLIST paraStyle leftIndent CDATA #IMPLIED>
 <!ATTLIST paraStyle rightIndent CDATA #IMPLIED>
 <!ATTLIST paraStyle firstLineIndent CDATA #IMPLIED>
-<!ATTLIST paraStyle alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST paraStyle alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST paraStyle spaceBefore CDATA #IMPLIED>
 <!ATTLIST paraStyle spaceAfter CDATA #IMPLIED>
 <!ATTLIST paraStyle bulletFontName CDATA #IMPLIED>
@@ -181,7 +181,7 @@
 <!ELEMENT blockAlignment>
 <!ATTLIST blockAlignment start CDATA #REQUIRED>
 <!ATTLIST blockAlignment stop CDATA #REQUIRED>
-<!ATTLIST blockAlignment value (decimal|right|center|centre|left) #REQUIRED>
+<!ATTLIST blockAlignment value (left|right|center|centre|decimal) #REQUIRED>
 
 <!ELEMENT blockLeftPadding>
 <!ATTLIST blockLeftPadding start CDATA #REQUIRED>
@@ -223,7 +223,7 @@
 <!ELEMENT blockValign>
 <!ATTLIST blockValign start CDATA #REQUIRED>
 <!ATTLIST blockValign stop CDATA #REQUIRED>
-<!ATTLIST blockValign value (middle|top|bottom) #REQUIRED>
+<!ATTLIST blockValign value (bottom|top|middle) #REQUIRED>
 
 <!ELEMENT blockSpan>
 <!ATTLIST blockSpan start CDATA #REQUIRED>
@@ -235,9 +235,9 @@
 <!ATTLIST lineStyle kind (grid|box|outline|innergrid|linebelow|lineabove|linebefore|lineafter) #REQUIRED>
 <!ATTLIST lineStyle thickness CDATA #REQUIRED>
 <!ATTLIST lineStyle colorName CDATA #REQUIRED>
-<!ATTLIST lineStyle cap (default|square|round|butt) #REQUIRED>
+<!ATTLIST lineStyle cap (default|butt|round|square) #REQUIRED>
 <!ATTLIST lineStyle dash CDATA #IMPLIED>
-<!ATTLIST lineStyle join (bevelled|mitered|round) #IMPLIED>
+<!ATTLIST lineStyle join (round|mitered|bevelled) #IMPLIED>
 <!ATTLIST lineStyle count CDATA #IMPLIED>
 
 <!ELEMENT listStyle>
@@ -371,7 +371,7 @@
 <!ATTLIST title leftIndent CDATA #IMPLIED>
 <!ATTLIST title rightIndent CDATA #IMPLIED>
 <!ATTLIST title firstLineIndent CDATA #IMPLIED>
-<!ATTLIST title alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST title alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST title spaceBefore CDATA #IMPLIED>
 <!ATTLIST title spaceAfter CDATA #IMPLIED>
 <!ATTLIST title bulletFontName CDATA #IMPLIED>
@@ -409,7 +409,7 @@
 <!ATTLIST h1 leftIndent CDATA #IMPLIED>
 <!ATTLIST h1 rightIndent CDATA #IMPLIED>
 <!ATTLIST h1 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h1 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h1 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h1 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h1 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h1 bulletFontName CDATA #IMPLIED>
@@ -447,7 +447,7 @@
 <!ATTLIST h2 leftIndent CDATA #IMPLIED>
 <!ATTLIST h2 rightIndent CDATA #IMPLIED>
 <!ATTLIST h2 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h2 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h2 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h2 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h2 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h2 bulletFontName CDATA #IMPLIED>
@@ -485,7 +485,7 @@
 <!ATTLIST h3 leftIndent CDATA #IMPLIED>
 <!ATTLIST h3 rightIndent CDATA #IMPLIED>
 <!ATTLIST h3 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h3 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h3 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h3 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h3 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h3 bulletFontName CDATA #IMPLIED>
@@ -523,7 +523,7 @@
 <!ATTLIST h4 leftIndent CDATA #IMPLIED>
 <!ATTLIST h4 rightIndent CDATA #IMPLIED>
 <!ATTLIST h4 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h4 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h4 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h4 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h4 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h4 bulletFontName CDATA #IMPLIED>
@@ -561,7 +561,7 @@
 <!ATTLIST h5 leftIndent CDATA #IMPLIED>
 <!ATTLIST h5 rightIndent CDATA #IMPLIED>
 <!ATTLIST h5 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h5 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h5 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h5 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h5 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h5 bulletFontName CDATA #IMPLIED>
@@ -599,7 +599,7 @@
 <!ATTLIST h6 leftIndent CDATA #IMPLIED>
 <!ATTLIST h6 rightIndent CDATA #IMPLIED>
 <!ATTLIST h6 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h6 alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST h6 alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST h6 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h6 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h6 bulletFontName CDATA #IMPLIED>
@@ -637,7 +637,7 @@
 <!ATTLIST para leftIndent CDATA #IMPLIED>
 <!ATTLIST para rightIndent CDATA #IMPLIED>
 <!ATTLIST para firstLineIndent CDATA #IMPLIED>
-<!ATTLIST para alignment (right|justify|center|centre|left) #IMPLIED>
+<!ATTLIST para alignment (center|right|justify|left|centre) #IMPLIED>
 <!ATTLIST para spaceBefore CDATA #IMPLIED>
 <!ATTLIST para spaceAfter CDATA #IMPLIED>
 <!ATTLIST para bulletFontName CDATA #IMPLIED>
@@ -668,7 +668,7 @@
 <!ATTLIST blockTable rowHeights CDATA #IMPLIED>
 <!ATTLIST blockTable colWidths CDATA #IMPLIED>
 <!ATTLIST blockTable repeatRows CDATA #IMPLIED>
-<!ATTLIST blockTable alignment (decimal|right|center|centre|left) #IMPLIED>
+<!ATTLIST blockTable alignment (left|right|center|centre|decimal) #IMPLIED>
 
 <!ELEMENT tr (td+)>
 
@@ -683,26 +683,26 @@
 <!ATTLIST td topPadding CDATA #IMPLIED>
 <!ATTLIST td bottomPadding CDATA #IMPLIED>
 <!ATTLIST td background CDATA #IMPLIED>
-<!ATTLIST td align (decimal|right|center|centre|left) #IMPLIED>
-<!ATTLIST td vAlign (middle|top|bottom) #IMPLIED>
+<!ATTLIST td align (left|right|center|centre|decimal) #IMPLIED>
+<!ATTLIST td vAlign (bottom|top|middle) #IMPLIED>
 <!ATTLIST td lineBelowThickness CDATA #IMPLIED>
 <!ATTLIST td lineBelowColor CDATA #IMPLIED>
-<!ATTLIST td lineBelowCap (default|square|round|butt) #IMPLIED>
+<!ATTLIST td lineBelowCap (default|butt|round|square) #IMPLIED>
 <!ATTLIST td lineBelowCount CDATA #IMPLIED>
 <!ATTLIST td lineBelowSpace CDATA #IMPLIED>
 <!ATTLIST td lineAboveThickness CDATA #IMPLIED>
 <!ATTLIST td lineAboveColor CDATA #IMPLIED>
-<!ATTLIST td lineAboveCap (default|square|round|butt) #IMPLIED>
+<!ATTLIST td lineAboveCap (default|butt|round|square) #IMPLIED>
 <!ATTLIST td lineAboveCount CDATA #IMPLIED>
 <!ATTLIST td lineAboveSpace CDATA #IMPLIED>
 <!ATTLIST td lineLeftThickness CDATA #IMPLIED>
 <!ATTLIST td lineLeftColor CDATA #IMPLIED>
-<!ATTLIST td lineLeftCap (default|square|round|butt) #IMPLIED>
+<!ATTLIST td lineLeftCap (default|butt|round|square) #IMPLIED>
 <!ATTLIST td lineLeftCount CDATA #IMPLIED>
 <!ATTLIST td lineLeftSpace CDATA #IMPLIED>
 <!ATTLIST td lineRightThickness CDATA #IMPLIED>
 <!ATTLIST td lineRightColor CDATA #IMPLIED>
-<!ATTLIST td lineRightCap (default|square|round|butt) #IMPLIED>
+<!ATTLIST td lineRightCap (default|butt|round|square) #IMPLIED>
 <!ATTLIST td lineRightCount CDATA #IMPLIED>
 <!ATTLIST td lineRightSpace CDATA #IMPLIED>
 <!ATTLIST td href CDATA #IMPLIED>
@@ -734,7 +734,7 @@
 <!ELEMENT blockAlignment>
 <!ATTLIST blockAlignment start CDATA #REQUIRED>
 <!ATTLIST blockAlignment stop CDATA #REQUIRED>
-<!ATTLIST blockAlignment value (decimal|right|center|centre|left) #REQUIRED>
+<!ATTLIST blockAlignment value (left|right|center|centre|decimal) #REQUIRED>
 
 <!ELEMENT blockLeftPadding>
 <!ATTLIST blockLeftPadding start CDATA #REQUIRED>
@@ -776,7 +776,7 @@
 <!ELEMENT blockValign>
 <!ATTLIST blockValign start CDATA #REQUIRED>
 <!ATTLIST blockValign stop CDATA #REQUIRED>
-<!ATTLIST blockValign value (middle|top|bottom) #REQUIRED>
+<!ATTLIST blockValign value (bottom|top|middle) #REQUIRED>
 
 <!ELEMENT blockSpan>
 <!ATTLIST blockSpan start CDATA #REQUIRED>
@@ -788,9 +788,9 @@
 <!ATTLIST lineStyle kind (grid|box|outline|innergrid|linebelow|lineabove|linebefore|lineafter) #REQUIRED>
 <!ATTLIST lineStyle thickness CDATA #REQUIRED>
 <!ATTLIST lineStyle colorName CDATA #REQUIRED>
-<!ATTLIST lineStyle cap (default|square|round|butt) #REQUIRED>
+<!ATTLIST lineStyle cap (default|butt|round|square) #REQUIRED>
 <!ATTLIST lineStyle dash CDATA #IMPLIED>
-<!ATTLIST lineStyle join (bevelled|mitered|round) #IMPLIED>
+<!ATTLIST lineStyle join (round|mitered|bevelled) #IMPLIED>
 <!ATTLIST lineStyle count CDATA #IMPLIED>
 
 <!ELEMENT nextFrame>
@@ -824,8 +824,8 @@
 <!ATTLIST img height CDATA #IMPLIED>
 <!ATTLIST img preserveAspectRatio CDATA #IMPLIED>
 <!ATTLIST img mask CDATA #IMPLIED>
-<!ATTLIST img align (decimal|right|center|centre|left) #IMPLIED>
-<!ATTLIST img vAlign (middle|top|bottom) #IMPLIED>
+<!ATTLIST img align (left|right|center|centre|decimal) #IMPLIED>
+<!ATTLIST img vAlign (bottom|top|middle) #IMPLIED>
 
 <!ELEMENT imageAndFlowables>
 <!ATTLIST imageAndFlowables imageName CDATA #REQUIRED>
@@ -873,11 +873,11 @@
 <!ATTLIST hr width CDATA #IMPLIED>
 <!ATTLIST hr thickness CDATA #IMPLIED>
 <!ATTLIST hr color CDATA #IMPLIED>
-<!ATTLIST hr lineCap (default|square|round|butt) #IMPLIED>
+<!ATTLIST hr lineCap (default|butt|round|square) #IMPLIED>
 <!ATTLIST hr spaceBefore CDATA #IMPLIED>
 <!ATTLIST hr spaceAfter CDATA #IMPLIED>
-<!ATTLIST hr align (decimal|right|center|centre|left) #IMPLIED>
-<!ATTLIST hr valign (middle|top|bottom) #IMPLIED>
+<!ATTLIST hr align (left|right|center|centre|decimal) #IMPLIED>
+<!ATTLIST hr valign (bottom|top|middle) #IMPLIED>
 <!ATTLIST hr dash CDATA #IMPLIED>
 
 <!ELEMENT showIndex>
@@ -896,7 +896,7 @@
 
 <!ELEMENT log>
 <!ATTLIST log message CDATA #REQUIRED>
-<!ATTLIST log level (DEBUG|INFO|WARNING|CRITICAL|ERROR) #REQUIRED>
+<!ATTLIST log level (DEBUG|INFO|WARNING|ERROR|CRITICAL) #REQUIRED>
 
 <!ELEMENT debug>
 <!ATTLIST debug message CDATA #REQUIRED>
@@ -1142,8 +1142,8 @@
 <!ATTLIST lineMode width CDATA #IMPLIED>
 <!ATTLIST lineMode dash CDATA #IMPLIED>
 <!ATTLIST lineMode miterLimit CDATA #IMPLIED>
-<!ATTLIST lineMode join (bevelled|mitered|round) #IMPLIED>
-<!ATTLIST lineMode cap (default|square|round|butt) #IMPLIED>
+<!ATTLIST lineMode join (round|mitered|bevelled) #IMPLIED>
+<!ATTLIST lineMode cap (default|butt|round|square) #IMPLIED>
 
 <!ELEMENT barCode (#PCDATA)>
 <!ATTLIST barCode code (codabar|code11|code128|code128auto|ean13|ean5|ean8|ecc200datamatrix|extended39|extended93|fim|i2of5|isbn|msi|postnet|qr|standard39|standard93|upca|usps_4state) #REQUIRED>
