@@ -75,6 +75,12 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
         description=u'The background color of the span.',
         required=False)
 
+    textTransforms = attr.Choice(
+        title=u'Text Transforms',
+        description=u'Text transformations.',
+        choices=interfaces.TEXT_TRANSFORM_CHOICES,
+        required=False)
+
 
 class SpanStyle(directive.RMLDirective):
     signature = ISpanStyle
@@ -93,17 +99,7 @@ class SpanStyle(directive.RMLDirective):
         manager.styles[style.name] = style
 
 
-class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
-
-    fontName = attr.String(
-        title=u'Font Name',
-        description=u'The name of the font for the paragraph.',
-        required=False)
-
-    fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=u'The font size for the text of the paragraph.',
-        required=False)
+class IBaseParagraphStyle(ISpanStyle):
 
     leading = attr.Measurement(
         title=u'Leading',
@@ -157,16 +153,6 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
         description=u'The indentation that is kept for a bullet point.',
         required=False)
 
-    textColor = attr.Color(
-        title=u'Text Color',
-        description=u'The color in which the text will appear.',
-        required=False)
-
-    backColor = attr.Color(
-        title=u'Background Color',
-        description=u'The background color of the paragraph.',
-        required=False)
-
     wordWrap = attr.String(
         title=u'Word Wrap Method',
         description=(u'When set to "CJK", invoke CJK word wrapping'),
@@ -200,12 +186,6 @@ class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
     allowOrphans = attr.Boolean(
         title=u'Allow Orphans',
         description=(u'Allow orphans.'),
-        required=False)
-
-    textTransforms = attr.Choice(
-        title=u'Text Transforms',
-        description=u'Text transformations.',
-        choices=interfaces.TEXT_TRANSFORM_CHOICES,
         required=False)
 
     endDots = attr.String(
