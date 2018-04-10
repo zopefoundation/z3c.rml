@@ -36,5 +36,11 @@
     <img src="[z3c.rml.tests]/input/images/replogo.gif" width="5cm" height="5cm"
          preserveAspectRatio="true" doc:example="" />
 
+    <para>
+      And here is an image within the paragraph with height being
+      150% of the font size:
+      <img src="[z3c.rml.tests]/input/images/replogo.gif"
+           width="36pt" height="18pt" />
+    </para>
   </story>
 </document>
