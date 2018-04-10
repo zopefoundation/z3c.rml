@@ -15,9 +15,9 @@
 """
 import six
 import sys
-
 import reportlab.lib.fonts
 import reportlab.lib.styles
+import reportlab.lib.utils
 import reportlab.platypus.paraparser
 import reportlab.platypus.paragraph
 
@@ -239,3 +239,18 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
         self.style = style
         self.bulletText = bulletText
         self.debug = 0  #turn this on to see a pretty one with all the margins et
+
+
+class ImageReader(reportlab.lib.utils.ImageReader):
+
+    def __init__(self, fileName, ident=None):
+        if isinstance(fileName, six.string_types):
+            # Avoid circular imports. The filename resolutions hould be added
+            # to a utility module.
+            from z3c.rml import attr
+            _srcAttr = attr.File(doNotOpen=True)
+            fileName = _srcAttr.fromUnicode(fileName)
+        return super(ImageReader, self).__init__(fileName, ident)
+
+
+reportlab.platypus.paraparser.ImageReader = ImageReader
