@@ -13,6 +13,7 @@
 ##############################################################################
 """RML Attribute Implementation
 """
+import collections
 import logging
 import os
 import re
@@ -258,10 +259,10 @@ class Choice(BaseChoice):
     def __init__(self, choices=None, doLower=True, *args, **kw):
         super(Choice, self).__init__(*args, **kw)
         if not isinstance(choices, dict):
-            choices = dict(
+            choices = collections.OrderedDict(
                 [(val.lower() if doLower else val, val) for val in choices])
         else:
-            choices = dict(
+            choices = collections.OrderedDict(
                 [(key.lower() if doLower else key, val)
                  for key, val in choices.items()])
         self.choices = choices
