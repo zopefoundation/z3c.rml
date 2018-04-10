@@ -75,12 +75,6 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
         description=u'The background color of the span.',
         required=False)
 
-    textTransforms = attr.Choice(
-        title=u'Text Transforms',
-        description=u'Text transformations.',
-        choices=interfaces.TEXT_TRANSFORM_CHOICES,
-        required=False)
-
 
 class SpanStyle(directive.RMLDirective):
     signature = ISpanStyle
@@ -186,6 +180,12 @@ class IBaseParagraphStyle(ISpanStyle):
     allowOrphans = attr.Boolean(
         title=u'Allow Orphans',
         description=(u'Allow orphans.'),
+        required=False)
+
+    textTransforms = attr.Choice(
+        title=u'Text Transforms',
+        description=u'Text transformations.',
+        choices=interfaces.TEXT_TRANSFORM_CHOICES,
         required=False)
 
     endDots = attr.String(
