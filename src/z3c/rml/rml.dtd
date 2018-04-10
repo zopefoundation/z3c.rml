@@ -92,7 +92,7 @@
 <!ATTLIST startIndex offset CDATA #IMPLIED>
 <!ATTLIST startIndex format (i|123|abc) #IMPLIED>
 
-<!ELEMENT stylesheet (initialize?,paraStyle*,blockTableStyle*,listStyle*)>
+<!ELEMENT stylesheet (initialize?,spanStyle*,paraStyle*,blockTableStyle*,listStyle*)>
 
 <!ELEMENT initialize (name*,alias*,color*)>
 
@@ -113,6 +113,15 @@
 <!ATTLIST color density CDATA #IMPLIED>
 <!ATTLIST color knockout CDATA #IMPLIED>
 <!ATTLIST color alpha CDATA #IMPLIED>
+
+<!ELEMENT spanStyle>
+<!ATTLIST spanStyle name CDATA #REQUIRED>
+<!ATTLIST spanStyle alias CDATA #IMPLIED>
+<!ATTLIST spanStyle parent CDATA #IMPLIED>
+<!ATTLIST spanStyle fontName CDATA #IMPLIED>
+<!ATTLIST spanStyle fontSize CDATA #IMPLIED>
+<!ATTLIST spanStyle textColor CDATA #IMPLIED>
+<!ATTLIST spanStyle backColor CDATA #IMPLIED>
 
 <!ELEMENT paraStyle>
 <!ATTLIST paraStyle fontName CDATA #IMPLIED>

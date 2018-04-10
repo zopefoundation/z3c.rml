@@ -17,8 +17,8 @@ import copy
 import reportlab.lib.styles
 import reportlab.lib.enums
 import reportlab.platypus
-from z3c.rml import attr, directive, interfaces, occurence, SampleStyleSheet, \
-    special
+from z3c.rml import attr, directive, interfaces, paraparser, occurence, special
+from z3c.rml import SampleStyleSheet
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):
@@ -34,6 +34,63 @@ class Initialize(directive.RMLDirective):
         'name': special.Name,
         'alias': special.Alias,
         }
+
+
+class ISpanStyle(interfaces.IRMLDirectiveSignature):
+    """Defines a span style and gives it a name."""
+
+    name = attr.String(
+        title=u'Name',
+        description=u'The name of the style.',
+        required=True)
+
+    alias = attr.String(
+        title=u'Alias',
+        description=u'An alias under which the style will also be known as.',
+        required=False)
+
+    parent = attr.Style(
+        title=u'Parent',
+        description=(u'The apragraph style that will be used as a base for '
+                     u'this one.'),
+        required=False)
+
+    fontName = attr.String(
+        title=u'Font Name',
+        description=u'The name of the font for the span.',
+        required=False)
+
+    fontSize = attr.Measurement(
+        title=u'Font Size',
+        description=u'The font size for the text of the span.',
+        required=False)
+
+    textColor = attr.Color(
+        title=u'Text Color',
+        description=u'The color in which the text will appear.',
+        required=False)
+
+    backColor = attr.Color(
+        title=u'Background Color',
+        description=u'The background color of the span.',
+        required=False)
+
+
+class SpanStyle(directive.RMLDirective):
+    signature = ISpanStyle
+
+    def process(self):
+        kwargs = dict(self.getAttributeValues())
+        parent = kwargs.pop('parent', paraparser.SpanStyle('DefaultSpan'))
+        name = kwargs.pop('name')
+        style = copy.deepcopy(parent)
+        style.name = name[6:] if name.startswith('style.') else name
+
+        for name, value in kwargs.items():
+            setattr(style, name, value)
+
+        manager = attr.getManager(self)
+        manager.styles[style.name] = style
 
 
 class IBaseParagraphStyle(interfaces.IRMLDirectiveSignature):
@@ -697,6 +754,7 @@ class IStylesheet(interfaces.IRMLDirectiveSignature):
     """A styleheet defines the styles that can be used in the document."""
     occurence.containing(
         occurence.ZeroOrOne('initialize', IInitialize),
+        occurence.ZeroOrMore('spanStyle', ISpanStyle),
         occurence.ZeroOrMore('paraStyle', IParagraphStyle),
         occurence.ZeroOrMore('blockTableStyle', IBlockTableStyle),
         occurence.ZeroOrMore('listStyle', IListStyle),
@@ -709,6 +767,7 @@ class Stylesheet(directive.RMLDirective):
 
     factories = {
         'initialize': Initialize,
+        'spanStyle': SpanStyle,
         'paraStyle': ParagraphStyle,
         'blockTableStyle': BlockTableStyle,
         'listStyle': ListStyle,

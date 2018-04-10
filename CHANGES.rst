@@ -2,10 +2,16 @@
 CHANGES
 =======
 
-3.3.1 (unreleased)
+3.4.0 (unreleased)
 ------------------
 
-- attr.Sequence's min_lenght and max_length was ineffective
+- Drop Python 3.4 support.
+
+- Feature: Support for ``<span style="NAME">`` and corresponding
+  ``<spanStyle>`` styles.
+
+- Bug: ``attr.Sequence``'s ``min_length`` and ``max_length`` was ineffective
+
 
 
 3.3.0 (2017-12-06)

@@ -24,7 +24,7 @@ import reportlab.platypus.tables
 import zope.schema
 from reportlab.lib import styles, utils
 from xml.sax.saxutils import unescape
-from z3c.rml import attr, directive, interfaces, occurence
+from z3c.rml import attr, directive, interfaces, occurence, paraparser
 from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
 
 try:
@@ -297,7 +297,7 @@ class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
 
 class Paragraph(Flowable):
     signature = IParagraph
-    klass = reportlab.platypus.Paragraph
+    klass = paraparser.Z3CParagraph
     defaultStyle = 'Normal'
 
     styleAttributes = zope.schema.getFieldNames(stylesheet.IBaseParagraphStyle)
@@ -319,6 +319,7 @@ class Paragraph(Flowable):
         if 'style' not in args:
             args['style'] = attr._getStyle(self, self.defaultStyle)
         args['style'] = self.processStyle(args['style'])
+        args['manager'] = attr.getManager(self)
         self.parent.flow.append(self.klass(**args))
 
 

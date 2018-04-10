@@ -17,8 +17,9 @@ import six
 import sys
 
 import reportlab.lib.fonts
+import reportlab.lib.styles
 import reportlab.platypus.paraparser
-
+import reportlab.platypus.paragraph
 
 class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
     @property
@@ -128,12 +129,26 @@ class NameFragment(ParaFragWrapper):
         return u''
 
 
+class SpanStyle(reportlab.lib.styles.PropertySet):
+    defaults = {
+        'fontName': reportlab.lib.styles._baseFontName,
+        'fontSize': 10,
+        'textColor': None,
+        'backColor': None,
+        }
+
+
 class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     """Extensions to paragraph-internal XML parsing."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, manager, *args, **kwargs):
         reportlab.platypus.paraparser.ParaParser.__init__(self, *args, **kwargs)
+        self.manager = manager
         self.in_eval = False
+
+    def findSpanStyle(self, style):
+        from z3c.rml import attr
+        return attr._getStyle(self.manager, style)
 
     def startDynamic(self, attributes, klass):
         frag = klass(**attributes)
@@ -184,6 +199,42 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
             frag = self._stack[-1].frags.append(data)
 
 
-# Monkey-patch reportlabs global parser instance. Wah.
-import reportlab.platypus.paragraph
-reportlab.platypus.paragraph.ParaParser = Z3CParagraphParser
+class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
+    """Support for custom paraparser with sytles knowledge.
+
+    Methods mostly copied from reportlab.
+    """
+
+    def __init__(self, text, style, bulletText = None, frags=None,
+                 caseSensitive=1, encoding='utf8', manager=None):
+        self.caseSensitive = caseSensitive
+        self.encoding = encoding
+        self._setup(
+            text, style, bulletText or getattr(style,'bulletText',None), frags,
+            reportlab.platypus.paragraph.cleanBlockQuotedText, manager)
+
+    def _setup(self, text, style, bulletText, frags, cleaner, manager):
+
+        # This used to be a global parser to save overhead.  In the interests
+        # of thread safety it is being instantiated per paragraph.  On the
+        # next release, we'll replace with a cElementTree parser
+
+        if frags is None:
+            text = cleaner(text)
+            _parser = Z3CParagraphParser(manager)
+            _parser.caseSensitive = self.caseSensitive
+            style, frags, bulletTextFrags = _parser.parse(text, style)
+            if frags is None:
+                raise ValueError(
+                    "xml parser error (%s) in paragraph beginning\n'%s'"\
+                    % (_parser.errors[0],text[:min(30,len(text))]))
+            reportlab.platypus.paragraph.textTransformFrags(frags,style)
+            if bulletTextFrags:
+                bulletText = bulletTextFrags
+
+        #AR hack
+        self.text = text
+        self.frags = frags  #either the parse fragments or frag word list
+        self.style = style
+        self.bulletText = bulletText
+        self.debug = 0  #turn this on to see a pretty one with all the margins et
