@@ -131,13 +131,8 @@ class NameFragment(ParaFragWrapper):
 
 
 class SpanStyle(reportlab.lib.styles.PropertySet):
-    defaults = {
-        'fontName': reportlab.lib.styles._baseFontName,
-        'fontSize': 10,
-        'textColor': reportlab.lib.styles.black,
-        'backColor': None,
-        'textTransform':None,
-    }
+    # Do not specify defaults, so that all attributes can be inherited.
+    defaults = {}
 
 
 class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
