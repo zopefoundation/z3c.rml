@@ -2,10 +2,18 @@
 CHANGES
 =======
 
-3.4.1 (unreleased)
+3.5.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Honor the order of attribute choices in the docs.
+
+- Abstracted span styles out of base paragraph style, so that attributes can
+  be reused.
+
+- Remove all default values for ``SpanStyle`` styles, so that all values can
+  be inherited from the paragraph.
+
+- Support for package-relative ``src`` values in ``<para>`` ``<img>`` tags.
 
 
 3.4.0 (2018-04-09)
