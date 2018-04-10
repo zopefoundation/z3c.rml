@@ -249,4 +249,6 @@ class ImageReader(reportlab.lib.utils.ImageReader):
         return super(ImageReader, self).__init__(fileName, ident)
 
 
+# Monkey Patch reportlab image reader, so that <img> tags inside paragraphs
+# can also benefit from package-local file paths.
 reportlab.platypus.paraparser.ImageReader = ImageReader
