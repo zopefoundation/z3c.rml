@@ -133,9 +133,10 @@ class SpanStyle(reportlab.lib.styles.PropertySet):
     defaults = {
         'fontName': reportlab.lib.styles._baseFontName,
         'fontSize': 10,
-        'textColor': None,
+        'textColor': reportlab.lib.styles.black,
         'backColor': None,
-        }
+        'textTransform':None,
+    }
 
 
 class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
