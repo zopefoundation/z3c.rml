@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.4.0 (unreleased)
+3.4.0 (2018-04-09)
 ------------------
 
 - Drop Python 3.4 support.
