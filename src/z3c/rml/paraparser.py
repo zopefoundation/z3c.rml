@@ -48,7 +48,8 @@ class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
             try:
                 frame = sys._getframe(i)
             except ValueError:
-                raise Exception("Can't use <%s> in this location." % self.__tag__)
+                raise Exception(
+                    "Can't use <%s> in this location." % self.__tag__)
 
             # Guess 1: We're in a paragraph in a story.
             canvas = frame.f_locals.get('canvas', None)
@@ -233,12 +234,12 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
             if bulletTextFrags:
                 bulletText = bulletTextFrags
 
-        #AR hack
+        # AR hack
         self.text = text
-        self.frags = frags  #either the parse fragments or frag word list
+        self.frags = frags  # either the parse fragments or frag word list
         self.style = style
         self.bulletText = bulletText
-        self.debug = 0  #turn this on to see a pretty one with all the margins et
+        self.debug = 0
 
 
 class ImageReader(reportlab.lib.utils.ImageReader):
