@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.0 (unreleased)
+3.5.0 (2018-04-10)
 ------------------
 
 - Honor the order of attribute choices in the docs.
