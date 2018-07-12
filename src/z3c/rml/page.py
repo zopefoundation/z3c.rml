@@ -35,14 +35,15 @@ class MergePostProcessor(object):
         output = PyPDF2.PdfFileWriter()
         # TODO: Do not access protected classes
         output._info.getObject().update(input1.documentInfo)
-        if output._root:
-            # Backwards-compatible with PyPDF2 version 1.21
-            output._root.getObject()[NameObject("/Outlines")] = (
-                output._addObject(input1.trailer["/Root"]["/Outlines"]))
-        else:
-            # Compatible with PyPDF2 version 1.22+
-            output._root_object[NameObject("/Outlines")] = (
-                output._addObject(input1.trailer["/Root"]["/Outlines"]))
+        if "/Outlines" in input1.trailer["/Root"]:
+            if output._root:
+                # Backwards-compatible with PyPDF2 version 1.21
+                output._root.getObject()[NameObject("/Outlines")] = (
+                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
+            else:
+                # Compatible with PyPDF2 version 1.22+
+                output._root_object[NameObject("/Outlines")] = (
+                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
         for (num, page) in enumerate(input1.pages):
             if num in self.operations:
                 for mergeFile, mergeNumber in self.operations[num]:
