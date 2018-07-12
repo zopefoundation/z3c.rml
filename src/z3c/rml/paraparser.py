@@ -236,6 +236,19 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
         self.bulletText = bulletText
         self.debug = 0
 
+    def breakLines(self, *args, **kwargs):
+
+        # ReportLab 3.4.0 introduced caching to Paragraph which breaks how
+        # we've implemented lookaheads. To get around it we need to bust the
+        # cache when dynamic tags are used.
+
+        unprocessed_frags = self.frags
+        bust_cache = any(isinstance(f, ParaFragWrapper) for f in self.frags)
+        result = super(Z3CParagraph, self).breakLines(*args, **kwargs)
+        if bust_cache:
+            self.frags = unprocessed_frags
+        return result
+
 
 class ImageReader(reportlab.lib.utils.ImageReader):
 
