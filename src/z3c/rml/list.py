@@ -153,7 +153,7 @@ class IUnorderedList(IListBase):
         title=u'Bullet Value',
         description=u'The type of bullet character.',
         choices=interfaces.UNORDERED_BULLET_VALUES,
-        default='disc',
+        default='circle',
         required=False)
 
 class UnorderedList(ListBase):

@@ -58,7 +58,7 @@ ORDERED_LIST_TYPES = ('I', 'i', '1', 'A', 'a', 'l', 'L', 'O', 'o', 'R', 'r')
 
 UNORDERED_BULLET_VALUES = (
     'bulletchar', 'bullet', 'circle', 'square', 'disc', 'diamond',
-    'rarrowhead')
+    'rarrowhead', 'diamondwx', 'sparkle', 'squarelrs', 'blackstar')
 
 LOG_LEVELS = collections.OrderedDict([
     ('DEBUG', logging.DEBUG),
