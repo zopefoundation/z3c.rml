@@ -501,6 +501,13 @@ class BlockSpan(TableStyleCommand):
     signature = IBlockSpan
     name = 'SPAN'
 
+class IBlockNosplit(ITableStyleCommand):
+    """Define a nosplit over multiple cells (rows and columns)."""
+
+class BlockNosplit(TableStyleCommand):
+    signature = IBlockNosplit
+    name = 'NOSPLIT'
+
 class ILineStyle(ITableStyleCommand):
     """Define the border line style of each cell."""
 
@@ -577,6 +584,7 @@ class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('blockColBackground', IBlockColBackground),
         occurence.ZeroOrMore('blockValign', IBlockValign),
         occurence.ZeroOrMore('blockSpan', IBlockSpan),
+        occurence.ZeroOrMore('blockNosplit', IBlockNosplit),
         occurence.ZeroOrMore('lineStyle', ILineStyle)
         )
 
@@ -608,6 +616,7 @@ class BlockTableStyle(directive.RMLDirective):
         'blockColBackground': BlockColBackground,
         'blockValign': BlockValign,
         'blockSpan': BlockSpan,
+        'blockNosplit': BlockNosplit,
         'lineStyle': LineStyle,
         }
 
