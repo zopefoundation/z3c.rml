@@ -43,7 +43,7 @@ TESTS_REQUIRE = [
 
 setup (
     name="z3c.rml",
-    version='3.5.1.dev0',
+    version='3.5.1',
     author="Stephan Richter and the Zope Community",
     author_email="zope-dev@zope.org",
     description="An alternative implementation of RML",

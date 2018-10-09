@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.5.1 (unreleased)
+3.5.1 (2018-10-09)
 ------------------
 
 - Upgraded to support Reportlab 3.5.9
