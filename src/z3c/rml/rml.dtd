@@ -132,7 +132,7 @@
 <!ATTLIST paraStyle leftIndent CDATA #IMPLIED>
 <!ATTLIST paraStyle rightIndent CDATA #IMPLIED>
 <!ATTLIST paraStyle firstLineIndent CDATA #IMPLIED>
-<!ATTLIST paraStyle alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST paraStyle alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST paraStyle spaceBefore CDATA #IMPLIED>
 <!ATTLIST paraStyle spaceAfter CDATA #IMPLIED>
 <!ATTLIST paraStyle bulletFontName CDATA #IMPLIED>
@@ -223,7 +223,7 @@
 <!ELEMENT blockValign>
 <!ATTLIST blockValign start CDATA #REQUIRED>
 <!ATTLIST blockValign stop CDATA #REQUIRED>
-<!ATTLIST blockValign value (top|middle|bottom) #REQUIRED>
+<!ATTLIST blockValign value (middle|top|bottom) #REQUIRED>
 
 <!ELEMENT blockSpan>
 <!ATTLIST blockSpan start CDATA #REQUIRED>
@@ -371,7 +371,7 @@
 <!ATTLIST title leftIndent CDATA #IMPLIED>
 <!ATTLIST title rightIndent CDATA #IMPLIED>
 <!ATTLIST title firstLineIndent CDATA #IMPLIED>
-<!ATTLIST title alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST title alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST title spaceBefore CDATA #IMPLIED>
 <!ATTLIST title spaceAfter CDATA #IMPLIED>
 <!ATTLIST title bulletFontName CDATA #IMPLIED>
@@ -409,7 +409,7 @@
 <!ATTLIST h1 leftIndent CDATA #IMPLIED>
 <!ATTLIST h1 rightIndent CDATA #IMPLIED>
 <!ATTLIST h1 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h1 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h1 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h1 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h1 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h1 bulletFontName CDATA #IMPLIED>
@@ -447,7 +447,7 @@
 <!ATTLIST h2 leftIndent CDATA #IMPLIED>
 <!ATTLIST h2 rightIndent CDATA #IMPLIED>
 <!ATTLIST h2 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h2 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h2 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h2 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h2 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h2 bulletFontName CDATA #IMPLIED>
@@ -485,7 +485,7 @@
 <!ATTLIST h3 leftIndent CDATA #IMPLIED>
 <!ATTLIST h3 rightIndent CDATA #IMPLIED>
 <!ATTLIST h3 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h3 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h3 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h3 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h3 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h3 bulletFontName CDATA #IMPLIED>
@@ -523,7 +523,7 @@
 <!ATTLIST h4 leftIndent CDATA #IMPLIED>
 <!ATTLIST h4 rightIndent CDATA #IMPLIED>
 <!ATTLIST h4 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h4 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h4 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h4 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h4 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h4 bulletFontName CDATA #IMPLIED>
@@ -561,7 +561,7 @@
 <!ATTLIST h5 leftIndent CDATA #IMPLIED>
 <!ATTLIST h5 rightIndent CDATA #IMPLIED>
 <!ATTLIST h5 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h5 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h5 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h5 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h5 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h5 bulletFontName CDATA #IMPLIED>
@@ -599,7 +599,7 @@
 <!ATTLIST h6 leftIndent CDATA #IMPLIED>
 <!ATTLIST h6 rightIndent CDATA #IMPLIED>
 <!ATTLIST h6 firstLineIndent CDATA #IMPLIED>
-<!ATTLIST h6 alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST h6 alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST h6 spaceBefore CDATA #IMPLIED>
 <!ATTLIST h6 spaceAfter CDATA #IMPLIED>
 <!ATTLIST h6 bulletFontName CDATA #IMPLIED>
@@ -637,7 +637,7 @@
 <!ATTLIST para leftIndent CDATA #IMPLIED>
 <!ATTLIST para rightIndent CDATA #IMPLIED>
 <!ATTLIST para firstLineIndent CDATA #IMPLIED>
-<!ATTLIST para alignment (left|right|center|centre|justify) #IMPLIED>
+<!ATTLIST para alignment (right|justify|center|centre|left) #IMPLIED>
 <!ATTLIST para spaceBefore CDATA #IMPLIED>
 <!ATTLIST para spaceAfter CDATA #IMPLIED>
 <!ATTLIST para bulletFontName CDATA #IMPLIED>
@@ -684,7 +684,7 @@
 <!ATTLIST td bottomPadding CDATA #IMPLIED>
 <!ATTLIST td background CDATA #IMPLIED>
 <!ATTLIST td align (left|right|center|centre|decimal) #IMPLIED>
-<!ATTLIST td vAlign (top|middle|bottom) #IMPLIED>
+<!ATTLIST td vAlign (middle|top|bottom) #IMPLIED>
 <!ATTLIST td lineBelowThickness CDATA #IMPLIED>
 <!ATTLIST td lineBelowColor CDATA #IMPLIED>
 <!ATTLIST td lineBelowCap (default|butt|round|square) #IMPLIED>
@@ -776,7 +776,7 @@
 <!ELEMENT blockValign>
 <!ATTLIST blockValign start CDATA #REQUIRED>
 <!ATTLIST blockValign stop CDATA #REQUIRED>
-<!ATTLIST blockValign value (top|middle|bottom) #REQUIRED>
+<!ATTLIST blockValign value (middle|top|bottom) #REQUIRED>
 
 <!ELEMENT blockSpan>
 <!ATTLIST blockSpan start CDATA #REQUIRED>
@@ -825,7 +825,7 @@
 <!ATTLIST img preserveAspectRatio CDATA #IMPLIED>
 <!ATTLIST img mask CDATA #IMPLIED>
 <!ATTLIST img align (left|right|center|centre|decimal) #IMPLIED>
-<!ATTLIST img vAlign (top|middle|bottom) #IMPLIED>
+<!ATTLIST img vAlign (middle|top|bottom) #IMPLIED>
 
 <!ELEMENT imageAndFlowables>
 <!ATTLIST imageAndFlowables imageName CDATA #REQUIRED>
@@ -877,7 +877,7 @@
 <!ATTLIST hr spaceBefore CDATA #IMPLIED>
 <!ATTLIST hr spaceAfter CDATA #IMPLIED>
 <!ATTLIST hr align (left|right|center|centre|decimal) #IMPLIED>
-<!ATTLIST hr valign (top|middle|bottom) #IMPLIED>
+<!ATTLIST hr valign (middle|top|bottom) #IMPLIED>
 <!ATTLIST hr dash CDATA #IMPLIED>
 
 <!ELEMENT showIndex>
@@ -1972,7 +1972,7 @@
 <!ATTLIST pieChart startAngle CDATA #IMPLIED>
 <!ATTLIST pieChart direction (clockwise|anticlockwise) #IMPLIED>
 <!ATTLIST pieChart checkLabelOverlap CDATA #IMPLIED>
-<!ATTLIST pieChart pointerLabelMode (none|leftright|leftandright) #IMPLIED>
+<!ATTLIST pieChart pointerLabelMode (none|leftandright|leftright) #IMPLIED>
 <!ATTLIST pieChart sameRadii CDATA #IMPLIED>
 <!ATTLIST pieChart orderMode (fixed|alternate) #IMPLIED>
 <!ATTLIST pieChart xradius CDATA #IMPLIED>
@@ -2067,7 +2067,7 @@
 <!ATTLIST pieChart3D startAngle CDATA #IMPLIED>
 <!ATTLIST pieChart3D direction (clockwise|anticlockwise) #IMPLIED>
 <!ATTLIST pieChart3D checkLabelOverlap CDATA #IMPLIED>
-<!ATTLIST pieChart3D pointerLabelMode (none|leftright|leftandright) #IMPLIED>
+<!ATTLIST pieChart3D pointerLabelMode (none|leftandright|leftright) #IMPLIED>
 <!ATTLIST pieChart3D sameRadii CDATA #IMPLIED>
 <!ATTLIST pieChart3D orderMode (fixed|alternate) #IMPLIED>
 <!ATTLIST pieChart3D xradius CDATA #IMPLIED>

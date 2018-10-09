@@ -175,10 +175,6 @@ def test_suite():
         if not filename.endswith(".rml"):
             continue
 
-        if filename == 'rml-examples-032-images.rml':
-            # This fails on Travis for no reason, so we skip it.
-            continue
-
         inPath = os.path.join(inputDir, filename)
         outPath = os.path.join(outputDir, filename[:-4] + '.pdf')
         expectPath = os.path.join(expectDir, filename[:-4] + '.pdf')
