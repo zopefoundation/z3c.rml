@@ -5,7 +5,7 @@ CHANGES
 3.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Upgraded to support Reportlab 3.5.9
 
 
 3.5.0 (2018-04-10)

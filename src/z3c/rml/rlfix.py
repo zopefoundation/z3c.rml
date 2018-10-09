@@ -77,11 +77,21 @@ from reportlab.platypus.flowables import ListFlowable, LIIndenter, _LIParams, \
     _computeBulletWidth
 
 def ListFlowable_getContent(self):
-    value = self._start
     bt = self._bulletType
+    value = self._start
+    if isinstance(value,(list,tuple)):
+        values = value
+        value = values[0]
+    else:
+        values = [value]
+    autov = values[0]
     # FIX TO ALLOW ALL FORMATTERS!!!
-    inc = int(bt in _type2formatter.keys())
-    if inc: value = int(value)
+    inc = int(bt in self._numberStyles)
+    if inc:
+        try:
+            value = int(value)
+        except:
+            value = 1
 
     bd = self._bulletDedent
     if bd=='auto':
@@ -124,6 +134,19 @@ def ListFlowable_getContent(self):
     aS = S.append
     i=0
     for d,f in self._flowablesIter():
+        if isinstance(f,ListFlowable):
+            fstart = f._start
+            if isinstance(fstart,(list,tuple)):
+                fstart = fstart[0]
+            if fstart in values:
+                #my kind of ListFlowable
+                if f._auto:
+                    autov = values.index(autov)+1
+                    f._start = values[autov:]+values[:autov]
+                    autov = f._start[0]
+                    if inc: f._bulletType = autov
+                else:
+                    autov = fstart
         fparams = {}
         if not i:
             i += 1
@@ -165,3 +188,4 @@ def ListFlowable_getContent(self):
     return S
 
 ListFlowable._getContent = ListFlowable_getContent
+ListFlowable._numberStyles = _type2formatter.keys()
