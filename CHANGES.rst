@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.6.1 (unreleased)
+3.6.1 (2018-12-01)
 ------------------
 
 - Add Python 3.7 Trove classifier.
