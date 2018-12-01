@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.6.0 (unreleased)
+3.6.0 (2018-12-01)
 ------------------
 
 - Upgraded to support Python 3.7
