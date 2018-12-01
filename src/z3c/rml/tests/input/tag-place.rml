@@ -53,5 +53,31 @@
       <para>A paragraph within the place.</para>
     </place>
 
+    <drawString x="1cm" y="8cm">
+      Below is a place with fitted content.
+    </drawString>
+
+    <place
+        x="1cm" y="6cm" width="13cm" height="1.5cm">
+      <fixedSize  width="13cm" height="1.5cm">
+        <para>
+          A long paragraph within the place.
+          A long paragraph within the place.
+          A long paragraph within the place.
+          A long paragraph within the place.
+        </para>
+        <para>
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+          A second long paragraph.
+        </para>
+      </fixedSize>
+    </place>
+
   </pageDrawing>
 </document>

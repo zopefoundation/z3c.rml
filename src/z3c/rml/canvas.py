@@ -419,6 +419,7 @@ class Place(CanvasRMLDirective):
 
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
         for flow in flows.flow:
+            flow.canv = canvas
             flowWidth, flowHeight = flow.wrap(width, height)
             if flowWidth <= width and flowHeight <= height:
                 y -= flowHeight
