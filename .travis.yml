@@ -9,6 +9,12 @@ python:
     - "2.7"
     - "3.5"
     - "3.6"
+matrix:
+    include:
+        - python: "3.7"
+          dist: xenial
+          sudo: true
+
 # The version of GS in the repos is too old and using debian-sid often breaks
 before_install:
     - wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs922/ghostscript-9.22-linux-x86_64.tgz

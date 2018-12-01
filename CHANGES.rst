@@ -2,10 +2,13 @@
 CHANGES
 =======
 
-3.5.2 (unreleased)
+3.6.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Upgraded to support Python 3.7
+
+- Allow ``<place>`` to contain ``<fixedSize>``, which allows content to be
+  fitted into the place boundaries.
 
 
 3.5.1 (2018-10-09)
