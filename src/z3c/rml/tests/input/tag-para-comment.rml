@@ -2,7 +2,7 @@
 <!DOCTYPE document SYSTEM "rml.dtd">
 
 <document
-    filename="tag-paraWordWrap.pdf"
+    filename="tag-para-comment.pdf"
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <template>
@@ -11,20 +11,11 @@
     </pageTemplate>
   </template>
 
-  <stylesheet>
-    <spanStyle
-        name="important"
-        textColor="red"
-        backColor="#FFFFDD"
-        doc:example=""
-        />
-  </stylesheet>
-
   <story>
     <para>
-      This is paragraph with an
-      <span style="important">important message</span>!
-      <b>More<i> important <span>piece</span> of </i>information</b>
+      This is a paragraph with
+      <!-- some comment added in the middle -->
+      of the text
     </para>
   </story>
 
