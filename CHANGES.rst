@@ -5,7 +5,7 @@ CHANGES
 3.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix num2words (missing import, two digit dashes)
 
 
 3.6.1 (2018-12-01)
