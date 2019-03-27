@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.6.2 (unreleased)
+3.6.2 (2019-03-27)
 ------------------
 
 - Fix num2words (missing import, two digit dashes)
