@@ -7,6 +7,9 @@ CHANGES
 
 - Fix num2words (missing import, two digit dashes)
 
+- Added test to check what happens with text not in tags
+  (e.g. not in a ``<para>`` tag)
+
 
 3.6.1 (2018-12-01)
 ------------------
