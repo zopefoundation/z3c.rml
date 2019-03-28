@@ -42,5 +42,23 @@
       <img src="[z3c.rml.tests]/input/images/replogo.gif"
            width="36pt" height="18pt" />
     </para>
+
+    <para>Checking image after image on the story level:</para>
+    <img src="[z3c.rml.tests]/input/images/replogo.gif"
+         width="36pt" height="18pt" />
+    <img src="[z3c.rml.tests]/input/images/replogo.gif"
+         width="36pt" height="18pt" />
+    <img src="[z3c.rml.tests]/input/images/replogo.gif"
+         width="36pt" height="18pt" />
+
+    <para>Checking image after image on the paragraph level:
+        <img src="[z3c.rml.tests]/input/images/replogo.gif"
+             width="36pt" height="18pt" />
+        <img src="[z3c.rml.tests]/input/images/replogo.gif"
+             width="36pt" height="18pt" />
+        <img src="[z3c.rml.tests]/input/images/replogo.gif"
+             width="36pt" height="18pt" />
+    </para>
+
   </story>
 </document>
