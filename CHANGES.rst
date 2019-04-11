@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.6.3 (unreleased)
+3.6.3 (2019-04-11)
 ------------------
 
 - Added missing ``lineBelowDash``, ``lineAboveDash``, ``lineLeftDash``,
