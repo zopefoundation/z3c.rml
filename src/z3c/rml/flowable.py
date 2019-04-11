@@ -466,6 +466,13 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
                      u'double (2) line.'),
         required=False)
 
+    lineBelowDash = attr.Sequence(
+        title=u'Line Below Dash',
+        description=u'The dash-pattern of a line.',
+        value_type=attr.Measurement(),
+        default=None,
+        required=False)
+
     lineBelowSpace = attr.Measurement(
         title=u'Line Below Space',
         description=u'The space of the line below the cell.',
@@ -491,6 +498,13 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
         title=u'Line Above Count',
         description=(u'Describes whether the line above is a single (1) or '
                      u'double (2) line.'),
+        required=False)
+
+    lineAboveDash = attr.Sequence(
+        title=u'Line Above Dash',
+        description=u'The dash-pattern of a line.',
+        value_type=attr.Measurement(),
+        default=None,
         required=False)
 
     lineAboveSpace = attr.Measurement(
@@ -520,6 +534,13 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
                      u'double (2) line.'),
         required=False)
 
+    lineLeftDash = attr.Sequence(
+        title=u'Line Left Dash',
+        description=u'The dash-pattern of a line.',
+        value_type=attr.Measurement(),
+        default=None,
+        required=False)
+
     lineLeftSpace = attr.Measurement(
         title=u'Line Left Space',
         description=u'The space of the line left of the cell.',
@@ -545,6 +566,13 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
         title=u'Line Right Count',
         description=(u'Describes whether the right line is a single (1) or '
                      u'double (2) line.'),
+        required=False)
+
+    lineRightDash = attr.Sequence(
+        title=u'Line Right Dash',
+        description=u'The dash-pattern of a line.',
+        value_type=attr.Measurement(),
+        default=None,
         required=False)
 
     lineRightSpace = attr.Measurement(
@@ -579,13 +607,17 @@ class TableCell(directive.RMLDirective):
         ('ALIGNMENT', ('align',)),
         ('VALIGN', ('vAlign',)),
         ('LINEBELOW', ('lineBelowThickness', 'lineBelowColor',
-                       'lineBelowCap', 'lineBelowCount', 'lineBelowSpace')),
+                       'lineBelowCap', 'lineBelowCount',
+                       'lineBelowDash', 'lineBelowSpace')),
         ('LINEABOVE', ('lineAboveThickness', 'lineAboveColor',
-                       'lineAboveCap', 'lineAboveCount', 'lineAboveSpace')),
+                       'lineAboveCap', 'lineAboveCount',
+                       'lineAboveDash', 'lineAboveSpace')),
         ('LINEBEFORE', ('lineLeftThickness', 'lineLeftColor',
-                        'lineLeftCap', 'lineLeftCount', 'lineLeftSpace')),
+                        'lineLeftCap', 'lineLeftCount',
+                        'lineLeftDash', 'lineLeftSpace')),
         ('LINEAFTER', ('lineRightThickness', 'lineRightColor',
-                       'lineRightCap', 'lineRightCount', 'lineRightSpace')),
+                       'lineRightCap', 'lineRightCount',
+                       'lineRightDash', 'lineRightSpace')),
         ('HREF', ('href',)),
         ('DESTINATION', ('destination',)),
         )

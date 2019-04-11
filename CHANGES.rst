@@ -5,7 +5,8 @@ CHANGES
 3.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added missing ``lineBelowDash``, ``lineAboveDash``, ``lineLeftDash``,
+  ``lineRightDash`` attributes
 
 
 3.6.2 (2019-03-27)
