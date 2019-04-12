@@ -53,6 +53,15 @@
         bulletDedent="20"
         leftIndent="20"
         />
+    <listStyle
+        name="OrdinalEnumSecond"
+        bulletFontName="Helvetica-Bold"
+        bulletFontSize="8"
+        bulletFormat="%s:"
+        bulletType="R"
+        bulletDedent="20"
+        leftIndent="20"
+        />
   </stylesheet>
 
   <story>
@@ -217,6 +226,209 @@
       <li><para>Two</para></li>
       <li><para>Three</para></li>
     </ol>
+
+    <nextPage />
+    <h2>MyEnum</h2>
+
+    <para>Bullet format: Parenthesis around numbers</para>
+
+    <ol style="MyEnum">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <para>Multiple levels</para>
+
+    <ol>
+      <li><para>Welcome to RML 1</para></li>
+      <li>
+        <ol bulletType="A">
+          <li><para>Ordered 1</para></li>
+          <li><para>Ordered 2</para></li>
+          <li>
+            <ol bulletType="i">
+              <li><para>Ordered - another one</para></li>
+              <li><para>Ordered - another one</para></li>
+              <li>
+                <ol style="MyEnum">
+                  <li><para>Item 1</para></li>
+                  <li><para>Item 2</para></li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li><para>Ordered 3</para></li>
+          <li><para>Ordered 4</para></li>
+          <li><para>Ordered 5</para></li>
+          <li><para>Ordered 6</para></li>
+        </ol>
+      </li>
+      <li><para>Welcome to RML 2</para></li>
+      <li><para>Welcome to RML 3</para></li>
+    </ol>
+
+    <h1>Ordered List Bullet Types</h1>
+
+    <spacer length="0.5in" />
+
+    <h2>1</h2>
+
+    <ol style="Ordered" bulletType="1">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>a</h2>
+
+    <ol style="Ordered" bulletType="a">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>A</h2>
+
+    <ol style="Ordered" bulletType="A">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>i</h2>
+
+    <ol style="Ordered" bulletType="i">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>I</h2>
+
+    <ol style="Ordered" bulletType="I">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>l</h2>
+
+    <ol style="Ordered" bulletType="l">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>L</h2>
+
+    <ol style="Ordered" bulletType="L">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>o</h2>
+
+    <ol style="Ordered" bulletType="o">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>O</h2>
+
+    <ol style="Ordered" bulletType="O">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>r</h2>
+
+    <ol style="Ordered" bulletType="r">
+      <li><para>One</para></li>
+      <li><para>Two <b>bold</b></para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+
+    <h2>R</h2>
+
+    <ol style="Ordered" bulletType="R">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <spacer length="0.5in" />
+    <para>Use style to set bullet type.</para>
+    <spacer length="0.1in" />
+
+    <ol style="OrdinalEnumSecond">
+      <li><para>One</para></li>
+      <li><para>Two</para></li>
+      <li><para>Three</para></li>
+    </ol>
+
+    <h1>Starting with a given number</h1>
+
+    <ol>
+      <li value="5"><para>Five</para></li>
+      <li>
+        <para>Six <b>bold</b></para>
+      </li>
+      <li>
+        <para> Spaced Seven</para>
+      </li>
+    </ol>
+
+    <ol style="Ordered" bulletType="R">
+      <li value="5"><para>Five</para></li>
+      <li>
+        <para>Six <b>bold</b></para>
+      </li>
+      <li>
+        <para> Spaced Seven</para>
+      </li>
+      <li>
+        <para>
+            Even more spaced
+        </para>
+      </li>
+    </ol>
+
+    <h1>No para list items</h1>
+
+    <ol>
+      <li value="5"><i>Fifth item</i></li>
+      <li>
+        Six <b>bold</b>
+      </li>
+      <li>
+        Spaced Seven
+      </li>
+    </ol>
+
 
   </story>
 
