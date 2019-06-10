@@ -828,7 +828,8 @@ class Renderer:
                     minx, miny, width, height = node.get("viewBox").split()
                 except ValueError:
                     raise SVGError("viewBox values not valid")
-
+            else:
+                minx, miny = 0, 0
             if width.endswith('%') and height.endswith('%'):
                 # handle relative size
                 wscale = parseLength(width) / 100.
