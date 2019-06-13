@@ -2,10 +2,28 @@
 CHANGES
 =======
 
-3.6.4 (unreleased)
+3.7.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- ``<paraStyle>``:
+
+  * ``underline``: A boolean field indicating whether the entire paragraph is
+    underlined. The following related attributes have also been added to the
+    style: ``underlineColor``, ``underlineOffset``, ``underlineWidth``,
+    ``underlineGap``, and ``underlineKind``
+
+  * ``strike``: A boolean field indicating whether the entire paragraph is
+    stricken. The following related attributes have also been added to the
+    style: ``strikeColor``, ``strikeOffset``, ``strikeWidth``,
+    ``strikeGap``, and ``strikeKind``
+
+  * ``justifyLastLine``: Added attribute that is available in the API.
+
+  * ``justifyBreaks``: Added attribute that is available in the API.
+
+  * ``spaceShrinkage``: Added attribute that is available in the API.
+
+  * ``linkUnderline``: Added attribute that is available in the API.
 
 
 3.6.3 (2019-04-11)

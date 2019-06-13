@@ -147,9 +147,18 @@ class IBaseParagraphStyle(ISpanStyle):
         description=u'The indentation that is kept for a bullet point.',
         required=False)
 
-    wordWrap = attr.String(
+    bulletColor = attr.Color(
+        title=u'Bullet Color',
+        description=u'The color in which the bullet will appear.',
+        required=False)
+
+    wordWrap = attr.Choice(
         title=u'Word Wrap Method',
-        description=(u'When set to "CJK", invoke CJK word wrapping'),
+        description=(
+            u'When set to "CJK", invoke CJK word wrapping. LTR RTL use '
+            u'left to right / right to left with support from pyfribi2 if '
+            u'available'),
+        choices=interfaces.WORD_WRAP_CHOICES,
         required=False)
 
     borderWidth = attr.Measurement(
@@ -199,13 +208,112 @@ class IBaseParagraphStyle(ISpanStyle):
         default=True,
         required=False)
 
-    underlineProportion = attr.Float(
-        title=u'Underline Proportion',
-        description=(u'When set to non-zero value, it provides the scaling '
-                     u'factor for the width of the underine based on '
-                     u'current font size.'),
-        min=0.0,
-        default=0.0,
+    underline = attr.Boolean(
+        title=u'Underline Text',
+        description=u'A flag, when set, causes text to be underlined.',
+        required=False)
+
+    underlineColor = attr.Color(
+        title=u'Underline Color',
+        description=u'The color in which the underline will appear.',
+        required=False)
+
+    underlineWidth = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Width',
+        description=(u'The width/thickness of the underline.'),
+        required=False)
+
+    underlineOffset = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Offset',
+        description=(
+            u'The offset of the underline with respect to the baseline.'),
+        required=False)
+
+    underlineGap = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Gap',
+        description=(u'The gap between lines for double and triple underlines.'),
+        required=False)
+
+    underlineKind = attr.Choice(
+        title=u'Underline kind',
+        description=(u'The kind of the underline to use.'),
+        choices=interfaces.UNDERLINE_KIND_CHOICES,
+        default='single',
+        required=False)
+
+    strike = attr.Boolean(
+        title=u'Strike-through Text',
+        description=u'A flag, when set, causes text to be struck out.',
+        required=False)
+
+    strikeColor = attr.Color(
+        title=u'Strike Color',
+        description=u'The color in which the strike line will appear.',
+        required=False)
+
+    strikeWidth = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Width',
+        description=(u'The width of the strike line.'),
+        required=False)
+
+    strikeOffset = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Offset',
+        description=(
+            u'The offset of the strike line with respect to the baseline.'),
+        required=False)
+
+    strikeGap = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Gap',
+        description=(
+            u'The gap between lines for double and triple strike lines.'),
+        required=False)
+
+    strikeKind = attr.Choice(
+        title=u'Underline Offset',
+        description=(
+            u'The offset of the underline with respect to the baseline.'),
+        choices=interfaces.UNDERLINE_KIND_CHOICES,
+        default='single',
+        required=False)
+
+    strikeKind = attr.Choice(
+        title=u'Underline Offset',
+        description=(
+            u'The offset of the underline with respect to the baseline.'),
+        choices=interfaces.UNDERLINE_KIND_CHOICES,
+        default='single',
+        required=False)
+
+    justifyLastLine = attr.Integer(
+        title=u'Justify Last Line',
+        description=(
+            u'Justify last line if there are more then this number of words. '
+            u'Otherwise, don\'t bother.'),
+        default=0,
+        required=False)
+
+    justifyBreaks = attr.Boolean(
+        title=u'Justify Breaks',
+        description=(
+            u'A flag, when set indicates that a line with a break should be '
+            u'justified as well.'),
+        default=False,
+        required=False)
+
+    spaceShrinkage = attr.Float(
+        title=u'Allowed Whitespace Shrinkage Fraction',
+        description=(
+            u'The smallest fraction of the original whitespace width allowed '
+            u'to try fitting text to a line.'),
+        default=1.0,
+        required=False)
+
+    linkUnderline = attr.Boolean(
+        title=u'Underline Links',
+        description=(
+            u'A flag, when set indicating that all links should be '
+            u'underlined.'),
+        default=False,
         required=False)
 
     bulletAnchor = attr.Choice(

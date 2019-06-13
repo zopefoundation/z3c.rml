@@ -48,7 +48,13 @@ VALIGN_TEXT_CHOICES = {
 
 SPLIT_CHOICES = ('splitfirst', 'splitlast')
 
+WORD_WRAP_CHOICES = ('CJK', 'RTL', 'LTR')
+
 TEXT_TRANSFORM_CHOICES = ('none', 'uppercase', 'lowercase', 'capitalize')
+
+TEXT_DECORATION_CHOICES = ('underline', 'strike')
+
+UNDERLINE_KIND_CHOICES = ('single', 'double', 'triple')
 
 BULLET_ANCHOR_CHOICES = ('start', 'middle', 'end', 'numeric')
 

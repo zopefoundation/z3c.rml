@@ -72,6 +72,26 @@ Incompatibilies
 - ``<widget>``: There is no documentation for this tag and I do not know what
   it is supposed to do. Thus z3c.rml does not implement it.
 
+- ``<paraStyle>``:
+
+  * ``underline``: A boolean field indicating whether the entire paragraph is
+    underlined. The following related attributes have also been added to the
+    style: ``underlineColor``, ``underlineOffset``, ``underlineWidth``,
+    ``underlineGap``, and ``underlineKind``
+
+  * ``strike``: A boolean field indicating whether the entire paragraph is
+    stricken. The following related attributes have also been added to the
+    style: ``strikeColor``, ``strikeOffset``, ``strikeWidth``,
+    ``strikeGap``, and ``strikeKind``
+
+  * ``justifyLastLine``: Added attribute that is available in the API.
+
+  * ``justifyBreaks``: Added attribute that is available in the API.
+
+  * ``spaceShrinkage``: Added attribute that is available in the API.
+
+  * ``linkUnderline``: Added attribute that is available in the API.
+
 
 Extensions
 ----------
@@ -128,7 +148,7 @@ naming.
 - paraStyle: fontName -> fontname, fontSize -> fontsize, -keepWithNext,
   -wordWrap, -border*
 
-- blockTableStyle: -keepWtihNext
+- blockTableStyle: -keepWithNext
 
 - blockBackground: -colorsByRow, -colorsByCol
 

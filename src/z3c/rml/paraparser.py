@@ -138,6 +138,8 @@ class SpanStyle(reportlab.lib.styles.PropertySet):
 class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     """Extensions to paragraph-internal XML parsing."""
 
+    _lineAttrs = ('color', 'width', 'offset', 'gap', 'kind')
+
     def __init__(self, manager, *args, **kwargs):
         reportlab.platypus.paraparser.ParaParser.__init__(self, *args, **kwargs)
         self.manager = manager
@@ -162,6 +164,34 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     def endDynamic(self):
         if not self.in_eval:
             self._stack.pop()
+
+    def start_para(self, attr):
+        reportlab.platypus.paraparser.ParaParser.start_para(self, attr)
+
+        # Support for underline.
+        if getattr(self._style, 'underline', False):
+            attrs = {}
+            for name in self._lineAttrs:
+                styleName = 'underline' + name.title()
+                if hasattr(self._style, styleName):
+                    attrs[name] = getattr(self._style, styleName)
+            self.start_u(attrs)
+
+        # Support for strike.
+        if getattr(self._style, 'strike', False):
+            attrs = {}
+            for name in self._lineAttrs:
+                styleName = 'strike' + name.title()
+                if hasattr(self._style, styleName):
+                    attrs[name] = getattr(self._style, styleName)
+            self.start_strike(attrs)
+
+    def end_para(self):
+        if getattr(self._style, 'strike', False):
+            self.end_strike()
+        if getattr(self._style, 'underline', False):
+            self.end_u()
+        reportlab.platypus.paraparser.ParaParser.end_para(self)
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)

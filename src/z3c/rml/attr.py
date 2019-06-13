@@ -339,6 +339,32 @@ class Measurement(RMLAttribute):
             value, getFileInfo(self.context)))
 
 
+class FontSizeRelativeMeasurement(RMLAttribute):
+    """This field is a measurement always relative to the current font size.
+
+    The units "F", "f" and "L" refer to a multiple of the current font size,
+    while "P" refers to the fractional font size. If no units are specified,
+    the value is given in points/pixels.
+    """
+
+    _format = re.compile(r'^\s*(\+?-?[0-9\.]*)\s*(P|L|f|F)?\s*$')
+
+    def fromUnicode(self, value):
+        if value == 'None':
+            return None
+        # Normalize
+        match = self._format.match(value)
+        if match is None:
+            raise ValueError(
+                'The value %r is not a valid text line measurement. %s' % (
+                    value, getFileInfo(self.context)))
+        number, unit = match.groups()
+        normalized = number
+        if unit is not None:
+            normalized += '*' + unit
+        return normalized
+
+
 class File(Text):
     """This field will return a file object.
 
