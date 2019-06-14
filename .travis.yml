@@ -21,7 +21,7 @@ before_install:
     - mv ghostscript-9.22-linux-x86_64/gs-922-linux-x86_64 ghostscript-9.22-linux-x86_64/gs
     - export PATH=$PWD/ghostscript-9.22-linux-x86_64:$PATH
 install:
-    - travis_retry pip install tox-travis
+    - travis_retry pip install tox tox-travis coveralls
 script:
     - tox
 notifications:
