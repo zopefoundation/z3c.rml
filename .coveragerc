@@ -1,0 +1,4 @@
+[run]
+include = */z3c/rml/*
+omit = */test*
+
