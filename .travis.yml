@@ -16,6 +16,7 @@ matrix:
 
 # The version of GS in the repos is too old and using debian-sid often breaks
 before_install:
+    - echo $ENV
     - wget https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs922/ghostscript-9.22-linux-x86_64.tgz
     - tar -xvf ghostscript-9.22-linux-x86_64.tgz
     - mv ghostscript-9.22-linux-x86_64/gs-922-linux-x86_64 ghostscript-9.22-linux-x86_64/gs
