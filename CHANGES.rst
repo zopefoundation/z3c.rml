@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.7.0 (unreleased)
+3.7.0 (2019-06-14)
 ------------------
 
 - Drop support for running tests using ``python setup.py test``.
