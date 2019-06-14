@@ -27,4 +27,6 @@ script:
 notifications:
     email: false
 after_success:
-    - coveralls
+    - if [[ $ENV == python=3.7* ]]; then
+        coveralls;
+      fi
