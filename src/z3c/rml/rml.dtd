@@ -306,8 +306,14 @@
 <!ATTLIST mergePage filename CDATA #REQUIRED>
 <!ATTLIST mergePage page CDATA #REQUIRED>
 
-<!ELEMENT story (spacer*,illustration*,pre*,xpre*,codesnippet*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,h4*,h5*,h6*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,img*,imageAndFlowables*,pto*,indent*,fixedSize*,bookmarkPage*,bookmark*,link*,hr*,showIndex*,name*,namedString*,log*,debug*,info*,warning*,error*,critical*,docAssign*,docExec*,docPara*,docIf*,docElse*,docWhile*,ol*,ul*,includePdfPages*,storyPlace*)>
+<!ELEMENT story (pto*,spacer*,illustration*,pre*,xpre*,codesnippet*,plugInFlowable*,barCodeFlowable*,outlineAdd*,title*,h1*,h2*,h3*,h4*,h5*,h6*,para*,blockTable*,nextFrame*,setNextFrame*,nextPage*,setNextTemplate*,condPageBreak*,keepInFrame*,keepTogether*,img*,imageAndFlowables*,indent*,fixedSize*,bookmarkPage*,bookmark*,link*,hr*,showIndex*,name*,namedString*,log*,debug*,info*,warning*,error*,critical*,docAssign*,docExec*,docPara*,docIf*,docElse*,docWhile*,ol*,ul*,includePdfPages*,storyPlace*)>
 <!ATTLIST story firstPageTemplate CDATA #IMPLIED>
+
+<!ELEMENT pto (pto_header?,pto_trailer?)>
+
+<!ELEMENT pto_header>
+
+<!ELEMENT pto_trailer>
 
 <!ELEMENT spacer>
 <!ATTLIST spacer width CDATA #IMPLIED>
@@ -985,8 +991,6 @@
 <!ATTLIST imageAndFlowables imageTopPadding CDATA #IMPLIED>
 <!ATTLIST imageAndFlowables imageBottomPadding CDATA #IMPLIED>
 <!ATTLIST imageAndFlowables imageSide (left|right) #IMPLIED>
-
-<!ELEMENT pto>
 
 <!ELEMENT indent>
 <!ATTLIST indent left CDATA #IMPLIED>
