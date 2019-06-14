@@ -5,6 +5,8 @@ CHANGES
 3.7.0 (unreleased)
 ------------------
 
+- Drop support for running tests using ``python setup.py test``.
+
 - Drop Python 3.5 support.
 
 - Extended ``<paraStyle>``:

@@ -18,20 +18,6 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-def alltests():
-    import os
-    import sys
-    import unittest
-    # use the zope.testrunner machinery to find all the
-    # test suites we've put under ourselves
-    import zope.testrunner.find
-    import zope.testrunner.options
-    here = os.path.abspath(os.path.join(os.path.dirname(__file__), 'src'))
-    args = sys.argv[:]
-    defaults = ["--test-path", here]
-    options = zope.testrunner.options.get_options(args, defaults)
-    suites = list(zope.testrunner.find.find_suites(options))
-    return unittest.TestSuite(suites)
 
 TESTS_REQUIRE = [
     'Pillow',
@@ -93,8 +79,6 @@ setup (
             'dtd = z3c.rml.dtd:main',
             'reference = z3c.rml.reference:main'],
         },
-    tests_require=TESTS_REQUIRE,
-    test_suite='__main__.alltests',
     include_package_data=True,
     zip_safe=False,
     )
