@@ -69,11 +69,12 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
             outputFile = open(outputFileName, 'wb')
 
     # Create a Reportlab canvas by processing the document
-    doc.process(outputFile)
-
-    if outputFile:
-        outputFile.close()
-    xmlFile.close()
+    try:
+        doc.process(outputFile)
+    finally:
+        if outputFile:
+            outputFile.close()
+        xmlFile.close()
 
 
 def main(args=None):
