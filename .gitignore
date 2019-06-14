@@ -1,13 +1,12 @@
 *.pyc
 __pycache__
 
+.coverage
 .installed.cfg
 .tox
 bin
-build
-develop-eggs
+coverage.xml
 dist
-parts
 
 src/*.egg-info
 src/z3c/rml/tests/expected/*.png
