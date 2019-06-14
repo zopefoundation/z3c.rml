@@ -303,9 +303,9 @@ class IBaseParagraphStyle(ISpanStyle):
     spaceShrinkage = attr.Float(
         title=u'Allowed Whitespace Shrinkage Fraction',
         description=(
-            u'The smallest fraction of the original whitespace width allowed '
-            u'to try fitting text to a line.'),
-        default=1.0,
+            u'The fraction of the original whitespace by which the '
+            u'whitespace is allowed to shrink to fit content on the same '
+            u'line.'),
         required=False)
 
     linkUnderline = attr.Boolean(
