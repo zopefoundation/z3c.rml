@@ -7,7 +7,6 @@ addons:
         - fonts-takao-mincho
 python:
     - "2.7"
-    - "3.5"
     - "3.6"
 matrix:
     include:
@@ -27,3 +26,5 @@ script:
     - tox
 notifications:
     email: false
+after_success:
+    - coveralls
