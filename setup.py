@@ -40,6 +40,7 @@ TESTS_REQUIRE = [
     'zope.testrunner',
     ]
 
+
 setup (
     name="z3c.rml",
     version='3.7.0.dev0',
@@ -61,7 +62,6 @@ setup (
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',

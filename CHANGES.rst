@@ -5,7 +5,9 @@ CHANGES
 3.7.0 (unreleased)
 ------------------
 
-- ``<paraStyle>``:
+- Drop Python 3.5 support.
+
+- Extended ``<paraStyle>``:
 
   * ``underline``: A boolean field indicating whether the entire paragraph is
     underlined. The following related attributes have also been added to the
