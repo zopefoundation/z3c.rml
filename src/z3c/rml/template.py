@@ -23,6 +23,7 @@ from z3c.rml import canvas, flowable, page, stylesheet
 class IStory(flowable.IFlow):
     """The story of the PDF file."""
     occurence.containing(
+        occurence.ZeroOrMore('pto', flowable.IPTO),
         *flowable.IFlow.getTaggedValue('directives'))
 
     firstPageTemplate = attr.Text(
@@ -31,8 +32,14 @@ class IStory(flowable.IFlow):
         default=None,
         required=False)
 
+
 class Story(flowable.Flow):
     signature = IStory
+
+    factories = dict(
+        pto=flowable.PTO,
+        **flowable.Flow.factories
+    )
 
     def process(self):
         self.parent.flowables = super(Story, self).process()
@@ -123,7 +130,8 @@ class Frame(directive.RMLDirective):
         args = dict(self.getAttributeValues())
         # Deal with percentages
         for name, dir in (('x1', 0), ('y1', 1), ('width', 0), ('height', 1)):
-            if isinstance(args[name], six.string_types) and args[name].endswith('%'):
+            if (isinstance(args[name], six.string_types) and
+                    args[name].endswith('%')):
                 args[name] = float(args[name][:-1])/100*size[dir]
         frame = platypus.Frame(**args)
         self.parent.frames.append(frame)

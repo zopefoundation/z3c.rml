@@ -1067,38 +1067,6 @@ class ImageAndFlowables(Flowable):
             self.klass(img, flow.flow, **args))
 
 
-class IPTO(interfaces.IRMLDirectiveSignature):
-    '''A container for flowables decorated with trailer & header lists.
-    If the split operation would be called then the trailer and header
-    lists are injected before and after the split. This allows specialist
-    "please turn over" and "continued from previous" like behaviours.'''
-
-class PTO(Flowable):
-    signature = IPTO
-    klass = reportlab.platypus.flowables.PTOContainer
-
-    def process(self):
-        # Get Content
-        flow = Flow(self.element, self.parent)
-        flow.process()
-        # Get the header
-        ptoHeader = self.element.find('pto_header')
-        header = None
-        if ptoHeader is not None:
-            header = Flow(ptoHeader, self.parent)
-            header.process()
-            header = header.flow
-        # Get the trailer
-        ptoTrailer = self.element.find('pto_trailer')
-        trailer = None
-        if ptoTrailer is not None:
-            trailer = Flow(ptoTrailer, self.parent)
-            trailer.process()
-            trailer = trailer.flow
-        # Create and add the PTO Container
-        self.parent.flow.append(self.klass(flow.flow, trailer, header))
-
-
 class IIndent(interfaces.IRMLDirectiveSignature):
     """Indent the contained flowables."""
 
@@ -1111,6 +1079,7 @@ class IIndent(interfaces.IRMLDirectiveSignature):
         title=u'Right',
         description=u'The indentation to the right.',
         required=False)
+
 
 class Indent(Flowable):
     signature = IIndent
@@ -1568,7 +1537,6 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('keepTogether', IKeepTogether),
         occurence.ZeroOrMore('img', IImage),
         occurence.ZeroOrMore('imageAndFlowables', IImageAndFlowables),
-        occurence.ZeroOrMore('pto', IPTO),
         occurence.ZeroOrMore('indent', IIndent),
         occurence.ZeroOrMore('fixedSize', IFixedSize),
         occurence.ZeroOrMore('bookmarkPage', IBookmarkPage),
@@ -1637,7 +1605,6 @@ class Flow(directive.RMLDirective):
         'keepTogether': KeepTogether,
         'img': Image,
         'imageAndFlowables': ImageAndFlowables,
-        'pto': PTO,
         'indent': Indent,
         'fixedSize': FixedSize,
         'bookmarkPage': BookmarkPage,
@@ -1665,3 +1632,57 @@ class Flow(directive.RMLDirective):
     def process(self):
         self.processSubDirectives()
         return self.flow
+
+
+class IPTOHeader(IFlow):
+    """A container for flowables used at the beginning of a frame.
+    """
+
+
+class PTOHeader(Flow):
+
+    def process(self):
+        self.parent.header = super(PTOHeader, self).process()
+
+
+class IPTOTrailer(IFlow):
+    """A container for flowables used at the end of a frame.
+    """
+
+
+class PTOTrailer(Flow):
+
+    def process(self):
+        self.parent.trailer = super(PTOTrailer, self).process()
+
+
+class IPTO(IFlow):
+    """A container for flowables decorated with trailer & header lists.
+
+    If the split operation would be called then the trailer and header
+    lists are injected before and after the split. This allows specialist
+    "please turn over" and "continued from previous" like behaviours.
+    """
+    occurence.containing(
+        occurence.ZeroOrOne('pto_header', IPTOHeader),
+        occurence.ZeroOrOne('pto_trailer', IPTOTrailer),
+    )
+
+
+class PTO(Flow):
+    signature = IPTO
+    klass = reportlab.platypus.flowables.PTOContainer
+
+    factories = dict(
+        pto_header=PTOHeader,
+        pto_trailer=PTOTrailer,
+        **Flow.factories
+    )
+
+    header = None
+    trailer = None
+
+    def process(self):
+        flow = super(PTO, self).process()
+        self.parent.flow.append(
+            self.klass(flow, self.trailer, self.header))
