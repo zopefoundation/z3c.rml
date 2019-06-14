@@ -14,6 +14,9 @@
    :target: https://travis-ci.org/zopefoundation/z3c.rml
    :alt: Build Status
 
+.. image:: https://coveralls.io/repos/github/zopefoundation/z3c.rml/badge.svg?branch=master
+   :target: https://coveralls.io/github/zopefoundation/z3c.rml?branch=master
+
 This is an alternative implementation of ReportLab's RML PDF generation XML
 format. Like the original implementation, it is based on ReportLab's
 ``reportlab`` library.
