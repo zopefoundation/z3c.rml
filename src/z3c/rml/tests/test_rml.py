@@ -13,6 +13,7 @@
 ##############################################################################
 """Testing all XML Locale functionality.
 """
+import base64
 import logging
 import os
 import subprocess
@@ -22,9 +23,9 @@ import z3c.rml.tests
 from z3c.rml import rml2pdf
 
 try:
-    import Image
+    import Image, ImageChops
 except ImportError:
-    from PIL import Image
+    from PIL import Image, ImageChops
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')
 
@@ -79,41 +80,52 @@ class ComparePDFTestCase(unittest.TestCase):
         base = base_image.getdata()
         test_image = Image.open(test_file)
         test = test_image.getdata()
-        err_count = 0
 
+        has_diff = True
         for i in range(len(base)):
+            # Stop at first difference
             if (base[i] - test[i]) != 0:
-                err_count += 1
+                break
+        else:
+            has_diff = False
 
-                if False:
-                    from base64 import b64encode
-                    import PIL
-                    differ = PIL.ImageChops.subtract(base_image, test_image)
-                    # differ.show()
-                    # output the result as base64 for travis debugging
-                    print(b64encode(differ.tobytes()))
-                    # flip the above condition to activate this code
-                    print()
-                    print(os.system("gs --version"))
+        if has_diff and 'SHOW_IMAGE_DIFF' in os.environ:
+            test_image.show()
+            base_image.show()
+            differ = ImageChops.subtract(test_image, base_image)
+            differ.show()
+            differ2 = ImageChops.subtract(base_image, test_image)
+            differ2.show()
+            # output the result as base64 for travis debugging
+            if 'SHOW_DIFF_DEBUG' in os.environ:
+                print(base64.b64encode(differ.tobytes()))
+                print(base64.b64encode(differ2.tobytes()))
 
-                    base_file.seek(0)
-                    print(baseImage)
-                    print(b64encode(base_file.read()))
-                    print(self._basePath)
-                    with open(self._basePath, 'rb') as base_pdf:
-                        print(b64encode(base_pdf.read()))
+        if has_diff and 'SHOW_DIFF_DEBUG' in os.environ:
+            print()
+            print(os.system("gs --version"))
 
-                    test_file.seek(0)
-                    print(testImage)
-                    print(b64encode(test_file.read()))
-                    print(self._testPath)
-                    with open(self._testPath, 'rb') as test_pdf:
-                        print(b64encode(test_pdf.read()))
+            base_file.seek(0)
+            print(baseImage)
+            print(base64.b64encode(base_file.read()))
+            print(self._basePath)
+            with open(self._basePath, 'rb') as base_pdf:
+                print(base64.b64encode(base_pdf.read()))
 
-                self.fail(
-                    'Image is not the same: %s' % os.path.basename(baseImage))
+            test_file.seek(0)
+            print(testImage)
+            print(base64.b64encode(test_file.read()))
+            print(self._testPath)
+            with open(self._testPath, 'rb') as test_pdf:
+                print(base64.b64encode(test_pdf.read()))
+
         base_file.close()
         test_file.close()
+
+        if has_diff:
+            self.fail(
+                'Image is not the same: %s' % os.path.basename(baseImage))
+
 
     def runTest(self):
         # Convert the base PDF to image(s)
@@ -144,16 +156,13 @@ class CompareFileTestCase(unittest.TestCase):
         unittest.TestCase.__init__(self)
 
     def runTest(self):
-        f = open(self._testPath, 'rb')
-        try:
-            contents = f.read()
+        with open(self._testPath, 'rb') as io:
+            contents = io.read()
 
             if self._contains not in contents:
                 self.fail(
                     'PDF file does not contain: %s' % self._contains
                 )
-        finally:
-            f.close()
 
 
 def test_suite():
