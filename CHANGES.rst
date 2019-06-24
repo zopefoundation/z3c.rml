@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.8.0 (unreleased)
+3.8.0 (2019-06-24)
 ------------------
 
 - Unified ``paraStyle`` and ``spanStyle`` even more.
