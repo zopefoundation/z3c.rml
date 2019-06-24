@@ -2,10 +2,15 @@
 CHANGES
 =======
 
-3.7.1 (unreleased)
+3.8.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Unified ``paraStyle`` and ``spanStyle`` even more.
+
+- Extended ``<spanStyle>`` to support underline and strike as well.
+
+- Simplified implemnetation of strike and underline style implementation. It
+  is also the more correct implementation.
 
 
 3.7.0 (2019-06-14)

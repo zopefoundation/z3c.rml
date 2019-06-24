@@ -56,6 +56,8 @@ TEXT_DECORATION_CHOICES = ('underline', 'strike')
 
 UNDERLINE_KIND_CHOICES = ('single', 'double', 'triple')
 
+STRIKE_KIND_CHOICES = ('single', 'double', 'triple')
+
 BULLET_ANCHOR_CHOICES = ('start', 'middle', 'end', 'numeric')
 
 LIST_FORMATS = ('I', 'i', '123',  'ABC', 'abc')

@@ -165,33 +165,44 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         if not self.in_eval:
             self._stack.pop()
 
+    def _apply_underline(self, style):
+        if not getattr(style, 'underline', False):
+            return
+        frag = self._stack[-1]
+        for name in self._lineAttrs:
+            styleName = 'underline' + name.title()
+            if hasattr(style, styleName):
+                setattr(frag, styleName, getattr(style, styleName))
+        self._new_line('underline')
+
+    def _apply_strike(self, style):
+        if not getattr(style, 'strike', False):
+            return
+        frag = self._stack[-1]
+        for name in self._lineAttrs:
+            styleName = 'strike' + name.title()
+            if hasattr(style, styleName):
+                setattr(frag, styleName, getattr(style, styleName))
+        self._new_line('strike')
+
+    def start_span(self, attr):
+        reportlab.platypus.paraparser.ParaParser.start_span(self, attr)
+        self._stack[-1]._style = None
+
+        attrs = self.getAttributes(
+            attr, reportlab.platypus.paraparser._spanAttrMap)
+        if 'style' not in attrs:
+            return
+
+        style = self.findSpanStyle(attrs.pop('style'))
+        self._stack[-1]._style = style
+        self._apply_underline(style)
+        self._apply_strike(style)
+
     def start_para(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_para(self, attr)
-
-        # Support for underline.
-        if getattr(self._style, 'underline', False):
-            attrs = {}
-            for name in self._lineAttrs:
-                styleName = 'underline' + name.title()
-                if hasattr(self._style, styleName):
-                    attrs[name] = getattr(self._style, styleName)
-            self.start_u(attrs)
-
-        # Support for strike.
-        if getattr(self._style, 'strike', False):
-            attrs = {}
-            for name in self._lineAttrs:
-                styleName = 'strike' + name.title()
-                if hasattr(self._style, styleName):
-                    attrs[name] = getattr(self._style, styleName)
-            self.start_strike(attrs)
-
-    def end_para(self):
-        if getattr(self._style, 'strike', False):
-            self.end_strike()
-        if getattr(self._style, 'underline', False):
-            self.end_u()
-        reportlab.platypus.paraparser.ParaParser.end_para(self)
+        self._apply_underline(self._style)
+        self._apply_strike(self._style)
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)

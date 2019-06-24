@@ -65,6 +65,79 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
         description=u'The font size for the text of the span.',
         required=False)
 
+    textTransform = attr.Choice(
+        title=u'Text Transform',
+        description=u'Text transformation.',
+        choices=interfaces.TEXT_TRANSFORM_CHOICES,
+        required=False)
+
+    underline = attr.Boolean(
+        title=u'Underline Text',
+        description=u'A flag, when set, causes text to be underlined.',
+        required=False)
+
+    underlineColor = attr.Color(
+        title=u'Underline Color',
+        description=u'The color in which the underline will appear.',
+        required=False)
+
+    underlineWidth = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Width',
+        description=(u'The width/thickness of the underline.'),
+        required=False)
+
+    underlineOffset = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Offset',
+        description=(
+            u'The offset of the underline with respect to the baseline.'),
+        required=False)
+
+    underlineGap = attr.FontSizeRelativeMeasurement(
+        title=u'Underline Gap',
+        description=(u'The gap between lines for double and triple underlines.'),
+        required=False)
+
+    underlineKind = attr.Choice(
+        title=u'Underline Kind',
+        description=(u'The kind of the underline to use.'),
+        choices=interfaces.UNDERLINE_KIND_CHOICES,
+        default='single',
+        required=False)
+
+    strike = attr.Boolean(
+        title=u'Strike-through Text',
+        description=u'A flag, when set, causes text to be struck out.',
+        required=False)
+
+    strikeColor = attr.Color(
+        title=u'Strike Color',
+        description=u'The color in which the strike line will appear.',
+        required=False)
+
+    strikeWidth = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Width',
+        description=(u'The width of the strike line.'),
+        required=False)
+
+    strikeOffset = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Offset',
+        description=(
+            u'The offset of the strike line with respect to the baseline.'),
+        required=False)
+
+    strikeGap = attr.FontSizeRelativeMeasurement(
+        title=u'Strike Gap',
+        description=(
+            u'The gap between lines for double and triple strike lines.'),
+        required=False)
+
+    strikeKind = attr.Choice(
+        title=u'Strike Kind',
+        description=(u'The kind of the strike to use.'),
+        choices=interfaces.STRIKE_KIND_CHOICES,
+        default='single',
+        required=False)
+
     textColor = attr.Color(
         title=u'Text Color',
         description=u'The color in which the text will appear.',
@@ -73,6 +146,14 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
     backColor = attr.Color(
         title=u'Background Color',
         description=u'The background color of the span.',
+        required=False)
+
+    linkUnderline = attr.Boolean(
+        title=u'Underline Links',
+        description=(
+            u'A flag, when set indicating that all links should be '
+            u'underlined.'),
+        default=False,
         required=False)
 
 
@@ -191,12 +272,6 @@ class IBaseParagraphStyle(ISpanStyle):
         description=(u'Allow orphans.'),
         required=False)
 
-    textTransforms = attr.Choice(
-        title=u'Text Transforms',
-        description=u'Text transformations.',
-        choices=interfaces.TEXT_TRANSFORM_CHOICES,
-        required=False)
-
     endDots = attr.String(
         title=u'End Dots',
         description=u'Characters/Dots at the end of a paragraph.',
@@ -206,82 +281,6 @@ class IBaseParagraphStyle(ISpanStyle):
         title=u'Split Long Words',
         description=(u'Try to split long words at the end of a line.'),
         default=True,
-        required=False)
-
-    underline = attr.Boolean(
-        title=u'Underline Text',
-        description=u'A flag, when set, causes text to be underlined.',
-        required=False)
-
-    underlineColor = attr.Color(
-        title=u'Underline Color',
-        description=u'The color in which the underline will appear.',
-        required=False)
-
-    underlineWidth = attr.FontSizeRelativeMeasurement(
-        title=u'Underline Width',
-        description=(u'The width/thickness of the underline.'),
-        required=False)
-
-    underlineOffset = attr.FontSizeRelativeMeasurement(
-        title=u'Underline Offset',
-        description=(
-            u'The offset of the underline with respect to the baseline.'),
-        required=False)
-
-    underlineGap = attr.FontSizeRelativeMeasurement(
-        title=u'Underline Gap',
-        description=(u'The gap between lines for double and triple underlines.'),
-        required=False)
-
-    underlineKind = attr.Choice(
-        title=u'Underline kind',
-        description=(u'The kind of the underline to use.'),
-        choices=interfaces.UNDERLINE_KIND_CHOICES,
-        default='single',
-        required=False)
-
-    strike = attr.Boolean(
-        title=u'Strike-through Text',
-        description=u'A flag, when set, causes text to be struck out.',
-        required=False)
-
-    strikeColor = attr.Color(
-        title=u'Strike Color',
-        description=u'The color in which the strike line will appear.',
-        required=False)
-
-    strikeWidth = attr.FontSizeRelativeMeasurement(
-        title=u'Strike Width',
-        description=(u'The width of the strike line.'),
-        required=False)
-
-    strikeOffset = attr.FontSizeRelativeMeasurement(
-        title=u'Strike Offset',
-        description=(
-            u'The offset of the strike line with respect to the baseline.'),
-        required=False)
-
-    strikeGap = attr.FontSizeRelativeMeasurement(
-        title=u'Strike Gap',
-        description=(
-            u'The gap between lines for double and triple strike lines.'),
-        required=False)
-
-    strikeKind = attr.Choice(
-        title=u'Underline Offset',
-        description=(
-            u'The offset of the underline with respect to the baseline.'),
-        choices=interfaces.UNDERLINE_KIND_CHOICES,
-        default='single',
-        required=False)
-
-    strikeKind = attr.Choice(
-        title=u'Underline Offset',
-        description=(
-            u'The offset of the underline with respect to the baseline.'),
-        choices=interfaces.UNDERLINE_KIND_CHOICES,
-        default='single',
         required=False)
 
     justifyLastLine = attr.Integer(
@@ -306,14 +305,6 @@ class IBaseParagraphStyle(ISpanStyle):
             u'The fraction of the original whitespace by which the '
             u'whitespace is allowed to shrink to fit content on the same '
             u'line.'),
-        required=False)
-
-    linkUnderline = attr.Boolean(
-        title=u'Underline Links',
-        description=(
-            u'A flag, when set indicating that all links should be '
-            u'underlined.'),
-        default=False,
         required=False)
 
     bulletAnchor = attr.Choice(
