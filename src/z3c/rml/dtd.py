@@ -25,23 +25,34 @@ occurence2Symbol = {
     }
 
 
-def generateElement(name, signature):
+def generateElement(name, signature, seen):
     if signature is None:
         return ''
-    # Create the list of sub-elements.
     subElementList = []
-    for occurence in signature.queryTaggedValue('directives', ()):
-        subElementList.append(
-            occurence.tag + occurence2Symbol.get(occurence.__class__, '')
-            )
+    # Determine whether we have #PCDATA first.
     fields = zope.schema.getFieldsInOrder(signature)
     for attrName, field in fields:
         if isinstance(field, attr.TextNode):
             subElementList.append('#PCDATA')
             break
-    subElementList = ','.join(subElementList)
+    # Create the list of sub-elements.
+    occurence = '*'
+    for occurence in signature.queryTaggedValue('directives', ()):
+        if '#PCDATA' in subElementList:
+            subElementList.append(occurence.tag)
+            occurence = occurence2Symbol.get(occurence.__class__, '')
+        else:
+            subElementList.append(
+                occurence.tag +
+                occurence2Symbol.get(occurence.__class__, '')
+            )
+    subElementList = ' | '.join(subElementList)
     if subElementList:
         subElementList = ' (' + subElementList + ')'
+        if '#PCDATA' in subElementList:
+            subElementList += occurence
+    else:
+        subElementList = ' EMPTY'
     text = '\n<!ELEMENT %s%s>' %(name, subElementList)
     # Create a list of attributes for this element.
     for attrName, field in fields:
@@ -50,7 +61,7 @@ def generateElement(name, signature):
             continue
         # Create the type
         if isinstance(field, attr.Choice):
-            type = '(' + '|'.join(field.choices.keys()) + ')'
+            type = '(' + ' | '.join(field.choices.keys()) + ')'
         else:
             type = 'CDATA'
         # Create required flag
@@ -61,14 +72,19 @@ def generateElement(name, signature):
         # Put it all together
         text += '\n<!ATTLIST %s %s %s %s>' %(name, attrName, type, required)
     text += '\n'
-    # Walk through all sub-elements, creating th eDTD entries for them.
+    # DTD does not support redefinition of an element type or have context
+    # specific elements.
+    if name in seen:
+        text = '\n<!--' + text + '-->\n'
+    seen.append(name)
+    # Walk through all sub-elements, creating the DTD entries for them.
     for occurence in signature.queryTaggedValue('directives', ()):
-        text += generateElement(occurence.tag, occurence.signature)
+        text += generateElement(occurence.tag, occurence.signature, seen)
     return text
 
 
 def generate(useWrapper=False):
-    text = generateElement('document', document.Document.signature)
+    text = generateElement('document', document.Document.signature, [])
     if useWrapper:
         text = '<!DOCTYPE RML [\n%s]>\n' %text
     return text

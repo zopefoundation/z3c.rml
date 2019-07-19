@@ -13,6 +13,7 @@
 ##############################################################################
 """Test generating DTD
 """
+import lxml.etree
 import os
 import unittest
 from z3c.rml import dtd
@@ -24,8 +25,15 @@ class DTDTestCase(unittest.TestCase):
 
     def runTest(self):
         path = os.path.join(os.path.dirname(dtd.__file__), 'rml.dtd')
+        # Write the file.
         with open(path, 'w') as file:
             file.write(dtd.generate())
+        # Ensure we produced a processable DTD.
+        try:
+            edtd = lxml.etree.DTD(path)
+        except:
+            raise
+            import pdb; pdb.set_trace()
 
 
 def test_suite():

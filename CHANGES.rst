@@ -2,10 +2,15 @@
 CHANGES
 =======
 
-3.8.1 (unreleased)
+3.9.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Create a proper, parsable DTD. Add a test that verifies its validity.
+
+- Updated `rml.dtd`.
+
+- ``strandLabels`` does not support text content. That was accidentally
+  asserted due to bad schema inheritance.
 
 
 3.8.0 (2019-06-24)

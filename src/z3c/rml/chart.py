@@ -1082,11 +1082,6 @@ class Strands(PropertyCollection):
 
 class IStrandLabelBase(ILabelBase):
 
-    _text = attr.TextNode(
-        title=u'Text',
-        description=u'The label text of the strand.',
-        required=False)
-
     row = attr.Integer(
         title=u'Row',
         description=u'The row of the strand label',
@@ -1104,6 +1099,11 @@ class IStrandLabelBase(ILabelBase):
 
 class IStrandLabel(IStrandLabelBase):
     """A label for a strand."""
+
+    _text = attr.TextNode(
+        title=u'Text',
+        description=u'The label text of the strand.',
+        required=False)
 
     dR = attr.Float(
         title=u'Radial Shift',
