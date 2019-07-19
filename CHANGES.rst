@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.9.0 (unreleased)
+3.9.0 (2019-07-19)
 ------------------
 
 - Create a proper, parsable DTD. Add a test that verifies its validity.
