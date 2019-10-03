@@ -5,7 +5,7 @@ CHANGES
 3.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Adding textTransform implementation.
 
 
 3.9.0 (2019-07-19)

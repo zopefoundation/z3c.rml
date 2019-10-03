@@ -185,6 +185,13 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
                 setattr(frag, styleName, getattr(style, styleName))
         self._new_line('strike')
 
+    def _apply_texttransform(self, style):
+        if not getattr(style, 'textTransform', False):
+            return
+        frag = self._stack[-1]
+        if hasattr(style, 'textTransform') and hasattr(frag, 'text'):
+            setattr(frag, 'textTransform', getattr(style, 'textTransform'))
+
     def start_span(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_span(self, attr)
         self._stack[-1]._style = None
@@ -198,11 +205,13 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         self._stack[-1]._style = style
         self._apply_underline(style)
         self._apply_strike(style)
+        self._apply_texttransform(style)
 
     def start_para(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_para(self, attr)
         self._apply_underline(self._style)
         self._apply_strike(self._style)
+        self._apply_texttransform(self._style)
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)
@@ -266,7 +275,15 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
                 raise ValueError(
                     "xml parser error (%s) in paragraph beginning\n'%s'"\
                     % (_parser.errors[0],text[:min(30,len(text))]))
-            reportlab.platypus.paragraph.textTransformFrags(frags,style)
+            # apply texttransform to paragraphs
+            reportlab.platypus.paragraph.textTransformFrags(frags, style)
+            # apply texttransform to paragraph fragments
+            for frag in frags:
+                if hasattr(frag, '_style') \
+                        and hasattr(frag._style, 'textTransform'):
+                    reportlab.platypus.paragraph.textTransformFrags(
+                                                    [frag], frag._style)
+
             if bulletTextFrags:
                 bulletText = bulletTextFrags
 
