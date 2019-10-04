@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.9.1 (unreleased)
+3.9.1 (2019-10-04)
 ------------------
 
 - Adding textTransform implementation.
