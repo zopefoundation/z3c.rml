@@ -185,6 +185,13 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
                 setattr(frag, styleName, getattr(style, styleName))
         self._new_line('strike')
 
+    def _apply_texttransform(self, style):
+        if not getattr(style, 'textTransform', False):
+            return
+        frag = self._stack[-1]
+        if hasattr(frag, 'text'):
+            frag.textTransform = style.textTransform
+
     def start_span(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_span(self, attr)
         self._stack[-1]._style = None
@@ -198,6 +205,7 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         self._stack[-1]._style = style
         self._apply_underline(style)
         self._apply_strike(style)
+        self._apply_texttransform(style)
 
     def start_para(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_para(self, attr)
@@ -266,7 +274,15 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
                 raise ValueError(
                     "xml parser error (%s) in paragraph beginning\n'%s'"\
                     % (_parser.errors[0],text[:min(30,len(text))]))
-            reportlab.platypus.paragraph.textTransformFrags(frags,style)
+            # apply texttransform to paragraphs
+            reportlab.platypus.paragraph.textTransformFrags(frags, style)
+            # apply texttransform to paragraph fragments
+            for frag in frags:
+                if hasattr(frag, '_style') \
+                        and hasattr(frag._style, 'textTransform'):
+                    reportlab.platypus.paragraph.textTransformFrags(
+                                                    [frag], frag._style)
+
             if bulletTextFrags:
                 bulletText = bulletTextFrags
 

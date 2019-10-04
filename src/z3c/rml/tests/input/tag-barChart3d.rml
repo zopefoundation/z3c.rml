@@ -31,7 +31,8 @@
         </categoryNames>
       </categoryAxis>
       <valueAxis valueMin="0" valueMax="150" valueStep="30"
-                 visibleTicks="true" visibleLabels="true">
+                 visibleTicks="true" visibleLabels="true"
+                 forceZero="true">
         <labels fontName="Helvetica" />
       </valueAxis>
       <data>
@@ -58,7 +59,7 @@
       </categoryAxis>
       <valueAxis valueMin="0" valueMax="150" valueStep="30"
                  visibleTicks="true" visibleLabels="true"
-                 visibleGrid="true">
+                 visibleGrid="true" forceZero="true">
         <labels fontName="Helvetica" />
       </valueAxis>
       <data>
