@@ -189,8 +189,8 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         if not getattr(style, 'textTransform', False):
             return
         frag = self._stack[-1]
-        if hasattr(style, 'textTransform') and hasattr(frag, 'text'):
-            setattr(frag, 'textTransform', getattr(style, 'textTransform'))
+        if hasattr(frag, 'text'):
+            frag.textTransform = style.textTransform
 
     def start_span(self, attr):
         reportlab.platypus.paraparser.ParaParser.start_span(self, attr)
@@ -211,7 +211,6 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         reportlab.platypus.paraparser.ParaParser.start_para(self, attr)
         self._apply_underline(self._style)
         self._apply_strike(self._style)
-        self._apply_texttransform(self._style)
 
     def start_pagenumber(self, attributes):
         self.startDynamic(attributes, PageNumberFragment)
