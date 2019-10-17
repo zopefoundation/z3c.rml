@@ -39,7 +39,7 @@ setup (
         read('CHANGES.rst')
         ),
     license="ZPL 2.1",
-    keywords="zope3 rml reportlab pdf pagetemplate",
+    keywords="rml reportlab pdf pagetemplate",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
