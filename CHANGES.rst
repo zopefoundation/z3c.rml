@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-3.10.0 (unreleased)
+3.10.0 (2020-03-27)
 -------------------
 
 - Added ``inFill`` property to ``<linePlot>`` which will fill the area below
