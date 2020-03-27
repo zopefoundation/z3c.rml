@@ -90,6 +90,100 @@
         </series>
       </data>
     </linePlot>
+  </pageDrawing>
+
+  <pageDrawing>
+    <!-- https://stackoverflow.com/questions/8082803/adding-date-labels-to-a-reportlab-lineplot-chart -->
+    <linePlot
+        dx="2in" dy="7in" dwidth="6in" dheight="4in"
+         x="0"    y="0"    width="5in"  height="3in"
+         joinedLines="true" inFill="true">
+      <lines>
+        <line strokeColor="hsl(0,80%,40%)"  />
+        <line strokeColor="hsl(60,80%,40%)"  />
+        <line strokeColor="hsl(120,80%,40%)"  />
+      </lines>
+      <xValueAxis
+          labelTextFormat="module.formatDate"
+          valueSteps="5, 500, 1402, 1988"
+          >
+        <labels fontName="Helvetica" />
+      </xValueAxis>
+      <yValueAxis>
+        <labels fontName="Helvetica" />
+      </yValueAxis>
+      <data>
+        <series>
+          0 97
+          100 100
+          200 97
+          300 94
+          400 94
+          500 94
+          600 100
+          700 99
+          800 98
+          900 92
+          1000 97
+          1100 97
+          1200 99
+          1300 98
+          1400 94
+          1500 100
+          1600 97
+          1700 95
+          1800 91
+          1900 93
+          2000 94
+        </series>
+        <series>
+          0 62
+          100 68
+          200 62
+          300 74
+          400 60
+          500 80
+          600 42
+          700 47
+          800 59
+          900 40
+          1000 63
+          1100 31
+          1200 33
+          1300 60
+          1400 58
+          1500 78
+          1600 70
+          1700 47
+          1800 45
+          1900 63
+          2000 74
+        </series>
+        <series>
+          0 17
+          100 16
+          200 11
+          300 20
+          400 12
+          500 16
+          600 14
+          700 9
+          800 13
+          900 14
+          1000 9
+          1100 5
+          1200 15
+          1300 5
+          1400 18
+          1500 8
+          1600 13
+          1700 17
+          1800 8
+          1900 16
+          2000 9
+        </series>
+      </data>
+    </linePlot>
 
   </pageDrawing>
 </document>

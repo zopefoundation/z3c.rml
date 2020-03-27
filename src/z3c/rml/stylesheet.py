@@ -658,6 +658,7 @@ class LineStyle(TableStyleCommand):
         args = [name]
         args += self.getAttributeValues(ignore=('kind',), valuesOnly=True,
                                         includeMissing=True)
+        args = [val if val is not attr.MISSING else None for val in args]
         self.parent.style.add(*args)
 
 class IBlockTableStyle(interfaces.IRMLDirectiveSignature):

@@ -131,7 +131,7 @@ typeFormatters = {
     attr.TextNodeSequence: formatSequence,
     attr.TextNodeGrid: formatGrid}
 
-def processSignature(name, signature, examples, directives=None):
+def processSignature(name, signature, queue, examples, directives=None):
     if directives is None:
         directives = {}
     # Process this directive
@@ -188,10 +188,10 @@ def processSignature(name, signature, examples, directives=None):
                 })
         info['sub-directives'] = subs
         directives[signature] = info
-    # Process Children
-    for occurence in signature.queryTaggedValue('directives', ()):
-        processSignature(occurence.tag, occurence.signature,
-                         examples, directives)
+
+        # Process Children
+        for occurence in signature.queryTaggedValue('directives', ()):
+            queue.append((occurence.tag, occurence.signature))
 
 
 def extractExamples(directory):
@@ -237,7 +237,10 @@ def main(outPath=None):
     template = pagetemplate.RMLPageTemplateFile('reference.pt')
 
     directives = {}
-    processSignature('document', document.IDocument, examples, directives)
+    queue = [('document', document.IDocument)]
+    while queue:
+        tag, sig = queue.pop()
+        processSignature(tag, sig, queue, examples, directives)
     directives = sorted(directives.values(), key=lambda d: d['name'])
 
     pdf = template(

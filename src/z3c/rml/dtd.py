@@ -74,11 +74,13 @@ def generateElement(name, signature, seen):
     text += '\n'
     # DTD does not support redefinition of an element type or have context
     # specific elements.
-    if name in seen:
+    if (name, signature) in seen:
         text = '\n<!--' + text + '-->\n'
-    seen.append(name)
+    seen.append((name, signature))
     # Walk through all sub-elements, creating the DTD entries for them.
     for occurence in signature.queryTaggedValue('directives', ()):
+        if (occurence.tag, occurence.signature) in seen:
+            continue
         text += generateElement(occurence.tag, occurence.signature, seen)
     return text
 

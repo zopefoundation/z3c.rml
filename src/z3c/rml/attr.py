@@ -253,6 +253,7 @@ class IntegerSequence(Sequence):
             numbers.append((value, value+1))
         return numbers
 
+
 class Choice(BaseChoice):
     """A choice of several values. The values are always case-insensitive."""
 
@@ -365,10 +366,44 @@ class FontSizeRelativeMeasurement(RMLAttribute):
         return normalized
 
 
+class ObjectRef(Text):
+    """This field will return a Python object.
+
+    The value is a Python path to the object which is being resolved. The
+    sysntax is expected to be ``<path.to.module>.<name>``.
+    """
+    pythonPath = re.compile('^([A-z_][0-9A-z_.]*)\.([A-z_][0-9A-z_]*)$')
+
+    def __init__(self, doNotResolve=False, *args, **kw):
+        super(ObjectRef, self).__init__(*args, **kw)
+        self.doNotResolve = doNotResolve
+
+    def fromUnicode(self, value):
+        result = self.pythonPath.match(value)
+        if result is None:
+            raise ValueError(
+                'The Python path you specified is incorrect. %s' %(
+                    getFileInfo(self.context)))
+        if self.doNotResolve:
+            return value
+        modulePath, objectName = result.groups()
+        try:
+            module = import_module(modulePath)
+        except ImportError:
+            raise ValueError(
+                'The module you specified was not found: %s' % modulePath)
+        try:
+            object = getattr(module, objectName)
+        except AttributeError:
+            raise ValueError(
+                'The object you specified was not found: %s' % objectName)
+        return object
+
+
 class File(Text):
     """This field will return a file object.
 
-    The value itself can eith be be a relative or absolute path. Additionally
+    The value itself can either be a relative or absolute path. Additionally
     the following syntax is supported: [path.to.python.mpackage]/path/to/file
     """
     packageExtract = re.compile('^\[([0-9A-z_.]*)\]/(.*)$')
@@ -666,6 +701,7 @@ class RawXMLContent(RMLAttribute):
         text = etree.tounicode(self.context.element, pretty_print=False)
         text = text[text.find('>')+1:text.rfind('<')]
         return text
+
 
 class XMLContent(RawXMLContent):
     """Same as 'RawXMLContent', except that the whitespace is normalized."""

@@ -2,10 +2,19 @@
 CHANGES
 =======
 
-3.9.2 (unreleased)
-------------------
+3.10.0 (unreleased)
+-------------------
 
-- Nothing changed yet.
+- Added ``inFill`` property to ``<linePlot>`` which will fill the area below
+  the line makign it effectively an area plot.
+
+- Added ability to specify the ``labelTextFormat`` property of ``<xValueAxis>``
+  and ``<yValueAxis>`` to be a reference to a function via a Python path.
+
+- Added an example from Stack Overflow that exercises the new features. See
+  ``tag0linePlot.rml``.
+
+- Remove Python 3.6 support and add 3.8.
 
 
 3.9.1 (2019-10-04)

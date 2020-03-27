@@ -13,6 +13,7 @@
 ##############################################################################
 """Testing all XML Locale functionality.
 """
+import datetime
 import reportlab.platypus
 import reportlab.lib.styles
 import reportlab.graphics.widgets.markers
@@ -80,3 +81,10 @@ def symbols(canvas, params):
     drawing.add(m)
     for idx in range(n):
         drawing.drawOn(canvas, idx*args['dx'], idx*args['dy'])
+
+
+def formatDate(val):
+    return (
+        datetime.date(2010, 1, 1) +
+        datetime.timedelta(val)
+    ).isoformat()

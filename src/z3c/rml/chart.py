@@ -646,9 +646,17 @@ class IValueAxis(IAxis):
         description=u'The maximum number of ticks to be shown.',
         required=False)
 
-    labelTextFormat = attr.String(
+    labelTextFormat = attr.Combination(
         title=u'Label Text Format',
-        description=u'Formatting string for axis labels.',
+        description=(
+            u'Formatting string or Python path to formatting function for '
+            u'axis labels.'),
+        value_types=(
+            # Python path to function.
+            attr.ObjectRef(),
+            # Formatting String.
+            attr.String(),
+        ),
         required=False)
 
     labelTextPostFormat = attr.Text(
@@ -1451,8 +1459,16 @@ class ILinePlot(IChart):
         description=u'When true, connect all data points with lines.',
         required=False)
 
+    inFill = attr.Boolean(
+        title=u'Name',
+        description=(
+            u'Flag indicating whether the line plot should be filled, '
+            u'in other words converted to an area chart.'),
+        required=False)
+
 class LinePlot(Chart):
     signature = ILinePlot
+    attrMapping = {'inFill': '_inFill'}
 
     factories = Chart.factories.copy()
     factories.update({
