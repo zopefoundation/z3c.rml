@@ -10,8 +10,8 @@
    :target: https://pypi.org/project/z3c.rml/
    :alt: Supported Python versions
 
-.. image:: https://travis-ci.org/zopefoundation/z3c.rml.svg?branch=master
-   :target: https://travis-ci.org/zopefoundation/z3c.rml
+.. image:: https://travis-ci.com/zopefoundation/z3c.rml.svg?branch=master
+   :target: https://travis-ci.com/zopefoundation/z3c.rml
    :alt: Build Status
 
 .. image:: https://coveralls.io/repos/github/zopefoundation/z3c.rml/badge.svg?branch=master
