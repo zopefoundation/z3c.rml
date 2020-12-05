@@ -22,13 +22,13 @@ class IName(interfaces.IRMLDirectiveSignature):
     """Defines a name for a string."""
 
     id = attr.String(
-        title=u'Id',
-        description=u'The id under which the value will be known.',
+        title='Id',
+        description='The id under which the value will be known.',
         required=True)
 
     value = attr.Text(
-        title=u'Value',
-        description=u'The text that is displayed if the id is called.',
+        title='Value',
+        description='The text that is displayed if the id is called.',
         required=True)
 
 class Name(directive.RMLDirective):
@@ -44,13 +44,13 @@ class IAlias(interfaces.IRMLDirectiveSignature):
     """Defines an alias for a given style."""
 
     id = attr.String(
-        title=u'Id',
-        description=u'The id as which the style will be known.',
+        title='Id',
+        description='The id as which the style will be known.',
         required=True)
 
     value = attr.Style(
-        title=u'Value',
-        description=u'The style that is represented.',
+        title='Value',
+        description='The style that is represented.',
         required=True)
 
 class Alias(directive.RMLDirective):
@@ -62,7 +62,7 @@ class Alias(directive.RMLDirective):
         manager.styles[id] = value
 
 
-class TextFlowables(object):
+class TextFlowables:
     def _getManager(self):
         if hasattr(self, 'manager'):
             return self.manager
@@ -70,7 +70,7 @@ class TextFlowables(object):
             return  attr.getManager(self)
 
     def getPageNumber(self, elem, canvas):
-        return six.text_type(
+        return str(
             canvas.getPageNumber() + int(elem.get('countingFrom', 1)) - 1
         )
 
@@ -87,11 +87,11 @@ class TextFlowables(object):
         self._getManager().names[elem.get('id')] = self._getText(
             elem, canvas, include_final_tail=False
         )
-        return u''
+        return ''
 
     def name(self, elem, canvas):
         self._getManager().names[elem.get('id')] = elem.get('value')
-        return u''
+        return ''
 
     handleElements = {'pageNumber': getPageNumber,
                       'getName': getName,
@@ -100,20 +100,20 @@ class TextFlowables(object):
                       'name': name}
 
     def _getText(self, node, canvas, include_final_tail=True):
-        text = node.text or u''
+        text = node.text or ''
         for sub in node.getchildren():
             if sub.tag in self.handleElements:
                 text += self.handleElements[sub.tag](self, sub, canvas)
             else:
                 self._getText(sub, canvas)
-            text += sub.tail or u''
+            text += sub.tail or ''
         if include_final_tail:
-            text += node.tail or u''
+            text += node.tail or ''
         return text
 
 def do_eval(value):
     # Maybe still not safe
     value = value.strip()
     if value:
-        return six.text_type(eval(value.strip(), {'__builtins__': None}, {}))
-    return u''
+        return str(eval(value.strip(), {'__builtins__': None}, {}))
+    return ''

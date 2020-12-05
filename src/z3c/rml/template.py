@@ -13,7 +13,7 @@
 ##############################################################################
 """Style Related Element Processing
 """
-import six
+
 import zope.interface
 from reportlab import platypus
 
@@ -28,8 +28,8 @@ class IStory(flowable.IFlow):
         *flowable.IFlow.getTaggedValue('directives'))
 
     firstPageTemplate = attr.Text(
-        title=u'First Page Template',
-        description=u'The first page template to be used.',
+        title='First Page Template',
+        description='The first page template to be used.',
         default=None,
         required=False)
 
@@ -43,7 +43,7 @@ class Story(flowable.Flow):
     )
 
     def process(self):
-        self.parent.flowables = super(Story, self).process()
+        self.parent.flowables = super().process()
         self.parent.doc._firstPageTemplateIndex = self.getFirstPTIndex()
 
     def getFirstPTIndex(self):
@@ -61,61 +61,61 @@ class IFrame(interfaces.IRMLDirectiveSignature):
     """A frame on a page."""
 
     x1 = attr.Measurement(
-        title=u'X-Position',
-        description=u'The X-Position of the lower-left corner of the frame.',
+        title='X-Position',
+        description='The X-Position of the lower-left corner of the frame.',
         allowPercentage=True,
         required=True)
 
     y1 = attr.Measurement(
-        title=u'Y-Position',
-        description=u'The Y-Position of the lower-left corner of the frame.',
+        title='Y-Position',
+        description='The Y-Position of the lower-left corner of the frame.',
         allowPercentage=True,
         required=True)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the frame.',
+        title='Width',
+        description='The width of the frame.',
         allowPercentage=True,
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the frame.',
+        title='Height',
+        description='The height of the frame.',
         allowPercentage=True,
         required=True)
 
     id = attr.Text(
-        title=u'Id',
-        description=u'The id of the frame.',
+        title='Id',
+        description='The id of the frame.',
         required=False)
 
     leftPadding = attr.Measurement(
-        title=u'Left Padding',
-        description=u'The left padding of the frame.',
+        title='Left Padding',
+        description='The left padding of the frame.',
         default=0,
         required=False)
 
     rightPadding = attr.Measurement(
-        title=u'Right Padding',
-        description=u'The right padding of the frame.',
+        title='Right Padding',
+        description='The right padding of the frame.',
         default=0,
         required=False)
 
     topPadding = attr.Measurement(
-        title=u'Top Padding',
-        description=u'The top padding of the frame.',
+        title='Top Padding',
+        description='The top padding of the frame.',
         default=0,
         required=False)
 
     bottomPadding = attr.Measurement(
-        title=u'Bottom Padding',
-        description=u'The bottom padding of the frame.',
+        title='Bottom Padding',
+        description='The bottom padding of the frame.',
         default=0,
         required=False)
 
     showBoundary = attr.Boolean(
-        title=u'Show Boundary',
-        description=u'A flag to show the boundary of the frame.',
+        title='Show Boundary',
+        description='A flag to show the boundary of the frame.',
         required=False)
 
 
@@ -131,7 +131,7 @@ class Frame(directive.RMLDirective):
         args = dict(self.getAttributeValues())
         # Deal with percentages
         for name, dir in (('x1', 0), ('y1', 1), ('width', 0), ('height', 1)):
-            if (isinstance(args[name], six.string_types) and
+            if (isinstance(args[name], str) and
                     args[name].endswith('%')):
                 args[name] = float(args[name][:-1])/100*size[dir]
         frame = platypus.Frame(**args)
@@ -188,18 +188,18 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         )
 
     id = attr.Text(
-        title=u'Id',
-        description=u'The id of the template.',
+        title='Id',
+        description='The id of the template.',
         required=True)
 
     pagesize = attr.PageSize(
-        title=u'Page Size',
-        description=u'The Page Size.',
+        title='Page Size',
+        description='The Page Size.',
         required=False)
 
     autoNextTemplate = attr.String(
-        title=u'Auto Next Page Template',
-        description=u'The page template to use automatically for the next page.',
+        title='Auto Next Page Template',
+        description='The page template to use automatically for the next page.',
         required=False)
 
 
@@ -237,57 +237,57 @@ class ITemplate(interfaces.IRMLDirectiveSignature):
         )
 
     pagesize = attr.PageSize(
-        title=u'Page Size',
-        description=u'The Page Size.',
+        title='Page Size',
+        description='The Page Size.',
         required=False)
 
     rotation = attr.Integer(
-        title=u'Rotation',
-        description=u'The rotation of the page in multiples of 90 degrees.',
+        title='Rotation',
+        description='The rotation of the page in multiples of 90 degrees.',
         required=False)
 
     leftMargin = attr.Measurement(
-        title=u'Left Margin',
-        description=u'The left margin of the template.',
+        title='Left Margin',
+        description='The left margin of the template.',
         default=0,
         required=False)
 
     rightMargin = attr.Measurement(
-        title=u'Right Margin',
-        description=u'The right margin of the template.',
+        title='Right Margin',
+        description='The right margin of the template.',
         default=0,
         required=False)
 
     topMargin = attr.Measurement(
-        title=u'Top Margin',
-        description=u'The top margin of the template.',
+        title='Top Margin',
+        description='The top margin of the template.',
         default=0,
         required=False)
 
     bottomMargin = attr.Measurement(
-        title=u'Bottom Margin',
-        description=u'The bottom margin of the template.',
+        title='Bottom Margin',
+        description='The bottom margin of the template.',
         default=0,
         required=False)
 
     showBoundary = attr.Boolean(
-        title=u'Show Boundary',
-        description=u'A flag to show the boundary of the template.',
+        title='Show Boundary',
+        description='A flag to show the boundary of the template.',
         required=False)
 
     allowSplitting = attr.Boolean(
-        title=u'Allow Splitting',
-        description=u'A flag to allow splitting over multiple templates.',
+        title='Allow Splitting',
+        description='A flag to allow splitting over multiple templates.',
         required=False)
 
     title = attr.Text(
-        title=u'Title',
-        description=u'The title of the PDF document.',
+        title='Title',
+        description='The title of the PDF document.',
         required=False)
 
     author = attr.Text(
-        title=u'Author',
-        description=u'The author of the PDF document.',
+        title='Author',
+        description='The author of the PDF document.',
         required=False)
 
 

@@ -16,7 +16,6 @@
 import sys
 
 import reportlab
-import six
 import zope.interface
 import zope.schema
 from zope.schema import fieldproperty
@@ -26,8 +25,8 @@ class ICondition(zope.interface.Interface):
     """Condition that is checked before a  directive is available."""
 
     __doc__ = zope.schema.TextLine(
-        title=u'Description',
-        description=u'The description of the condition.',
+        title='Description',
+        description='The description of the condition.',
         required=True)
 
     def __call__(directive):
@@ -38,29 +37,23 @@ class IOccurence(zope.interface.Interface):
     """Description of the occurence of a sub-directive."""
 
     __doc__ = zope.schema.TextLine(
-        title=u'Description',
-        description=u'The description of the occurence.',
+        title='Description',
+        description='The description of the occurence.',
         required=True)
 
-    if six.PY2:
-        tag = zope.schema.BytesLine(
-            title=u'Tag',
-            description=u'The tag of the sub-directive within the directive',
-            required=True)
-    else:
-        tag = zope.schema.TextLine(
-            title=u'Tag',
-            description=u'The tag of the sub-directive within the directive',
-            required=True)
+    tag = zope.schema.TextLine(
+        title='Tag',
+        description='The tag of the sub-directive within the directive',
+        required=True)
 
     signature = zope.schema.Field(
-        title=u'Signature',
-        description=u'The signature of the sub-directive.',
+        title='Signature',
+        description='The signature of the sub-directive.',
         required=True)
 
     condition = zope.schema.Field(
-        title=u'Condition',
-        description=u'The condition that the directive is available.',
+        title='Condition',
+        description='The condition that the directive is available.',
         required=False)
 
 
@@ -85,7 +78,7 @@ def containing(*occurences):
 
 
 @zope.interface.implementer(IOccurence)
-class Occurence(object):
+class Occurence:
     tag = fieldproperty.FieldProperty(IOccurence['tag'])
     signature = fieldproperty.FieldProperty(IOccurence['signature'])
     condition = fieldproperty.FieldProperty(IOccurence['condition'])

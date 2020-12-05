@@ -13,7 +13,7 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import six
+import io
 
 from z3c.rml import attr, directive, interfaces
 
@@ -26,7 +26,7 @@ except ImportError:
     PyPDF2 = None
 
 
-class MergePostProcessor(object):
+class MergePostProcessor:
 
     def __init__(self):
         self.operations = {}
@@ -57,7 +57,7 @@ class MergePostProcessor(object):
                     page = mergerPage
             output.addPage(page)
 
-        outputFile = six.BytesIO()
+        outputFile = io.BytesIO()
         output.write(outputFile)
         return outputFile
 
@@ -66,13 +66,13 @@ class IMergePage(interfaces.IRMLDirectiveSignature):
     """Merges an existing PDF Page into the one to be generated."""
 
     filename = attr.File(
-        title=u'File',
-        description=(u'Reference to the PDF file to extract the page from.'),
+        title='File',
+        description=('Reference to the PDF file to extract the page from.'),
         required=True)
 
     page = attr.Integer(
-        title=u'Page Number',
-        description=u'The page number of the PDF file that is used to merge..',
+        title='Page Number',
+        description='The page number of the PDF file that is used to merge..',
         required=True)
 
 
@@ -110,6 +110,7 @@ class MergePageInPageTemplate(MergePage):
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
 
         onPage = self.parent.pt.onPage
+
         def drawOnCanvas(canvas, doc):
             onPage(canvas, doc)
             outPage = canvas.getPageNumber()-1

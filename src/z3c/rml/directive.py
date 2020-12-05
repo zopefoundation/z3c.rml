@@ -41,7 +41,7 @@ def getFileInfo(directive, element=None):
     return '(file %s, line %i)' %(root.filename, element.sourceline)
 
 @zope.interface.implementer(interfaces.IRMLDirective)
-class RMLDirective(object):
+class RMLDirective:
     signature = None
     factories = {}
 
@@ -53,7 +53,7 @@ class RMLDirective(object):
                            includeMissing=False, valuesOnly=False):
         """See interfaces.IRMLDirective"""
         manager = getManager(self)
-        cache = '%s.%s' % (self.signature.__module__, self.signature.__name__)
+        cache = '{}.{}'.format(self.signature.__module__, self.signature.__name__)
         if cache in manager.attributesCache:
             fields = manager.attributesCache[cache]
         else:

@@ -16,10 +16,10 @@
 __docformat__ = "reStructuredText"
 
 import logging
+import io
 import os
 import subprocess
 
-import six
 from backports import tempfile
 
 try:
@@ -37,6 +37,7 @@ log = logging.getLogger(__name__)
 # PdfReadWarning: Multiple definitions in dictionary at byte xxx
 STRICT = False
 
+
 def _letter(val, base=ord('A'), radix=26):
     __traceback_info__ = val, base
     index = val - 1
@@ -49,6 +50,7 @@ def _letter(val, base=ord('A'), radix=26):
         s = chr(base + off) + s
         if not val:
             return s
+
 
 def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     log.debug('Command: ' + cmd)
@@ -65,7 +67,7 @@ def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     if stderr is None:
         stderr = "See output above"
     if p.returncode != 0 and not ignoreErrors:
-        log.error(u'An error occurred while running command: %s' % cmd)
+        log.error('An error occurred while running command: %s' % cmd)
         log.error('Error Output: \n%s' % stderr)
         raise ValueError('Shell Process had non-zero error code: {}. \n'
                          'Stdout: {}\n'
@@ -74,7 +76,7 @@ def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     return stdout
 
 
-class ConcatenationPostProcessor(object):
+class ConcatenationPostProcessor:
 
     def __init__(self):
         self.operations = []
@@ -97,12 +99,12 @@ class ConcatenationPostProcessor(object):
                     curr_page, inputFile2, pages=(prs, pre),
                     import_bookmarks=False)
 
-        outputFile = six.BytesIO()
+        outputFile = io.BytesIO()
         merger.write(outputFile)
         return outputFile
 
 
-class PdfTkConcatenationPostProcessor(object):
+class PdfTkConcatenationPostProcessor:
 
     EXECUTABLE = 'pdftk'
     PRESERVE_OUTLINE = True
@@ -142,24 +144,24 @@ class PdfTkConcatenationPostProcessor(object):
                 merges.append('%s%i-%i' % (file_letter, prs+1, pre))
 
         mergedFile = os.path.join(dir, 'merged.pdf')
-        do('%s %s cat %s output %s' % (
+        do('{} {} cat {} output {}'.format(
             self.EXECUTABLE,
-            ' '.join('%s="%s"' % (l, p) for l, p in file_map.items()),
+            ' '.join('{}="{}"'.format(l, p) for l, p in file_map.items()),
             ' '.join(merges),
             mergedFile))
 
         if not self.PRESERVE_OUTLINE:
             with open(mergedFile, 'rb') as file:
-                return six.BytesIO(file.read())
+                return io.BytesIO(file.read())
 
         outputFile = os.path.join(dir, 'output.pdf')
-        do('%s %s/A.pdf dump_data > %s/in.info' % (
+        do('{} {}/A.pdf dump_data > {}/in.info'.format(
             self.EXECUTABLE, dir, dir))
-        do('%s %s update_info %s/in.info output %s' % (
+        do('{} {} update_info {}/in.info output {}'.format(
             self.EXECUTABLE, mergedFile, dir, outputFile))
 
         with open(outputFile, 'rb') as file:
-            return six.BytesIO(file.read())
+            return io.BytesIO(file.read())
 
     def process(self, inputFile1):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -180,8 +182,8 @@ class IncludePdfPagesFlowable(flowables.Flowable):
             self.width = 0
             self.height = 0
         else:
-            self.width = 10<<32
-            self.height = 10<<32
+            self.width = 10 << 32
+            self.height = 10 << 32
 
     def draw(self):
         if self.included_on_first_page:
@@ -217,13 +219,13 @@ class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
     """Inserts a set of pages from a given PDF."""
 
     filename = attr.File(
-        title=u'Path to file',
-        description=u'The pdf file to include.',
+        title='Path to file',
+        description='The pdf file to include.',
         required=True)
 
     pages = attr.IntegerSequence(
-        title=u'Pages',
-        description=u'A list of pages to insert.',
+        title='Pages',
+        description='A list of pages to insert.',
         numberingStartsAt=1,
         required=False)
 

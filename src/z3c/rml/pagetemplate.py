@@ -40,7 +40,7 @@ class RMLPageTemplateFile(zope.pagetemplate.pagetemplatefile.PageTemplateFile):
         return rval
 
     def __call__(self, *args, **kwargs):
-        rml = super(RMLPageTemplateFile, self).__call__(*args, **kwargs)
+        rml = super().__call__(*args, **kwargs)
 
         return rml2pdf.parseString(
             rml, filename=self.pt_source_file()).getvalue()

@@ -34,65 +34,65 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
     """Create a bar code."""
 
     code = attr.Choice(
-        title=u'Code',
-        description=u'The name of the type of code to use.',
+        title='Code',
+        description='The name of the type of code to use.',
         choices=reportlab.graphics.barcode.getCodeNames(),
         required=True)
 
     value = attr.TextNode(
-        title=u'Value',
-        description=u'The value represented by the code.',
+        title='Value',
+        description='The value represented by the code.',
         required=True)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the barcode.',
+        title='Width',
+        description='The width of the barcode.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the barcode.',
+        title='Height',
+        description='The height of the barcode.',
         required=False)
 
     barStrokeColor = attr.Color(
-        title=u'Bar Stroke Color',
-        description=(u'The color of the line strokes in the barcode.'),
+        title='Bar Stroke Color',
+        description=('The color of the line strokes in the barcode.'),
         required=False)
 
     barStrokeWidth = attr.Measurement(
-        title=u'Bar Stroke Width',
-        description=u'The width of the line strokes in the barcode.',
+        title='Bar Stroke Width',
+        description='The width of the line strokes in the barcode.',
         required=False)
 
     barFillColor = attr.Color(
-        title=u'Bar Fill Color',
-        description=(u'The color of the filled shapes in the barcode.'),
+        title='Bar Fill Color',
+        description=('The color of the filled shapes in the barcode.'),
         required=False)
 
     gap = attr.Measurement(
-        title=u'Gap',
-        description=u'The width of the inter-character gaps.',
+        title='Gap',
+        description='The width of the inter-character gaps.',
         required=False)
 
     # Bar code dependent attributes
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13B
     barWidth = attr.Measurement(
-        title=u'Bar Width',
-        description=u'The width of the smallest bar within the barcode',
+        title='Bar Width',
+        description='The width of the smallest bar within the barcode',
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET
     barHeight = attr.Measurement(
-        title=u'Bar Height',
-        description=u'The height of the symbol.',
+        title='Bar Height',
+        description='The height of the symbol.',
         required=False)
 
     # I2of5
     ratio = attr.Float(
-        title=u'Ratio',
-        description=(u'The ratio of wide elements to narrow elements. '
-                     u'Must be between 2.0 and 3.0 (or 2.2 and 3.0 if the '
-                     u'barWidth is greater than 20 mils (.02 inch)).'),
+        title='Ratio',
+        description=('The ratio of wide elements to narrow elements. '
+                     'Must be between 2.0 and 3.0 (or 2.2 and 3.0 if the '
+                     'barWidth is greater than 20 mils (.02 inch)).'),
         min=2.0,
         max=3.0,
         required=False)
@@ -100,103 +100,103 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
     # I2of5
     # Should be boolean, but some code want it as int; will still work
     checksum = attr.Integer(
-        title=u'Ratio',
-        description=(u'A flag that enables the computation and inclusion of '
-                     u'the check digit.'),
+        title='Ratio',
+        description=('A flag that enables the computation and inclusion of '
+                     'the check digit.'),
         required=False)
 
     # I2of5
     bearers = attr.Float(
-        title=u'Bearers',
-        description=(u'Height of bearer bars (horizontal bars along the top '
-                     u'and bottom of the barcode). Default is 3 '
-                     u'x-dimensions. Set to zero for no bearer bars.'
-                     u'(Bearer bars help detect misscans, so it is '
-                     u'suggested to leave them on).'),
+        title='Bearers',
+        description=('Height of bearer bars (horizontal bars along the top '
+                     'and bottom of the barcode). Default is 3 '
+                     'x-dimensions. Set to zero for no bearer bars.'
+                     '(Bearer bars help detect misscans, so it is '
+                     'suggested to leave them on).'),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, Ean13
     quiet = attr.Boolean(
-        title=u'Quiet Zone',
-        description=(u'A flag to include quiet zones in the symbol.'),
+        title='Quiet Zone',
+        description=('A flag to include quiet zones in the symbol.'),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, Ean13
     lquiet = attr.Measurement(
-        title=u'Left Quiet Zone',
-        description=(u"Quiet zone size to the left of code, if quiet is "
-                     u"true. Default is the greater of .25 inch or .15 times "
-                     u"the symbol's length."),
+        title='Left Quiet Zone',
+        description=("Quiet zone size to the left of code, if quiet is "
+                     "true. Default is the greater of .25 inch or .15 times "
+                     "the symbol's length."),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, Ean13
     rquiet = attr.Measurement(
-        title=u'Right Quiet Zone',
-        description=(u"Quiet zone size to the right of code, if quiet is "
-                     u"true. Default is the greater of .25 inch or .15 times "
-                     u"the symbol's length."),
+        title='Right Quiet Zone',
+        description=("Quiet zone size to the right of code, if quiet is "
+                     "true. Default is the greater of .25 inch or .15 times "
+                     "the symbol's length."),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
     fontName = attr.String(
-        title=u'Font Name',
-        description=(u'The font used to print the value.'),
+        title='Font Name',
+        description=('The font used to print the value.'),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
     fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=(u'The size of the value text.'),
+        title='Font Size',
+        description=('The size of the value text.'),
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
     humanReadable = attr.Boolean(
-        title=u'Human Readable',
-        description=(u'A flag when set causes the value to be printed below '
-                     u'the bar code.'),
+        title='Human Readable',
+        description=('A flag when set causes the value to be printed below '
+                     'the bar code.'),
         required=False)
 
     # I2of5, Standard93
     stop = attr.Boolean(
-        title=u'Show Start/Stop',
-        description=(u'A flag to specify whether the start/stop symbols '
-                     u'are to be shown.'),
+        title='Show Start/Stop',
+        description=('A flag to specify whether the start/stop symbols '
+                     'are to be shown.'),
         required=False)
 
     # FIM, POSTNET
     spaceWidth = attr.Measurement(
-        title=u'Space Width',
-        description=u'The space of the inter-character gaps.',
+        title='Space Width',
+        description='The space of the inter-character gaps.',
         required=False)
 
     # POSTNET
     shortHeight = attr.Measurement(
-        title=u'Short Height',
-        description=u'The height of the short bar.',
+        title='Short Height',
+        description='The height of the short bar.',
         required=False)
 
     # Ean13
     textColor = attr.Color(
-        title=u'Text Color',
-        description=(u'The color of human readable text.'),
+        title='Text Color',
+        description=('The color of human readable text.'),
         required=False)
 
     # USPS4S
     routing = attr.String(
-        title=u'Routing',
-        description=u'The routing information string.',
+        title='Routing',
+        description='The routing information string.',
         required=False)
 
     # QR
     barLevel = attr.Choice(
-        title=u'Bar Level',
-        description=u'The error correction level for QR code',
+        title='Bar Level',
+        description='The error correction level for QR code',
         choices=['L', 'M', 'Q', 'H'],
         required=False)
 
     barBorder = attr.Measurement(
-        title=u'Bar Border',
-        description=u'The width of the border around a QR code.',
+        title='Bar Border',
+        description='The width of the border around a QR code.',
         required=False)
 
 
@@ -204,20 +204,20 @@ class IBarCode(IBarCodeBase):
     """A barcode graphic."""
 
     x = attr.Measurement(
-        title=u'X-Position',
-        description=u'The x-position of the lower-left corner of the barcode.',
+        title='X-Position',
+        description='The x-position of the lower-left corner of the barcode.',
         default=0,
         required=False)
 
     y = attr.Measurement(
-        title=u'Y-Position',
-        description=u'The y-position of the lower-left corner of the barcode.',
+        title='Y-Position',
+        description='The y-position of the lower-left corner of the barcode.',
         default=0,
         required=False)
 
     isoScale = attr.Boolean(
-        title=u'Isometric Scaling',
-        description=u'When set, the aspect ration of the barcode is enforced.',
+        title='Isometric Scaling',
+        description='When set, the aspect ration of the barcode is enforced.',
         required=False)
 
 class BarCode(directive.RMLDirective):
@@ -238,19 +238,19 @@ class IField(interfaces.IRMLDirectiveSignature):
     """A field."""
 
     title = attr.Text(
-        title=u'Title',
-        description=u'The title of the field.',
+        title='Title',
+        description='The title of the field.',
         required=True)
 
     x = attr.Measurement(
-        title=u'X-Position',
-        description=u'The x-position of the lower-left corner of the field.',
+        title='X-Position',
+        description='The x-position of the lower-left corner of the field.',
         default=0,
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Position',
-        description=u'The y-position of the lower-left corner of the field.',
+        title='Y-Position',
+        description='The y-position of the lower-left corner of the field.',
         default=0,
         required=True)
 
@@ -270,28 +270,28 @@ class ITextField(IField):
     """A text field within the PDF"""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the text field.',
+        title='Width',
+        description='The width of the text field.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the text field.',
+        title='Height',
+        description='The height of the text field.',
         required=True)
 
     value = attr.Text(
-        title=u'Value',
-        description=u'The default text value of the field.',
+        title='Value',
+        description='The default text value of the field.',
         required=False)
 
     maxLength = attr.Integer(
-        title=u'Maximum Length',
-        description=u'The maximum amount of characters allowed in the field.',
+        title='Maximum Length',
+        description='The maximum amount of characters allowed in the field.',
         required=False)
 
     multiline = attr.Boolean(
-        title=u'Multiline',
-        description=u'A flag when set allows multiple lines within the field.',
+        title='Multiline',
+        description='A flag when set allows multiple lines within the field.',
         required=False)
 
 class TextField(Field):
@@ -304,8 +304,8 @@ class IButtonField(IField):
     """A button field within the PDF"""
 
     value = attr.Choice(
-        title=u'Value',
-        description=u'The value of the button.',
+        title='Value',
+        description='The value of the button.',
         choices=('Yes', 'Off'),
         required=True)
 
@@ -318,8 +318,8 @@ class IOption(interfaces.IRMLDirectiveSignature):
     """An option in the select field."""
 
     value = attr.TextNode(
-        title=u'Value',
-        description=u'The value of the option.',
+        title='Value',
+        description='The value of the option.',
         required=True)
 
 class Option(directive.RMLDirective):
@@ -336,18 +336,18 @@ class ISelectField(IField):
         occurence.ZeroOrMore('option', IOption))
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the select field.',
+        title='Width',
+        description='The width of the select field.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the select field.',
+        title='Height',
+        description='The height of the select field.',
         required=True)
 
     value = attr.Text(
-        title=u'Value',
-        description=u'The default value of the field.',
+        title='Value',
+        description='The default value of the field.',
         required=False)
 
 class SelectField(Field):

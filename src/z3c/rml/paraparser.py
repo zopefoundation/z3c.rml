@@ -20,7 +20,6 @@ import reportlab.lib.styles
 import reportlab.lib.utils
 import reportlab.platypus.paragraph
 import reportlab.platypus.paraparser
-import six
 
 
 class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
@@ -38,7 +37,7 @@ class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
 
     def _get_pass_key(self):
         canvas = self._get_canvas()
-        return '_text_%s_%s' % (
+        return '_text_{}_{}'.format(
             canvas._doctemplate.current_pass, canvas.getPageNumber()
         )
 
@@ -108,9 +107,9 @@ class EvalStringFragment(ParaFragWrapper):
         self.frags = attributes.get('frags', [])
 
     def _get_text(self):
-        text = u''
+        text = ''
         for frag in self.frags:
-            if isinstance(frag, six.string_types):
+            if isinstance(frag, str):
                 text += frag
             else:
                 text += frag.text
@@ -129,7 +128,7 @@ class NameFragment(ParaFragWrapper):
     def _get_text(self):
         canvas = self._get_canvas()
         canvas.manager.names[self.id] = self.value
-        return u''
+        return ''
 
 
 class SpanStyle(reportlab.lib.styles.PropertySet):
@@ -299,13 +298,13 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
 class ImageReader(reportlab.lib.utils.ImageReader):
 
     def __init__(self, fileName, ident=None):
-        if isinstance(fileName, six.string_types):
+        if isinstance(fileName, str):
             # Avoid circular imports. The filename resolutions hould be added
             # to a utility module.
             from z3c.rml import attr
             _srcAttr = attr.File(doNotOpen=True)
             fileName = _srcAttr.fromUnicode(fileName)
-        return super(ImageReader, self).__init__(fileName, ident)
+        return super().__init__(fileName, ident)
 
 
 # Monkey Patch reportlab image reader, so that <img> tags inside paragraphs
