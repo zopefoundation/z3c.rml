@@ -15,6 +15,7 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
@@ -45,8 +46,6 @@ setup (
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -69,7 +68,6 @@ setup (
         'lxml',
         'reportlab>=3.1.44',
         'setuptools',
-        'six',
         'zope.interface',
         'zope.schema',
         ],
