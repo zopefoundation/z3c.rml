@@ -5,7 +5,9 @@ CHANGES
 3.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Dropped support for Python 2.X
+
+- Dropped `PyPDF2` for `pikepdf`
 
 
 3.10.0 (2020-03-27)

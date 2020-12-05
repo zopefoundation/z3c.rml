@@ -62,7 +62,7 @@ setup (
             'zope.pagetemplate']
         ),
     install_requires=[
-        'PyPDF2>=1.25.1',
+        'pikepdf',
         'Pygments',
         'backports.tempfile',
         'lxml',

@@ -23,10 +23,10 @@ import subprocess
 from backports import tempfile
 
 try:
-    import PyPDF2
-    from PyPDF2.generic import NameObject
+    import pikepdf
+    from pikepdf import Dictionary
 except ImportError:
-    PyPDF2 = None
+    pikepdf = None
 from reportlab.platypus import flowables
 
 from z3c.rml import attr, flowable, interfaces, occurence
@@ -82,25 +82,22 @@ class ConcatenationPostProcessor:
         self.operations = []
 
     def process(self, inputFile1):
-        input1 = PyPDF2.PdfFileReader(inputFile1, strict=STRICT)
-        merger = PyPDF2.PdfFileMerger(strict=STRICT)
-        merger.output._info.getObject().update(input1.documentInfo)
-
-        merger.append(inputFile1)
+        input1 = pikepdf.open(inputFile1)
 
         for start_page, inputFile2, page_ranges, num_pages in self.operations:
-            # Remove blank pages, that we reserved in IncludePdfPagesFlowable
-            # and insert real pdf here
-            del merger.pages[start_page:start_page + num_pages]
             curr_page = start_page
             for page_range in page_ranges:
                 prs, pre = page_range
-                merger.merge(
-                    curr_page, inputFile2, pages=(prs, pre),
-                    import_bookmarks=False)
+                input2 = pikepdf.open(inputFile2)
+                for i in range(num_pages):
+                    # Doing this copy will preserve references to the original
+                    # pages if there is a TOC/Bookmarks.
+                    input1.pages.append(input2.pages[prs + i])
+                    input1.pages[start_page + i].emplace(input1.pages[-1])
+                    del input1.pages[-1]
 
         outputFile = io.BytesIO()
-        merger.write(outputFile)
+        input1.save(outputFile)
         return outputFile
 
 
@@ -192,8 +189,8 @@ class IncludePdfPagesFlowable(flowables.Flowable):
     def split(self, availWidth, availheight):
         pages = self.pages
         if not pages:
-            pdf = PyPDF2.PdfFileReader(self.pdf_file, strict=STRICT)
-            pages = [(0, pdf.getNumPages())]
+            pdf = pikepdf.open(self.pdf_file)
+            pages = [(0, len(pdf.pages))]
 
         num_pages = sum(pr[1]-pr[0] for pr in pages)
 
@@ -248,9 +245,9 @@ class IncludePdfPages(flowable.Flowable):
         return procs['CONCAT']
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'PyPDF2 is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         args = dict(self.getAttributeValues())
         proc = self.getProcessor()
         self.parent.flow.append(

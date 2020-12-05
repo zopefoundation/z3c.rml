@@ -18,12 +18,50 @@ import io
 from z3c.rml import attr, directive, interfaces
 
 try:
-    import PyPDF2
-    from PyPDF2.generic import NameObject
+    import pikepdf
+    from pikepdf import Object
 except ImportError:
     # We don't want to require pyPdf, if you do not want to use the features
     # in this module.
-    PyPDF2 = None
+    pikepdf = None
+
+
+def getMergeLayer(layerPage, mainPage, name):
+    mediaBox = [float(layerPage.MediaBox[v]) for v in range(4)]
+    wt, ht = mediaBox[2] - mediaBox[0], mediaBox[3] - mediaBox[1]
+
+    mpMediaBox = [float(mainPage.MediaBox[v]) for v in range(4)]
+    wp, hp = mpMediaBox[2] - mpMediaBox[0], mpMediaBox[3] - mpMediaBox[1]
+
+    translate = pikepdf.PdfMatrix().translated(-wt / 2, -ht / 2)
+    untranslate = pikepdf.PdfMatrix().translated(wp / 2, hp / 2)
+    corner = pikepdf.PdfMatrix().translated(mpMediaBox[0], mpMediaBox[1])
+
+    scale_x = wp / wt
+    scale_y = hp / ht
+    scale = pikepdf.PdfMatrix().scaled(scale_x, scale_y)
+
+    ctm = translate @ scale @ untranslate @ corner
+
+    layerPageContents = (
+        b'q\n %s cm\n %s Do\nQ\n' % (ctm.encode(), name.encode())
+    )
+
+    return layerPageContents
+
+
+def mergePage(layerPage, mainPage, pdf, name) -> None:
+    contentsForName = pdf.copy_foreign(
+        pikepdf.Page(layerPage).as_form_xobject()
+    )
+    newContents = getMergeLayer(layerPage, mainPage, name)
+    if not mainPage.Resources.get("/XObject"):
+        mainPage.Resources["/XObject"] = pikepdf.Dictionary({})
+    mainPage.Resources["/XObject"][name] = contentsForName
+    mainPage.page_contents_add(
+        contents=pikepdf.Stream(pdf, newContents),
+        prepend=True
+    )
 
 
 class MergePostProcessor:
@@ -32,33 +70,18 @@ class MergePostProcessor:
         self.operations = {}
 
     def process(self, inputFile1):
-        input1 = PyPDF2.PdfFileReader(inputFile1)
-        output = PyPDF2.PdfFileWriter()
-        # TODO: Do not access protected classes
-        output._info.getObject().update(input1.documentInfo)
-
-        # Add the outlines, if any
-        if "/Outlines" in input1.trailer["/Root"]:
-            if output._root:
-                # Backwards-compatible with PyPDF2 version 1.21
-                output._root.getObject()[NameObject("/Outlines")] = (
-                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
-            else:
-                # Compatible with PyPDF2 version 1.22+
-                output._root_object[NameObject("/Outlines")] = (
-                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
-
+        input1 = pikepdf.open(inputFile1)
+        count = 0
         for (num, page) in enumerate(input1.pages):
             if num in self.operations:
                 for mergeFile, mergeNumber in self.operations[num]:
-                    merger = PyPDF2.PdfFileReader(mergeFile)
-                    mergerPage = merger.getPage(mergeNumber)
-                    mergerPage.mergePage(page)
-                    page = mergerPage
-            output.addPage(page)
+                    mergePdf = pikepdf.open(mergeFile)
+                    toMerge = mergePdf.pages[mergeNumber]
+                    name = f"/Fx{count}"
+                    mergePage(toMerge, page, input1, name)
 
         outputFile = io.BytesIO()
-        output.write(outputFile)
+        input1.save(outputFile)
         return outputFile
 
 
@@ -89,9 +112,9 @@ class MergePage(directive.RMLDirective):
         return procs['MERGE']
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'pyPdf is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self, interfaces.ICanvasManager)
         outPage = manager.canvas.getPageNumber()-1
@@ -104,9 +127,9 @@ class MergePage(directive.RMLDirective):
 class MergePageInPageTemplate(MergePage):
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'pyPdf is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
 
         onPage = self.parent.pt.onPage
