@@ -14,18 +14,19 @@
 """RML ``document`` element
 """
 import logging
-import six
 import sys
-import zope.interface
+
 import reportlab.pdfgen.canvas
-from reportlab.pdfbase import pdfmetrics, ttfonts, cidfonts
+import six
+import zope.interface
 from reportlab.lib import colors, fonts
+from reportlab.pdfbase import cidfonts, pdfmetrics, ttfonts
 from reportlab.platypus import tableofcontents
 from reportlab.platypus.doctemplate import IndexingFlowable
 
-from z3c.rml import attr, canvas, directive, doclogic, interfaces, list
-from z3c.rml import occurence, pdfinclude, special, storyplace, stylesheet
-from z3c.rml import template
+from z3c.rml import (attr, canvas, directive, doclogic, interfaces, list,
+                     occurence, pdfinclude, special, storyplace, stylesheet,
+                     template)
 
 LOGGER_NAME = 'z3c.rml.render'
 

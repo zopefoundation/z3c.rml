@@ -14,10 +14,11 @@
 """RML Directive Implementation
 """
 import logging
+
 import zope.interface
 import zope.schema
-
 from lxml import etree
+
 from z3c.rml import interfaces
 from z3c.rml.attr import getManager
 

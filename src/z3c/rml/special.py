@@ -14,6 +14,7 @@
 """Special Element Processing
 """
 import six
+
 from z3c.rml import attr, directive, interfaces
 
 

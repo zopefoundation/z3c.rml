@@ -13,13 +13,15 @@
 ##############################################################################
 """RML to PDF Converter
 """
+import argparse
 import os
-import six
 import sys
+
+import six
 import zope.interface
 from lxml import etree
+
 from z3c.rml import document, interfaces
-import argparse
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 

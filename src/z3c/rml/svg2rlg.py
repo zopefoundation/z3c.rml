@@ -9,19 +9,17 @@ version 0.3
 """
 import os
 import re
-import six
 from gzip import GzipFile
-
 from xml.etree import cElementTree
 
-from reportlab.graphics import renderPDF
-
-from reportlab.graphics.shapes import Drawing, Group, String, Line, Rect, Image
-from reportlab.graphics.shapes import Circle, Ellipse, Polygon, PolyLine, Path
-from reportlab.graphics.shapes import mmult
-
-from reportlab.lib.units import pica, toLength
 import reportlab.lib.colors as colors
+import six
+from reportlab.graphics import renderPDF
+from reportlab.graphics.shapes import (Circle, Drawing, Ellipse, Group, Image,
+                                       Line, Path, Polygon, PolyLine, Rect,
+                                       String, mmult)
+from reportlab.lib.units import pica, toLength
+
 
 class SVGError(Exception):
     pass
@@ -1552,8 +1550,8 @@ def svg2rlg(filename):
     return renderer.render(xml)
 
 if __name__ == "__main__":
-    import sys
     import os
+    import sys
 
     #sys.argv.append('compliance/paths-data-15-t.svg')
 

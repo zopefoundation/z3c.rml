@@ -16,6 +16,8 @@
 import copy
 import logging
 import re
+from xml.sax.saxutils import unescape
+
 import reportlab.lib.styles
 import reportlab.platypus
 import reportlab.platypus.doctemplate
@@ -23,15 +25,16 @@ import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
 from reportlab.lib import styles, utils
-from xml.sax.saxutils import unescape
-from z3c.rml import attr, directive, interfaces, occurence, paraparser
-from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
+
+from z3c.rml import (SampleStyleSheet, attr, directive, form, interfaces,
+                     occurence, paraparser, platypus, special, stylesheet)
 
 try:
     import reportlab.graphics.barcode
 except ImportError:
     # barcode package has not been installed
     import types
+
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.createBarcodeDrawing = None

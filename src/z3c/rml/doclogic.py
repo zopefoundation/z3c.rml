@@ -14,7 +14,9 @@
 """``doc*`` directives.
 """
 import reportlab.platypus
+
 from z3c.rml import attr, directive, flowable, interfaces, occurence
+
 
 class IDocAssign(interfaces.IRMLDirectiveSignature):
     """Assign a value to the namesapce."""

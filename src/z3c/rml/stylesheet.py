@@ -14,11 +14,13 @@
 """Style Related Element Processing
 """
 import copy
-import reportlab.lib.styles
+
 import reportlab.lib.enums
+import reportlab.lib.styles
 import reportlab.platypus
-from z3c.rml import attr, directive, interfaces, paraparser, occurence, special
-from z3c.rml import SampleStyleSheet
+
+from z3c.rml import (SampleStyleSheet, attr, directive, interfaces, occurence,
+                     paraparser, special)
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):

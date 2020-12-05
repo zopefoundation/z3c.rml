@@ -13,9 +13,11 @@
 ##############################################################################
 """Test generating DTD
 """
-import lxml.etree
 import os
 import unittest
+
+import lxml.etree
+
 from z3c.rml import dtd
 
 

@@ -16,7 +16,9 @@
 __docformat__ = "reStructuredText"
 
 import math
+
 import six
+
 
 def toOrdinal(num):
     str_num = six.text_type(num)

@@ -15,12 +15,13 @@
 """
 import logging
 import os
-import unittest
 import sys
-import z3c.rml.tests
+import unittest
+
 from PyPDF2.utils import PdfReadError
-from z3c.rml import rml2pdf
-from z3c.rml import pdfinclude
+
+import z3c.rml.tests
+from z3c.rml import pdfinclude, rml2pdf
 
 HERE = os.path.dirname(z3c.rml.tests.__file__)
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')

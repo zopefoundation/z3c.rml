@@ -16,11 +16,12 @@
 __docformat__ = "reStructuredText"
 import collections
 import logging
+
 import reportlab.lib.enums
 import zope.interface
 import zope.schema
 
-from z3c.rml.occurence import ZeroOrMore, ZeroOrOne, OneOrMore
+from z3c.rml.occurence import OneOrMore, ZeroOrMore, ZeroOrOne
 
 JOIN_CHOICES = collections.OrderedDict([
     ('round', 1), ('mitered', 0), ('bevelled', 2)

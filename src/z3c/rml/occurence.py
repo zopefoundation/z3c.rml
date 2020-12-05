@@ -13,12 +13,14 @@
 ##############################################################################
 """Condition Implementation
 """
+import sys
+
 import reportlab
 import six
-import sys
 import zope.interface
 import zope.schema
 from zope.schema import fieldproperty
+
 
 class ICondition(zope.interface.Interface):
     """Condition that is checked before a  directive is available."""

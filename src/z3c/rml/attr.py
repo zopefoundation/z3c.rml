@@ -17,18 +17,20 @@ import collections
 import logging
 import os
 import re
-import six
+from importlib import import_module
+
 import reportlab.graphics.widgets.markers
 import reportlab.lib.colors
 import reportlab.lib.pagesizes
 import reportlab.lib.styles
 import reportlab.lib.units
 import reportlab.lib.utils
+import six
 import zope.interface
 import zope.schema
 from lxml import etree
-from importlib import import_module
-from z3c.rml import interfaces, SampleStyleSheet
+
+from z3c.rml import SampleStyleSheet, interfaces
 
 MISSING = object()
 logger = logging.getLogger("z3c.rml")
@@ -485,8 +487,10 @@ class Image(File):
             return manager.svgs[cache_key]
 
         from gzip import GzipFile
-        from reportlab.graphics import renderPM
         from xml.etree import cElementTree
+
+        from reportlab.graphics import renderPM
+
         from z3c.rml.svg2rlg import Renderer
 
         fileObj = super(Image, self).fromUnicode(value)

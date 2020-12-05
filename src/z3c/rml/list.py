@@ -15,12 +15,14 @@
 """
 __docformat__ = "reStructuredText"
 import copy
+
 import reportlab.lib.styles
 import reportlab.platypus
 import zope.schema
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, directive, flowable, interfaces, occurence, stylesheet
+from z3c.rml import (attr, directive, flowable, interfaces, occurence,
+                     stylesheet)
 
 
 class IListItem(stylesheet.IMinimalListStyle, flowable.IFlow):

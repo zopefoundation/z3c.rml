@@ -14,7 +14,9 @@
 """Page Drawing Related Element Processing
 """
 import types
+
 import reportlab.pdfbase.pdfform
+
 from z3c.rml import attr, directive, interfaces, occurence
 
 try:
@@ -22,6 +24,7 @@ try:
 except ImportError:
     # barcode package has not been installed
     import types
+
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.getCodeNames = lambda : ()

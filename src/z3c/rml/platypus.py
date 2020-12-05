@@ -15,10 +15,11 @@
 """
 import reportlab.platypus.flowables
 import reportlab.rl_config
-from reportlab.rl_config import overlapAttachedSpace
 import zope.interface
+from reportlab.rl_config import overlapAttachedSpace
 
 from z3c.rml import interfaces
+
 
 # Fix problem with reportlab 3.1.44
 class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):

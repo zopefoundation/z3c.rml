@@ -13,13 +13,15 @@
 ##############################################################################
 """Paragraph-internal XML parser extensions.
 """
-import six
 import sys
+
 import reportlab.lib.fonts
 import reportlab.lib.styles
 import reportlab.lib.utils
-import reportlab.platypus.paraparser
 import reportlab.platypus.paragraph
+import reportlab.platypus.paraparser
+import six
+
 
 class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
     @property

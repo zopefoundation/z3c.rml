@@ -18,6 +18,7 @@ __docformat__ = "reStructuredText"
 import logging
 import os
 import subprocess
+
 import six
 from backports import tempfile
 

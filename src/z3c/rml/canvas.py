@@ -13,10 +13,11 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import zope.interface
 import reportlab.pdfgen.canvas
-from z3c.rml import attr, directive, interfaces, occurence, stylesheet
-from z3c.rml import chart, flowable, form, page, special
+import zope.interface
+
+from z3c.rml import (attr, chart, directive, flowable, form, interfaces,
+                     occurence, page, special, stylesheet)
 
 
 class IShape(interfaces.IRMLDirectiveSignature):
