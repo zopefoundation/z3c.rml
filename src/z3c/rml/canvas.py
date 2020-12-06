@@ -433,7 +433,7 @@ class Place(CanvasRMLDirective):
 class IParam(interfaces.IRMLDirectiveSignature):
     """Sets one paramter for the text annotation."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the paramter.',
         required=True)
@@ -626,7 +626,7 @@ class Stroke(CanvasRMLDirective):
 class ISetFont(interfaces.IRMLDirectiveSignature):
     """Set the font name and/or size."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Font Name',
         description=('The name of the font as it was registered.'),
         required=True)
@@ -850,12 +850,12 @@ class Bookmark(CanvasRMLDirective):
 class IPlugInGraphic(interfaces.IRMLDirectiveSignature):
     """Inserts a custom graphic developed in Python."""
 
-    module = attr.String(
+    module = attr.Text(
         title='Module',
         description='The Python module in which the flowable is located.',
         required=True)
 
-    function = attr.String(
+    function = attr.Text(
         title='Function',
         description=('The name of the factory function within the module '
                      'that returns the custom flowable.'),

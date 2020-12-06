@@ -76,7 +76,7 @@ class IText(interfaces.IRMLDirectiveSignature):
         description='The text to be printed.',
         required=True)
 
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description='The name of the font.',
         required=False)
@@ -298,7 +298,7 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
         description='The width of the label line.',
         required=False)
 
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description='The font used to print the value.',
         required=False)
@@ -656,7 +656,7 @@ class IValueAxis(IAxis):
             # Python path to function.
             attr.ObjectRef(),
             # Formatting String.
-            attr.String(),
+            attr.Text(),
         ),
         required=False)
 
@@ -919,7 +919,7 @@ class ISliceBase(interfaces.IRMLDirectiveSignature):
         description='The distance of how much the slice should be popped out.',
         required=False)
 
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description='The font name of the label.',
         required=False)
@@ -1101,7 +1101,7 @@ class IStrandLabelBase(ILabelBase):
         description='The column of the strand label.',
         required=False)
 
-    format = attr.String(
+    format = attr.Text(
         title='Format',
         description='The format string for the label.',
         required=False)
@@ -1364,7 +1364,7 @@ class IBarChart(IChart):
         default=0,
         required=False)
 
-    barLabelFormat = attr.String(
+    barLabelFormat = attr.Text(
         title='Bar Label Text Format',
         description='Formatting string for bar labels.',
         required=False)
@@ -1450,7 +1450,7 @@ class ILinePlot(IChart):
         description='The distance between the data point and its label.',
         required=False)
 
-    lineLabelFormat = attr.String(
+    lineLabelFormat = attr.Text(
         title='Line Label Format',
         description='Formatting string for data point labels.',
         required=False)

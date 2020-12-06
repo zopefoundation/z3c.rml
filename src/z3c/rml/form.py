@@ -138,7 +138,7 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         required=False)
 
     # I2of5, Code128, Standard93, FIM, POSTNET, Ean13
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description=('The font used to print the value.'),
         required=False)
@@ -182,7 +182,7 @@ class IBarCodeBase(interfaces.IRMLDirectiveSignature):
         required=False)
 
     # USPS4S
-    routing = attr.String(
+    routing = attr.Text(
         title='Routing',
         description='The routing information string.',
         required=False)

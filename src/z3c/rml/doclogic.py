@@ -21,12 +21,12 @@ from z3c.rml import attr, directive, flowable, interfaces, occurence
 class IDocAssign(interfaces.IRMLDirectiveSignature):
     """Assign a value to the namesapce."""
 
-    var = attr.String(
+    var = attr.Text(
         title='Variable Name',
         description='The name under which the value is stored.',
         required=True)
 
-    expr = attr.String(
+    expr = attr.Text(
         title='Expression',
         description='The expression that creates the value when evaluated.',
         required=True)
@@ -39,7 +39,7 @@ class DocAssign(flowable.Flowable):
 class IDocExec(interfaces.IRMLDirectiveSignature):
     """Execute a statement."""
 
-    stmt = attr.String(
+    stmt = attr.Text(
         title='Statement',
         description='The statement to be executed.',
         required=True)
@@ -52,12 +52,12 @@ class DocExec(flowable.Flowable):
 class IDocPara(interfaces.IRMLDirectiveSignature):
     """Create a paragraph with the value returned from the expression."""
 
-    expr = attr.String(
+    expr = attr.Text(
         title='Expression',
         description='The expression to be executed.',
         required=True)
 
-    format = attr.String(
+    format = attr.Text(
         title='Format',
         description='The format used to render the expression value.',
         required=False)
@@ -80,12 +80,12 @@ class DocPara(flowable.Flowable):
 class IDocAssert(interfaces.IRMLDirectiveSignature):
     """Assert a certain condition."""
 
-    cond = attr.String(
+    cond = attr.Text(
         title='Condition',
         description='The condition to be asserted.',
         required=True)
 
-    format = attr.String(
+    format = attr.Text(
         title='Format',
         description='The text displayed if assertion fails.',
         required=False)
@@ -110,7 +110,7 @@ class DocElse(flowable.Flowable):
 class IDocIf(flowable.IFlow):
     """Display story flow based on the value of the condition."""
 
-    cond = attr.String(
+    cond = attr.Text(
         title='Condition',
         description='The condition to be tested.',
         required=True)
@@ -134,7 +134,7 @@ class DocIf(flowable.Flow):
 class IDocWhile(flowable.IFlow):
     """Repeat the included directives as long as the condition is true."""
 
-    cond = attr.String(
+    cond = attr.Text(
         title='Condition',
         description='The condition to be tested.',
         required=True)

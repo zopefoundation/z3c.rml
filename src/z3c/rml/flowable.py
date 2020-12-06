@@ -117,7 +117,7 @@ class Illustration(Flowable):
 class IBarCodeFlowable(form.IBarCodeBase):
     """Creates a bar code as a flowable."""
 
-    value = attr.String(
+    value = attr.Text(
         title='Value',
         description='The value represented by the code.',
         required=True)
@@ -130,12 +130,12 @@ class BarCodeFlowable(Flowable):
 class IPluginFlowable(interfaces.IRMLDirectiveSignature):
     """Inserts a custom flowable developed in Python."""
 
-    module = attr.String(
+    module = attr.Text(
         title='Module',
         description='The Python module in which the flowable is located.',
         required=True)
 
-    function = attr.String(
+    function = attr.Text(
         title='Function',
         description=('The name of the factory function within the module '
                      'that returns the custom flowable.'),
@@ -169,7 +169,7 @@ class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
                      'style.'),
         required=False)
 
-    bulletText = attr.String(
+    bulletText = attr.Text(
         title='Bullet Character',
         description=('The bullet character is the ASCII representation of '
                      'the symbol making up the bullet in a listing.'),
@@ -268,7 +268,7 @@ class ICodeSnippet(IXPreformatted):
                      'style.'),
         required=False)
 
-    language = attr.String(
+    language = attr.Text(
         title='Language',
         description='The language the code snippet is written in.',
         required=False)
@@ -386,7 +386,7 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
         description=('The content of the cell; can be text or any flowable.'),
         required=True)
 
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description='The name of the font for the cell.',
         required=False)
@@ -1318,7 +1318,7 @@ class IOutlineAdd(interfaces.IRMLDirectiveSignature):
         description='The text displayed for this item.',
         required=True)
 
-    key = attr.String(
+    key = attr.Text(
         title='Key',
         description='The unique key of the item.',
         required=False)
@@ -1362,7 +1362,7 @@ class NamedStringFlowable(reportlab.platypus.flowables.Flowable,
 class INamedString(interfaces.IRMLDirectiveSignature):
     """Defines a name for a string."""
 
-    id = attr.String(
+    id = attr.Text(
         title='Id',
         description='The id under which the value will be known.',
         required=True)
@@ -1385,13 +1385,13 @@ class NamedString(directive.RMLDirective):
 class IShowIndex(interfaces.IRMLDirectiveSignature):
     """Creates an index in the document."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the index.',
         default='index',
         required=False)
 
-    dot = attr.String(
+    dot = attr.Text(
         title='Dot',
         description='The character to use as a dot.',
         required=False)

@@ -159,10 +159,6 @@ class Text(RMLAttribute, zope.schema.Text):
     """A simple unicode string."""
 
 
-class String(Text):
-    """Formerly a simple Bytes string, now the same as Text."""
-
-
 class Integer(RMLAttribute, zope.schema.Int):
     """An integer. A minimum and maximum value can be specified."""
     # By making min and max simple attributes, we avoid some validation
@@ -590,7 +586,7 @@ def _getStyle(context, value):
         value, getFileInfo(context)))
 
 
-class Style(String):
+class Style(Text):
     """Requires a valid style to be entered.
 
     Whether the style is a paragraph, table or box style is irrelevant, except
@@ -632,7 +628,7 @@ class PageSize(RMLAttribute):
     """
 
     sizePair = Sequence(value_type=Measurement())
-    words = Sequence(value_type=String())
+    words = Sequence(value_type=Text())
 
     def fromUnicode(self, value):
         # First try to get a pair

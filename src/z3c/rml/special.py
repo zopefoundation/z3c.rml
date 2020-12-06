@@ -21,7 +21,7 @@ from z3c.rml import attr, directive, interfaces
 class IName(interfaces.IRMLDirectiveSignature):
     """Defines a name for a string."""
 
-    id = attr.String(
+    id = attr.Text(
         title='Id',
         description='The id under which the value will be known.',
         required=True)
@@ -43,7 +43,7 @@ class Name(directive.RMLDirective):
 class IAlias(interfaces.IRMLDirectiveSignature):
     """Defines an alias for a given style."""
 
-    id = attr.String(
+    id = attr.Text(
         title='Id',
         description='The id as which the style will be known.',
         required=True)

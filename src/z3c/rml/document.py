@@ -58,19 +58,19 @@ class RegisterType1Face(directive.RMLDirective):
 class IRegisterFont(interfaces.IRMLDirectiveSignature):
     """Register a new font based on a face and encoding."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description=('The name under which the font can be used in style '
                      'declarations or other parameters that lookup a font.'),
         required=True)
 
-    faceName = attr.String(
+    faceName = attr.Text(
         title='Face Name',
         description=('The name of the face the font uses. The face has to '
                      'be previously registered.'),
         required=True)
 
-    encName = attr.String(
+    encName = attr.Text(
         title='Encoding Name',
         description=('The name of the encdoing to be used.'),
         required=True)
@@ -89,7 +89,7 @@ class IAddMapping(interfaces.IRMLDirectiveSignature):
     """Map various styles(bold, italic) of a font name to the actual ps fonts
     used."""
 
-    faceName = attr.String(
+    faceName = attr.Text(
         title='Name',
         description=('The name of the font to be mapped'),
         required=True)
@@ -104,7 +104,7 @@ class IAddMapping(interfaces.IRMLDirectiveSignature):
         description=('Italic'),
         required=True)
 
-    psName = attr.String(
+    psName = attr.Text(
         title='psName',
         description=('Actual font name mapped'),
         required=True)
@@ -121,7 +121,7 @@ class AddMapping(directive.RMLDirective):
 class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
     """Register a new TrueType font given the TT file and face name."""
 
-    faceName = attr.String(
+    faceName = attr.Text(
         title='Face Name',
         description=('The name of the face the font uses. The face has to '
                      'be previously registered.'),
@@ -146,13 +146,13 @@ class RegisterTTFont(directive.RMLDirective):
 class IRegisterCidFont(interfaces.IRMLDirectiveSignature):
     """Register a new CID font given the face name."""
 
-    faceName = attr.String(
+    faceName = attr.Text(
         title='Face Name',
         description=('The name of the face the font uses. The face has to '
                      'be previously registered.'),
         required=True)
 
-    encName = attr.String(
+    encName = attr.Text(
         title='Encoding Name',
         description=('The name of the encoding to use for the font.'),
         required=False)
@@ -174,27 +174,27 @@ class RegisterCidFont(directive.RMLDirective):
 class IRegisterFontFamily(interfaces.IRMLDirectiveSignature):
     """Register a new font family."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description=('The name of the font family.'),
         required=True)
 
-    normal = attr.String(
+    normal = attr.Text(
         title='Normal Font Name',
         description=('The name of the normal font variant.'),
         required=False)
 
-    bold = attr.String(
+    bold = attr.Text(
         title='Bold Font Name',
         description=('The name of the bold font variant.'),
         required=False)
 
-    italic = attr.String(
+    italic = attr.Text(
         title='Italic Font Name',
         description=('The name of the italic font variant.'),
         required=False)
 
-    boldItalic = attr.String(
+    boldItalic = attr.Text(
         title='Bold/Italic Font Name',
         description=('The name of the bold/italic font variant.'),
         required=True)
@@ -212,7 +212,7 @@ class RegisterFontFamily(directive.RMLDirective):
 class IColorDefinition(interfaces.IRMLDirectiveSignature):
     """Define a new color and give it a name to be known under."""
 
-    id = attr.String(
+    id = attr.Text(
         title='Id',
         description=('The id/name the color will be available under.'),
         required=True)
@@ -232,7 +232,7 @@ class IColorDefinition(interfaces.IRMLDirectiveSignature):
         description=('The color value that is represented.'),
         required=False)
 
-    spotName = attr.String(
+    spotName = attr.Text(
         title='Spot Name',
         description=('The Spot Name of the CMYK color.'),
         required=False)
@@ -244,7 +244,7 @@ class IColorDefinition(interfaces.IRMLDirectiveSignature):
         max=1.0,
         required=False)
 
-    knockout = attr.String(
+    knockout = attr.Text(
         title='Knockout',
         description=('The knockout of the CMYK color.'),
         required=False)
@@ -287,7 +287,7 @@ stylesheet.IInitialize.setTaggedValue(
 class IStartIndex(interfaces.IRMLDirectiveSignature):
     """Start a new index."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the index.',
         default='index',
@@ -319,7 +319,7 @@ class StartIndex(directive.RMLDirective):
 class ICropMarks(interfaces.IRMLDirectiveSignature):
     """Crop Marks specification"""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the index.',
         default='index',
@@ -385,7 +385,7 @@ class ILogConfig(interfaces.IRMLDirectiveSignature):
         doLower=False,
         required=False)
 
-    format = attr.String(
+    format = attr.Text(
         title='Format',
         description='The format of the log messages.',
         required=False)
@@ -403,7 +403,7 @@ class ILogConfig(interfaces.IRMLDirectiveSignature):
         default='a',
         required=False)
 
-    datefmt = attr.String(
+    datefmt = attr.Text(
         title='Date Format',
         description='The format of the log message date.',
         required=False)
@@ -581,28 +581,28 @@ class IDocument(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('pageDrawing', canvas.IPageDrawing),
         )
 
-    filename = attr.String(
+    filename = attr.Text(
         title='File Name',
         description=('The default name of the output file, if no output '
                      'file was provided.'),
         required=True)
 
-    title = attr.String(
+    title = attr.Text(
         title='Title',
         description=('The "Title" annotation for the PDF document.'),
         required=False)
 
-    subject = attr.String(
+    subject = attr.Text(
         title='Subject',
         description=('The "Subject" annotation for the PDF document.'),
         required=False)
 
-    author = attr.String(
+    author = attr.Text(
         title='Author',
         description=('The "Author" annotation for the PDF document.'),
         required=False)
 
-    creator = attr.String(
+    creator = attr.Text(
         title='Creator',
         description=('The "Creator" annotation for the PDF document.'),
         required=False)

@@ -41,12 +41,12 @@ class Initialize(directive.RMLDirective):
 class ISpanStyle(interfaces.IRMLDirectiveSignature):
     """Defines a span style and gives it a name."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the style.',
         required=True)
 
-    alias = attr.String(
+    alias = attr.Text(
         title='Alias',
         description='An alias under which the style will also be known as.',
         required=False)
@@ -57,7 +57,7 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
                      'this one.'),
         required=False)
 
-    fontName = attr.String(
+    fontName = attr.Text(
         title='Font Name',
         description='The name of the font for the span.',
         required=False)
@@ -215,7 +215,7 @@ class IBaseParagraphStyle(ISpanStyle):
         description='The vertical space after the paragraph.',
         required=False)
 
-    bulletFontName = attr.String(
+    bulletFontName = attr.Text(
         title='Bullet Font Name',
         description='The font in which the bullet character will be rendered.',
         required=False)
@@ -274,7 +274,7 @@ class IBaseParagraphStyle(ISpanStyle):
         description=('Allow orphans.'),
         required=False)
 
-    endDots = attr.String(
+    endDots = attr.Text(
         title='End Dots',
         description='Characters/Dots at the end of a paragraph.',
         required=False)
@@ -341,12 +341,12 @@ class IBaseParagraphStyle(ISpanStyle):
 class IParagraphStyle(IBaseParagraphStyle):
     """Defines a paragraph style and gives it a name."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the style.',
         required=True)
 
-    alias = attr.String(
+    alias = attr.Text(
         title='Alias',
         description='An alias under which the style will also be known as.',
         required=False)
@@ -413,7 +413,7 @@ class TableStyleCommand(directive.RMLDirective):
 class IBlockFont(ITableStyleCommand):
     """Set the font properties for the texts."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Font Name',
         description='The name of the font for the cell.',
         required=False)
@@ -682,7 +682,7 @@ class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('lineStyle', ILineStyle)
         )
 
-    id = attr.String(
+    id = attr.Text(
         title='Id',
         description='The name/id of the style.',
         required=True)
@@ -744,7 +744,7 @@ class IMinimalListStyle(interfaces.IRMLDirectiveSignature):
         description='The color in which the bullet will appear.',
         required=False)
 
-    bulletFontName = attr.String(
+    bulletFontName = attr.Text(
         title='Bullet Font Name',
         description='The font in which the bullet character will be rendered.',
         required=False)
@@ -770,7 +770,7 @@ class IMinimalListStyle(interfaces.IRMLDirectiveSignature):
         choices=('ltr', 'rtl'),
         required=False)
 
-    bulletFormat = attr.String(
+    bulletFormat = attr.Text(
         title='Bullet Format',
         description='A formatting expression for the bullet text.',
         required=False)
@@ -794,7 +794,7 @@ class IBaseListStyle(IMinimalListStyle):
             # Bullet types.
             attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES),
             # Arbitrary text.
-            attr.String(),
+            attr.Text(),
             ),
         required=False)
 
@@ -802,7 +802,7 @@ class IBaseListStyle(IMinimalListStyle):
 class IListStyle(IBaseListStyle):
     """Defines a list style and gives it a name."""
 
-    name = attr.String(
+    name = attr.Text(
         title='Name',
         description='The name of the style.',
         required=True)

@@ -197,7 +197,7 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         description='The Page Size.',
         required=False)
 
-    autoNextTemplate = attr.String(
+    autoNextTemplate = attr.Text(
         title='Auto Next Page Template',
         description='The page template to use automatically for the next page.',
         required=False)
