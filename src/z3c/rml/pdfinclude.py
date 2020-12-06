@@ -67,12 +67,14 @@ def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     if stderr is None:
         stderr = "See output above"
     if p.returncode != 0 and not ignoreErrors:
-        log.error('An error occurred while running command: %s' % cmd)
-        log.error('Error Output: \n%s' % stderr)
-        raise ValueError('Shell Process had non-zero error code: {}. \n'
-                         'Stdout: {}\n'
-                         'StdErr: {}'.format(p.returncode, stdout, stderr))
-    log.debug('Output: \n%s' % stdout)
+        log.error(f'An error occurred while running command: {cmd}')
+        log.error(f'Error Output: \n{stderr}')
+        raise ValueError(
+            f'Shell Process had non-zero error code: {p.returncode}. \n'
+            f'Stdout: {stdout}\n'
+            f'StdErr: {stderr}'
+        )
+    log.debug(f'Output: \n{stdout}')
     return stdout
 
 

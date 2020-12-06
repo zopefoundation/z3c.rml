@@ -21,7 +21,7 @@ try:
     import pikepdf
     from pikepdf import Object
 except ImportError:
-    # We don't want to require pyPdf, if you do not want to use the features
+    # We don't want to require pikepdf, if you do not want to use the features
     # in this module.
     pikepdf = None
 

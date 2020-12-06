@@ -149,9 +149,7 @@ class Combination(RMLAttribute):
             except ValueError:
                 pass
         raise ValueError(
-            '"%s" is not a valid value. %s' % (
-                value, getFileInfo(self.context)
-            )
+            f'"{value}" is not a valid value. {getFileInfo(self.context)}'
         )
 
 
@@ -207,9 +205,8 @@ class Sequence(RMLAttribute, zope.schema._field.AbstractCollection):
             (self.max_length is not None and len(result) > self.max_length)
         ):
             raise ValueError(
-                'Length of sequence must be at least %s and at most %i. %s' % (
-                    self.min_length, self.max_length,
-                    getFileInfo(self.context))
+                f'Length of sequence must be at least {self.min_length} '
+                f'and at most {self.max_length}. {getFileInfo(self.context)}'
             )
         return result
 
