@@ -15,8 +15,8 @@
 """
 import reportlab.lib.formatters
 from reportlab.graphics import shapes
-from reportlab.graphics.charts import (barcharts, doughnut, lineplots,
-                                       piecharts, spider)
+from reportlab.graphics.charts import barcharts, doughnut, lineplots
+from reportlab.graphics.charts import piecharts, spider
 
 from z3c.rml import attr, directive, interfaces, occurence
 

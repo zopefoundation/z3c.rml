@@ -14,8 +14,8 @@
 """RML Attribute Implementation
 """
 import collections
-import logging
 import io
+import logging
 import os
 import re
 import urllib

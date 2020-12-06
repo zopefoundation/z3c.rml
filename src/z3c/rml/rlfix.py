@@ -76,8 +76,8 @@ _type2formatter.update({
 
 # Make sure that the counter gets increased for our new formatters as well.
 
-from reportlab.platypus.flowables import (LIIndenter, ListFlowable,
-                                          _computeBulletWidth, _LIParams)
+from reportlab.platypus.flowables import LIIndenter, ListFlowable
+from reportlab.platypus.flowables import _computeBulletWidth, _LIParams
 
 
 def ListFlowable_getContent(self):

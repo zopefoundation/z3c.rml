@@ -26,8 +26,8 @@ import reportlab.platypus.tables
 import zope.schema
 from reportlab.lib import styles, utils
 
-from z3c.rml import (SampleStyleSheet, attr, directive, form, interfaces,
-                     occurence, paraparser, platypus, special, stylesheet)
+from z3c.rml import SampleStyleSheet, attr, directive, form, interfaces
+from z3c.rml import occurence, paraparser, platypus, special, stylesheet
 
 try:
     import reportlab.graphics.barcode

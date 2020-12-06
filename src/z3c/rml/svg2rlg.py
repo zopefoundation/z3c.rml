@@ -13,9 +13,9 @@ from xml.etree import cElementTree
 
 import reportlab.lib.colors as colors
 from reportlab.graphics import renderPDF
-from reportlab.graphics.shapes import (Circle, Drawing, Ellipse, Group, Image,
-                                       Line, Path, Polygon, PolyLine, Rect,
-                                       String, mmult)
+from reportlab.graphics.shapes import Circle, Drawing, Ellipse, Group, Image
+from reportlab.graphics.shapes import Line, Path, Polygon, PolyLine, Rect
+from reportlab.graphics.shapes import String, mmult
 from reportlab.lib.units import pica, toLength
 
 

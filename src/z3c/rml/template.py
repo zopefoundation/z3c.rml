@@ -17,8 +17,8 @@
 import zope.interface
 from reportlab import platypus
 
-from z3c.rml import (attr, canvas, directive, flowable, interfaces, occurence,
-                     page, stylesheet)
+from z3c.rml import attr, canvas, directive, flowable, interfaces, occurence
+from z3c.rml import page, stylesheet
 
 
 class IStory(flowable.IFlow):

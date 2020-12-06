@@ -21,8 +21,8 @@ import reportlab.platypus
 import zope.schema
 from reportlab.platypus import flowables
 
-from z3c.rml import (attr, directive, flowable, interfaces, occurence,
-                     stylesheet)
+from z3c.rml import attr, directive, flowable, interfaces, occurence
+from z3c.rml import stylesheet
 
 
 class IListItem(stylesheet.IMinimalListStyle, flowable.IFlow):

@@ -15,8 +15,8 @@
 """
 __docformat__ = "reStructuredText"
 
-import logging
 import io
+import logging
 import os
 import subprocess
 
