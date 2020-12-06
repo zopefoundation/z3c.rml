@@ -30,7 +30,7 @@ TESTS_REQUIRE = [
 
 setup (
     name="z3c.rml",
-    version='3.10.1.dev0',
+    version='4.0.0dev0',
     author="Stephan Richter and the Zope Community",
     author_email="zope-dev@zope.org",
     description="An alternative implementation of RML",
@@ -40,6 +40,7 @@ setup (
         read('CHANGES.rst')
         ),
     license="ZPL 2.1",
+    python_requires='>=3.7',
     keywords="rml reportlab pdf pagetemplate",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
