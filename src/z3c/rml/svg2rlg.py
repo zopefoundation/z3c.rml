@@ -41,13 +41,17 @@ class Lexer:
         lexicon = self.lexicon
 
         # create internal names for group matches
-        groupnames = {'lexer_%d' % idx: item[0] for idx,item in enumerate(lexicon)}
+        groupnames = {
+            f'lexer_{idx}': item[0] for idx,item in enumerate(lexicon)
+        }
         self.groupnames = groupnames
 
         # assemble regex parts to one regex
         igroupnames = {value:name for name,value in groupnames.items()}
 
-        regex_parts = ('(?P<{}>{})'.format(igroupnames[cls], regs) for cls,regs in lexicon)
+        regex_parts = (
+            f'(?P<{igroupnames[cls]}>{regs})' for cls, regs in lexicon
+        )
 
         self.regex_string = '|'.join(regex_parts)
         self.regex = re.compile(self.regex_string)
@@ -366,7 +370,7 @@ def parseColor(color):
         g = 2*info['hexshort_g']
         b = 2*info['hexshort_b']
 
-        return colors.HexColor('#{}{}{}'.format(r,g,b))
+        return colors.HexColor(f'#{r}{g}{b}')
 
     elif info['rgbint'] is not None:
         r = int(info['rgbint_r'])

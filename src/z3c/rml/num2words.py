@@ -92,7 +92,7 @@ class Number2Words:
                 cur = words.pop(0)
                 if cur in tens and words[0] in units:
                     ones = words.pop(0)
-                    result.append('{}-{}'.format(cur, ones))
+                    result.append(f'{cur}-{ones}')
                 else:
                     result.append(cur)
             words = result

@@ -486,7 +486,7 @@ class Image(File):
         if preserve is not None:
             preserve = Boolean().fromUnicode(preserve)
 
-        cache_key = '{}-{}x{}-{}'.format(value, width, height, preserve)
+        cache_key = f'{value}-{width}x{height}-{preserve}'
         if cache_key in manager.svgs:
             return manager.svgs[cache_key]
 
@@ -561,8 +561,7 @@ class Color(RMLAttribute):
             return manager.colors[value]
         try:
             return reportlab.lib.colors.toColor(value)
-        # Bare except, since code raises string exception: Invalid color value
-        except:  # noqa
+        except ValueError:
             raise ValueError(
                 'The color specification "{}" is not valid. {}'.format(
                     value, getFileInfo(self.context)

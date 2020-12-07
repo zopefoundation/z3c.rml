@@ -164,7 +164,10 @@ def ListFlowable_getContent(self):
             b = f._bullet
             if b:
                 if b.bulletType!=bt:
-                    raise ValueError('Included LIIndenter bulletType={} != OrderedList bulletType={}'.format(b.bulletType,bt))
+                    raise ValueError(
+                        f'Included LIIndenter bulletType={b.bulletType} != '
+                        f'OrderedList bulletType={bt}'
+                    )
                 value = int(b.value)
             else:
                 f._bullet = self._makeBullet(value,params=getattr(f,'params',None))
