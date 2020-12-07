@@ -3,7 +3,7 @@ CHANGES
 =======
 
 4.0.0 (unreleased)
--------------------
+------------------
 
 - Dropped support for Python 2.X
 
