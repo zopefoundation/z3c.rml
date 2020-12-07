@@ -26,38 +26,16 @@ except ImportError:
     pikepdf = None
 
 
-def getMergeLayer(layerPage, mainPage, name):
-    mediaBox = [float(layerPage.MediaBox[v]) for v in range(4)]
-    wt, ht = mediaBox[2] - mediaBox[0], mediaBox[3] - mediaBox[1]
-
-    mpMediaBox = [float(mainPage.MediaBox[v]) for v in range(4)]
-    wp, hp = mpMediaBox[2] - mpMediaBox[0], mpMediaBox[3] - mpMediaBox[1]
-
-    translate = pikepdf.PdfMatrix().translated(-wt / 2, -ht / 2)
-    untranslate = pikepdf.PdfMatrix().translated(wp / 2, hp / 2)
-    corner = pikepdf.PdfMatrix().translated(mpMediaBox[0], mpMediaBox[1])
-
-    scale_x = wp / wt
-    scale_y = hp / ht
-    scale = pikepdf.PdfMatrix().scaled(scale_x, scale_y)
-
-    ctm = translate @ scale @ untranslate @ corner
-
-    layerPageContents = (
-        b'q\n %s cm\n %s Do\nQ\n' % (ctm.encode(), name.encode())
-    )
-
-    return layerPageContents
-
-
 def mergePage(layerPage, mainPage, pdf, name) -> None:
     contentsForName = pdf.copy_foreign(
         pikepdf.Page(layerPage).as_form_xobject()
     )
-    newContents = getMergeLayer(layerPage, mainPage, name)
+    newContents = b'q\n %s Do\nQ\n' % (name.encode())
     if not mainPage.Resources.get("/XObject"):
         mainPage.Resources["/XObject"] = pikepdf.Dictionary({})
     mainPage.Resources["/XObject"][name] = contentsForName
+    # Use the MediaBox from the merged page
+    mainPage.MediaBox = layerPage.MediaBox
     mainPage.page_contents_add(
         contents=pikepdf.Stream(pdf, newContents),
         prepend=True
