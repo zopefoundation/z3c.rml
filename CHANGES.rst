@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-4.1.1 (2020-12-08)
+4.1.1 (unreleased)
 ------------------
 
 - Allow ``<registerTTFont>`` to search default font directories instead of
