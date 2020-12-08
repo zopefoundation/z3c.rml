@@ -552,7 +552,6 @@ class DocInit(directive.RMLDirective):
         'logConfig': LogConfig,
         'cropMarks': CropMarks,
         'startIndex': StartIndex,
-        'registerFontFamily': RegisterFontFamily,
         }
 
     viewerOptions = {
