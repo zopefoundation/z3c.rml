@@ -13,19 +13,21 @@
 ##############################################################################
 """RML to PDF Converter
 """
+import argparse
+import io
 import os
-import six
 import sys
+
 import zope.interface
 from lxml import etree
+
 from z3c.rml import document, interfaces
-import argparse
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
 
 def parseString(xml, removeEncodingLine=True, filename=None):
-    if isinstance(xml, six.text_type) and removeEncodingLine:
+    if isinstance(xml, str) and removeEncodingLine:
         # RML is a unicode string, but oftentimes documents declare their
         # encoding using <?xml ...>. Unfortuantely, I cannot tell lxml to
         # ignore that directive. Thus we remove it.
@@ -35,7 +37,7 @@ def parseString(xml, removeEncodingLine=True, filename=None):
     doc = document.Document(root)
     if filename:
         doc.filename = filename
-    output = six.BytesIO()
+    output = io.BytesIO()
     doc.process(output)
     output.seek(0)
     return output

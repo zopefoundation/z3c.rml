@@ -15,10 +15,11 @@
 """
 __docformat__ = "reStructuredText"
 import copy
-from reportlab.pdfbase import pdfform, pdfmetrics, ttfonts
-from reportlab.pdfbase.pdfpattern import PDFPattern
+
 from reportlab.graphics import testshapes
 from reportlab.lib import fonts
+from reportlab.pdfbase import pdfform, pdfmetrics, ttfonts
+from reportlab.pdfbase.pdfpattern import PDFPattern
 
 _ps2tt_map_original = copy.deepcopy(fonts._ps2tt_map)
 _tt2ps_map_original = copy.deepcopy(fonts._tt2ps_map)
@@ -52,14 +53,16 @@ def setSideLabels():
 setSideLabels()
 
 from reportlab.rl_config import register_reset
+
 register_reset(resetPdfForm)
 register_reset(resetFonts)
 del register_reset
 
 # Support more enumeration formats.
 
-from z3c.rml import num2words
 from reportlab.lib.sequencer import _type2formatter
+
+from z3c.rml import num2words
 
 _type2formatter.update({
     'l': lambda v: num2words.num2words(v),
@@ -73,8 +76,9 @@ _type2formatter.update({
 
 # Make sure that the counter gets increased for our new formatters as well.
 
-from reportlab.platypus.flowables import ListFlowable, LIIndenter, _LIParams, \
-    _computeBulletWidth
+from reportlab.platypus.flowables import LIIndenter, ListFlowable
+from reportlab.platypus.flowables import _computeBulletWidth, _LIParams
+
 
 def ListFlowable_getContent(self):
     bt = self._bulletType
@@ -160,7 +164,10 @@ def ListFlowable_getContent(self):
             b = f._bullet
             if b:
                 if b.bulletType!=bt:
-                    raise ValueError('Included LIIndenter bulletType=%s != OrderedList bulletType=%s' % (b.bulletType,bt))
+                    raise ValueError(
+                        f'Included LIIndenter bulletType={b.bulletType} != '
+                        f'OrderedList bulletType={bt}'
+                    )
                 value = int(b.value)
             else:
                 f._bullet = self._makeBullet(value,params=getattr(f,'params',None))

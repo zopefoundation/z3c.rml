@@ -63,30 +63,30 @@ class IStoryPlace(interfaces.IRMLDirectiveSignature):
     """Draws a set of flowables on the canvas within a given region."""
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'place.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'place.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'place.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'place.'),
         required=True)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the place.',
+        title='Width',
+        description='The width of the place.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the place.',
+        title='Height',
+        description='The height of the place.',
         required=False)
 
     origin = attr.Choice(
-        title=u'Origin',
-        description=u'The origin of the coordinate system for the story.',
+        title='Origin',
+        description='The origin of the coordinate system for the story.',
         choices=('page', 'frame', 'local'),
         default = 'page',
         required=False)

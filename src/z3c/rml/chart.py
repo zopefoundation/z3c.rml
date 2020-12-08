@@ -15,8 +15,9 @@
 """
 import reportlab.lib.formatters
 from reportlab.graphics import shapes
-from reportlab.graphics.charts import barcharts, lineplots, piecharts
-from reportlab.graphics.charts import spider, doughnut
+from reportlab.graphics.charts import barcharts, doughnut, lineplots
+from reportlab.graphics.charts import piecharts, spider
+
 from z3c.rml import attr, directive, interfaces, occurence
 
 # Patches against Reportlab 2.0
@@ -54,45 +55,45 @@ class IText(interfaces.IRMLDirectiveSignature):
     """Draw a text on the chart."""
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'text.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'text.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'text.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'text.'),
         required=True)
 
     angle = attr.Float(
-        title=u'Rotation Angle',
-        description=(u'The angle about which the text will be rotated.'),
+        title='Rotation Angle',
+        description=('The angle about which the text will be rotated.'),
         required=False)
 
     text = attr.TextNode(
-        title=u'Text',
-        description=u'The text to be printed.',
+        title='Text',
+        description='The text to be printed.',
         required=True)
 
-    fontName = attr.String(
-        title=u'Font Name',
-        description=u'The name of the font.',
+    fontName = attr.Text(
+        title='Font Name',
+        description='The name of the font.',
         required=False)
 
     fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=u'The font size for the text.',
+        title='Font Size',
+        description='The font size for the text.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u'The color in which the text will appear.',
+        title='Fill Color',
+        description='The color in which the text will appear.',
         required=False)
 
     textAnchor = attr.Choice(
-        title=u'Text Anchor',
-        description=u'The position in the text to which the coordinates refer.',
+        title='Text Anchor',
+        description='The position in the text to which the coordinates refer.',
         choices=('start', 'middle', 'end', 'boxauto'),
         required=False)
 
@@ -145,8 +146,8 @@ class ISeries1D(interfaces.IRMLDirectiveSignature):
     """A one-dimensional series."""
 
     values = attr.TextNodeSequence(
-        title=u'Values',
-        description=u"Numerical values representing the series' data.",
+        title='Values',
+        description="Numerical values representing the series' data.",
         value_type=attr.Float(),
         required=True)
 
@@ -185,8 +186,8 @@ class ISeries2D(interfaces.IRMLDirectiveSignature):
     """A two-dimensional series."""
 
     values = attr.TextNodeGrid(
-        title=u'Values',
-        description=u"Numerical values representing the series' data.",
+        title='Values',
+        description="Numerical values representing the series' data.",
         value_type=attr.Float(),
         columns=2,
         required=True)
@@ -210,18 +211,18 @@ class IBar(interfaces.IRMLDirectiveSignature):
     """Define the look of a bar."""
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'The color in which the bar border is drawn.',
+        title='Stroke Color',
+        description='The color in which the bar border is drawn.',
         required=False)
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The width of the bar border line.',
+        title='Stroke Width',
+        description='The width of the bar border line.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u'The color with which the bar is filled.',
+        title='Fill Color',
+        description='The color with which the bar is filled.',
         required=False)
 
 class Bar(PropertyItem):
@@ -242,136 +243,136 @@ class Bars(PropertyCollection):
 class ILabelBase(interfaces.IRMLDirectiveSignature):
 
     dx = attr.Measurement(
-        title=u'Horizontal Extension',
-        description=(u'The width of the label.'),
+        title='Horizontal Extension',
+        description=('The width of the label.'),
         required=False)
 
     dy = attr.Measurement(
-        title=u'Vertical Extension',
-        description=(u'The height of the label.'),
+        title='Vertical Extension',
+        description=('The height of the label.'),
         required=False)
 
     angle = attr.Float(
-        title=u'Angle',
-        description=(u'The angle to rotate the label.'),
+        title='Angle',
+        description=('The angle to rotate the label.'),
         required=False)
 
     boxAnchor = attr.Choice(
-        title=u'Box Anchor',
-        description=(u'The position relative to the label.'),
+        title='Box Anchor',
+        description=('The position relative to the label.'),
         choices=('nw','n','ne','w','c','e','sw','s','se', 'autox', 'autoy'),
         required=False)
 
     boxStrokeColor = attr.Color(
-        title=u'Box Stroke Color',
-        description=(u'The color of the box border line.'),
+        title='Box Stroke Color',
+        description=('The color of the box border line.'),
         required=False)
 
     boxStrokeWidth = attr.Measurement(
-        title=u'Box Stroke Width',
-        description=u'The width of the box border line.',
+        title='Box Stroke Width',
+        description='The width of the box border line.',
         required=False)
 
     boxFillColor = attr.Color(
-        title=u'Box Fill Color',
-        description=(u'The color in which the box is filled.'),
+        title='Box Fill Color',
+        description=('The color in which the box is filled.'),
         required=False)
 
     boxTarget = attr.Text(
-        title=u'Box Target',
-        description=u'The box target.',
+        title='Box Target',
+        description='The box target.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=(u'The color in which the label is filled.'),
+        title='Fill Color',
+        description=('The color in which the label is filled.'),
         required=False)
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=(u'The color of the label.'),
+        title='Stroke Color',
+        description=('The color of the label.'),
         required=False)
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The width of the label line.',
+        title='Stroke Width',
+        description='The width of the label line.',
         required=False)
 
-    fontName = attr.String(
-        title=u'Font Name',
-        description=u'The font used to print the value.',
+    fontName = attr.Text(
+        title='Font Name',
+        description='The font used to print the value.',
         required=False)
 
     fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=u'The size of the value text.',
+        title='Font Size',
+        description='The size of the value text.',
         required=False)
 
     leading = attr.Measurement(
-        title=u'Leading',
-        description=(u'The height of a single text line. It includes '
-                     u'character height.'),
+        title='Leading',
+        description=('The height of a single text line. It includes '
+                     'character height.'),
         required=False)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width the label.',
+        title='Width',
+        description='The width the label.',
         required=False)
 
     maxWidth = attr.Measurement(
-        title=u'Maximum Width',
-        description=u'The maximum width the label.',
+        title='Maximum Width',
+        description='The maximum width the label.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height the label.',
+        title='Height',
+        description='The height the label.',
         required=False)
 
     textAnchor = attr.Choice(
-        title=u'Text Anchor',
-        description=u'The position in the text to which the coordinates refer.',
+        title='Text Anchor',
+        description='The position in the text to which the coordinates refer.',
         choices=('start', 'middle', 'end', 'boxauto'),
         required=False)
 
     visible = attr.Boolean(
-        title=u'Visible',
-        description=u'A flag making the label text visible.',
+        title='Visible',
+        description='A flag making the label text visible.',
         required=False)
 
     leftPadding = attr.Measurement(
-        title=u'Left Padding',
-        description=u'The size of the padding on the left side.',
+        title='Left Padding',
+        description='The size of the padding on the left side.',
         required=False)
 
     rightPadding = attr.Measurement(
-        title=u'Right Padding',
-        description=u'The size of the padding on the right side.',
+        title='Right Padding',
+        description='The size of the padding on the right side.',
         required=False)
 
     topPadding = attr.Measurement(
-        title=u'Top Padding',
-        description=u'The size of the padding on the top.',
+        title='Top Padding',
+        description='The size of the padding on the top.',
         required=False)
 
     bottomPadding = attr.Measurement(
-        title=u'Bottom Padding',
-        description=u'The size of the padding on the bottom.',
+        title='Bottom Padding',
+        description='The size of the padding on the bottom.',
         required=False)
 
 
 class IPositionLabelBase(ILabelBase):
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'label.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'label.'),
         required=False)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'label.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'label.'),
         required=False)
 
 
@@ -379,8 +380,8 @@ class ILabel(IPositionLabelBase):
     """A label for the chart on an axis."""
 
     text = attr.TextNode(
-        title=u'Text',
-        description=u'The label text to be displayed.',
+        title='Text',
+        description='The label text to be displayed.',
         required=True)
 
 class Label(PropertyItem):
@@ -416,77 +417,77 @@ class IAxis(interfaces.IRMLDirectiveSignature):
         )
 
     visible = attr.Boolean(
-        title=u'Visible',
-        description=u'When true, draw the entire axis with all details.',
+        title='Visible',
+        description='When true, draw the entire axis with all details.',
         required=False)
 
     visibleAxis = attr.Boolean(
-        title=u'Visible Axis',
-        description=u'When true, draw the axis line.',
+        title='Visible Axis',
+        description='When true, draw the axis line.',
         required=False)
 
     visibleTicks = attr.Boolean(
-        title=u'Visible Ticks',
-        description=u'When true, draw the axis ticks on the line.',
+        title='Visible Ticks',
+        description='When true, draw the axis ticks on the line.',
         required=False)
 
     visibleLabels = attr.Boolean(
-        title=u'Visible Labels',
-        description=u'When true, draw the axis labels.',
+        title='Visible Labels',
+        description='When true, draw the axis labels.',
         required=False)
 
     visibleGrid = attr.Boolean(
-        title=u'Visible Grid',
-        description=u'When true, draw the grid lines for the axis.',
+        title='Visible Grid',
+        description='When true, draw the grid lines for the axis.',
         required=False)
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The width of axis line and ticks.',
+        title='Stroke Width',
+        description='The width of axis line and ticks.',
         required=False)
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'The color in which the axis line and ticks are drawn.',
+        title='Stroke Color',
+        description='The color in which the axis line and ticks are drawn.',
         required=False)
 
     strokeDashArray = attr.Sequence(
-        title=u'Stroke Dash Array',
-        description=u'The dash array that is used for the axis line and ticks.',
+        title='Stroke Dash Array',
+        description='The dash array that is used for the axis line and ticks.',
         value_type=attr.Float(),
         required=False)
 
     gridStrokeWidth = attr.Measurement(
-        title=u'Grid Stroke Width',
-        description=u'The width of the grid lines.',
+        title='Grid Stroke Width',
+        description='The width of the grid lines.',
         required=False)
 
     gridStrokeColor = attr.Color(
-        title=u'Grid Stroke Color',
-        description=u'The color in which the grid lines are drawn.',
+        title='Grid Stroke Color',
+        description='The color in which the grid lines are drawn.',
         required=False)
 
     gridStrokeDashArray = attr.Sequence(
-        title=u'Grid Stroke Dash Array',
-        description=u'The dash array that is used for the grid lines.',
+        title='Grid Stroke Dash Array',
+        description='The dash array that is used for the grid lines.',
         value_type=attr.Float(),
         required=False)
 
     gridStart = attr.Measurement(
-        title=u'Grid Start',
-        description=(u'The start of the grid lines with respect to the '
-                     u'axis origin.'),
+        title='Grid Start',
+        description=('The start of the grid lines with respect to the '
+                     'axis origin.'),
         required=False)
 
     gridEnd = attr.Measurement(
-        title=u'Grid End',
-        description=(u'The end of the grid lines with respect to the '
-                     u'axis origin.'),
+        title='Grid End',
+        description=('The end of the grid lines with respect to the '
+                     'axis origin.'),
         required=False)
 
     style = attr.Choice(
-        title=u'Style',
-        description=u'The plot style of the common categories.',
+        title='Style',
+        description='The plot style of the common categories.',
         choices=('parallel', 'stacked', 'parallel_3d'),
         required=False)
 
@@ -506,8 +507,8 @@ class Axis(directive.RMLDirective):
 class IName(interfaces.IRMLDirectiveSignature):
     """A category name"""
     text = attr.TextNode(
-        title=u'Text',
-        description=u'The text value that is the name.',
+        title='Text',
+        description='The text value that is the name.',
         required=True)
 
 class Name(directive.RMLDirective):
@@ -542,36 +543,36 @@ class ICategoryAxis(IAxis):
         )
 
     categoryNames = attr.Sequence(
-        title=u'Category Names',
-        description=u'A simple list of category names.',
+        title='Category Names',
+        description='A simple list of category names.',
         value_type=attr.Text(),
         required=False)
 
     joinAxis = attr.Boolean(
-        title=u'Join Axis',
-        description=u'When true, both axes join together.',
+        title='Join Axis',
+        description='When true, both axes join together.',
         required=False)
 
     joinAxisPos = attr.Measurement(
-        title=u'Join Axis Position',
-        description=u'The position at which the axes should join together.',
+        title='Join Axis Position',
+        description='The position at which the axes should join together.',
         required=False)
 
     reverseDirection = attr.Boolean(
-        title=u'Reverse Direction',
-        description=u'A flag to reverse the direction of category names.',
+        title='Reverse Direction',
+        description='A flag to reverse the direction of category names.',
         required=False)
 
     labelAxisMode = attr.Choice(
-        title=u'Label Axis Mode',
-        description=u'Defines the relative position of the axis labels.',
+        title='Label Axis Mode',
+        description='Defines the relative position of the axis labels.',
         choices=('high', 'low', 'axis'),
         required=False)
 
     tickShift = attr.Boolean(
-        title=u'Tick Shift',
-        description=(u'When true, place the ticks in the center of a '
-                     u'category instead the beginning and end.'),
+        title='Tick Shift',
+        description=('When true, place the ticks in the center of a '
+                     'category instead the beginning and end.'),
         required=False)
 
 class CategoryAxis(Axis):
@@ -587,18 +588,18 @@ class IXCategoryAxis(ICategoryAxis):
     """X-Category Axis"""
 
     tickUp = attr.Measurement(
-        title=u'Tick Up',
-        description=u'Length of tick above the axis line.',
+        title='Tick Up',
+        description='Length of tick above the axis line.',
         required=False)
 
     tickDown = attr.Measurement(
-        title=u'Tick Down',
-        description=u'Length of tick below the axis line.',
+        title='Tick Down',
+        description='Length of tick below the axis line.',
         required=False)
 
     joinAxisMode = attr.Choice(
-        title=u'Join Axis Mode',
-        description=u'Mode for connecting axes.',
+        title='Join Axis Mode',
+        description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -610,18 +611,18 @@ class IYCategoryAxis(ICategoryAxis):
     """Y-Category Axis"""
 
     tickLeft = attr.Measurement(
-        title=u'Tick Left',
-        description=u'Length of tick left to the axis line.',
+        title='Tick Left',
+        description='Length of tick left to the axis line.',
         required=False)
 
     tickRight = attr.Measurement(
-        title=u'Tick Right',
-        description=u'Length of tick right to the axis line.',
+        title='Tick Right',
+        description='Length of tick right to the axis line.',
         required=False)
 
     joinAxisMode = attr.Choice(
-        title=u'Join Axis Mode',
-        description=u'Mode for connecting axes.',
+        title='Join Axis Mode',
+        description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
@@ -632,73 +633,73 @@ class YCategoryAxis(CategoryAxis):
 class IValueAxis(IAxis):
 
     forceZero = attr.Boolean(
-        title=u'Force Zero',
-        description=u'When set, the range will contain the origin.',
+        title='Force Zero',
+        description='When set, the range will contain the origin.',
         required=False)
 
     minimumTickSpacing = attr.Measurement(
-        title=u'Minimum Tick Spacing',
-        description=u'The minimum distance between ticks.',
+        title='Minimum Tick Spacing',
+        description='The minimum distance between ticks.',
         required=False)
 
     maximumTicks = attr.Integer(
-        title=u'Maximum Ticks',
-        description=u'The maximum number of ticks to be shown.',
+        title='Maximum Ticks',
+        description='The maximum number of ticks to be shown.',
         required=False)
 
     labelTextFormat = attr.Combination(
-        title=u'Label Text Format',
+        title='Label Text Format',
         description=(
-            u'Formatting string or Python path to formatting function for '
-            u'axis labels.'),
+            'Formatting string or Python path to formatting function for '
+            'axis labels.'),
         value_types=(
             # Python path to function.
             attr.ObjectRef(),
             # Formatting String.
-            attr.String(),
+            attr.Text(),
         ),
         required=False)
 
     labelTextPostFormat = attr.Text(
-        title=u'Label Text Post Format',
-        description=u'An additional formatting string.',
+        title='Label Text Post Format',
+        description='An additional formatting string.',
         required=False)
 
     labelTextScale = attr.Float(
-        title=u'Label Text Scale',
-        description=u'The sclaing factor for the label tick values.',
+        title='Label Text Scale',
+        description='The sclaing factor for the label tick values.',
         required=False)
 
     valueMin = attr.Float(
-        title=u'Minimum Value',
-        description=u'The smallest value on the axis.',
+        title='Minimum Value',
+        description='The smallest value on the axis.',
         required=False)
 
     valueMax = attr.Float(
-        title=u'Maximum Value',
-        description=u'The largest value on the axis.',
+        title='Maximum Value',
+        description='The largest value on the axis.',
         required=False)
 
     valueStep = attr.Float(
-        title=u'Value Step',
-        description=u'The step size between ticks',
+        title='Value Step',
+        description='The step size between ticks',
         required=False)
 
     valueSteps = attr.Sequence(
-        title=u'Step Sizes',
-        description=u'List of step sizes between ticks.',
+        title='Step Sizes',
+        description='List of step sizes between ticks.',
         value_type = attr.Float(),
         required=False)
 
     rangeRound = attr.Choice(
-        title=u'Range Round',
-        description=u'Method to be used to round the range values.',
+        title='Range Round',
+        description='Method to be used to round the range values.',
         choices=('none', 'both', 'ceiling', 'floor'),
         required=False)
 
     zrangePref = attr.Float(
-        title=u'Zero Range Preference',
-        description=u'Zero range axis limit preference.',
+        title='Zero Range Preference',
+        description='Zero range axis limit preference.',
         required=False)
 
 class ValueAxis(Axis):
@@ -710,29 +711,29 @@ class IXValueAxis(IValueAxis):
     """X-Value Axis"""
 
     tickUp = attr.Measurement(
-        title=u'Tick Up',
-        description=u'Length of tick above the axis line.',
+        title='Tick Up',
+        description='Length of tick above the axis line.',
         required=False)
 
     tickDown = attr.Measurement(
-        title=u'Tick Down',
-        description=u'Length of tick below the axis line.',
+        title='Tick Down',
+        description='Length of tick below the axis line.',
         required=False)
 
     joinAxis = attr.Boolean(
-        title=u'Join Axis',
-        description=u'Whether to join the axes.',
+        title='Join Axis',
+        description='Whether to join the axes.',
         required=False)
 
     joinAxisMode = attr.Choice(
-        title=u'Join Axis Mode',
-        description=u'Mode for connecting axes.',
+        title='Join Axis Mode',
+        description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
     joinAxisPos = attr.Measurement(
-        title=u'Join Axis Position',
-        description=u'The position in the plot at which to join the axes.',
+        title='Join Axis Position',
+        description='The position in the plot at which to join the axes.',
         required=False)
 
 class XValueAxis(ValueAxis):
@@ -745,29 +746,29 @@ class IYValueAxis(IValueAxis):
     """Y-Value Axis"""
 
     tickLeft = attr.Measurement(
-        title=u'Tick Left',
-        description=u'Length of tick left to the axis line.',
+        title='Tick Left',
+        description='Length of tick left to the axis line.',
         required=False)
 
     tickRight = attr.Measurement(
-        title=u'Tick Right',
-        description=u'Length of tick right to the axis line.',
+        title='Tick Right',
+        description='Length of tick right to the axis line.',
         required=False)
 
     joinAxis = attr.Boolean(
-        title=u'Join Axis',
-        description=u'Whether to join the axes.',
+        title='Join Axis',
+        description='Whether to join the axes.',
         required=False)
 
     joinAxisMode = attr.Choice(
-        title=u'Join Axis Mode',
-        description=u'Mode for connecting axes.',
+        title='Join Axis Mode',
+        description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
 
     joinAxisPos = attr.Measurement(
-        title=u'Join Axis Position',
-        description=u'The position in the plot at which to join the axes.',
+        title='Join Axis Position',
+        description='The position in the plot at which to join the axes.',
         required=False)
 
 
@@ -793,32 +794,32 @@ class LineLabels(PropertyCollection):
 class ILineBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The width of the plot line.',
+        title='Stroke Width',
+        description='The width of the plot line.',
         required=False)
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'The color of the plot line.',
+        title='Stroke Color',
+        description='The color of the plot line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
-        title=u'Stroke Dash Array',
-        description=u'The dash array of the plot line.',
+        title='Stroke Dash Array',
+        description='The dash array of the plot line.',
         value_type = attr.Float(),
         required=False)
 
     symbol = attr.Symbol(
-        title=u'Symbol',
-        description=u'The symbol to be used for every data point in the plot.',
+        title='Symbol',
+        description='The symbol to be used for every data point in the plot.',
         required=False)
 
 class ILine(ILineBase):
     """A line description of a series of a line plot."""
 
     name = attr.Text(
-        title=u'Name',
-        description=u'The name of the line.',
+        title='Name',
+        description='The name of the line.',
         required=False)
 
 class Line(PropertyItem):
@@ -840,8 +841,8 @@ class ISliceLabel(ILabelBase):
     """The label of a slice within a bar chart."""
 
     text = attr.TextNode(
-        title=u'Text',
-        description=u'The label text to be displayed.',
+        title='Text',
+        description='The label text to be displayed.',
         required=True)
 
 class SliceLabel(Label):
@@ -858,28 +859,28 @@ class ISlicePointer(interfaces.IRMLDirectiveSignature):
     """A pointer to a slice in a pie chart."""
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'The color of the pointer line.',
+        title='Stroke Color',
+        description='The color of the pointer line.',
         required=False)
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The wodth of the pointer line.',
+        title='Stroke Width',
+        description='The wodth of the pointer line.',
         required=False)
 
     elbowLength = attr.Measurement(
-        title=u'Elbow Length',
-        description=u'The length of the final segment of the pointer.',
+        title='Elbow Length',
+        description='The length of the final segment of the pointer.',
         required=False)
 
     edgePad = attr.Measurement(
-        title=u'Edge Padding',
-        description=u'The padding between between the pointer label and box.',
+        title='Edge Padding',
+        description='The padding between between the pointer label and box.',
         required=False)
 
     piePad = attr.Measurement(
-        title=u'Pie Padding',
-        description=u'The padding between between the pointer label and chart.',
+        title='Pie Padding',
+        description='The padding between between the pointer label and chart.',
         required=False)
 
 class SlicePointer(directive.RMLDirective):
@@ -893,45 +894,45 @@ class SlicePointer(directive.RMLDirective):
 class ISliceBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The wodth of the slice line.',
+        title='Stroke Width',
+        description='The wodth of the slice line.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u'The fill color of the slice.',
+        title='Fill Color',
+        description='The fill color of the slice.',
         required=False)
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'The color of the pointer line.',
+        title='Stroke Color',
+        description='The color of the pointer line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
-        title=u'Stroke Dash Array',
-        description=u'Teh dash array of the slice borderline.',
+        title='Stroke Dash Array',
+        description='Teh dash array of the slice borderline.',
         value_type=attr.Float(),
         required=False)
 
     popout = attr.Measurement(
-        title=u'Popout',
-        description=u'The distance of how much the slice should be popped out.',
+        title='Popout',
+        description='The distance of how much the slice should be popped out.',
         required=False)
 
-    fontName = attr.String(
-        title=u'Font Name',
-        description=u'The font name of the label.',
+    fontName = attr.Text(
+        title='Font Name',
+        description='The font name of the label.',
         required=False)
 
     fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=u'The font size of the label.',
+        title='Font Size',
+        description='The font size of the label.',
         required=False)
 
     labelRadius = attr.Measurement(
-        title=u'Label Radius',
-        description=(u'The radius at which the label should be placed around '
-                     u'the pie.'),
+        title='Label Radius',
+        description=('The radius at which the label should be placed around '
+                     'the pie.'),
         required=False)
 
 
@@ -961,8 +962,8 @@ class ISlice3D(ISlice):
     """A 3-D slice of a 3-D pie chart."""
 
     fillColorShaded = attr.Color(
-        title=u'Fill Color Shade',
-        description=u'The shade used for the fill color.',
+        title='Fill Color Shade',
+        description='The shade used for the fill color.',
         required=False)
 
 class Slice3D(Slice):
@@ -1033,42 +1034,42 @@ class SimpleLabels(directive.RMLDirective):
 class IStrandBase(interfaces.IRMLDirectiveSignature):
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'The line width of the strand.',
+        title='Stroke Width',
+        description='The line width of the strand.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u'The fill color of the strand area.',
+        title='Fill Color',
+        description='The fill color of the strand area.',
         required=False)
 
     strokeColor= attr.Color(
-        title=u'Stroke Color',
-        description=u'The color of the strand line.',
+        title='Stroke Color',
+        description='The color of the strand line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
-        title=u'Stroke Dash Array',
-        description=u'The dash array of the strand line.',
+        title='Stroke Dash Array',
+        description='The dash array of the strand line.',
         value_type=attr.Float(),
         required=False)
 
     symbol = attr.Symbol(
-        title=u'Symbol',
-        description=u'The symbol to use to mark the strand.',
+        title='Symbol',
+        description='The symbol to use to mark the strand.',
         required=False)
 
     symbolSize = attr.Measurement(
-        title=u'Symbol Size',
-        description=u'The size of the strand symbol.',
+        title='Symbol Size',
+        description='The size of the strand symbol.',
         required=False)
 
 class IStrand(IStrandBase):
     """A strand in the spider diagram"""
 
     name = attr.Text(
-        title=u'Name',
-        description=u'The name of the strand.',
+        title='Name',
+        description='The name of the strand.',
         required=False)
 
 class Strand(PropertyItem):
@@ -1091,31 +1092,31 @@ class Strands(PropertyCollection):
 class IStrandLabelBase(ILabelBase):
 
     row = attr.Integer(
-        title=u'Row',
-        description=u'The row of the strand label',
+        title='Row',
+        description='The row of the strand label',
         required=False)
 
     col = attr.Integer(
-        title=u'Column',
-        description=u'The column of the strand label.',
+        title='Column',
+        description='The column of the strand label.',
         required=False)
 
-    format = attr.String(
-        title=u'Format',
-        description=u'The format string for the label.',
+    format = attr.Text(
+        title='Format',
+        description='The format string for the label.',
         required=False)
 
 class IStrandLabel(IStrandLabelBase):
     """A label for a strand."""
 
     _text = attr.TextNode(
-        title=u'Text',
-        description=u'The label text of the strand.',
+        title='Text',
+        description='The label text of the strand.',
         required=False)
 
     dR = attr.Float(
-        title=u'Radial Shift',
-        description=u'The radial shift of the label.',
+        title='Radial Shift',
+        description='The radial shift of the label.',
         required=False)
 
 class StrandLabel(Label):
@@ -1150,34 +1151,34 @@ class ISpoke(interfaces.IRMLDirectiveSignature):
     """A spoke in the spider diagram."""
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u"The width of the spoke's line.",
+        title='Stroke Width',
+        description="The width of the spoke's line.",
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u"The fill color of the spoke's area.",
+        title='Fill Color',
+        description="The fill color of the spoke's area.",
         required=False)
 
     strokeColor= attr.Color(
-        title=u'Stroke Color',
-        description=u'The color of the spoke line.',
+        title='Stroke Color',
+        description='The color of the spoke line.',
         required=False)
 
     strokeDashArray = attr.Sequence(
-        title=u'Stroke Dash Array',
-        description=u'The dash array of the spoke line.',
+        title='Stroke Dash Array',
+        description='The dash array of the spoke line.',
         value_type=attr.Float(),
         required=False)
 
     labelRadius = attr.Measurement(
-        title=u'Label Radius',
-        description=u'The radius of the label arouns the spoke.',
+        title='Label Radius',
+        description='The radius of the label arouns the spoke.',
         required=False)
 
     visible = attr.Boolean(
-        title=u'Visible',
-        description=u'When true, the spoke line is drawn.',
+        title='Visible',
+        description='When true, the spoke line is drawn.',
         required=False)
 
 class Spoke(PropertyItem):
@@ -1202,8 +1203,8 @@ class ISpokeLabelBase(ILabelBase):
 class ISpokeLabel(ISpokeLabelBase):
     """A label for a spoke."""
     _text = attr.TextNode(
-        title=u'Text',
-        description=u'The text of the spoke (label).',
+        title='Text',
+        description='The text of the spoke (label).',
         required=False)
 
 class SpokeLabel(Label):
@@ -1230,70 +1231,70 @@ class IChart(interfaces.IRMLDirectiveSignature):
     # Drawing Options
 
     dx = attr.Measurement(
-        title=u'Drawing X-Position',
-        description=u'The x-position of the entire drawing on the canvas.',
+        title='Drawing X-Position',
+        description='The x-position of the entire drawing on the canvas.',
         required=False)
 
     dy = attr.Measurement(
-        title=u'Drawing Y-Position',
-        description=u'The y-position of the entire drawing on the canvas.',
+        title='Drawing Y-Position',
+        description='The y-position of the entire drawing on the canvas.',
         required=False)
 
     dwidth = attr.Measurement(
-        title=u'Drawing Width',
-        description=u'The width of the entire drawing',
+        title='Drawing Width',
+        description='The width of the entire drawing',
         required=False)
 
     dheight = attr.Measurement(
-        title=u'Drawing Height',
-        description=u'The height of the entire drawing',
+        title='Drawing Height',
+        description='The height of the entire drawing',
         required=False)
 
     angle = attr.Float(
-        title=u'Angle',
-        description=u'The orientation of the drawing as an angle in degrees.',
+        title='Angle',
+        description='The orientation of the drawing as an angle in degrees.',
         required=False)
 
     # Plot Area Options
 
     x = attr.Measurement(
-        title=u'Chart X-Position',
-        description=u'The x-position of the chart within the drawing.',
+        title='Chart X-Position',
+        description='The x-position of the chart within the drawing.',
         required=False)
 
     y = attr.Measurement(
-        title=u'Chart Y-Position',
-        description=u'The y-position of the chart within the drawing.',
+        title='Chart Y-Position',
+        description='The y-position of the chart within the drawing.',
         required=False)
 
     width = attr.Measurement(
-        title=u'Chart Width',
-        description=u'The width of the chart.',
+        title='Chart Width',
+        description='The width of the chart.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Chart Height',
-        description=u'The height of the chart.',
+        title='Chart Height',
+        description='The height of the chart.',
         required=False)
 
     strokeColor = attr.Color(
-        title=u'Stroke Color',
-        description=u'Color of the chart border.',
+        title='Stroke Color',
+        description='Color of the chart border.',
         required=False)
 
     strokeWidth = attr.Measurement(
-        title=u'Stroke Width',
-        description=u'Width of the chart border.',
+        title='Stroke Width',
+        description='Width of the chart border.',
         required=False)
 
     fillColor = attr.Color(
-        title=u'Fill Color',
-        description=u'Color of the chart interior.',
+        title='Fill Color',
+        description='Color of the chart interior.',
         required=False)
 
     debug = attr.Boolean(
-        title=u'Debugging',
-        description=u'A flag that when set to True turns on debug messages.',
+        title='Debugging',
+        description='A flag that when set to True turns on debug messages.',
         required=False)
 
 class Chart(directive.RMLDirective):
@@ -1333,39 +1334,39 @@ class IBarChart(IChart):
         )
 
     direction = attr.Choice(
-        title=u'Direction',
-        description=u'The direction of the bars within the chart.',
+        title='Direction',
+        description='The direction of the bars within the chart.',
         choices=('horizontal', 'vertical'),
         default='horizontal',
         required=False)
 
     useAbsolute = attr.Boolean(
-        title=u'Use Absolute Spacing',
-        description=u'Flag to use absolute spacing values.',
+        title='Use Absolute Spacing',
+        description='Flag to use absolute spacing values.',
         default=False,
         required=False)
 
     barWidth = attr.Measurement(
-        title=u'Bar Width',
-        description=u'The width of an individual bar.',
+        title='Bar Width',
+        description='The width of an individual bar.',
         default=10,
         required=False)
 
     groupSpacing = attr.Measurement(
-        title=u'Group Spacing',
-        description=u'Width between groups of bars.',
+        title='Group Spacing',
+        description='Width between groups of bars.',
         default=5,
         required=False)
 
     barSpacing = attr.Measurement(
-        title=u'Bar Spacing',
-        description=u'Width between individual bars.',
+        title='Bar Spacing',
+        description='Width between individual bars.',
         default=0,
         required=False)
 
-    barLabelFormat = attr.String(
-        title=u'Bar Label Text Format',
-        description=u'Formatting string for bar labels.',
+    barLabelFormat = attr.Text(
+        title='Bar Label Text Format',
+        description='Formatting string for bar labels.',
         required=False)
 
 
@@ -1403,23 +1404,23 @@ class IBarChart3D(IBarChart):
         )
 
     thetaX = attr.Float(
-        title=u'Theta-X',
-        description=u'Fraction of dx/dz.',
+        title='Theta-X',
+        description='Fraction of dx/dz.',
         required=False)
 
     thetaY = attr.Float(
-        title=u'Theta-Y',
-        description=u'Fraction of dy/dz.',
+        title='Theta-Y',
+        description='Fraction of dy/dz.',
         required=False)
 
     zDepth = attr.Measurement(
-        title=u'Z-Depth',
-        description=u'Depth of an individual series/bar.',
+        title='Z-Depth',
+        description='Depth of an individual series/bar.',
         required=False)
 
     zSpace = attr.Measurement(
-        title=u'Z-Space',
-        description=u'Z-Gap around a series/bar.',
+        title='Z-Space',
+        description='Z-Gap around a series/bar.',
         required=False)
 
 class BarChart3D(BarChart):
@@ -1440,30 +1441,30 @@ class ILinePlot(IChart):
         )
 
     reversePlotOrder = attr.Boolean(
-        title=u'Reverse Plot Order',
-        description=u'When true, the coordinate system is reversed.',
+        title='Reverse Plot Order',
+        description='When true, the coordinate system is reversed.',
         required=False)
 
     lineLabelNudge = attr.Measurement(
-        title=u'Line Label Nudge',
-        description=u'The distance between the data point and its label.',
+        title='Line Label Nudge',
+        description='The distance between the data point and its label.',
         required=False)
 
-    lineLabelFormat = attr.String(
-        title=u'Line Label Format',
-        description=u'Formatting string for data point labels.',
+    lineLabelFormat = attr.Text(
+        title='Line Label Format',
+        description='Formatting string for data point labels.',
         required=False)
 
     joinedLines = attr.Boolean(
-        title=u'Joined Lines',
-        description=u'When true, connect all data points with lines.',
+        title='Joined Lines',
+        description='When true, connect all data points with lines.',
         required=False)
 
     inFill = attr.Boolean(
-        title=u'Name',
+        title='Name',
         description=(
-            u'Flag indicating whether the line plot should be filled, '
-            u'in other words converted to an area chart.'),
+            'Flag indicating whether the line plot should be filled, '
+            'in other words converted to an area chart.'),
         required=False)
 
 class LinePlot(Chart):
@@ -1493,23 +1494,23 @@ class ILinePlot3D(ILinePlot):
         )
 
     thetaX = attr.Float(
-        title=u'Theta-X',
-        description=u'Fraction of dx/dz.',
+        title='Theta-X',
+        description='Fraction of dx/dz.',
         required=False)
 
     thetaY = attr.Float(
-        title=u'Theta-Y',
-        description=u'Fraction of dy/dz.',
+        title='Theta-Y',
+        description='Fraction of dy/dz.',
         required=False)
 
     zDepth = attr.Measurement(
-        title=u'Z-Depth',
-        description=u'Depth of an individual series/bar.',
+        title='Z-Depth',
+        description='Depth of an individual series/bar.',
         required=False)
 
     zSpace = attr.Measurement(
-        title=u'Z-Space',
-        description=u'Z-Gap around a series/bar.',
+        title='Z-Space',
+        description='Z-Gap around a series/bar.',
         required=False)
 
 class LinePlot3D(LinePlot):
@@ -1536,51 +1537,51 @@ class IPieChart(IChart):
         )
 
     startAngle = attr.Integer(
-        title=u'Start Angle',
-        description=u'The start angle in the chart of the first slice '
-                    u'in degrees.',
+        title='Start Angle',
+        description='The start angle in the chart of the first slice '
+                    'in degrees.',
         required=False)
 
     direction = attr.Choice(
-        title=u'Direction',
-        description=u'The direction in which the pie chart will be built.',
+        title='Direction',
+        description='The direction in which the pie chart will be built.',
         choices=('clockwise', 'anticlockwise'),
         required=False)
 
     checkLabelOverlap = attr.Boolean(
-        title=u'Check Label Overlap',
-        description=(u'When true, check and attempt to fix standard '
-                     u'label overlaps'),
+        title='Check Label Overlap',
+        description=('When true, check and attempt to fix standard '
+                     'label overlaps'),
         required=False)
 
     pointerLabelMode = attr.Choice(
-        title=u'Pointer Label Mode',
-        description=(u'The location relative to the slace the label should '
-                     u'be placed.'),
+        title='Pointer Label Mode',
+        description=('The location relative to the slace the label should '
+                     'be placed.'),
         choices={'none': None,
                  'leftright': 'LeftRight',
                  'leftandright': 'LeftAndRight'},
         required=False)
 
     sameRadii = attr.Boolean(
-        title=u'Same Radii',
-        description=u'When true, make x/y radii the same.',
+        title='Same Radii',
+        description='When true, make x/y radii the same.',
         required=False)
 
     orderMode = attr.Choice(
-        title=u'Order Mode',
-        description=u'',
+        title='Order Mode',
+        description='',
         choices=('fixed', 'alternate'),
         required=False)
 
     xradius = attr.Measurement(
-        title=u'X-Radius',
-        description=u'The radius of the X-directions',
+        title='X-Radius',
+        description='The radius of the X-directions',
         required=False)
 
     yradius = attr.Measurement(
-        title=u'Y-Radius',
-        description=u'The radius of the Y-directions',
+        title='Y-Radius',
+        description='The radius of the Y-directions',
         required=False)
 
 
@@ -1611,18 +1612,18 @@ class IPieChart3D(IPieChart):
         )
 
     perspective = attr.Float(
-        title=u'Perspsective',
-        description=u'The flattening parameter.',
+        title='Perspsective',
+        description='The flattening parameter.',
         required=False)
 
     depth_3d = attr.Measurement(
-        title=u'3-D Depth',
-        description=u'The depth of the pie.',
+        title='3-D Depth',
+        description='The depth of the pie.',
         required=False)
 
     angle_3d = attr.Float(
-        title=u'3-D Angle',
-        description=u'The view angle in the Z-coordinate.',
+        title='3-D Angle',
+        description='The view angle in the Z-coordinate.',
         required=False)
 
 class PieChart3D(PieChart):
@@ -1647,14 +1648,14 @@ class ISpiderChart(IChart):
         )
 
     startAngle = attr.Integer(
-        title=u'Start Angle',
-        description=u'The start angle in the chart of the first strand '
-                    u'in degrees.',
+        title='Start Angle',
+        description='The start angle in the chart of the first strand '
+                    'in degrees.',
         required=False)
 
     direction = attr.Choice(
-        title=u'Direction',
-        description=u'The direction in which the spider chart will be built.',
+        title='Direction',
+        description='The direction in which the spider chart will be built.',
         choices=('clockwise', 'anticlockwise'),
         required=False)
 

@@ -15,10 +15,11 @@
 """
 import reportlab.platypus.flowables
 import reportlab.rl_config
-from reportlab.rl_config import overlapAttachedSpace
 import zope.interface
+from reportlab.rl_config import overlapAttachedSpace
 
 from z3c.rml import interfaces
+
 
 # Fix problem with reportlab 3.1.44
 class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
@@ -33,7 +34,7 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         self.maxHeight = maxHeight
         self.mode = mode
         assert mode in ('error','overflow','shrink','truncate'), \
-               '%s invalid mode value %s' % (self.identity(),mode)
+               '{} invalid mode value {}'.format(self.identity(),mode)
         # This is an unnecessary check, since wrap() handles None just fine!
         #assert maxHeight>=0,  \
         #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)

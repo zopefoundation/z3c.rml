@@ -13,51 +13,53 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import six
+import io
+
 from z3c.rml import attr, directive, interfaces
 
 try:
-    import PyPDF2
-    from PyPDF2.generic import NameObject
+    import pikepdf
+    from pikepdf import Object
 except ImportError:
-    # We don't want to require pyPdf, if you do not want to use the features
+    # We don't want to require pikepdf, if you do not want to use the features
     # in this module.
-    PyPDF2 = None
+    pikepdf = None
 
 
-class MergePostProcessor(object):
+def mergePage(layerPage, mainPage, pdf, name) -> None:
+    contentsForName = pdf.copy_foreign(
+        pikepdf.Page(layerPage).as_form_xobject()
+    )
+    newContents = b'q\n %s Do\nQ\n' % (name.encode())
+    if not mainPage.Resources.get("/XObject"):
+        mainPage.Resources["/XObject"] = pikepdf.Dictionary({})
+    mainPage.Resources["/XObject"][name] = contentsForName
+    # Use the MediaBox from the merged page
+    mainPage.MediaBox = layerPage.MediaBox
+    mainPage.page_contents_add(
+        contents=pikepdf.Stream(pdf, newContents),
+        prepend=True
+    )
+
+
+class MergePostProcessor:
 
     def __init__(self):
         self.operations = {}
 
     def process(self, inputFile1):
-        input1 = PyPDF2.PdfFileReader(inputFile1)
-        output = PyPDF2.PdfFileWriter()
-        # TODO: Do not access protected classes
-        output._info.getObject().update(input1.documentInfo)
-
-        # Add the outlines, if any
-        if "/Outlines" in input1.trailer["/Root"]:
-            if output._root:
-                # Backwards-compatible with PyPDF2 version 1.21
-                output._root.getObject()[NameObject("/Outlines")] = (
-                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
-            else:
-                # Compatible with PyPDF2 version 1.22+
-                output._root_object[NameObject("/Outlines")] = (
-                    output._addObject(input1.trailer["/Root"]["/Outlines"]))
-
+        input1 = pikepdf.open(inputFile1)
+        count = 0
         for (num, page) in enumerate(input1.pages):
             if num in self.operations:
                 for mergeFile, mergeNumber in self.operations[num]:
-                    merger = PyPDF2.PdfFileReader(mergeFile)
-                    mergerPage = merger.getPage(mergeNumber)
-                    mergerPage.mergePage(page)
-                    page = mergerPage
-            output.addPage(page)
+                    mergePdf = pikepdf.open(mergeFile)
+                    toMerge = mergePdf.pages[mergeNumber]
+                    name = f"/Fx{count}"
+                    mergePage(toMerge, page, input1, name)
 
-        outputFile = six.BytesIO()
-        output.write(outputFile)
+        outputFile = io.BytesIO()
+        input1.save(outputFile)
         return outputFile
 
 
@@ -65,13 +67,13 @@ class IMergePage(interfaces.IRMLDirectiveSignature):
     """Merges an existing PDF Page into the one to be generated."""
 
     filename = attr.File(
-        title=u'File',
-        description=(u'Reference to the PDF file to extract the page from.'),
+        title='File',
+        description=('Reference to the PDF file to extract the page from.'),
         required=True)
 
     page = attr.Integer(
-        title=u'Page Number',
-        description=u'The page number of the PDF file that is used to merge..',
+        title='Page Number',
+        description='The page number of the PDF file that is used to merge..',
         required=True)
 
 
@@ -88,9 +90,9 @@ class MergePage(directive.RMLDirective):
         return procs['MERGE']
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'pyPdf is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self, interfaces.ICanvasManager)
         outPage = manager.canvas.getPageNumber()-1
@@ -103,12 +105,13 @@ class MergePage(directive.RMLDirective):
 class MergePageInPageTemplate(MergePage):
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'pyPdf is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
 
         onPage = self.parent.pt.onPage
+
         def drawOnCanvas(canvas, doc):
             onPage(canvas, doc)
             outPage = canvas.getPageNumber()-1

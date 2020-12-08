@@ -13,36 +13,37 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import zope.interface
 import reportlab.pdfgen.canvas
-from z3c.rml import attr, directive, interfaces, occurence, stylesheet
-from z3c.rml import chart, flowable, form, page, special
+import zope.interface
+
+from z3c.rml import attr, chart, directive, flowable, form, interfaces
+from z3c.rml import occurence, page, special, stylesheet
 
 
 class IShape(interfaces.IRMLDirectiveSignature):
     """A shape to be drawn on the canvas."""
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'shape.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'shape.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'shape.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'shape.'),
         required=True)
 
     fill = attr.Boolean(
-        title=u'Fill',
-        description=u'A flag to specify whether the shape should be filled.',
+        title='Fill',
+        description='A flag to specify whether the shape should be filled.',
         required=False)
 
     stroke = attr.Boolean(
-        title=u'Stroke',
-        description=(u"A flag to specify whether the shape's outline should "
-                     u"be drawn."),
+        title='Stroke',
+        description=("A flag to specify whether the shape's outline should "
+                     "be drawn."),
         required=False)
 
 
@@ -77,20 +78,20 @@ class IDrawString(interfaces.IRMLDirectiveSignature):
     location."""
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'string.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'string.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'string.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'string.'),
         required=True)
 
     text = attr.RawXMLContent(
-        title=u'Text',
-        description=(u'The string/text that is put onto the canvas.'),
+        title='Text',
+        description=('The string/text that is put onto the canvas.'),
         required=True)
 
 class DrawString(CanvasRMLDirective, special.TextFlowables):
@@ -126,11 +127,11 @@ class IDrawAlignedString(IDrawString):
     at the specified location."""
 
     pivotChar = attr.Text(
-        title=u'Text',
-        description=(u'The string/text that is put onto the canvas.'),
+        title='Text',
+        description=('The string/text that is put onto the canvas.'),
         min_length=1,
         max_length=1,
-        default=u'.',
+        default='.',
         required=True)
 
 class DrawAlignedString(DrawString):
@@ -142,13 +143,13 @@ class IEllipse(IShape):
     """Draws an ellipse on the canvas."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the ellipse.',
+        title='Width',
+        description='The width of the ellipse.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the ellipse.',
+        title='Height',
+        description='The height of the ellipse.',
         required=True)
 
 class Ellipse(CanvasRMLDirective):
@@ -171,8 +172,8 @@ class ICircle(IShape):
     """Draws a circle on the canvas."""
 
     radius = attr.Measurement(
-        title=u'Radius',
-        description=u'The radius of the circle.',
+        title='Radius',
+        description='The radius of the circle.',
         required=True)
 
 class Circle(CanvasRMLDirective):
@@ -185,29 +186,29 @@ class IRectangle(IShape):
     """Draws an ellipse on the canvas."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the rectangle.',
+        title='Width',
+        description='The width of the rectangle.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the rectangle.',
+        title='Height',
+        description='The height of the rectangle.',
         required=True)
 
     round = attr.Measurement(
-        title=u'Corner Radius',
-        description=u'The radius of the rounded corners.',
+        title='Corner Radius',
+        description='The radius of the rounded corners.',
         required=False)
 
     href = attr.Text(
-        title=u'Link URL',
-        description=u'When specified, the rectangle becomes a link to that URL.',
+        title='Link URL',
+        description='When specified, the rectangle becomes a link to that URL.',
         required=False)
 
     destination = attr.Text(
-        title=u'Link Destination',
-        description=(u'When specified, the rectangle becomes a link to that '
-                     u'destination.'),
+        title='Link Destination',
+        description=('When specified, the rectangle becomes a link to that '
+                     'destination.'),
         required=False)
 
 class Rectangle(CanvasRMLDirective):
@@ -241,16 +242,16 @@ class IGrid(interfaces.IRMLDirectiveSignature):
     """A shape to be drawn on the canvas."""
 
     xs = attr.Sequence(
-        title=u'X-Coordinates',
-        description=(u'A sequence x-coordinates that represent the vertical '
-                     u'line positions.'),
+        title='X-Coordinates',
+        description=('A sequence x-coordinates that represent the vertical '
+                     'line positions.'),
         value_type=attr.Measurement(),
         required=True)
 
     ys = attr.Sequence(
-        title=u'Y-Coordinates',
-        description=(u'A sequence y-coordinates that represent the horizontal '
-                     u'line positions.'),
+        title='Y-Coordinates',
+        description=('A sequence y-coordinates that represent the horizontal '
+                     'line positions.'),
         value_type=attr.Measurement(),
         required=True)
 
@@ -265,8 +266,8 @@ class ILines(interfaces.IRMLDirectiveSignature):
     """A path of connected lines drawn on the canvas."""
 
     linelist = attr.TextNodeGrid(
-        title=u'Line List',
-        description=(u'A list of lines coordinates to draw.'),
+        title='Line List',
+        description=('A list of lines coordinates to draw.'),
         value_type=attr.Measurement(),
         columns=4,
         required=True)
@@ -280,8 +281,8 @@ class ICurves(interfaces.IRMLDirectiveSignature):
     """A path of connected bezier curves drawn on the canvas."""
 
     curvelist = attr.TextNodeGrid(
-        title=u'Curve List',
-        description=(u'A list of curve coordinates to draw.'),
+        title='Curve List',
+        description=('A list of curve coordinates to draw.'),
         value_type=attr.Measurement(),
         columns=8,
         required=True)
@@ -301,49 +302,49 @@ class IImage(interfaces.IRMLDirectiveSignature):
     """Draws an external image on the canvas."""
 
     file = attr.Image(
-        title=u'File',
-        description=(u'Reference to the external file of the iamge.'),
+        title='File',
+        description=('Reference to the external file of the iamge.'),
         required=True)
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'shape.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'shape.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'shape.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'shape.'),
         required=True)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the image.',
+        title='Width',
+        description='The width of the image.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the image.',
+        title='Height',
+        description='The height of the image.',
         required=False)
 
     showBoundary = attr.Boolean(
-        title=u'Show Boundary',
-        description=(u'A flag determining whether a border should be drawn '
-                     u'around the image.'),
+        title='Show Boundary',
+        description=('A flag determining whether a border should be drawn '
+                     'around the image.'),
         default=False,
         required=False)
 
     preserveAspectRatio = attr.Boolean(
-        title=u'Preserve Aspect Ratio',
-        description=(u"A flag determining whether the image's aspect ration "
-                     u"should be conserved under any circumstances."),
+        title='Preserve Aspect Ratio',
+        description=("A flag determining whether the image's aspect ration "
+                     "should be conserved under any circumstances."),
         default=False,
         required=False)
 
     mask = attr.Color(
-        title=u'Mask',
-        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        title='Mask',
+        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
@@ -385,25 +386,25 @@ class IPlace(interfaces.IRMLDirectiveSignature):
     """Draws a set of flowables on the canvas within a given region."""
 
     x = attr.Measurement(
-        title=u'X-Coordinate',
-        description=(u'The X-coordinate of the lower-left position of the '
-                     u'place.'),
+        title='X-Coordinate',
+        description=('The X-coordinate of the lower-left position of the '
+                     'place.'),
         required=True)
 
     y = attr.Measurement(
-        title=u'Y-Coordinate',
-        description=(u'The Y-coordinate of the lower-left position of the '
-                     u'place.'),
+        title='Y-Coordinate',
+        description=('The Y-coordinate of the lower-left position of the '
+                     'place.'),
         required=True)
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the place.',
+        title='Width',
+        description='The width of the place.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the place.',
+        title='Height',
+        description='The height of the place.',
         required=False)
 
 class Place(CanvasRMLDirective):
@@ -432,14 +433,14 @@ class Place(CanvasRMLDirective):
 class IParam(interfaces.IRMLDirectiveSignature):
     """Sets one paramter for the text annotation."""
 
-    name = attr.String(
-        title=u'Name',
-        description=u'The name of the paramter.',
+    name = attr.Text(
+        title='Name',
+        description='The name of the paramter.',
         required=True)
 
     value = attr.TextNode(
-        title=u'Value',
-        description=(u'The parameter value.'),
+        title='Value',
+        description=('The parameter value.'),
         required=True)
 
 class Param(directive.RMLDirective):
@@ -456,8 +457,8 @@ class ITextAnnotation(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('param', IParam))
 
     contents = attr.FirstLevelTextNode(
-        title=u'Contents',
-        description=u'The PDF commands that are inserted as annotation.',
+        title='Contents',
+        description='The PDF commands that are inserted as annotation.',
         required=True)
 
 class TextAnnotation(CanvasRMLDirective):
@@ -482,8 +483,8 @@ class IMoveTo(interfaces.IRMLDirectiveSignature):
     """Move the path cursor to the specified location."""
 
     position = attr.TextNodeSequence(
-        title=u'Position',
-        description=u'Position to which the path pointer is moved to.',
+        title='Position',
+        description='Position to which the path pointer is moved to.',
         value_type=attr.Measurement(),
         min_length=2,
         max_length=2,
@@ -501,8 +502,8 @@ class ICurveTo(interfaces.IRMLDirectiveSignature):
     """Create a bezier curve from the current location to the specified one."""
 
     curvelist = attr.TextNodeGrid(
-        title=u'Curve Specification',
-        description=u'Describes the end position and the curve properties.',
+        title='Curve Specification',
+        description='Describes the end position and the curve properties.',
         value_type=attr.Measurement(),
         columns=6,
         required=True)
@@ -532,22 +533,22 @@ class IPath(IShape):
         )
 
     points = attr.TextNodeGrid(
-        title=u'Points',
-        description=(u'A list of coordinate points that define th path.'),
+        title='Points',
+        description=('A list of coordinate points that define th path.'),
         value_type=attr.Measurement(),
         columns=2,
         required=True)
 
     close = attr.Boolean(
-        title=u'Close Path',
-        description=(u"A flag specifying whether the path should be closed."),
+        title='Close Path',
+        description=("A flag specifying whether the path should be closed."),
         default=False,
         required=False)
 
     clip = attr.Boolean(
-        title=u'Clip Path',
-        description=(u"A flag specifying whether the path should clip "
-                     u"overlapping elements."),
+        title='Clip Path',
+        description=("A flag specifying whether the path should clip "
+                     "overlapping elements."),
         default=False,
         required=False)
 
@@ -598,8 +599,8 @@ class IFill(interfaces.IRMLDirectiveSignature):
     """Set the fill color."""
 
     color = attr.Color(
-        title=u'Color',
-        description=(u'The color value to be set.'),
+        title='Color',
+        description=('The color value to be set.'),
         required=True)
 
 class Fill(CanvasRMLDirective):
@@ -612,8 +613,8 @@ class IStroke(interfaces.IRMLDirectiveSignature):
     """Set the stroke/line color."""
 
     color = attr.Color(
-        title=u'Color',
-        description=(u'The color value to be set.'),
+        title='Color',
+        description=('The color value to be set.'),
         required=True)
 
 class Stroke(CanvasRMLDirective):
@@ -625,19 +626,19 @@ class Stroke(CanvasRMLDirective):
 class ISetFont(interfaces.IRMLDirectiveSignature):
     """Set the font name and/or size."""
 
-    name = attr.String(
-        title=u'Font Name',
-        description=(u'The name of the font as it was registered.'),
+    name = attr.Text(
+        title='Font Name',
+        description=('The name of the font as it was registered.'),
         required=True)
 
     size = attr.Measurement(
-        title=u'Size',
-        description=(u'The font size.'),
+        title='Size',
+        description=('The font size.'),
         required=True)
 
     leading = attr.Measurement(
-        title=u'Leading',
-        description=(u'The font leading.'),
+        title='Leading',
+        description=('The font leading.'),
         required=False)
 
 class SetFont(CanvasRMLDirective):
@@ -650,13 +651,13 @@ class ISetFontSize(interfaces.IRMLDirectiveSignature):
     """Set the font size."""
 
     size = attr.Measurement(
-        title=u'Size',
-        description=(u'The font size.'),
+        title='Size',
+        description=('The font size.'),
         required=True)
 
     leading = attr.Measurement(
-        title=u'Leading',
-        description=(u'The font leading.'),
+        title='Leading',
+        description=('The font leading.'),
         required=False)
 
 class SetFontSize(CanvasRMLDirective):
@@ -668,14 +669,14 @@ class IScale(interfaces.IRMLDirectiveSignature):
     """Scale the drawing using x and y scaling factors."""
 
     sx = attr.Float(
-        title=u'X-Scaling-Factor',
-        description=(u'The scaling factor applied on x-coordinates.'),
+        title='X-Scaling-Factor',
+        description=('The scaling factor applied on x-coordinates.'),
         default=1,
         required=False)
 
     sy = attr.Float(
-        title=u'Y-Scaling-Factor',
-        description=(u'The scaling factor applied on y-coordinates.'),
+        title='Y-Scaling-Factor',
+        description=('The scaling factor applied on y-coordinates.'),
         default=1,
         required=False)
 
@@ -689,13 +690,13 @@ class ITranslate(interfaces.IRMLDirectiveSignature):
     """Translate the drawing coordinates by the specified x and y offset."""
 
     dx = attr.Measurement(
-        title=u'X-Offset',
-        description=(u'The amount to move the drawing to the right.'),
+        title='X-Offset',
+        description=('The amount to move the drawing to the right.'),
         required=True)
 
     dy = attr.Measurement(
-        title=u'Y-Offset',
-        description=(u'The amount to move the drawing upward.'),
+        title='Y-Offset',
+        description=('The amount to move the drawing upward.'),
         required=True)
 
 class Translate(CanvasRMLDirective):
@@ -707,8 +708,8 @@ class IRotate(interfaces.IRMLDirectiveSignature):
     """Rotate the drawing counterclockwise."""
 
     degrees = attr.Measurement(
-        title=u'Angle',
-        description=(u'The angle in degrees.'),
+        title='Angle',
+        description=('The angle in degrees.'),
         required=True)
 
 class Rotate(CanvasRMLDirective):
@@ -721,13 +722,13 @@ class ISkew(interfaces.IRMLDirectiveSignature):
     """Skew the drawing."""
 
     alpha = attr.Measurement(
-        title=u'Alpha',
-        description=(u'The amount to skew the drawing in the horizontal.'),
+        title='Alpha',
+        description=('The amount to skew the drawing in the horizontal.'),
         required=True)
 
     beta = attr.Measurement(
-        title=u'Beta',
-        description=(u'The amount to skew the drawing in the vertical.'),
+        title='Beta',
+        description=('The amount to skew the drawing in the vertical.'),
         required=True)
 
 class Skew(CanvasRMLDirective):
@@ -739,8 +740,8 @@ class ITransform(interfaces.IRMLDirectiveSignature):
     """A full 2-D matrix transformation"""
 
     matrix = attr.TextNodeSequence(
-        title=u'Matrix',
-        description=u'The transformation matrix.',
+        title='Matrix',
+        description='The transformation matrix.',
         value_type=attr.Float(),
         min_length=6,
         max_length=6,
@@ -759,30 +760,30 @@ class ILineMode(interfaces.IRMLDirectiveSignature):
     """Set the line mode for the following graphics elements."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=(u'The line width.'),
+        title='Width',
+        description=('The line width.'),
         required=False)
 
     dash = attr.Sequence(
-        title=u'Dash-Pattern',
-        description=(u'The dash-pattern of a line.'),
+        title='Dash-Pattern',
+        description=('The dash-pattern of a line.'),
         value_type=attr.Measurement(),
         required=False)
 
     miterLimit = attr.Measurement(
-        title=u'Miter Limit',
-        description=(u'The ???.'),
+        title='Miter Limit',
+        description=('The ???.'),
         required=False)
 
     join = attr.Choice(
-        title=u'Join',
-        description=u'The way lines are joined together.',
+        title='Join',
+        description='The way lines are joined together.',
         choices=interfaces.JOIN_CHOICES,
         required=False)
 
     cap = attr.Choice(
-        title=u'Cap',
-        description=u'The cap is the desciption of how the line-endings look.',
+        title='Cap',
+        description='The cap is the desciption of how the line-endings look.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
@@ -811,29 +812,29 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
     """
 
     name = attr.Text(
-        title=u'Name',
-        description=u'The name of the bookmark.',
+        title='Name',
+        description='The name of the bookmark.',
         required=True)
 
     fit = attr.Choice(
-        title=u'Fit',
-        description=u'The Fit Type.',
+        title='Fit',
+        description='The Fit Type.',
         choices=('XYZ', 'Fit', 'FitH', 'FitV', 'FitR'),
         required=False)
 
     zoom = attr.Float(
-        title=u'Zoom',
-        description=u'The zoom level when clicking on the bookmark.',
+        title='Zoom',
+        description='The zoom level when clicking on the bookmark.',
         required=False)
 
     x = attr.Measurement(
-        title=u'X-Position',
-        description=u'The x-position.',
+        title='X-Position',
+        description='The x-position.',
         required=False)
 
     y = attr.Measurement(
-        title=u'Y-Position',
-        description=u'The y-position.',
+        title='Y-Position',
+        description='The y-position.',
         required=False)
 
 class Bookmark(CanvasRMLDirective):
@@ -849,20 +850,20 @@ class Bookmark(CanvasRMLDirective):
 class IPlugInGraphic(interfaces.IRMLDirectiveSignature):
     """Inserts a custom graphic developed in Python."""
 
-    module = attr.String(
-        title=u'Module',
-        description=u'The Python module in which the flowable is located.',
+    module = attr.Text(
+        title='Module',
+        description='The Python module in which the flowable is located.',
         required=True)
 
-    function = attr.String(
-        title=u'Function',
-        description=(u'The name of the factory function within the module '
-                     u'that returns the custom flowable.'),
+    function = attr.Text(
+        title='Function',
+        description=('The name of the factory function within the module '
+                     'that returns the custom flowable.'),
         required=True)
 
     params = attr.TextNode(
-        title=u'Parameters',
-        description=(u'A list of parameters encoded as a long string.'),
+        title='Parameters',
+        description=('A list of parameters encoded as a long string.'),
         required=False)
 
 class PlugInGraphic(CanvasRMLDirective):
@@ -1010,8 +1011,8 @@ class IPageInfo(interfaces.IRMLDirectiveSignature):
     """Set's up page-global settings."""
 
     pageSize = attr.PageSize(
-        title=u'Page Size',
-        description=(u'The page size of all pages within this document.'),
+        title='Page Size',
+        description=('The page size of all pages within this document.'),
         required=True)
 
 class PageInfo(CanvasRMLDirective):

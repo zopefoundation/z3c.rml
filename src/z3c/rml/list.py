@@ -15,20 +15,22 @@
 """
 __docformat__ = "reStructuredText"
 import copy
+
 import reportlab.lib.styles
 import reportlab.platypus
 import zope.schema
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, directive, flowable, interfaces, occurence, stylesheet
+from z3c.rml import attr, directive, flowable, interfaces, occurence
+from z3c.rml import stylesheet
 
 
 class IListItem(stylesheet.IMinimalListStyle, flowable.IFlow):
     """A list item in an ordered or unordered list."""
 
     style = attr.Style(
-        title=u'Style',
-        description=u'The list style that is applied to the list.',
+        title='Style',
+        description='The list style that is applied to the list.',
         required=False)
 
 class ListItem(flowable.Flow):
@@ -62,8 +64,8 @@ class IOrderedListItem(IListItem):
     """An ordered list item."""
 
     value = attr.Integer(
-        title=u'Bullet Value',
-        description=u'The counter value.',
+        title='Bullet Value',
+        description='The counter value.',
         required=False)
 
 class OrderedListItem(ListItem):
@@ -74,8 +76,8 @@ class IUnorderedListItem(IListItem):
     """An ordered list item."""
 
     value = attr.Choice(
-        title=u'Bullet Value',
-        description=u'The type of bullet character.',
+        title='Bullet Value',
+        description='The type of bullet character.',
         choices=interfaces.UNORDERED_BULLET_VALUES,
         required=False)
 
@@ -88,8 +90,8 @@ class UnorderedListItem(ListItem):
 class IListBase(stylesheet.IBaseListStyle):
 
     style = attr.Style(
-        title=u'Style',
-        description=u'The list style that is applied to the list.',
+        title='Style',
+        description='The list style that is applied to the list.',
         required=False)
 
 class ListBase(directive.RMLDirective):
@@ -100,7 +102,7 @@ class ListBase(directive.RMLDirective):
     styleAttributes = zope.schema.getFieldNames(stylesheet.IBaseListStyle)
 
     def __init__(self, *args, **kw):
-        super(ListBase, self).__init__(*args, **kw)
+        super().__init__(*args, **kw)
         self.flow = []
 
     def processStyle(self, style):
@@ -130,8 +132,8 @@ class IOrderedList(IListBase):
         )
 
     bulletType = attr.Choice(
-        title=u'Bullet Type',
-        description=u'The type of bullet formatting.',
+        title='Bullet Type',
+        description='The type of bullet formatting.',
         choices=interfaces.ORDERED_LIST_TYPES,
         doLower=False,
         required=False)
@@ -150,8 +152,8 @@ class IUnorderedList(IListBase):
         )
 
     value = attr.Choice(
-        title=u'Bullet Value',
-        description=u'The type of bullet character.',
+        title='Bullet Value',
+        description='The type of bullet character.',
         choices=interfaces.UNORDERED_BULLET_VALUES,
         default='disc',
         required=False)
@@ -162,7 +164,7 @@ class UnorderedList(ListBase):
     factories = {'li': UnorderedListItem}
 
     def getAttributeValues(self, *args, **kw):
-        res = super(UnorderedList, self).getAttributeValues(*args, **kw)
+        res = super().getAttributeValues(*args, **kw)
         res.append(('bulletType', 'bullet'))
         return res
 

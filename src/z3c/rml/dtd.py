@@ -13,7 +13,7 @@
 ##############################################################################
 """Generate a DTD from the code
 """
-import six
+
 import zope.schema
 
 from z3c.rml import attr, document, occurence
@@ -92,4 +92,4 @@ def generate(useWrapper=False):
     return text
 
 def main():
-    six.print_(generate())
+    print(generate())

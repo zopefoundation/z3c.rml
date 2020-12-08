@@ -15,17 +15,18 @@
 """
 __docformat__ = "reStructuredText"
 
+import io
 import logging
 import os
 import subprocess
-import six
+
 from backports import tempfile
 
 try:
-    import PyPDF2
-    from PyPDF2.generic import NameObject
+    import pikepdf
+    from pikepdf import Dictionary
 except ImportError:
-    PyPDF2 = None
+    pikepdf = None
 from reportlab.platypus import flowables
 
 from z3c.rml import attr, flowable, interfaces, occurence
@@ -35,6 +36,7 @@ log = logging.getLogger(__name__)
 # by default False to avoid burping on
 # PdfReadWarning: Multiple definitions in dictionary at byte xxx
 STRICT = False
+
 
 def _letter(val, base=ord('A'), radix=26):
     __traceback_info__ = val, base
@@ -48,6 +50,7 @@ def _letter(val, base=ord('A'), radix=26):
         s = chr(base + off) + s
         if not val:
             return s
+
 
 def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     log.debug('Command: ' + cmd)
@@ -64,44 +67,43 @@ def do(cmd, cwd=None, captureOutput=True, ignoreErrors=False):
     if stderr is None:
         stderr = "See output above"
     if p.returncode != 0 and not ignoreErrors:
-        log.error(u'An error occurred while running command: %s' % cmd)
-        log.error('Error Output: \n%s' % stderr)
-        raise ValueError('Shell Process had non-zero error code: {}. \n'
-                         'Stdout: {}\n'
-                         'StdErr: {}'.format(p.returncode, stdout, stderr))
-    log.debug('Output: \n%s' % stdout)
+        log.error(f'An error occurred while running command: {cmd}')
+        log.error(f'Error Output: \n{stderr}')
+        raise ValueError(
+            f'Shell Process had non-zero error code: {p.returncode}. \n'
+            f'Stdout: {stdout}\n'
+            f'StdErr: {stderr}'
+        )
+    log.debug(f'Output: \n{stdout}')
     return stdout
 
 
-class ConcatenationPostProcessor(object):
+class ConcatenationPostProcessor:
 
     def __init__(self):
         self.operations = []
 
     def process(self, inputFile1):
-        input1 = PyPDF2.PdfFileReader(inputFile1, strict=STRICT)
-        merger = PyPDF2.PdfFileMerger(strict=STRICT)
-        merger.output._info.getObject().update(input1.documentInfo)
-
-        merger.append(inputFile1)
+        input1 = pikepdf.open(inputFile1)
 
         for start_page, inputFile2, page_ranges, num_pages in self.operations:
-            # Remove blank pages, that we reserved in IncludePdfPagesFlowable
-            # and insert real pdf here
-            del merger.pages[start_page:start_page + num_pages]
             curr_page = start_page
             for page_range in page_ranges:
                 prs, pre = page_range
-                merger.merge(
-                    curr_page, inputFile2, pages=(prs, pre),
-                    import_bookmarks=False)
+                input2 = pikepdf.open(inputFile2)
+                for i in range(num_pages):
+                    # Doing this copy will preserve references to the original
+                    # pages if there is a TOC/Bookmarks.
+                    input1.pages.append(input2.pages[prs + i])
+                    input1.pages[start_page + i].emplace(input1.pages[-1])
+                    del input1.pages[-1]
 
-        outputFile = six.BytesIO()
-        merger.write(outputFile)
+        outputFile = io.BytesIO()
+        input1.save(outputFile)
         return outputFile
 
 
-class PdfTkConcatenationPostProcessor(object):
+class PdfTkConcatenationPostProcessor:
 
     EXECUTABLE = 'pdftk'
     PRESERVE_OUTLINE = True
@@ -141,24 +143,24 @@ class PdfTkConcatenationPostProcessor(object):
                 merges.append('%s%i-%i' % (file_letter, prs+1, pre))
 
         mergedFile = os.path.join(dir, 'merged.pdf')
-        do('%s %s cat %s output %s' % (
+        do('{} {} cat {} output {}'.format(
             self.EXECUTABLE,
-            ' '.join('%s="%s"' % (l, p) for l, p in file_map.items()),
+            ' '.join('{}="{}"'.format(l, p) for l, p in file_map.items()),
             ' '.join(merges),
             mergedFile))
 
         if not self.PRESERVE_OUTLINE:
             with open(mergedFile, 'rb') as file:
-                return six.BytesIO(file.read())
+                return io.BytesIO(file.read())
 
         outputFile = os.path.join(dir, 'output.pdf')
-        do('%s %s/A.pdf dump_data > %s/in.info' % (
+        do('{} {}/A.pdf dump_data > {}/in.info'.format(
             self.EXECUTABLE, dir, dir))
-        do('%s %s update_info %s/in.info output %s' % (
+        do('{} {} update_info {}/in.info output {}'.format(
             self.EXECUTABLE, mergedFile, dir, outputFile))
 
         with open(outputFile, 'rb') as file:
-            return six.BytesIO(file.read())
+            return io.BytesIO(file.read())
 
     def process(self, inputFile1):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -179,8 +181,8 @@ class IncludePdfPagesFlowable(flowables.Flowable):
             self.width = 0
             self.height = 0
         else:
-            self.width = 10<<32
-            self.height = 10<<32
+            self.width = 10 << 32
+            self.height = 10 << 32
 
     def draw(self):
         if self.included_on_first_page:
@@ -189,8 +191,8 @@ class IncludePdfPagesFlowable(flowables.Flowable):
     def split(self, availWidth, availheight):
         pages = self.pages
         if not pages:
-            pdf = PyPDF2.PdfFileReader(self.pdf_file, strict=STRICT)
-            pages = [(0, pdf.getNumPages())]
+            pdf = pikepdf.open(self.pdf_file)
+            pages = [(0, len(pdf.pages))]
 
         num_pages = sum(pr[1]-pr[0] for pr in pages)
 
@@ -216,13 +218,13 @@ class IIncludePdfPages(interfaces.IRMLDirectiveSignature):
     """Inserts a set of pages from a given PDF."""
 
     filename = attr.File(
-        title=u'Path to file',
-        description=u'The pdf file to include.',
+        title='Path to file',
+        description='The pdf file to include.',
         required=True)
 
     pages = attr.IntegerSequence(
-        title=u'Pages',
-        description=u'A list of pages to insert.',
+        title='Pages',
+        description='A list of pages to insert.',
         numberingStartsAt=1,
         required=False)
 
@@ -245,9 +247,9 @@ class IncludePdfPages(flowable.Flowable):
         return procs['CONCAT']
 
     def process(self):
-        if PyPDF2 is None:
+        if pikepdf is None:
             raise Exception(
-                'PyPDF2 is not installed, so this feature is not available.')
+                'pikepdf is not installed, so this feature is not available.')
         args = dict(self.getAttributeValues())
         proc = self.getProcessor()
         self.parent.flow.append(

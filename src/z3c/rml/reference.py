@@ -14,16 +14,17 @@
 """RML Reference Generator
 """
 import copy
-import re
 import os
+import re
+from xml.sax import saxutils
+
 import pygments.token
 import zope.schema
 import zope.schema.interfaces
 from lxml import etree
-from xml.sax import saxutils
 from pygments.lexers import XmlLexer
-from z3c.rml import attr, document, interfaces, pagetemplate, __version__
 
+from z3c.rml import __version__, attr, document, interfaces, pagetemplate
 
 INPUT_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
              'rml/tests/input/%s')

@@ -14,12 +14,14 @@
 """Testing all XML Locale functionality.
 """
 import datetime
-import reportlab.platypus
-import reportlab.lib.styles
+
 import reportlab.graphics.widgets.markers
+import reportlab.lib.styles
+import reportlab.platypus
 from reportlab.graphics import renderPDF, shapes
 from reportlab.lib import colors
-from z3c.rml import attr, interfaces, SampleStyleSheet
+
+from z3c.rml import SampleStyleSheet, attr, interfaces
 
 
 def myPreformatted(params):

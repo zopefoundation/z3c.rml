@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 """
 svg2rlg is a tool to convert from SVG to reportlab graphics.
 
@@ -9,19 +8,16 @@ version 0.3
 """
 import os
 import re
-import six
 from gzip import GzipFile
-
 from xml.etree import cElementTree
 
-from reportlab.graphics import renderPDF
-
-from reportlab.graphics.shapes import Drawing, Group, String, Line, Rect, Image
-from reportlab.graphics.shapes import Circle, Ellipse, Polygon, PolyLine, Path
-from reportlab.graphics.shapes import mmult
-
-from reportlab.lib.units import pica, toLength
 import reportlab.lib.colors as colors
+from reportlab.graphics import renderPDF
+from reportlab.graphics.shapes import Circle, Drawing, Ellipse, Group, Image
+from reportlab.graphics.shapes import Line, Path, Polygon, PolyLine, Rect
+from reportlab.graphics.shapes import String, mmult
+from reportlab.lib.units import pica, toLength
+
 
 class SVGError(Exception):
     pass
@@ -45,13 +41,17 @@ class Lexer:
         lexicon = self.lexicon
 
         # create internal names for group matches
-        groupnames = dict(('lexer_%d' % idx, item[0]) for idx,item in enumerate(lexicon))
+        groupnames = {
+            f'lexer_{idx}': item[0] for idx,item in enumerate(lexicon)
+        }
         self.groupnames = groupnames
 
         # assemble regex parts to one regex
-        igroupnames = dict((value,name) for name,value in six.iteritems(groupnames))
+        igroupnames = {value:name for name,value in groupnames.items()}
 
-        regex_parts = ('(?P<%s>%s)' % (igroupnames[cls], regs) for cls,regs in lexicon)
+        regex_parts = (
+            f'(?P<{igroupnames[cls]}>{regs})' for cls, regs in lexicon
+        )
 
         self.regex_string = '|'.join(regex_parts)
         self.regex = re.compile(self.regex_string)
@@ -370,7 +370,7 @@ def parseColor(color):
         g = 2*info['hexshort_g']
         b = 2*info['hexshort_b']
 
-        return colors.HexColor('#%s%s%s' % (r,g,b))
+        return colors.HexColor(f'#{r}{g}{b}')
 
     elif info['rgbint'] is not None:
         r = int(info['rgbint_r'])
@@ -417,10 +417,7 @@ class SVGStyle(Lexer):
         """
         Parse a string of SVG <path> data.
         """
-        if six.PY2:
-            next = self.lex(text + ';').next
-        else:
-            next = self.lex(text + ';').__next__
+        next = self.lex(text + ';').__next__
         styles = {}
 
         while True:
@@ -482,10 +479,7 @@ class SVGTransform(Lexer):
         Parse a string of SVG transform data.
         """
         assertion = self.assertion
-        if six.PY2:
-            next = self.lex(text).next
-        else:
-            next = self.lex(text).__next__
+        next = self.lex(text).__next__
         numbers = self.numbers
         string = self.string
 
@@ -624,10 +618,7 @@ class SVGPath(Lexer):
         numbers = self.numbers
         string = self.string
 
-        if six.PY2:
-            next = self.lex(text).next
-        else:
-            next = self.lex(text).__next__
+        next = self.lex(text).__next__
 
         token, value = next()
         while token != EOF:
@@ -1424,7 +1415,7 @@ class Renderer:
         # update with local style
         if node.get('style'):
             localstyle = parseStyle.parse(node.get('style'))
-            for name, value in six.iteritems(localstyle):
+            for name, value in localstyle.items():
                 style[name] = value
 
         # update with inline style
@@ -1523,7 +1514,7 @@ def readFile(filename):
 
     try:
         fh = open(filename, 'rb')
-    except IOError:
+    except OSError:
         raise SVGError("could not open file '%s' for reading" % filename)
 
     # test for gzip compression
@@ -1552,8 +1543,8 @@ def svg2rlg(filename):
     return renderer.render(xml)
 
 if __name__ == "__main__":
-    import sys
     import os
+    import sys
 
     #sys.argv.append('compliance/paths-data-15-t.svg')
 

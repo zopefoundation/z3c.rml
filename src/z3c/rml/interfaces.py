@@ -16,11 +16,12 @@
 __docformat__ = "reStructuredText"
 import collections
 import logging
+
 import reportlab.lib.enums
 import zope.interface
 import zope.schema
 
-from z3c.rml.occurence import ZeroOrMore, ZeroOrOne, OneOrMore
+from z3c.rml.occurence import OneOrMore, ZeroOrMore, ZeroOrOne
 
 JOIN_CHOICES = collections.OrderedDict([
     ('round', 1), ('mitered', 0), ('bevelled', 2)
@@ -118,19 +119,19 @@ class IRMLDirective(zope.interface.Interface):
     """A directive in RML extracted from an Element Tree element."""
 
     signature = zope.schema.Field(
-        title=u'Signature',
-        description=(u'The signature of the RML directive.'),
+        title='Signature',
+        description=('The signature of the RML directive.'),
         required=True)
 
     parent = zope.schema.Field(
-        title=u'Parent RML Element',
-        description=u'The parent in the RML element hierarchy',
+        title='Parent RML Element',
+        description='The parent in the RML element hierarchy',
         required=True,)
 
     element = zope.schema.Field(
-        title=u'Element',
-        description=(u'The Element Tree element from which the data '
-                     u'is retrieved.'),
+        title='Element',
+        description=('The Element Tree element from which the data '
+                     'is retrieved.'),
         required=True)
 
     def getAttributeValues(ignore=None, select=None, includeMissing=False):
@@ -164,13 +165,13 @@ class IDeprecated(zope.interface.Interface):
     """Mark an attribute as being compatible."""
 
     deprecatedName = zope.schema.TextLine(
-        title=u'Name',
-        description=u'The name of the original attribute.',
+        title='Name',
+        description='The name of the original attribute.',
         required=True)
 
     deprecatedReason = zope.schema.Text(
-        title=u'Reason',
-        description=u'The reason the attribute has been deprecated.',
+        title='Reason',
+        description='The reason the attribute has been deprecated.',
         required=False)
 
 

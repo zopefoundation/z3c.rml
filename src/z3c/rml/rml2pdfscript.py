@@ -13,9 +13,9 @@
 ##############################################################################
 """RML to PDF Converter
 """
+import os
 import subprocess
 import sys
-import os
 
 _fileOpen = None
 

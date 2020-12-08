@@ -17,13 +17,15 @@ import base64
 import logging
 import os
 import subprocess
-import unittest
 import sys
+import unittest
+
 import z3c.rml.tests
 from z3c.rml import rml2pdf
 
 try:
-    import Image, ImageChops
+    import Image
+    import ImageChops
 except ImportError:
     from PIL import Image, ImageChops
 

@@ -16,6 +16,8 @@
 import copy
 import logging
 import re
+from xml.sax.saxutils import unescape
+
 import reportlab.lib.styles
 import reportlab.platypus
 import reportlab.platypus.doctemplate
@@ -23,15 +25,16 @@ import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
 from reportlab.lib import styles, utils
-from xml.sax.saxutils import unescape
-from z3c.rml import attr, directive, interfaces, occurence, paraparser
-from z3c.rml import form, platypus, special, SampleStyleSheet, stylesheet
+
+from z3c.rml import SampleStyleSheet, attr, directive, form, interfaces
+from z3c.rml import occurence, paraparser, platypus, special, stylesheet
 
 try:
     import reportlab.graphics.barcode
 except ImportError:
     # barcode package has not been installed
     import types
+
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
     reportlab.graphics.barcode.createBarcodeDrawing = None
@@ -50,10 +53,7 @@ def pygments2xpre(s, language="python"):
     l = get_lexer_by_name(language)
 
     h = HtmlFormatter()
-    # XXX: Does not work in Python 2, since pygments creates non-unicode
-    # outpur snippets.
-    #from io import StringIO
-    from six import StringIO
+    from io import StringIO
     out = StringIO()
     highlight(s,l,h,out)
     styles = [(cls, style.split(';')[0].split(':')[1].strip())
@@ -75,14 +75,14 @@ class ISpacer(interfaces.IRMLDirectiveSignature):
     """Creates a vertical space in the flow."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the spacer. Currently not implemented.',
+        title='Width',
+        description='The width of the spacer. Currently not implemented.',
         default=100,
         required=False)
 
     length = attr.Measurement(
-        title=u'Length',
-        description=u'The height of the spacer.',
+        title='Length',
+        description='The height of the spacer.',
         required=True)
 
 class Spacer(Flowable):
@@ -95,13 +95,13 @@ class IIllustration(interfaces.IRMLDirectiveSignature):
     """Inserts an illustration with graphics elements."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the illustration.',
+        title='Width',
+        description='The width of the illustration.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height of the illustration.',
+        title='Height',
+        description='The height of the illustration.',
         default=100,
         required=True)
 
@@ -117,9 +117,9 @@ class Illustration(Flowable):
 class IBarCodeFlowable(form.IBarCodeBase):
     """Creates a bar code as a flowable."""
 
-    value = attr.String(
-        title=u'Value',
-        description=u'The value represented by the code.',
+    value = attr.Text(
+        title='Value',
+        description='The value represented by the code.',
         required=True)
 
 class BarCodeFlowable(Flowable):
@@ -130,20 +130,20 @@ class BarCodeFlowable(Flowable):
 class IPluginFlowable(interfaces.IRMLDirectiveSignature):
     """Inserts a custom flowable developed in Python."""
 
-    module = attr.String(
-        title=u'Module',
-        description=u'The Python module in which the flowable is located.',
+    module = attr.Text(
+        title='Module',
+        description='The Python module in which the flowable is located.',
         required=True)
 
-    function = attr.String(
-        title=u'Function',
-        description=(u'The name of the factory function within the module '
-                     u'that returns the custom flowable.'),
+    function = attr.Text(
+        title='Function',
+        description=('The name of the factory function within the module '
+                     'that returns the custom flowable.'),
         required=True)
 
     params = attr.TextNode(
-        title=u'Parameters',
-        description=(u'A list of parameters encoded as a long string.'),
+        title='Parameters',
+        description=('A list of parameters encoded as a long string.'),
         required=False)
 
 class PluginFlowable(Flowable):
@@ -163,22 +163,22 @@ class PluginFlowable(Flowable):
 class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
 
     style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
+        title='Style',
+        description=('The paragraph style that is applied to the paragraph. '
+                     'See the ``paraStyle`` tag for creating a paragraph '
+                     'style.'),
         required=False)
 
-    bulletText = attr.String(
-        title=u'Bullet Character',
-        description=(u'The bullet character is the ASCII representation of '
-                     u'the symbol making up the bullet in a listing.'),
+    bulletText = attr.Text(
+        title='Bullet Character',
+        description=('The bullet character is the ASCII representation of '
+                     'the symbol making up the bullet in a listing.'),
         required=False)
 
     dedent = attr.Integer(
-        title=u'Dedent',
-        description=(u'Number of characters to be removed in front of every '
-                     u'line of the text.'),
+        title='Dedent',
+        description=('Number of characters to be removed in front of every '
+                     'line of the text.'),
         required=False)
 
 
@@ -211,26 +211,26 @@ class IPreformatted(IMinimalParagraphBase):
     """A preformatted text, similar to the <pre> tag in HTML."""
 
     style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
+        title='Style',
+        description=('The paragraph style that is applied to the paragraph. '
+                     'See the ``paraStyle`` tag for creating a paragraph '
+                     'style.'),
         default=SampleStyleSheet['Code'],
         required=False)
 
     text = attr.RawXMLContent(
-        title=u'Text',
-        description=(u'The text that will be layed out.'),
+        title='Text',
+        description=('The text that will be layed out.'),
         required=True)
 
     maxLineLength = attr.Integer(
-        title=u'Max Line Length',
-        description=(u'The maximum number of characters on one line.'),
+        title='Max Line Length',
+        description=('The maximum number of characters on one line.'),
         required=False)
 
     newLineChars = attr.Text(
-        title=u'New Line Characters',
-        description=u'The characters placed at the beginning of a wrapped line',
+        title='New Line Characters',
+        description='The characters placed at the beginning of a wrapped line',
         required=False)
 
 class Preformatted(Flowable):
@@ -241,16 +241,16 @@ class IXPreformatted(IParagraphBase):
     """A preformatted text that allows paragraph markup."""
 
     style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
+        title='Style',
+        description=('The paragraph style that is applied to the paragraph. '
+                     'See the ``paraStyle`` tag for creating a paragraph '
+                     'style.'),
         default=SampleStyleSheet['Normal'],
         required=False)
 
     text = attr.RawXMLContent(
-        title=u'Text',
-        description=(u'The text that will be layed out.'),
+        title='Text',
+        description=('The text that will be layed out.'),
         required=True)
 
 class XPreformatted(Flowable):
@@ -262,15 +262,15 @@ class ICodeSnippet(IXPreformatted):
     """A code snippet with text highlighting."""
 
     style = attr.Style(
-        title=u'Style',
-        description=(u'The paragraph style that is applied to the paragraph. '
-                     u'See the ``paraStyle`` tag for creating a paragraph '
-                     u'style.'),
+        title='Style',
+        description=('The paragraph style that is applied to the paragraph. '
+                     'See the ``paraStyle`` tag for creating a paragraph '
+                     'style.'),
         required=False)
 
-    language = attr.String(
-        title=u'Language',
-        description=u'The language the code snippet is written in.',
+    language = attr.Text(
+        title='Language',
+        description='The language the code snippet is written in.',
         required=False)
 
 class CodeSnippet(XPreformatted):
@@ -291,8 +291,8 @@ class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
     """Lays out an entire paragraph."""
 
     text = attr.XMLContent(
-        title=u'Text',
-        description=(u'The text that will be layed out.'),
+        title='Text',
+        description=('The text that will be layed out.'),
         required=True)
 
 class Paragraph(Flowable):
@@ -382,213 +382,213 @@ class ITableCell(interfaces.IRMLDirectiveSignature):
     """A table cell within a table."""
 
     content = attr.RawXMLContent(
-        title=u'Content',
-        description=(u'The content of the cell; can be text or any flowable.'),
+        title='Content',
+        description=('The content of the cell; can be text or any flowable.'),
         required=True)
 
-    fontName = attr.String(
-        title=u'Font Name',
-        description=u'The name of the font for the cell.',
+    fontName = attr.Text(
+        title='Font Name',
+        description='The name of the font for the cell.',
         required=False)
 
     fontSize = attr.Measurement(
-        title=u'Font Size',
-        description=u'The font size for the text of the cell.',
+        title='Font Size',
+        description='The font size for the text of the cell.',
         required=False)
 
     leading = attr.Measurement(
-        title=u'Leading',
-        description=(u'The height of a single text line. It includes '
-                     u'character height.'),
+        title='Leading',
+        description=('The height of a single text line. It includes '
+                     'character height.'),
         required=False)
 
     fontColor = attr.Color(
-        title=u'Font Color',
-        description=u'The color in which the text will appear.',
+        title='Font Color',
+        description='The color in which the text will appear.',
         required=False)
 
     leftPadding = attr.Measurement(
-        title=u'Left Padding',
-        description=u'The size of the padding on the left side.',
+        title='Left Padding',
+        description='The size of the padding on the left side.',
         required=False)
 
     rightPadding = attr.Measurement(
-        title=u'Right Padding',
-        description=u'The size of the padding on the right side.',
+        title='Right Padding',
+        description='The size of the padding on the right side.',
         required=False)
 
     topPadding = attr.Measurement(
-        title=u'Top Padding',
-        description=u'The size of the padding on the top.',
+        title='Top Padding',
+        description='The size of the padding on the top.',
         required=False)
 
     bottomPadding = attr.Measurement(
-        title=u'Bottom Padding',
-        description=u'The size of the padding on the bottom.',
+        title='Bottom Padding',
+        description='The size of the padding on the bottom.',
         required=False)
 
     background = attr.Color(
-        title=u'Background Color',
-        description=u'The color to use as the background for the cell.',
+        title='Background Color',
+        description='The color to use as the background for the cell.',
         required=False)
 
     align = attr.Choice(
-        title=u'Text Alignment',
-        description=u'The text alignment within the cell.',
+        title='Text Alignment',
+        description='The text alignment within the cell.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
     vAlign = attr.Choice(
-        title=u'Vertical Alignment',
-        description=u'The vertical alignment of the text within the cell.',
+        title='Vertical Alignment',
+        description='The vertical alignment of the text within the cell.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
 
     lineBelowThickness = attr.Measurement(
-        title=u'Line Below Thickness',
-        description=u'The thickness of the line below the cell.',
+        title='Line Below Thickness',
+        description='The thickness of the line below the cell.',
         required=False)
 
     lineBelowColor = attr.Color(
-        title=u'Line Below Color',
-        description=u'The color of the line below the cell.',
+        title='Line Below Color',
+        description='The color of the line below the cell.',
         required=False)
 
     lineBelowCap = attr.Choice(
-        title=u'Line Below Cap',
-        description=u'The cap at the end of the line below the cell.',
+        title='Line Below Cap',
+        description='The cap at the end of the line below the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
     lineBelowCount = attr.Integer(
-        title=u'Line Below Count',
-        description=(u'Describes whether the line below is a single (1) or '
-                     u'double (2) line.'),
+        title='Line Below Count',
+        description=('Describes whether the line below is a single (1) or '
+                     'double (2) line.'),
         required=False)
 
     lineBelowDash = attr.Sequence(
-        title=u'Line Below Dash',
-        description=u'The dash-pattern of a line.',
+        title='Line Below Dash',
+        description='The dash-pattern of a line.',
         value_type=attr.Measurement(),
         default=None,
         required=False)
 
     lineBelowSpace = attr.Measurement(
-        title=u'Line Below Space',
-        description=u'The space of the line below the cell.',
+        title='Line Below Space',
+        description='The space of the line below the cell.',
         required=False)
 
     lineAboveThickness = attr.Measurement(
-        title=u'Line Above Thickness',
-        description=u'The thickness of the line above the cell.',
+        title='Line Above Thickness',
+        description='The thickness of the line above the cell.',
         required=False)
 
     lineAboveColor = attr.Color(
-        title=u'Line Above Color',
-        description=u'The color of the line above the cell.',
+        title='Line Above Color',
+        description='The color of the line above the cell.',
         required=False)
 
     lineAboveCap = attr.Choice(
-        title=u'Line Above Cap',
-        description=u'The cap at the end of the line above the cell.',
+        title='Line Above Cap',
+        description='The cap at the end of the line above the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
     lineAboveCount = attr.Integer(
-        title=u'Line Above Count',
-        description=(u'Describes whether the line above is a single (1) or '
-                     u'double (2) line.'),
+        title='Line Above Count',
+        description=('Describes whether the line above is a single (1) or '
+                     'double (2) line.'),
         required=False)
 
     lineAboveDash = attr.Sequence(
-        title=u'Line Above Dash',
-        description=u'The dash-pattern of a line.',
+        title='Line Above Dash',
+        description='The dash-pattern of a line.',
         value_type=attr.Measurement(),
         default=None,
         required=False)
 
     lineAboveSpace = attr.Measurement(
-        title=u'Line Above Space',
-        description=u'The space of the line above the cell.',
+        title='Line Above Space',
+        description='The space of the line above the cell.',
         required=False)
 
     lineLeftThickness = attr.Measurement(
-        title=u'Left Line Thickness',
-        description=u'The thickness of the line left of the cell.',
+        title='Left Line Thickness',
+        description='The thickness of the line left of the cell.',
         required=False)
 
     lineLeftColor = attr.Color(
-        title=u'Left Line Color',
-        description=u'The color of the line left of the cell.',
+        title='Left Line Color',
+        description='The color of the line left of the cell.',
         required=False)
 
     lineLeftCap = attr.Choice(
-        title=u'Line Left Cap',
-        description=u'The cap at the end of the line left of the cell.',
+        title='Line Left Cap',
+        description='The cap at the end of the line left of the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
     lineLeftCount = attr.Integer(
-        title=u'Line Left Count',
-        description=(u'Describes whether the left line is a single (1) or '
-                     u'double (2) line.'),
+        title='Line Left Count',
+        description=('Describes whether the left line is a single (1) or '
+                     'double (2) line.'),
         required=False)
 
     lineLeftDash = attr.Sequence(
-        title=u'Line Left Dash',
-        description=u'The dash-pattern of a line.',
+        title='Line Left Dash',
+        description='The dash-pattern of a line.',
         value_type=attr.Measurement(),
         default=None,
         required=False)
 
     lineLeftSpace = attr.Measurement(
-        title=u'Line Left Space',
-        description=u'The space of the line left of the cell.',
+        title='Line Left Space',
+        description='The space of the line left of the cell.',
         required=False)
 
     lineRightThickness = attr.Measurement(
-        title=u'Right Line Thickness',
-        description=u'The thickness of the line right of the cell.',
+        title='Right Line Thickness',
+        description='The thickness of the line right of the cell.',
         required=False)
 
     lineRightColor = attr.Color(
-        title=u'Right Line Color',
-        description=u'The color of the line right of the cell.',
+        title='Right Line Color',
+        description='The color of the line right of the cell.',
         required=False)
 
     lineRightCap = attr.Choice(
-        title=u'Line Right Cap',
-        description=u'The cap at the end of the line right of the cell.',
+        title='Line Right Cap',
+        description='The cap at the end of the line right of the cell.',
         choices=interfaces.CAP_CHOICES,
         required=False)
 
     lineRightCount = attr.Integer(
-        title=u'Line Right Count',
-        description=(u'Describes whether the right line is a single (1) or '
-                     u'double (2) line.'),
+        title='Line Right Count',
+        description=('Describes whether the right line is a single (1) or '
+                     'double (2) line.'),
         required=False)
 
     lineRightDash = attr.Sequence(
-        title=u'Line Right Dash',
-        description=u'The dash-pattern of a line.',
+        title='Line Right Dash',
+        description='The dash-pattern of a line.',
         value_type=attr.Measurement(),
         default=None,
         required=False)
 
     lineRightSpace = attr.Measurement(
-        title=u'Line Right Space',
-        description=u'The space of the line right of the cell.',
+        title='Line Right Space',
+        description='The space of the line right of the cell.',
         required=False)
 
     href = attr.Text(
-        title=u'Link URL',
-        description=u'When specified, the cell becomes a link to that URL.',
+        title='Link URL',
+        description='When specified, the cell becomes a link to that URL.',
         required=False)
 
     destination = attr.Text(
-        title=u'Link Destination',
-        description=(u'When specified, the cell becomes a link to that '
-                     u'destination.'),
+        title='Link Destination',
+        description=('When specified, the cell becomes a link to that '
+                     'destination.'),
         required=False)
 
 
@@ -670,8 +670,8 @@ class ITableBulkData(interfaces.IRMLDirectiveSignature):
     """Bulk Data allows one to quickly create a table."""
 
     content = attr.TextNodeSequence(
-        title=u'Content',
-        description=u'The bulk data.',
+        title='Content',
+        description='The bulk data.',
         splitre=re.compile('\n'),
         value_type=attr.Sequence(splitre=re.compile(','),
                                  value_type=attr.Text())
@@ -704,30 +704,30 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         )
 
     style = attr.Style(
-        title=u'Style',
-        description=(u'The table style that is applied to the table. '),
+        title='Style',
+        description=('The table style that is applied to the table. '),
         required=False)
 
     rowHeights = attr.Sequence(
-        title=u'Row Heights',
-        description=u'A list of row heights in the table.',
+        title='Row Heights',
+        description='A list of row heights in the table.',
         value_type=attr.Measurement(),
         required=False)
 
     colWidths = attr.Sequence(
-        title=u'Column Widths',
-        description=u'A list of column widths in the table.',
+        title='Column Widths',
+        description='A list of column widths in the table.',
         value_type=attr.Measurement(allowPercentage=True, allowStar=True),
         required=False)
 
     repeatRows = attr.Integer(
-        title=u'Repeat Rows',
-        description=u'A flag to repeat rows upon table splits.',
+        title='Repeat Rows',
+        description='A flag to repeat rows upon table splits.',
         required=False)
 
     alignment = attr.Choice(
-        title=u'Alignment',
-        description=u'The alignment of whole table.',
+        title='Alignment',
+        description='The alignment of whole table.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
@@ -767,8 +767,8 @@ class BlockTable(Flowable):
 class INextFrame(interfaces.IRMLDirectiveSignature):
     """Switch to the next frame."""
     name = attr.StringOrInt(
-        title=u'Name',
-        description=(u'The name or index of the next frame.'),
+        title='Name',
+        description=('The name or index of the next frame.'),
         required=False)
 
 class NextFrame(Flowable):
@@ -780,8 +780,8 @@ class NextFrame(Flowable):
 class ISetNextFrame(interfaces.IRMLDirectiveSignature):
     """Define the next frame to switch to."""
     name = attr.StringOrInt(
-        title=u'Name',
-        description=(u'The name or index of the next frame.'),
+        title='Name',
+        description=('The name or index of the next frame.'),
         required=True)
 
 class SetNextFrame(Flowable):
@@ -801,8 +801,8 @@ class NextPage(Flowable):
 class ISetNextTemplate(interfaces.IRMLDirectiveSignature):
     """Define the next page template to use."""
     name = attr.StringOrInt(
-        title=u'Name',
-        description=u'The name or index of the next page template.',
+        title='Name',
+        description='The name or index of the next page template.',
         required=True)
 
 class SetNextTemplate(Flowable):
@@ -814,8 +814,8 @@ class SetNextTemplate(Flowable):
 class IConditionalPageBreak(interfaces.IRMLDirectiveSignature):
     """Switch to the next page if not enough vertical space is available."""
     height = attr.Measurement(
-        title=u'height',
-        description=u'The minimal height that must be remaining on the page.',
+        title='height',
+        description='The minimal height that must be remaining on the page.',
         required=True)
 
 class ConditionalPageBreak(Flowable):
@@ -827,36 +827,36 @@ class IKeepInFrame(interfaces.IRMLDirectiveSignature):
     """Ask a flowable to stay within the frame."""
 
     maxWidth = attr.Measurement(
-        title=u'Maximum Width',
-        description=u'The maximum width the flowables are allotted.',
+        title='Maximum Width',
+        description='The maximum width the flowables are allotted.',
         default=None,
         required=False)
 
     maxHeight = attr.Measurement(
-        title=u'Maximum Height',
-        description=u'The maximum height the flowables are allotted.',
+        title='Maximum Height',
+        description='The maximum height the flowables are allotted.',
         default=None,
         required=False)
 
     mergeSpace = attr.Boolean(
-        title=u'Merge Space',
-        description=u'A flag to set whether the space should be merged.',
+        title='Merge Space',
+        description='A flag to set whether the space should be merged.',
         required=False)
 
     onOverflow = attr.Choice(
-        title=u'On Overflow',
-        description=u'Defines what has to be done, if an overflow is detected.',
+        title='On Overflow',
+        description='Defines what has to be done, if an overflow is detected.',
         choices=('error', 'overflow', 'shrink', 'truncate'),
         required=False)
 
     id = attr.Text(
-        title=u'Name/Id',
-        description=u'The name/id of the flowable.',
+        title='Name/Id',
+        description='The name/id of the flowable.',
         required=False)
 
     frame = attr.StringOrInt(
-        title=u'Frame',
-        description=u'The frame to which the flowable should be fitted.',
+        title='Frame',
+        description='The frame to which the flowable should be fitted.',
         required=False)
 
 class KeepInFrame(Flowable):
@@ -887,8 +887,8 @@ class IKeepTogether(interfaces.IRMLDirectiveSignature):
     necessary."""
 
     maxHeight = attr.Measurement(
-        title=u'Maximum Height',
-        description=u'The maximum height the flowables are allotted.',
+        title='Maximum Height',
+        description='The maximum height the flowables are allotted.',
         default=None,
         required=False)
 
@@ -911,45 +911,45 @@ class IImage(interfaces.IRMLDirectiveSignature):
     """An image."""
 
     src = attr.Image(
-        title=u'Image Source',
-        description=u'The file that is used to extract the image data.',
+        title='Image Source',
+        description='The file that is used to extract the image data.',
         onlyOpen=True,
         required=True)
 
     width = attr.Measurement(
-        title=u'Image Width',
-        description=u'The width of the image.',
+        title='Image Width',
+        description='The width of the image.',
         required=False)
 
     height = attr.Measurement(
-        title=u'Image Height',
-        description=u'The height the image.',
+        title='Image Height',
+        description='The height the image.',
         required=False)
 
     preserveAspectRatio = attr.Boolean(
-        title=u'Preserve Aspect Ratio',
-        description=(u'If set, the aspect ratio of the image is kept. When '
-                     u'both, width and height, are specified, the image '
-                     u'will be fitted into that bounding box.'),
+        title='Preserve Aspect Ratio',
+        description=('If set, the aspect ratio of the image is kept. When '
+                     'both, width and height, are specified, the image '
+                     'will be fitted into that bounding box.'),
         default=False,
         required=False)
 
     mask = attr.Color(
-        title=u'Mask',
-        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        title='Mask',
+        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
 
     align = attr.Choice(
-        title=u'Alignment',
-        description=u'The alignment of the image within the frame.',
+        title='Alignment',
+        description='The alignment of the image within the frame.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
     vAlign = attr.Choice(
-        title=u'Vertical Alignment',
-        description=u'The vertical alignment of the image.',
+        title='Vertical Alignment',
+        description='The vertical alignment of the image.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
 
@@ -997,51 +997,51 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
     """An image with flowables around it."""
 
     imageName = attr.Image(
-        title=u'Image',
-        description=u'The file that is used to extract the image data.',
+        title='Image',
+        description='The file that is used to extract the image data.',
         onlyOpen=True,
         required=True)
 
     imageWidth = attr.Measurement(
-        title=u'Image Width',
-        description=u'The width of the image.',
+        title='Image Width',
+        description='The width of the image.',
         required=False)
 
     imageHeight = attr.Measurement(
-        title=u'Image Height',
-        description=u'The height the image.',
+        title='Image Height',
+        description='The height the image.',
         required=False)
 
     imageMask = attr.Color(
-        title=u'Mask',
-        description=u'The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        title='Mask',
+        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
 
     imageLeftPadding = attr.Measurement(
-        title=u'Image Left Padding',
-        description=u'The padding on the left side of the image.',
+        title='Image Left Padding',
+        description='The padding on the left side of the image.',
         required=False)
 
     imageRightPadding = attr.Measurement(
-        title=u'Image Right Padding',
-        description=u'The padding on the right side of the image.',
+        title='Image Right Padding',
+        description='The padding on the right side of the image.',
         required=False)
 
     imageTopPadding = attr.Measurement(
-        title=u'Image Top Padding',
-        description=u'The padding on the top of the image.',
+        title='Image Top Padding',
+        description='The padding on the top of the image.',
         required=False)
 
     imageBottomPadding = attr.Measurement(
-        title=u'Image Bottom Padding',
-        description=u'The padding on the bottom of the image.',
+        title='Image Bottom Padding',
+        description='The padding on the bottom of the image.',
         required=False)
 
     imageSide = attr.Choice(
-        title=u'Image Side',
-        description=u'The side at which the image will be placed.',
+        title='Image Side',
+        description='The side at which the image will be placed.',
         choices=('left', 'right'),
         required=False)
 
@@ -1071,13 +1071,13 @@ class IIndent(interfaces.IRMLDirectiveSignature):
     """Indent the contained flowables."""
 
     left = attr.Measurement(
-        title=u'Left',
-        description=u'The indentation to the left.',
+        title='Left',
+        description='The indentation to the left.',
         required=False)
 
     right = attr.Measurement(
-        title=u'Right',
-        description=u'The indentation to the right.',
+        title='Right',
+        description='The indentation to the right.',
         required=False)
 
 
@@ -1102,13 +1102,13 @@ class IFixedSize(interfaces.IRMLDirectiveSignature):
     """Create a container flowable of a fixed size."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width the flowables are allotted.',
+        title='Width',
+        description='The width the flowables are allotted.',
         required=True)
 
     height = attr.Measurement(
-        title=u'Height',
-        description=u'The height the flowables are allotted.',
+        title='Height',
+        description='The height the flowables are allotted.',
         required=True)
 
 class FixedSize(Flowable):
@@ -1136,39 +1136,39 @@ class IBookmarkPage(interfaces.IRMLDirectiveSignature):
     """
 
     name = attr.Text(
-        title=u'Name',
-        description=u'The name of the bookmark.',
+        title='Name',
+        description='The name of the bookmark.',
         required=True)
 
     fit = attr.Choice(
-        title=u'Fit',
-        description=u'The Fit Type.',
+        title='Fit',
+        description='The Fit Type.',
         choices=('XYZ', 'Fit', 'FitH', 'FitV', 'FitR'),
         required=False)
 
     top = attr.Measurement(
-        title=u'Top',
-        description=u'The top position.',
+        title='Top',
+        description='The top position.',
         required=False)
 
     bottom = attr.Measurement(
-        title=u'Bottom',
-        description=u'The bottom position.',
+        title='Bottom',
+        description='The bottom position.',
         required=False)
 
     left = attr.Measurement(
-        title=u'Left',
-        description=u'The left position.',
+        title='Left',
+        description='The left position.',
         required=False)
 
     right = attr.Measurement(
-        title=u'Right',
-        description=u'The right position.',
+        title='Right',
+        description='The right position.',
         required=False)
 
     zoom = attr.Float(
-        title=u'Zoom',
-        description=u'The zoom level when clicking on the bookmark.',
+        title='Zoom',
+        description='The zoom level when clicking on the bookmark.',
         required=False)
 
 class BookmarkPage(Flowable):
@@ -1184,19 +1184,19 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
     """
 
     name = attr.Text(
-        title=u'Name',
-        description=u'The name of the bookmark.',
+        title='Name',
+        description='The name of the bookmark.',
         required=True)
 
     x = attr.Measurement(
-        title=u'X Coordinate',
-        description=u'The x-position of the bookmark.',
+        title='X Coordinate',
+        description='The x-position of the bookmark.',
         default=0,
         required=False)
 
     y = attr.Measurement(
-        title=u'Y Coordinate',
-        description=u'The y-position of the bookmark.',
+        title='Y Coordinate',
+        description='The y-position of the bookmark.',
         default=0,
         required=False)
 
@@ -1210,29 +1210,29 @@ class ILink(interfaces.IRMLDirectiveSignature):
     """Place an internal link around a set of flowables."""
 
     destination = attr.Text(
-        title=u'Destination',
-        description=u'The name of the destination to link to.',
+        title='Destination',
+        description='The name of the destination to link to.',
         required=False)
 
     url = attr.Text(
-        title=u'URL',
-        description=u'The URL to link to.',
+        title='URL',
+        description='The URL to link to.',
         required=False)
 
     boxStrokeWidth = attr.Measurement(
-        title=u'Box Stroke Width',
-        description=u'The width of the box border line.',
+        title='Box Stroke Width',
+        description='The width of the box border line.',
         required=False)
 
     boxStrokeDashArray = attr.Sequence(
-        title=u'Box Stroke Dash Array',
-        description=u'The dash array of the box border line.',
+        title='Box Stroke Dash Array',
+        description='The dash array of the box border line.',
         value_type=attr.Float(),
         required=False)
 
     boxStrokeColor = attr.Color(
-        title=u'Box Stroke Color',
-        description=(u'The color in which the box border is drawn.'),
+        title='Box Stroke Color',
+        description=('The color in which the box border is drawn.'),
         required=False)
 
 
@@ -1254,52 +1254,52 @@ class IHorizontalRow(interfaces.IRMLDirectiveSignature):
     """Create a horizontal line on the page."""
 
     width = attr.Measurement(
-        title=u'Width',
-        description=u'The width of the line on the page.',
+        title='Width',
+        description='The width of the line on the page.',
         allowPercentage=True,
         required=False)
 
     thickness = attr.Measurement(
-        title=u'Thickness',
-        description=u'Line Thickness',
+        title='Thickness',
+        description='Line Thickness',
         required=False)
 
     color = attr.Color(
-        title=u'Color',
-        description=u'The color of the line.',
+        title='Color',
+        description='The color of the line.',
         required=False)
 
     lineCap = attr.Choice(
-        title=u'Cap',
-        description=u'The cap at the end of the line.',
+        title='Cap',
+        description='The cap at the end of the line.',
         choices=interfaces.CAP_CHOICES.keys(),
         required=False)
 
     spaceBefore = attr.Measurement(
-        title=u'Space Before',
-        description=u'The vertical space before the line.',
+        title='Space Before',
+        description='The vertical space before the line.',
         required=False)
 
     spaceAfter = attr.Measurement(
-        title=u'Space After',
-        description=u'The vertical space after the line.',
+        title='Space After',
+        description='The vertical space after the line.',
         required=False)
 
     align = attr.Choice(
-        title=u'Alignment',
-        description=u'The alignment of the line within the frame.',
+        title='Alignment',
+        description='The alignment of the line within the frame.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
     valign = attr.Choice(
-        title=u'Vertical Alignment',
-        description=u'The vertical alignment of the line.',
+        title='Vertical Alignment',
+        description='The vertical alignment of the line.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
 
     dash = attr.Sequence(
-        title=u'Dash-Pattern',
-        description=u'The dash-pattern of a line.',
+        title='Dash-Pattern',
+        description='The dash-pattern of a line.',
         value_type=attr.Measurement(),
         default=None,
         required=False)
@@ -1314,24 +1314,24 @@ class IOutlineAdd(interfaces.IRMLDirectiveSignature):
     """Add a new entry to the outline of the PDF."""
 
     title = attr.TextNode(
-        title=u'Title',
-        description=u'The text displayed for this item.',
+        title='Title',
+        description='The text displayed for this item.',
         required=True)
 
-    key = attr.String(
-        title=u'Key',
-        description=u'The unique key of the item.',
+    key = attr.Text(
+        title='Key',
+        description='The unique key of the item.',
         required=False)
 
     level = attr.Integer(
-        title=u'Level',
-        description=u'The level in the outline tree.',
+        title='Level',
+        description='The level in the outline tree.',
         required=False)
 
     closed = attr.Boolean(
-        title=u'Closed',
-        description=(u'A flag to determine whether the sub-tree is closed '
-                     u'by default.'),
+        title='Closed',
+        description=('A flag to determine whether the sub-tree is closed '
+                     'by default.'),
         required=False)
 
 
@@ -1348,7 +1348,7 @@ class NamedStringFlowable(reportlab.platypus.flowables.Flowable,
         self.manager = manager
         self.id = id
         self._value = value
-        self.value = u''
+        self.value = ''
 
     def wrap(self, *args):
         return (0, 0)
@@ -1362,14 +1362,14 @@ class NamedStringFlowable(reportlab.platypus.flowables.Flowable,
 class INamedString(interfaces.IRMLDirectiveSignature):
     """Defines a name for a string."""
 
-    id = attr.String(
-        title=u'Id',
-        description=u'The id under which the value will be known.',
+    id = attr.Text(
+        title='Id',
+        description='The id under which the value will be known.',
         required=True)
 
     value = attr.XMLContent(
-        title=u'Value',
-        description=u'The text that is displayed if the id is called.',
+        title='Value',
+        description='The text that is displayed if the id is called.',
         required=True)
 
 class NamedString(directive.RMLDirective):
@@ -1385,25 +1385,25 @@ class NamedString(directive.RMLDirective):
 class IShowIndex(interfaces.IRMLDirectiveSignature):
     """Creates an index in the document."""
 
-    name = attr.String(
-        title=u'Name',
-        description=u'The name of the index.',
+    name = attr.Text(
+        title='Name',
+        description='The name of the index.',
         default='index',
         required=False)
 
-    dot = attr.String(
-        title=u'Dot',
-        description=u'The character to use as a dot.',
+    dot = attr.Text(
+        title='Dot',
+        description='The character to use as a dot.',
         required=False)
 
     style = attr.Style(
-        title=u'Style',
-        description=u'The paragraph style that is applied to the index. ',
+        title='Style',
+        description='The paragraph style that is applied to the index. ',
         required=False)
 
     tableStyle = attr.Style(
-        title=u'Table Style',
-        description=u'The table style that is applied to the index layout. ',
+        title='Table Style',
+        description='The table style that is applied to the index layout. ',
         required=False)
 
 class ShowIndex(directive.RMLDirective):
@@ -1422,8 +1422,8 @@ class ShowIndex(directive.RMLDirective):
 class IBaseLogCall(interfaces.IRMLDirectiveSignature):
 
     message = attr.RawXMLContent(
-        title=u'Message',
-        description=u'The message to be logged.',
+        title='Message',
+        description='The message to be logged.',
         required=True)
 
 class LogCallFlowable(reportlab.platypus.flowables.Flowable):
@@ -1454,8 +1454,8 @@ class ILog(IBaseLogCall):
     """Log message at DEBUG level."""
 
     level = attr.Choice(
-        title=u'Level',
-        description=u'The default log level.',
+        title='Level',
+        description='The default log level.',
         choices=interfaces.LOG_LEVELS,
         doLower=False,
         default=logging.INFO,
@@ -1626,7 +1626,7 @@ class Flow(directive.RMLDirective):
         }
 
     def __init__(self, *args, **kw):
-        super(Flow, self).__init__(*args, **kw)
+        super().__init__(*args, **kw)
         self.flow = []
 
     def process(self):
@@ -1642,7 +1642,7 @@ class IPTOHeader(IFlow):
 class PTOHeader(Flow):
 
     def process(self):
-        self.parent.header = super(PTOHeader, self).process()
+        self.parent.header = super().process()
 
 
 class IPTOTrailer(IFlow):
@@ -1653,7 +1653,7 @@ class IPTOTrailer(IFlow):
 class PTOTrailer(Flow):
 
     def process(self):
-        self.parent.trailer = super(PTOTrailer, self).process()
+        self.parent.trailer = super().process()
 
 
 class IPTO(IFlow):
@@ -1683,6 +1683,6 @@ class PTO(Flow):
     trailer = None
 
     def process(self):
-        flow = super(PTO, self).process()
+        flow = super().process()
         self.parent.flow.append(
             self.klass(flow, self.trailer, self.header))

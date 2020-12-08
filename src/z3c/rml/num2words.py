@@ -16,14 +16,16 @@
 __docformat__ = "reStructuredText"
 
 import math
+
 import six
 
+
 def toOrdinal(num):
-    str_num = six.text_type(num)
+    str_num = str(num)
     str_num += "tsnrhtdd"[(num/10%10 != 1) * (num % 10<4) * num%10::4]
     return str_num
 
-class Number2Words(object):
+class Number2Words:
 
     units = [
         "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
@@ -84,17 +86,17 @@ class Number2Words(object):
         # two digit numbers require dashes
         if len(words) > 1:
             result = []
-            tens = set([w.title() for w in self.tens])
-            units = set([w.title() for w in self.units + self.units_ordinal])
+            tens = {w.title() for w in self.tens}
+            units = {w.title() for w in self.units + self.units_ordinal}
             while words:
                 cur = words.pop(0)
                 if cur in tens and words[0] in units:
                     ones = words.pop(0)
-                    result.append(u'%s-%s' % (cur, ones))
+                    result.append(f'{cur}-{ones}')
                 else:
                     result.append(cur)
             words = result
 
-        return u' '.join(words)
+        return ' '.join(words)
 
 num2words = Number2Words()

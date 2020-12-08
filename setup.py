@@ -15,6 +15,7 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
@@ -29,7 +30,7 @@ TESTS_REQUIRE = [
 
 setup (
     name="z3c.rml",
-    version='3.10.1.dev0',
+    version='4.0.0dev0',
     author="Stephan Richter and the Zope Community",
     author_email="zope-dev@zope.org",
     description="An alternative implementation of RML",
@@ -39,14 +40,13 @@ setup (
         read('CHANGES.rst')
         ),
     license="ZPL 2.1",
+    python_requires='>=3.7',
     keywords="rml reportlab pdf pagetemplate",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -63,13 +63,12 @@ setup (
             'zope.pagetemplate']
         ),
     install_requires=[
-        'PyPDF2>=1.25.1',
+        'pikepdf',
         'Pygments',
         'backports.tempfile',
         'lxml',
         'reportlab>=3.1.44',
         'setuptools',
-        'six',
         'zope.interface',
         'zope.schema',
         ],
