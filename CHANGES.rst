@@ -5,9 +5,9 @@ CHANGES
 4.0.0 (unreleased)
 ------------------
 
-- Dropped support for Python 2.X
+- Dropped support for Python 2.x.
 
-- Dropped `PyPDF2` for `pikepdf`
+- Dropped `PyPDF2` for `pikepdf`.
 
 
 3.10.0 (2020-03-27)

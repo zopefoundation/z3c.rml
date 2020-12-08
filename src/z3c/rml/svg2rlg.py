@@ -108,13 +108,13 @@ def parseLength(length):
     """
     match = length_match(length)
     if match is None:
-        raise SVGError("Not a valid length unit: '%s'" % length)
+        raise SVGError(f"Not a valid length unit: '{length}'")
 
     value = match.group('value')
     unit = match.group('unit') or ''
 
     if not value:
-        raise SVGError("Not a valid length unit: '%s'" % length)
+        raise SVGError(f"Not a valid length unit: '{length}'")
 
     if not unit:
         if value[0] == 'e' or value[0] == 'E':
@@ -133,7 +133,7 @@ def parseLength(length):
         return toLength(length)
 
     else:
-        raise SVGError("Unknown unit '%s'" % unit)
+        raise SVGError(f"Unknown unit '{unit}'")
 
 # Parse SVG color definitions
 color_pattern = \
@@ -352,13 +352,13 @@ def parseColor(color):
 
     match = color_match(color)
     if match is None:
-        raise SVGError("Not a valid color definition: '%s'" % color)
+        raise SVGError(f"Not a valid color definition: '{color}'")
 
     info = match.groupdict()
 
     if info['named'] is not None:
         if not color in NAMEDCOLOURS:
-            raise SVGError("Not a valid named color: '%s'" % color)
+            raise SVGError(f"Not a valid named color: '{color}'")
 
         return NAMEDCOLOURS[color]
 
@@ -378,7 +378,7 @@ def parseColor(color):
         b = int(info['rgbint_b'])
 
         if r > 255 or g > 255 or b > 255:
-            raise SVGError("RGB value outside range: '%s'" % color)
+            raise SVGError(f"RGB value outside range: '{color}'")
 
         return colors.Color(r/255., g/255., b/255.)
 
@@ -388,7 +388,7 @@ def parseColor(color):
         b = float(info['rgb_b'])
 
         if r > 100 or g > 100 or b > 100:
-            raise SVGError("RGB value outside range: '%s'" % color)
+            raise SVGError(f"RGB value outside range: '{color}'")
 
         return colors.Color(r/100., g/100., b/100.)
 
@@ -565,7 +565,7 @@ class SVGTransform(Lexer):
                 yield (transform, (angle,))
 
             else:
-                raise SVGError("unknown transform '%s'" % transform)
+                raise SVGError(f"unknown transform '{transform}'")
 
             # fetch next token
             token, value = next()
@@ -691,7 +691,7 @@ class SVGPath(Lexer):
                 token, value = next()
 
             else:
-                raise SVGError("cmd '%s' in path data not supported" % cmd)
+                raise SVGError(f"cmd '{cmd}' in path data not supported")
 
 parsePath = SVGPath()
 
@@ -717,7 +717,7 @@ def parseAnchor(value):
         return 'start'
 
     if value not in ('start', 'middle', 'end'):
-        raise SVGError("unknown '%s' alignment" % value)
+        raise SVGError(f"unknown 'value' alignment")
 
     return value
 
@@ -885,7 +885,7 @@ class Renderer:
                         break
 
             if target is None:
-                raise SVGError("Could not find use node '%s'" % link_id)
+                raise SVGError(f"Could not find use node '{link_id}'")
 
             self.render(target, group)
 
@@ -1515,7 +1515,7 @@ def readFile(filename):
     try:
         fh = open(filename, 'rb')
     except OSError:
-        raise SVGError("could not open file '%s' for reading" % filename)
+        raise SVGError(f"could not open file '{filename}' for reading")
 
     # test for gzip compression
     magic = fh.read(2)
