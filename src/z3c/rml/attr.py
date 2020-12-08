@@ -417,10 +417,12 @@ class File(Text):
     packageExtract = re.compile(r'^\[([0-9A-z_.]*)\]/(.*)$')
 
     doNotOpen = False
+    doNotModify = False
 
-    def __init__(self, doNotOpen=False, *args, **kw):
+    def __init__(self, doNotOpen=False, doNotModify=False, *args, **kw):
         super().__init__(*args, **kw)
         self.doNotOpen = doNotOpen
+        self.doNotModify = doNotModify
 
     def fromUnicode(self, value):
         # Check whether the value is of the form:
@@ -440,6 +442,11 @@ class File(Text):
                 value = os.path.join(module_path, path)
                 if os.path.exists(value):
                     break
+        # In some cases ReportLab has its own mechanisms for finding a
+        # file. In those cases, the filename should not be modified beyond
+        # module resolution.
+        if self.doNotModify:
+            return value
         # Under Python 3 all platforms need a protocol for local files
         if not urllib.parse.urlparse(value).scheme:
             value = 'file:///' + os.path.abspath(value)

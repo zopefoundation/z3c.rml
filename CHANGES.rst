@@ -5,7 +5,8 @@ CHANGES
 4.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow ``<registerTTFont>`` to search default font directories instead of
+  requiring absolute or relative path. (Fixes issue #46.)
 
 
 4.1.0 (2020-12-07)

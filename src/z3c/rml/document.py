@@ -131,6 +131,7 @@ class IRegisterTTFont(interfaces.IRMLDirectiveSignature):
         title='File Name',
         description='File path of the of the TrueType font.',
         doNotOpen=True,
+        doNotModify=True,
         required=True)
 
 

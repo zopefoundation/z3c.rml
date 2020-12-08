@@ -6,11 +6,14 @@
     xmlns:doc="http://namespaces.zope.org/rml/doc">
 
   <docinit doc:example="">
-    <registerTTFont faceName="Vera" fileName="[z3c.rml.tests]/input/Vera.ttf"
-                    doc:example="" />
-                <registerTTFont faceName="VeraMono"
-                    fileName="[z3c.rml]/tests/input/VeraMono.ttf"
-                    doc:example="" />
+    <registerTTFont
+        faceName="Vera"
+        fileName="[z3c.rml.tests]/input/Vera.ttf"
+        doc:example="" />
+    <registerTTFont
+        faceName="VeraMono"
+        fileName="[z3c.rml]/tests/input/VeraMono.ttf"
+        doc:example="" />
   </docinit>
 
   <template>
