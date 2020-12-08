@@ -552,6 +552,7 @@ class DocInit(directive.RMLDirective):
         'logConfig': LogConfig,
         'cropMarks': CropMarks,
         'startIndex': StartIndex,
+        'registerFontFamily': RegisterFontFamily,
         }
 
     viewerOptions = {
@@ -642,7 +643,7 @@ class Document(directive.RMLDirective):
         'pageDrawing': canvas.PageDrawing,
         }
 
-    def __init__(self, element):
+    def __init__(self, element, canvasClass = None):
         super().__init__(element, None)
         self.names = {}
         self.styles = {}
@@ -658,6 +659,9 @@ class Document(directive.RMLDirective):
         self.attributesCache = {}
         for name in DocInit.viewerOptions:
             setattr(self, name, None)
+        if not canvasClass:
+            canvasClass =  reportlab.pdfgen.canvas.Canvas
+        self.canvasClass = canvasClass
 
     def _indexAdd(self, canvas, name, label):
         self.indexes[name](canvas, name, label)
@@ -717,7 +721,7 @@ class Document(directive.RMLDirective):
                 ))
             kwargs['cropMarks'] = self.cropMarks
 
-            self.canvas = reportlab.pdfgen.canvas.Canvas(tempOutput, **kwargs)
+            self.canvas = self.canvasClass(tempOutput, **kwargs)
             self._initCanvas(self.canvas)
             self.processSubDirectives(select=('pageInfo', 'pageDrawing'))
 
@@ -737,7 +741,9 @@ class Document(directive.RMLDirective):
                     self.doc.current_pass = value
 
             self.doc.setProgressCallBack(callback)
-            self.doc.multiBuild(self.flowables, maxPasses=maxPasses)
+            self.doc.multiBuild(
+                self.flowables, maxPasses=maxPasses,
+                **{'canvasmaker': self.canvasClass})
 
         # Process all post processors
         for name, processor in self.postProcessors:
