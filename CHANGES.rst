@@ -2,11 +2,14 @@
 CHANGES
 =======
 
-4.1.1 (unreleased)
+4.1.1 (2020-12-08)
 ------------------
 
 - Allow ``<registerTTFont>`` to search default font directories instead of
   requiring absolute or relative path. (Fixes issue #46.)
+
+- Make sure a includePages adds blank pages at the end of a document when
+  there is no flowable after it.
 
 
 4.1.0 (2020-12-07)

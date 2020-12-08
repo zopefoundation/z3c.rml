@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-pdfInclude-noAdditionalText.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <title>Test Include PDF</title>
+    <para>
+      We will now include PDF
+    </para>
+    <includePdfPages
+                filename="[z3c.rml.tests]/input/data/include1.pdf"/>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"/>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include2.pdf"
+                     pages="2-3"
+                     />
+    <includePdfPages
+                filename="[z3c.rml.tests]/input/data/include-bookmarks1.pdf"
+                />
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include-bookmarks2.pdf"
+                     doc:example="" />
+
+  </story>
+</document>
