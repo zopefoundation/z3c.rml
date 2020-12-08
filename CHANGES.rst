@@ -2,10 +2,16 @@
 CHANGES
 =======
 
-4.0.1 (unreleased)
+4.1.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Implement new tag ``<blockNosplit>`` for ``<blockTableStyle>``.
+
+- Fix dynamic tags in paragraph. Fixes page numbering.
+
+- Make new bullet styles of Reportlab 3.5 avaialable.
+
+- Support for custom ``Canvas`` classes.
 
 
 4.0.0 (2020-12-07)
