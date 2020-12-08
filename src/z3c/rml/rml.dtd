@@ -173,7 +173,7 @@
 <!ATTLIST paraStyle alias CDATA #IMPLIED>
 <!ATTLIST paraStyle parent CDATA #IMPLIED>
 
-<!ELEMENT blockTableStyle (blockFont* | blockLeading* | blockTextColor* | blockAlignment* | blockLeftPadding* | blockRightPadding* | blockBottomPadding* | blockTopPadding* | blockBackground* | blockRowBackground* | blockColBackground* | blockValign* | blockSpan* | lineStyle*)>
+<!ELEMENT blockTableStyle (blockFont* | blockLeading* | blockTextColor* | blockAlignment* | blockLeftPadding* | blockRightPadding* | blockBottomPadding* | blockTopPadding* | blockBackground* | blockRowBackground* | blockColBackground* | blockValign* | blockSpan* | blockNosplit* | lineStyle*)>
 <!ATTLIST blockTableStyle id CDATA #REQUIRED>
 <!ATTLIST blockTableStyle keepWithNext CDATA #IMPLIED>
 
@@ -244,6 +244,10 @@
 <!ELEMENT blockSpan EMPTY>
 <!ATTLIST blockSpan start CDATA #REQUIRED>
 <!ATTLIST blockSpan stop CDATA #REQUIRED>
+
+<!ELEMENT blockNosplit EMPTY>
+<!ATTLIST blockNosplit start CDATA #REQUIRED>
+<!ATTLIST blockNosplit stop CDATA #REQUIRED>
 
 <!ELEMENT lineStyle EMPTY>
 <!ATTLIST lineStyle start CDATA #REQUIRED>
