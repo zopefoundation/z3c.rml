@@ -72,7 +72,7 @@
       <li>
         <ul bulletColor="red" bulletFontName="Times-Roman" bulletFontSize="8"
             rightIndent="10" bulletOffsetY="-1" doc:example="">
-          <li value="disc" bulletFontName="Helvetica"
+          <li value="circle" bulletFontName="Helvetica"
               doc:example="z3c.rml.list.IUnorderedListItem">
             <para>unordered 1</para>
           </li>

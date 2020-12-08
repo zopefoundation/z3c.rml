@@ -67,7 +67,7 @@ setup (
         'backports.tempfile',
         'lxml',
         'pikepdf',
-        'reportlab>=3.1.44',
+        'reportlab>=3.5.0',
         'setuptools',
         'zope.interface',
         'zope.schema',
