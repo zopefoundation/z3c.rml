@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-4.0.0 (unreleased)
+4.0.0 (2020-12-07)
 ------------------
 
 - Dropped support for Python 2.x.
