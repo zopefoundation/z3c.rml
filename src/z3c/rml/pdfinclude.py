@@ -211,6 +211,10 @@ class IncludePdfPagesFlowable(flowables.Flowable):
             # pages
             result.append(flowables.Spacer(0, 0))
             result.append(flowables.PageBreak())
+        if start_page >= len(pages):
+            # Make sure we get a flowable at the end of the document for the
+            # last page.
+            result.append(flowables.Spacer(0, 0))
         return result
 
 
