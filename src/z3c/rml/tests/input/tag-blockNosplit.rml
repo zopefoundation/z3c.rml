@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="tag-blockNosplit.pdf" xmlns:doc="http://namespaces.zope.org/rml/doc">
+	<template pagesize="(595, 842)" leftMargin="0" showBoundary="1">
+            <pageTemplate id="main">
+                <frame id="first" x1=".5in" y1="3in" width="4in" height="1in"/>
+                <frame id="second" x1=".5in" y1="1in" width="4in" height="1in"/>
+                <frame id="third" x1="4in" y1="3in" width="4in" height="1in"/>
+                <frame id="fourth" x1="4in" y1="1in" width="4in" height="1in"/>
+            </pageTemplate>
+	</template>
+
+        <stylesheet>
+            <blockTableStyle id="table-split">
+                <lineStyle kind="GRID" colorName="black" />
+            </blockTableStyle>
+
+            <blockTableStyle id="table-nosplit">
+                <lineStyle kind="GRID" colorName="black" />
+                <blockNosplit start="0,-2" stop="-1,-1" doc:example="" />
+            </blockTableStyle>
+        </stylesheet>
+
+	<story>
+            <blockTable style="table-split">
+                <tr>
+                    <td>Orphaned last row</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>Total:</td>
+                    <td>$4.00</td>
+                </tr>
+            </blockTable>
+
+            <nextFrame />
+
+            <blockTable style="table-nosplit">
+                <tr>
+                    <td>Nosplit last two rows</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <td>Total:</td>
+                    <td>$4.00</td>
+                </tr>
+            </blockTable>
+	</story>
+</document>
