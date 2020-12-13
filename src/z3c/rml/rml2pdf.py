@@ -63,18 +63,20 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
     if outputFileName is not None:
         if hasattr(outputFileName, 'write'):
             # it is already a file-like object
+            should_close = False
             outputFile = outputFileName
             outputFileName = 'output.pdf'
         else:
             if outDir is not None:
                 outputFileName = os.path.join(outDir, outputFileName)
+            should_close = True
             outputFile = open(outputFileName, 'wb')
 
     # Create a Reportlab canvas by processing the document
     try:
         doc.process(outputFile)
     finally:
-        if outputFile:
+        if outputFile and should_close:
             outputFile.close()
         xmlFile.close()
 
