@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-4.1.2 (unreleased)
+4.1.2 (2020-12-14)
 ------------------
 
 - Fix include on first page. (PR #84)
