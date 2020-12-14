@@ -5,7 +5,7 @@ CHANGES
 4.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix include on first page. (PR #84)
 
 
 4.1.1 (2020-12-08)
