@@ -25,3 +25,12 @@ You can read all about ``z3c.rml`` and see many examples on how to use it,
 see the `RML Reference`_
 
 .. _RML Reference: https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/rml/rml-reference.pdf?raw=true
+
+Outputting the actual pdf:
+
+.. code-block:: python
+
+   from z3c.rml import rml2pdf
+    rml2pdf.go(xmlInputName, outputFileName)
+    
+View a demo `here <https://blog.alec.id.au/adventure-into-reportlab-and-rml/>`_.
