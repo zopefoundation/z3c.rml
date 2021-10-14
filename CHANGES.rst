@@ -2,10 +2,10 @@
 CHANGES
 =======
 
-4.1.3 (unreleased)
+4.2.0 (unreleased)
 ------------------
 
-- Fixes breaking change in `pikepdf` 3.0.
+- Upgrade to using `pikepdf` 3.0+.
 
 
 4.1.2 (2020-12-14)

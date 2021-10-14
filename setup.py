@@ -30,7 +30,7 @@ TESTS_REQUIRE = [
 
 setup (
     name="z3c.rml",
-    version='4.1.3.dev0',
+    version='4.2.0.dev0',
     author="Stephan Richter and the Zope Community",
     author_email="zope-dev@zope.org",
     description="An alternative implementation of RML",
@@ -50,6 +50,7 @@ setup (
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: Implementation :: CPython',
         'Natural Language :: English',
         'Operating System :: OS Independent'],
@@ -66,7 +67,7 @@ setup (
         'Pygments',
         'backports.tempfile',
         'lxml',
-        'pikepdf',
+        'pikepdf>=3.0',
         'reportlab>=3.5.0',
         'setuptools',
         'zope.interface',
