@@ -349,6 +349,15 @@ class IImage(interfaces.IRMLDirectiveSignature):
         required=False,
         acceptAuto=True)
 
+    anchor = attr.Choice(
+        title=u'Text Anchor',
+        description=u'The position in the text to which the coordinates refer.',
+        choices='''nw   n   ne
+                w    c    e
+                sw   s   se'''.split()
+,
+        required=False)
+
 class Image(CanvasRMLDirective):
     signature = IImage
     callable = 'drawImage'
@@ -356,22 +365,7 @@ class Image(CanvasRMLDirective):
 
     def process(self):
         kwargs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
-        preserve = kwargs.pop('preserveAspectRatio')
         show = kwargs.pop('showBoundary')
-
-        if preserve:
-            imgX, imgY = kwargs['image'].getSize()
-
-            # Scale image correctly, if width and/or height were specified
-            if 'width' in kwargs and 'height' not in kwargs:
-                kwargs['height'] = imgY * kwargs['width'] / imgX
-            elif 'height' in kwargs and 'width' not in kwargs:
-                kwargs['width'] = imgX * kwargs['height'] / imgY
-            elif 'width' in kwargs and 'height' in kwargs:
-                if float(kwargs['width'])/kwargs['height'] > float(imgX)/imgY:
-                    kwargs['width'] = imgX * kwargs['height'] / imgY
-                else:
-                    kwargs['height'] = imgY * kwargs['width'] / imgX
 
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
         getattr(canvas, self.callable)(**kwargs)
