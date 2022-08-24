@@ -1010,7 +1010,7 @@ class Renderer:
                     else:
                         values = default
 
-                return map(parseLength, values.split())
+                return list(map(parseLength, values.split()))
 
             def getPos(values, i, default = None):
                 if i >= len(values):
