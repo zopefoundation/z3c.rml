@@ -5,7 +5,8 @@ CHANGES
 4.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix name clash in repository on file systems which are not case sensitive but
+  just case preserving.
 
 
 4.2.0 (2021-10-14)
