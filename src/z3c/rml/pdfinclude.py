@@ -22,6 +22,7 @@ import subprocess
 
 from backports import tempfile
 
+
 try:
     import pikepdf
     from pikepdf import Dictionary
@@ -29,7 +30,11 @@ except ImportError:
     pikepdf = None
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, flowable, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
+
 
 log = logging.getLogger(__name__)
 

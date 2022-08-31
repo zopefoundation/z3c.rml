@@ -15,10 +15,17 @@
 """
 import reportlab.lib.formatters
 from reportlab.graphics import shapes
-from reportlab.graphics.charts import barcharts, doughnut, lineplots
-from reportlab.graphics.charts import piecharts, spider
+from reportlab.graphics.charts import barcharts
+from reportlab.graphics.charts import doughnut
+from reportlab.graphics.charts import lineplots
+from reportlab.graphics.charts import piecharts
+from reportlab.graphics.charts import spider
 
-from z3c.rml import attr, directive, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+from z3c.rml import occurence
+
 
 # Patches against Reportlab 2.0
 lineplots.Formatter = reportlab.lib.formatters.Formatter

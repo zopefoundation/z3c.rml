@@ -15,7 +15,10 @@
 """
 import io
 
-from z3c.rml import attr, directive, interfaces
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+
 
 try:
     import pikepdf

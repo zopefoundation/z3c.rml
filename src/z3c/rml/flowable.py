@@ -24,10 +24,20 @@ import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
-from reportlab.lib import styles, utils
+from reportlab.lib import styles
+from reportlab.lib import utils
 
-from z3c.rml import SampleStyleSheet, attr, directive, form, interfaces
-from z3c.rml import occurence, paraparser, platypus, special, stylesheet
+from z3c.rml import SampleStyleSheet
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import form
+from z3c.rml import interfaces
+from z3c.rml import occurence
+from z3c.rml import paraparser
+from z3c.rml import platypus
+from z3c.rml import special
+from z3c.rml import stylesheet
+
 
 try:
     import reportlab.graphics.barcode

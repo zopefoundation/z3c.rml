@@ -22,6 +22,7 @@ from lxml import etree
 from z3c.rml import interfaces
 from z3c.rml.attr import getManager
 
+
 logging.raiseExceptions = False
 logger = logging.getLogger("z3c.rml")
 

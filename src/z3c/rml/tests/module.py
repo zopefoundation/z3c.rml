@@ -18,10 +18,13 @@ import datetime
 import reportlab.graphics.widgets.markers
 import reportlab.lib.styles
 import reportlab.platypus
-from reportlab.graphics import renderPDF, shapes
+from reportlab.graphics import renderPDF
+from reportlab.graphics import shapes
 from reportlab.lib import colors
 
-from z3c.rml import SampleStyleSheet, attr, interfaces
+from z3c.rml import SampleStyleSheet
+from z3c.rml import attr
+from z3c.rml import interfaces
 
 
 def myPreformatted(params):

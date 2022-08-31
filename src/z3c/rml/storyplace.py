@@ -16,7 +16,10 @@
 __docformat__ = "reStructuredText"
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, flowable, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
 
 
 class StoryPlaceFlowable(flowables.Flowable):

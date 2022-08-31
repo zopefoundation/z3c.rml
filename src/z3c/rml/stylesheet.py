@@ -19,8 +19,13 @@ import reportlab.lib.enums
 import reportlab.lib.styles
 import reportlab.platypus
 
-from z3c.rml import SampleStyleSheet, attr, directive, interfaces, occurence
-from z3c.rml import paraparser, special
+from z3c.rml import SampleStyleSheet
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+from z3c.rml import occurence
+from z3c.rml import paraparser
+from z3c.rml import special
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):

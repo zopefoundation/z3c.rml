@@ -18,7 +18,8 @@ import unittest
 
 import z3c.rml.tests
 from z3c.rml import rml2pdfscript
-from z3c.rml.tests.test_rml import ComparePDFTestCase, RMLRenderingTestCase
+from z3c.rml.tests.test_rml import ComparePDFTestCase
+from z3c.rml.tests.test_rml import RMLRenderingTestCase
 
 
 class RMLRenderingTestCase(RMLRenderingTestCase):

@@ -18,14 +18,27 @@ import logging
 
 import reportlab.pdfgen.canvas
 import zope.interface
-from reportlab.lib import colors, fonts
-from reportlab.pdfbase import cidfonts, pdfmetrics, ttfonts
+from reportlab.lib import colors
+from reportlab.lib import fonts
+from reportlab.pdfbase import cidfonts
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase import ttfonts
 from reportlab.platypus import tableofcontents
 from reportlab.platypus.doctemplate import IndexingFlowable
 
-from z3c.rml import attr, canvas, directive, doclogic, interfaces, list
-from z3c.rml import occurence, pdfinclude, special, storyplace, stylesheet
+from z3c.rml import attr
+from z3c.rml import canvas
+from z3c.rml import directive
+from z3c.rml import doclogic
+from z3c.rml import interfaces
+from z3c.rml import list
+from z3c.rml import occurence
+from z3c.rml import pdfinclude
+from z3c.rml import special
+from z3c.rml import storyplace
+from z3c.rml import stylesheet
 from z3c.rml import template
+
 
 LOGGER_NAME = 'z3c.rml.render'
 

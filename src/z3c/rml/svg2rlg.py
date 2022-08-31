@@ -13,10 +13,20 @@ from xml.etree import cElementTree
 
 import reportlab.lib.colors as colors
 from reportlab.graphics import renderPDF
-from reportlab.graphics.shapes import Circle, Drawing, Ellipse, Group, Image
-from reportlab.graphics.shapes import Line, Path, Polygon, PolyLine, Rect
-from reportlab.graphics.shapes import String, mmult
-from reportlab.lib.units import pica, toLength
+from reportlab.graphics.shapes import Circle
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.shapes import Ellipse
+from reportlab.graphics.shapes import Group
+from reportlab.graphics.shapes import Image
+from reportlab.graphics.shapes import Line
+from reportlab.graphics.shapes import Path
+from reportlab.graphics.shapes import Polygon
+from reportlab.graphics.shapes import PolyLine
+from reportlab.graphics.shapes import Rect
+from reportlab.graphics.shapes import String
+from reportlab.graphics.shapes import mmult
+from reportlab.lib.units import pica
+from reportlab.lib.units import toLength
 
 
 class SVGError(Exception):

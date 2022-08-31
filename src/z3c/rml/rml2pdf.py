@@ -21,7 +21,9 @@ import sys
 import zope.interface
 from lxml import etree
 
-from z3c.rml import document, interfaces
+from z3c.rml import document
+from z3c.rml import interfaces
+
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
