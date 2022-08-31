@@ -22,7 +22,7 @@ from z3c.rml import interfaces
 
 try:
     import pikepdf
-    from pikepdf import Object
+    from pikepdf import Object  # noqa: F401 imported but unused
 except ImportError:
     # We don't want to require pikepdf, if you do not want to use the features
     # in this module.
@@ -98,7 +98,7 @@ class MergePage(directive.RMLDirective):
                 'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self, interfaces.ICanvasManager)
-        outPage = manager.canvas.getPageNumber()-1
+        outPage = manager.canvas.getPageNumber() - 1
 
         proc = self.getProcessor()
         pageOperations = proc.operations.setdefault(outPage, [])
@@ -117,7 +117,7 @@ class MergePageInPageTemplate(MergePage):
 
         def drawOnCanvas(canvas, doc):
             onPage(canvas, doc)
-            outPage = canvas.getPageNumber()-1
+            outPage = canvas.getPageNumber() - 1
             proc = self.getProcessor()
             pageOperations = proc.operations.setdefault(outPage, [])
             pageOperations.append((inputFile, inPage))

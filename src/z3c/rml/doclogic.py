@@ -16,7 +16,7 @@
 import reportlab.platypus
 
 from z3c.rml import attr
-from z3c.rml import directive
+from z3c.rml import directive  # noqa: F401 imported but unused
 from z3c.rml import flowable
 from z3c.rml import interfaces
 from z3c.rml import occurence
@@ -35,6 +35,7 @@ class IDocAssign(interfaces.IRMLDirectiveSignature):
         description='The expression that creates the value when evaluated.',
         required=True)
 
+
 class DocAssign(flowable.Flowable):
     signature = IDocAssign
     klass = reportlab.platypus.flowables.DocAssign
@@ -47,6 +48,7 @@ class IDocExec(interfaces.IRMLDirectiveSignature):
         title='Statement',
         description='The statement to be executed.',
         required=True)
+
 
 class DocExec(flowable.Flowable):
     signature = IDocExec
@@ -76,6 +78,7 @@ class IDocPara(interfaces.IRMLDirectiveSignature):
         description='When set (default) the expression value is escaped.',
         required=False)
 
+
 class DocPara(flowable.Flowable):
     signature = IDocPara
     klass = reportlab.platypus.flowables.DocPara
@@ -94,6 +97,7 @@ class IDocAssert(interfaces.IRMLDirectiveSignature):
         description='The text displayed if assertion fails.',
         required=False)
 
+
 class DocAssert(flowable.Flowable):
     signature = IDocAssert
     klass = reportlab.platypus.flowables.DocAssert
@@ -101,6 +105,7 @@ class DocAssert(flowable.Flowable):
 
 class IDocElse(interfaces.IRMLDirectiveSignature):
     """Starts 'else' block."""
+
 
 class DocElse(flowable.Flowable):
     signature = IDocElse
@@ -119,6 +124,7 @@ class IDocIf(flowable.IFlow):
         description='The condition to be tested.',
         required=True)
 
+
 class DocIf(flowable.Flow):
     signature = IDocAssert
     klass = reportlab.platypus.flowables.DocIf
@@ -132,8 +138,9 @@ class DocIf(flowable.Flow):
         args = dict(self.getAttributeValues())
         self.processSubDirectives()
         dif = self.klass(
-            thenBlock = self.thenFlow, elseBlock = self.elseFlow, **args)
+            thenBlock=self.thenFlow, elseBlock=self.elseFlow, **args)
         self.parent.flow.append(dif)
+
 
 class IDocWhile(flowable.IFlow):
     """Repeat the included directives as long as the condition is true."""
@@ -143,6 +150,7 @@ class IDocWhile(flowable.IFlow):
         description='The condition to be tested.',
         required=True)
 
+
 class DocWhile(flowable.Flow):
     signature = IDocAssert
     klass = reportlab.platypus.flowables.DocWhile
@@ -150,7 +158,7 @@ class DocWhile(flowable.Flow):
     def process(self):
         args = dict(self.getAttributeValues())
         self.processSubDirectives()
-        dwhile = self.klass(whileBlock = self.flow, **args)
+        dwhile = self.klass(whileBlock=self.flow, **args)
         self.parent.flow.append(dwhile)
 
 
@@ -172,4 +180,4 @@ flowable.IFlow.setTaggedValue(
      occurence.ZeroOrMore('docElse', IDocElse),
      occurence.ZeroOrMore('docWhile', IDocWhile),
      )
-    )
+)

@@ -13,8 +13,6 @@
 ##############################################################################
 """Special Element Processing
 """
-import six
-
 from z3c.rml import attr
 from z3c.rml import directive
 from z3c.rml import interfaces
@@ -32,6 +30,7 @@ class IName(interfaces.IRMLDirectiveSignature):
         title='Value',
         description='The text that is displayed if the id is called.',
         required=True)
+
 
 class Name(directive.RMLDirective):
     signature = IName
@@ -55,6 +54,7 @@ class IAlias(interfaces.IRMLDirectiveSignature):
         description='The style that is represented.',
         required=True)
 
+
 class Alias(directive.RMLDirective):
     signature = IAlias
 
@@ -69,7 +69,7 @@ class TextFlowables:
         if hasattr(self, 'manager'):
             return self.manager
         else:
-            return  attr.getManager(self)
+            return attr.getManager(self)
 
     def getPageNumber(self, elem, canvas):
         return str(
@@ -112,6 +112,7 @@ class TextFlowables:
         if include_final_tail:
             text += node.tail or ''
         return text
+
 
 def do_eval(value):
     # Maybe still not safe

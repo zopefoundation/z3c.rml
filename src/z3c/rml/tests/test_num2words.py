@@ -101,7 +101,7 @@ NUM2WORDS = """
 4000010 Four Million Ten
 4242424242 Four Billion Two Hundred Forty-Two Million Four Hundred Twenty-Four Thousand Two Hundred Forty-Two
 363636363636 Three Hundred Sixty-Three Billion Six Hundred Thirty-Six Million Three Hundred Sixty-Three Thousand Six Hundred Thirty-Six
-"""
+"""  # noqa: E501 line too long
 
 NUM2WORDS_ORDINAL = """
 0 Zeroth
@@ -171,12 +171,4 @@ NUM2WORDS_ORDINAL = """
 4000010 Four Million Tenth
 4242424242 Four Billion Two Hundred Forty-Two Million Four Hundred Twenty-Four Thousand Two Hundred Forty-Second
 363636363636 Three Hundred Sixty-Three Billion Six Hundred Thirty-Six Million Three Hundred Sixty-Three Thousand Six Hundred Thirty-Sixth
-"""
-
-
-def test_suite():
-    suite = unittest.TestSuite([unittest.makeSuite(Number2WordsTests)])
-    return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+"""  # noqa: E501 line too long

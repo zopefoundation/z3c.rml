@@ -27,11 +27,10 @@ try:
     import reportlab.graphics.barcode
 except ImportError:
     # barcode package has not been installed
-    import types
 
     import reportlab.graphics
     reportlab.graphics.barcode = types.ModuleType('barcode')
-    reportlab.graphics.barcode.getCodeNames = lambda : ()
+    reportlab.graphics.barcode.getCodeNames = lambda: ()
 
 
 class IBarCodeBase(interfaces.IRMLDirectiveSignature):
@@ -224,6 +223,7 @@ class IBarCode(IBarCodeBase):
         description='When set, the aspect ration of the barcode is enforced.',
         required=False)
 
+
 class BarCode(directive.RMLDirective):
     signature = IBarCode
 
@@ -298,6 +298,7 @@ class ITextField(IField):
         description='A flag when set allows multiple lines within the field.',
         required=False)
 
+
 class TextField(Field):
     signature = ITextField
     callable = 'textFieldAbsolute'
@@ -313,6 +314,7 @@ class IButtonField(IField):
         choices=('Yes', 'Off'),
         required=True)
 
+
 class ButtonField(Field):
     signature = IButtonField
     callable = 'buttonFieldAbsolute'
@@ -325,6 +327,7 @@ class IOption(interfaces.IRMLDirectiveSignature):
         title='Value',
         description='The value of the option.',
         required=True)
+
 
 class Option(directive.RMLDirective):
     signature = IOption
@@ -353,6 +356,7 @@ class ISelectField(IField):
         title='Value',
         description='The default value of the field.',
         required=False)
+
 
 class SelectField(Field):
     signature = ISelectField

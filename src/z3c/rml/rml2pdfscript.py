@@ -20,6 +20,7 @@ import sys
 
 _fileOpen = None
 
+
 def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
     # set the sys path given from the parent process
     sysPath = os.environ['Z3CRMLSYSPATH']
@@ -34,6 +35,7 @@ def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
         import z3c.rml.directive
         global _fileOpen
         _fileOpen = z3c.rml.attr.File.open
+
         def testOpen(img, filename):
             # cleanup win paths like:
             # ....\\input\\file:///D:\\trunk\\...
@@ -82,7 +84,12 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     py = sys.executable
 
     # setup the cmd
-    program = [py, __file__, 'excecuteSubProcess', xmlInputName, outputFileName]
+    program = [
+        py,
+        __file__,
+        'excecuteSubProcess',
+        xmlInputName,
+        outputFileName]
     if testing is True:
         program.append('testing=1')
     program = " ".join(program)
@@ -95,13 +102,13 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
     # start processing in a sub process, raise exception or return None
     try:
         p = subprocess.Popen(program, executable=py, env=env,
-            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
+                             stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
     except Exception as e:
         raise Exception("Subprocess error: %s" % e)
 
-    # Do we need to improve the implementation and kill the subprocess which will
-    # fail? ri
+    # Do we need to improve the implementation and kill the subprocess which
+    # will fail? ri
     stdout, stderr = p.communicate()
     error = stderr
     if error:
@@ -110,7 +117,7 @@ def goSubProcess(xmlInputName, outputFileName, testing=False):
 
 if __name__ == '__main__':
     if len(sys.argv) == 5:
-        #testing support
+        # testing support
         canvas = excecuteSubProcess(sys.argv[2], sys.argv[3], sys.argv[4])
     else:
         canvas = excecuteSubProcess(sys.argv[2], sys.argv[3])

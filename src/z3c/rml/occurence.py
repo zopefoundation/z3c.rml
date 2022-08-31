@@ -95,17 +95,20 @@ class ZeroOrMore(Occurence):
     This sub-directive can occur zero or more times.
     """
 
+
 class ZeroOrOne(Occurence):
     """Zero or one
 
     This sub-directive can occur zero or one time.
     """
 
+
 class OneOrMore(Occurence):
     """One or More
 
     This sub-directive can occur one or more times.
     """
+
 
 class One(Occurence):
     """One

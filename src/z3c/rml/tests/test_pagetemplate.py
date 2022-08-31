@@ -14,10 +14,9 @@
 """Tests for the Book Documentation Module"""
 
 import doctest
-import unittest
 
 
 def test_suite():
     return doctest.DocFileSuite(
         '../pagetemplate.txt',
-        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
+        optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS)

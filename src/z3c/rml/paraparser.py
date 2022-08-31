@@ -61,7 +61,8 @@ class ParaFragWrapper(reportlab.platypus.paraparser.ParaFrag):
 
             if canvas is None:
                 # Guess 3: We're in evalString or namedString
-                canvas = getattr(frame.f_locals.get('self', None), 'canv', None)
+                canvas = getattr(
+                    frame.f_locals.get('self', None), 'canv', None)
 
             i += 1
 
@@ -142,7 +143,8 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
     _lineAttrs = ('color', 'width', 'offset', 'gap', 'kind')
 
     def __init__(self, manager, *args, **kwargs):
-        reportlab.platypus.paraparser.ParaParser.__init__(self, *args, **kwargs)
+        reportlab.platypus.paraparser.ParaParser.__init__(
+            self, *args, **kwargs)
         self.manager = manager
         self.in_eval = False
 
@@ -243,7 +245,7 @@ class Z3CParagraphParser(reportlab.platypus.paraparser.ParaParser):
         if not self.in_eval:
             reportlab.platypus.paraparser.ParaParser.handle_data(self, data)
         else:
-            frag = self._stack[-1].frags.append(data)
+            self._stack[-1].frags.append(data)
 
 
 class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
@@ -252,13 +254,17 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
     Methods mostly copied from reportlab.
     """
 
-    def __init__(self, text, style, bulletText = None, frags=None,
+    def __init__(self, text, style, bulletText=None, frags=None,
                  caseSensitive=1, encoding='utf8', manager=None):
         self.caseSensitive = caseSensitive
         self.encoding = encoding
         self._setup(
-            text, style, bulletText or getattr(style,'bulletText',None), frags,
-            reportlab.platypus.paragraph.cleanBlockQuotedText, manager)
+            text,
+            style,
+            bulletText or getattr(style, 'bulletText', None),
+            frags,
+            reportlab.platypus.paragraph.cleanBlockQuotedText,
+            manager)
 
     def _setup(self, text, style, bulletText, frags, cleaner, manager):
 
@@ -273,8 +279,8 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
             style, frags, bulletTextFrags = _parser.parse(text, style)
             if frags is None:
                 raise ValueError(
-                    "xml parser error (%s) in paragraph beginning\n'%s'"\
-                    % (_parser.errors[0],text[:min(30,len(text))]))
+                    "xml parser error (%s) in paragraph beginning\n'%s'"
+                    % (_parser.errors[0], text[:min(30, len(text))]))
             # apply texttransform to paragraphs
             reportlab.platypus.paragraph.textTransformFrags(frags, style)
             # apply texttransform to paragraph fragments
@@ -282,7 +288,7 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
                 if hasattr(frag, '_style') \
                         and hasattr(frag._style, 'textTransform'):
                     reportlab.platypus.paragraph.textTransformFrags(
-                                                    [frag], frag._style)
+                        [frag], frag._style)
 
             if bulletTextFrags:
                 bulletText = bulletTextFrags

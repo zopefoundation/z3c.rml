@@ -13,8 +13,7 @@
 ##############################################################################
 """Page Drawing Related Element Processing
 """
-import reportlab.pdfgen.canvas
-import zope.interface
+import reportlab.pdfgen.canvas  # noqa: F401 imported but unused
 
 from z3c.rml import attr
 from z3c.rml import chart
@@ -25,7 +24,7 @@ from z3c.rml import interfaces
 from z3c.rml import occurence
 from z3c.rml import page
 from z3c.rml import special
-from z3c.rml import stylesheet
+from z3c.rml import stylesheet  # noqa: F401 imported but unused
 
 
 class IShape(interfaces.IRMLDirectiveSignature):
@@ -68,6 +67,7 @@ class CanvasRMLDirective(directive.RMLDirective):
 class ISaveState(interfaces.IRMLDirectiveSignature):
     """Saves the current canvas state."""
 
+
 class SaveState(CanvasRMLDirective):
     signature = ISaveState
     callable = 'saveState'
@@ -75,6 +75,7 @@ class SaveState(CanvasRMLDirective):
 
 class IRestoreState(interfaces.IRMLDirectiveSignature):
     """Saves the current canvas state."""
+
 
 class RestoreState(CanvasRMLDirective):
     signature = IRestoreState
@@ -102,6 +103,7 @@ class IDrawString(interfaces.IRMLDirectiveSignature):
         description=('The string/text that is put onto the canvas.'),
         required=True)
 
+
 class DrawString(CanvasRMLDirective, special.TextFlowables):
     signature = IDrawString
     callable = 'drawString'
@@ -112,9 +114,11 @@ class DrawString(CanvasRMLDirective, special.TextFlowables):
         kwargs['text'] = self._getText(self.element, canvas).strip()
         getattr(canvas, self.callable)(**kwargs)
 
+
 class IDrawRightString(IDrawString):
     """Draws a simple string (right aligned) onto the canvas at the specified
     location."""
+
 
 class DrawRightString(DrawString):
     signature = IDrawRightString
@@ -122,8 +126,9 @@ class DrawRightString(DrawString):
 
 
 class IDrawCenteredString(IDrawString):
-    """Draws a simple string (centered aligned) onto the canvas at the specified
-    location."""
+    """Draws a simple string (centered aligned) onto the canvas at the
+    specified location."""
+
 
 class DrawCenteredString(DrawString):
     signature = IDrawCenteredString
@@ -142,6 +147,7 @@ class IDrawAlignedString(IDrawString):
         default='.',
         required=True)
 
+
 class DrawAlignedString(DrawString):
     signature = IDrawAlignedString
     callable = 'drawAlignedString'
@@ -159,6 +165,7 @@ class IEllipse(IShape):
         title='Height',
         description='The height of the ellipse.',
         required=True)
+
 
 class Ellipse(CanvasRMLDirective):
     signature = IEllipse
@@ -183,6 +190,7 @@ class ICircle(IShape):
         title='Radius',
         description='The radius of the circle.',
         required=True)
+
 
 class Circle(CanvasRMLDirective):
     signature = ICircle
@@ -210,7 +218,8 @@ class IRectangle(IShape):
 
     href = attr.Text(
         title='Link URL',
-        description='When specified, the rectangle becomes a link to that URL.',
+        description='When specified, the rectangle becomes a link to that'
+                    ' URL.',
         required=False)
 
     destination = attr.Text(
@@ -218,6 +227,7 @@ class IRectangle(IShape):
         description=('When specified, the rectangle becomes a link to that '
                      'destination.'),
         required=False)
+
 
 class Rectangle(CanvasRMLDirective):
     signature = IRectangle
@@ -234,17 +244,23 @@ class Rectangle(CanvasRMLDirective):
         if url:
             canvas.linkURL(
                 url,
-                (kwargs['x'], kwargs['y'],
-                 kwargs['x']+kwargs['width'], kwargs['y']+kwargs['height']))
+                (kwargs['x'],
+                 kwargs['y'],
+                 kwargs['x'] + kwargs['width'],
+                 kwargs['y'] + kwargs['height']))
         dest = kwargs.pop('destination', None)
         if dest:
             canvas.linkRect(
-                '', dest,
-                (kwargs['x'], kwargs['y'],
-                 kwargs['x']+kwargs['width'], kwargs['y']+kwargs['height']))
+                '',
+                dest,
+                (kwargs['x'],
+                 kwargs['y'],
+                 kwargs['x'] + kwargs['width'],
+                 kwargs['y'] + kwargs['height']))
 
         # Render the rectangle
         getattr(canvas, self.callable)(**kwargs)
+
 
 class IGrid(interfaces.IRMLDirectiveSignature):
     """A shape to be drawn on the canvas."""
@@ -280,6 +296,7 @@ class ILines(interfaces.IRMLDirectiveSignature):
         columns=4,
         required=True)
 
+
 class Lines(CanvasRMLDirective):
     signature = ILines
     callable = 'lines'
@@ -294,6 +311,7 @@ class ICurves(interfaces.IRMLDirectiveSignature):
         value_type=attr.Measurement(),
         columns=8,
         required=True)
+
 
 class Curves(CanvasRMLDirective):
     signature = ICurves
@@ -352,10 +370,12 @@ class IImage(interfaces.IRMLDirectiveSignature):
 
     mask = attr.Color(
         title='Mask',
-        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        description='The color mask used to render the image, or "auto" to use'
+                    ' the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
+
 
 class Image(CanvasRMLDirective):
     signature = IImage
@@ -376,7 +396,8 @@ class Image(CanvasRMLDirective):
             elif 'height' in kwargs and 'width' not in kwargs:
                 kwargs['width'] = imgX * kwargs['height'] / imgY
             elif 'width' in kwargs and 'height' in kwargs:
-                if float(kwargs['width'])/kwargs['height'] > float(imgX)/imgY:
+                if float(kwargs['width']) / \
+                        kwargs['height'] > float(imgX) / imgY:
                     kwargs['width'] = imgX * kwargs['height'] / imgY
                 else:
                     kwargs['height'] = imgY * kwargs['width'] / imgX
@@ -415,6 +436,7 @@ class IPlace(interfaces.IRMLDirectiveSignature):
         description='The height of the place.',
         required=False)
 
+
 class Place(CanvasRMLDirective):
     signature = IPlace
 
@@ -451,6 +473,7 @@ class IParam(interfaces.IRMLDirectiveSignature):
         description=('The parameter value.'),
         required=True)
 
+
 class Param(directive.RMLDirective):
     signature = IParam
 
@@ -468,6 +491,7 @@ class ITextAnnotation(interfaces.IRMLDirectiveSignature):
         title='Contents',
         description='The PDF commands that are inserted as annotation.',
         required=True)
+
 
 class TextAnnotation(CanvasRMLDirective):
     signature = ITextAnnotation
@@ -498,6 +522,7 @@ class IMoveTo(interfaces.IRMLDirectiveSignature):
         max_length=2,
         required=True)
 
+
 class MoveTo(directive.RMLDirective):
     signature = IMoveTo
 
@@ -516,6 +541,7 @@ class ICurveTo(interfaces.IRMLDirectiveSignature):
         columns=6,
         required=True)
 
+
 class CurveTo(directive.RMLDirective):
     signature = ICurveTo
 
@@ -524,8 +550,11 @@ class CurveTo(directive.RMLDirective):
         for args in argset:
             self.parent.path.curveTo(*args)
 
+
 class ICurvesTo(ICurveTo):
     pass
+
+
 directive.DeprecatedDirective(
     ICurvesTo,
     'Available for ReportLab RML compatibility. Please use the "curveto" '
@@ -538,7 +567,7 @@ class IPath(IShape):
         occurence.ZeroOrMore('moveto', IMoveTo),
         occurence.ZeroOrMore('curveto', ICurveTo),
         occurence.ZeroOrMore('curvesto', ICurvesTo),
-        )
+    )
 
     points = attr.TextNodeGrid(
         title='Points',
@@ -560,13 +589,14 @@ class IPath(IShape):
         default=False,
         required=False)
 
+
 class Path(CanvasRMLDirective):
     signature = IPath
     factories = {
         'moveto': MoveTo,
         'curveto': CurveTo,
         'curvesto': CurveTo
-        }
+    }
 
     def processPoints(self, text):
         if text.strip() == '':
@@ -587,12 +617,12 @@ class Path(CanvasRMLDirective):
         if self.element.text is not None:
             self.processPoints(self.element.text)
         # Handle each sub-directive.
-        for directive in self.element.getchildren():
-            if directive.tag in self.factories:
-                self.factories[directive.tag](directive, self).process()
+        for directive_ in self.element.getchildren():
+            if directive_.tag in self.factories:
+                self.factories[directive_.tag](directive_, self).process()
             # If there is more text after sub-directive, process it.
-            if directive.tail is not None:
-                self.processPoints(directive.tail)
+            if directive_.tail is not None:
+                self.processPoints(directive_.tail)
 
         if kwargs.pop('close', False):
             self.path.close()
@@ -611,6 +641,7 @@ class IFill(interfaces.IRMLDirectiveSignature):
         description=('The color value to be set.'),
         required=True)
 
+
 class Fill(CanvasRMLDirective):
     signature = IFill
     callable = 'setFillColor'
@@ -624,6 +655,7 @@ class IStroke(interfaces.IRMLDirectiveSignature):
         title='Color',
         description=('The color value to be set.'),
         required=True)
+
 
 class Stroke(CanvasRMLDirective):
     signature = IStroke
@@ -649,6 +681,7 @@ class ISetFont(interfaces.IRMLDirectiveSignature):
         description=('The font leading.'),
         required=False)
 
+
 class SetFont(CanvasRMLDirective):
     signature = ISetFont
     callable = 'setFont'
@@ -667,6 +700,7 @@ class ISetFontSize(interfaces.IRMLDirectiveSignature):
         title='Leading',
         description=('The font leading.'),
         required=False)
+
 
 class SetFontSize(CanvasRMLDirective):
     signature = ISetFontSize
@@ -688,6 +722,7 @@ class IScale(interfaces.IRMLDirectiveSignature):
         default=1,
         required=False)
 
+
 class Scale(CanvasRMLDirective):
     signature = IScale
     callable = 'scale'
@@ -707,6 +742,7 @@ class ITranslate(interfaces.IRMLDirectiveSignature):
         description=('The amount to move the drawing upward.'),
         required=True)
 
+
 class Translate(CanvasRMLDirective):
     signature = ITranslate
     callable = 'translate'
@@ -719,6 +755,7 @@ class IRotate(interfaces.IRMLDirectiveSignature):
         title='Angle',
         description=('The angle in degrees.'),
         required=True)
+
 
 class Rotate(CanvasRMLDirective):
     signature = IRotate
@@ -739,6 +776,7 @@ class ISkew(interfaces.IRMLDirectiveSignature):
         description=('The amount to skew the drawing in the vertical.'),
         required=True)
 
+
 class Skew(CanvasRMLDirective):
     signature = ISkew
     callable = 'skew'
@@ -754,6 +792,7 @@ class ITransform(interfaces.IRMLDirectiveSignature):
         min_length=6,
         max_length=6,
         required=True)
+
 
 class Transform(CanvasRMLDirective):
     signature = ITransform
@@ -794,6 +833,7 @@ class ILineMode(interfaces.IRMLDirectiveSignature):
         description='The cap is the desciption of how the line-endings look.',
         choices=interfaces.CAP_CHOICES,
         required=False)
+
 
 class LineMode(CanvasRMLDirective):
     signature = ILineMode
@@ -845,13 +885,15 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
         description='The y-position.',
         required=False)
 
+
 class Bookmark(CanvasRMLDirective):
     signature = IBookmark
 
     def process(self):
         args = dict(self.getAttributeValues())
         canvas = attr.getManager(self, interfaces.ICanvasManager).canvas
-        args['left'], args['top'] = canvas.absolutePosition(args['x'], args['y'])
+        args['left'], args['top'] = canvas.absolutePosition(
+            args['x'], args['y'])
         canvas.bookmarkPage(**args)
 
 
@@ -873,6 +915,7 @@ class IPlugInGraphic(interfaces.IRMLDirectiveSignature):
         title='Parameters',
         description=('A list of parameters encoded as a long string.'),
         required=False)
+
 
 class PlugInGraphic(CanvasRMLDirective):
     signature = IPlugInGraphic
@@ -937,7 +980,8 @@ class IDrawing(interfaces.IRMLDirectiveSignature):
         # Misc
         occurence.ZeroOrMore('bookmark', IBookmark),
         occurence.ZeroOrMore('plugInGraphic', IPlugInGraphic),
-        )
+    )
+
 
 class Drawing(directive.RMLDirective):
     signature = IDrawing
@@ -990,7 +1034,7 @@ class Drawing(directive.RMLDirective):
         # Misc
         'bookmark': Bookmark,
         'plugInGraphic': PlugInGraphic,
-        }
+    }
 
 
 class IPageDrawing(IDrawing):
@@ -998,8 +1042,9 @@ class IPageDrawing(IDrawing):
     directive creates a new page."""
 
     occurence.containing(
-        #'mergePage': IMergePage,
+        # 'mergePage': IMergePage,
         *IDrawing.getTaggedValue('directives'))
+
 
 class PageDrawing(Drawing):
     signature = IDrawing
@@ -1007,7 +1052,7 @@ class PageDrawing(Drawing):
     factories = Drawing.factories.copy()
     factories.update({
         'mergePage': page.MergePage
-        })
+    })
 
     def process(self):
         super(Drawing, self).process()
@@ -1023,7 +1068,8 @@ class IPageInfo(interfaces.IRMLDirectiveSignature):
         description=('The page size of all pages within this document.'),
         required=True)
 
+
 class PageInfo(CanvasRMLDirective):
-    signature=IPageInfo
+    signature = IPageInfo
     callable = 'setPageSize'
     attrMapping = {'pageSize': 'size'}

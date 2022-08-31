@@ -24,7 +24,7 @@ import reportlab.platypus.doctemplate
 import reportlab.platypus.flowables
 import reportlab.platypus.tables
 import zope.schema
-from reportlab.lib import styles
+from reportlab.lib import styles  # noqa: F401 imported but unused
 from reportlab.lib import utils
 
 from z3c.rml import SampleStyleSheet
@@ -50,6 +50,8 @@ except ImportError:
     reportlab.graphics.barcode.createBarcodeDrawing = None
 
 # XXX:Copy of reportlab.lib.pygments2xpre.pygments2xpre to fix bug in Python 2.
+
+
 def pygments2xpre(s, language="python"):
     "Return markup suitable for XPreformatted"
     try:
@@ -60,26 +62,27 @@ def pygments2xpre(s, language="python"):
 
     from pygments.lexers import get_lexer_by_name
 
-    l = get_lexer_by_name(language)
+    l_ = get_lexer_by_name(language)
 
     h = HtmlFormatter()
     from io import StringIO
     out = StringIO()
-    highlight(s,l,h,out)
-    styles = [(cls, style.split(';')[0].split(':')[1].strip())
-                for cls, (style, ttype, level) in h.class2style.items()
-                if cls and style and style.startswith('color:')]
+    highlight(s, l_, h, out)
+    styles_ = [(cls, style.split(';')[0].split(':')[1].strip())
+               for cls, (style, ttype, level) in h.class2style.items()
+               if cls and style and style.startswith('color:')]
     from reportlab.lib.pygments2xpre import _2xpre
-    return _2xpre(out.getvalue(),styles)
+    return _2xpre(out.getvalue(), styles_)
 
 
 class Flowable(directive.RMLDirective):
-    klass=None
+    klass = None
     attrMapping = None
 
     def process(self):
         args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
         self.parent.flow.append(self.klass(**args))
+
 
 class ISpacer(interfaces.IRMLDirectiveSignature):
     """Creates a vertical space in the flow."""
@@ -94,6 +97,7 @@ class ISpacer(interfaces.IRMLDirectiveSignature):
         title='Length',
         description='The height of the spacer.',
         required=True)
+
 
 class Spacer(Flowable):
     signature = ISpacer
@@ -115,6 +119,7 @@ class IIllustration(interfaces.IRMLDirectiveSignature):
         default=100,
         required=True)
 
+
 class Illustration(Flowable):
     signature = IIllustration
     klass = platypus.Illustration
@@ -132,10 +137,12 @@ class IBarCodeFlowable(form.IBarCodeBase):
         description='The value represented by the code.',
         required=True)
 
+
 class BarCodeFlowable(Flowable):
     signature = IBarCodeFlowable
     klass = staticmethod(reportlab.graphics.barcode.createBarcodeDrawing)
     attrMapping = {'code': 'codeName'}
+
 
 class IPluginFlowable(interfaces.IRMLDirectiveSignature):
     """Inserts a custom flowable developed in Python."""
@@ -155,6 +162,7 @@ class IPluginFlowable(interfaces.IRMLDirectiveSignature):
         title='Parameters',
         description=('A list of parameters encoded as a long string.'),
         required=False)
+
 
 class PluginFlowable(Flowable):
     signature = IPluginFlowable
@@ -195,17 +203,22 @@ class IMinimalParagraphBase(interfaces.IRMLDirectiveSignature):
 class IBold(interfaces.IRMLDirectiveSignature):
     """Renders the text inside as bold."""
 
+
 class IItalic(interfaces.IRMLDirectiveSignature):
     """Renders the text inside as italic."""
+
 
 class IUnderLine(interfaces.IRMLDirectiveSignature):
     """Underlines the contained text."""
 
+
 class IBreak(interfaces.IRMLDirectiveSignature):
     """Inserts a line break in the paragraph."""
 
+
 class IPageNumber(interfaces.IRMLDirectiveSignature):
     """Inserts the current page number into the text."""
+
 
 class IParagraphBase(IMinimalParagraphBase):
     occurence.containing(
@@ -215,7 +228,8 @@ class IParagraphBase(IMinimalParagraphBase):
         occurence.ZeroOrMore('br', IBreak,
                              condition=occurence.laterThanReportlab21),
         occurence.ZeroOrMore('pageNumber', IPageNumber)
-        )
+    )
+
 
 class IPreformatted(IMinimalParagraphBase):
     """A preformatted text, similar to the <pre> tag in HTML."""
@@ -243,9 +257,11 @@ class IPreformatted(IMinimalParagraphBase):
         description='The characters placed at the beginning of a wrapped line',
         required=False)
 
+
 class Preformatted(Flowable):
     signature = IPreformatted
     klass = reportlab.platypus.Preformatted
+
 
 class IXPreformatted(IParagraphBase):
     """A preformatted text that allows paragraph markup."""
@@ -262,6 +278,7 @@ class IXPreformatted(IParagraphBase):
         title='Text',
         description=('The text that will be layed out.'),
         required=True)
+
 
 class XPreformatted(Flowable):
     signature = IXPreformatted
@@ -282,6 +299,7 @@ class ICodeSnippet(IXPreformatted):
         title='Language',
         description='The language the code snippet is written in.',
         required=False)
+
 
 class CodeSnippet(XPreformatted):
     signature = ICodeSnippet
@@ -305,6 +323,7 @@ class IParagraph(IParagraphBase, stylesheet.IBaseParagraphStyle):
         description=('The text that will be layed out.'),
         required=True)
 
+
 class Paragraph(Flowable):
     signature = IParagraph
     klass = paraparser.Z3CParagraph
@@ -314,9 +333,9 @@ class Paragraph(Flowable):
 
     def processStyle(self, style):
         attrs = []
-        for attr in self.styleAttributes:
-            if self.element.get(attr) is not None:
-                attrs.append(attr)
+        for attrName in self.styleAttributes:
+            if self.element.get(attrName) is not None:
+                attrs.append(attrName)
         attrs = self.getAttributeValues(select=attrs)
         if attrs:
             style = copy.deepcopy(style)
@@ -336,12 +355,15 @@ class Paragraph(Flowable):
 class ITitle(IParagraph):
     """The title is a simple paragraph with a special title style."""
 
+
 class Title(Paragraph):
     signature = ITitle
     defaultStyle = 'Title'
 
+
 class IHeading1(IParagraph):
     """Heading 1 is a simple paragraph with a special heading 1 style."""
+
 
 class Heading1(Paragraph):
     signature = IHeading1
@@ -351,6 +373,7 @@ class Heading1(Paragraph):
 class IHeading2(IParagraph):
     """Heading 2 is a simple paragraph with a special heading 2 style."""
 
+
 class Heading2(Paragraph):
     signature = IHeading2
     defaultStyle = 'Heading2'
@@ -358,6 +381,7 @@ class Heading2(Paragraph):
 
 class IHeading3(IParagraph):
     """Heading 3 is a simple paragraph with a special heading 3 style."""
+
 
 class Heading3(Paragraph):
     signature = IHeading3
@@ -367,6 +391,7 @@ class Heading3(Paragraph):
 class IHeading4(IParagraph):
     """Heading 4 is a simple paragraph with a special heading 4 style."""
 
+
 class Heading4(Paragraph):
     signature = IHeading4
     defaultStyle = 'Heading4'
@@ -375,6 +400,7 @@ class Heading4(Paragraph):
 class IHeading5(IParagraph):
     """Heading 5 is a simple paragraph with a special heading 5 style."""
 
+
 class Heading5(Paragraph):
     signature = IHeading5
     defaultStyle = 'Heading5'
@@ -382,6 +408,7 @@ class Heading5(Paragraph):
 
 class IHeading6(IParagraph):
     """Heading 6 is a simple paragraph with a special heading 6 style."""
+
 
 class Heading6(Paragraph):
     signature = IHeading6
@@ -630,16 +657,16 @@ class TableCell(directive.RMLDirective):
                        'lineRightDash', 'lineRightSpace')),
         ('HREF', ('href',)),
         ('DESTINATION', ('destination',)),
-        )
+    )
 
     def processStyle(self):
         row = len(self.parent.parent.rows)
         col = len(self.parent.cols)
         for styleAction, attrNames in self.styleAttributesMapping:
             attrs = []
-            for attr in attrNames:
-                if self.element.get(attr) is not None:
-                    attrs.append(attr)
+            for attrName in attrNames:
+                if self.element.get(attrName) is not None:
+                    attrs.append(attrName)
             if not attrs:
                 continue
             args = self.getAttributeValues(select=attrs, valuesOnly=True)
@@ -664,7 +691,8 @@ class ITableRow(interfaces.IRMLDirectiveSignature):
     """A table row in the block table."""
     occurence.containing(
         occurence.OneOrMore('td', ITableCell),
-        )
+    )
+
 
 class TableRow(directive.RMLDirective):
     signature = ITableRow
@@ -685,7 +713,8 @@ class ITableBulkData(interfaces.IRMLDirectiveSignature):
         splitre=re.compile('\n'),
         value_type=attr.Sequence(splitre=re.compile(','),
                                  value_type=attr.Text())
-        )
+    )
+
 
 class TableBulkData(directive.RMLDirective):
     signature = ITableBulkData
@@ -711,7 +740,7 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('tr', ITableRow),
         occurence.ZeroOrOne('bulkData', ITableBulkData),
         occurence.ZeroOrMore('blockTableStyle', stylesheet.IBlockTableStyle),
-        )
+    )
 
     style = attr.Style(
         title='Style',
@@ -740,6 +769,7 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         description='The alignment of whole table.',
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
+
 
 class BlockTable(Flowable):
     signature = IBlockTable
@@ -781,6 +811,7 @@ class INextFrame(interfaces.IRMLDirectiveSignature):
         description=('The name or index of the next frame.'),
         required=False)
 
+
 class NextFrame(Flowable):
     signature = INextFrame
     klass = reportlab.platypus.doctemplate.FrameBreak
@@ -794,6 +825,7 @@ class ISetNextFrame(interfaces.IRMLDirectiveSignature):
         description=('The name or index of the next frame.'),
         required=True)
 
+
 class SetNextFrame(Flowable):
     signature = INextFrame
     klass = reportlab.platypus.doctemplate.NextFrameFlowable
@@ -802,6 +834,7 @@ class SetNextFrame(Flowable):
 
 class INextPage(interfaces.IRMLDirectiveSignature):
     """Switch to the next page."""
+
 
 class NextPage(Flowable):
     signature = INextPage
@@ -815,6 +848,7 @@ class ISetNextTemplate(interfaces.IRMLDirectiveSignature):
         description='The name or index of the next page template.',
         required=True)
 
+
 class SetNextTemplate(Flowable):
     signature = ISetNextTemplate
     klass = reportlab.platypus.doctemplate.NextPageTemplate
@@ -827,6 +861,7 @@ class IConditionalPageBreak(interfaces.IRMLDirectiveSignature):
         title='height',
         description='The minimal height that must be remaining on the page.',
         required=True)
+
 
 class ConditionalPageBreak(Flowable):
     signature = IConditionalPageBreak
@@ -869,6 +904,7 @@ class IKeepInFrame(interfaces.IRMLDirectiveSignature):
         description='The frame to which the flowable should be fitted.',
         required=False)
 
+
 class KeepInFrame(Flowable):
     signature = IKeepInFrame
     klass = platypus.KeepInFrame
@@ -892,6 +928,7 @@ class KeepInFrame(Flowable):
         frame = self.klass(**args)
         self.parent.flow.append(frame)
 
+
 class IKeepTogether(interfaces.IRMLDirectiveSignature):
     """Keep the child flowables in the same frame. Add frame break when
     necessary."""
@@ -901,6 +938,7 @@ class IKeepTogether(interfaces.IRMLDirectiveSignature):
         description='The maximum height the flowables are allotted.',
         default=None,
         required=False)
+
 
 class KeepTogether(Flowable):
     signature = IKeepTogether
@@ -916,6 +954,7 @@ class KeepTogether(Flowable):
         # Create the keep in frame container
         frame = self.klass(flow.flow, **args)
         self.parent.flow.append(frame)
+
 
 class IImage(interfaces.IRMLDirectiveSignature):
     """An image."""
@@ -946,7 +985,8 @@ class IImage(interfaces.IRMLDirectiveSignature):
 
     mask = attr.Color(
         title='Mask',
-        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        description='The color mask used to render the image, or "auto" to use'
+                    ' the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
@@ -962,6 +1002,7 @@ class IImage(interfaces.IRMLDirectiveSignature):
         description='The vertical alignment of the image.',
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=False)
+
 
 class Image(Flowable):
     signature = IImage
@@ -1024,7 +1065,8 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
 
     imageMask = attr.Color(
         title='Mask',
-        description='The color mask used to render the image, or "auto" to use the alpha channel if available.',
+        description='The color mask used to render the image, or "auto" to use'
+                    ' the alpha channel if available.',
         default='auto',
         required=False,
         acceptAuto=True)
@@ -1054,6 +1096,7 @@ class IImageAndFlowables(interfaces.IRMLDirectiveSignature):
         description='The side at which the image will be placed.',
         choices=('left', 'right'),
         required=False)
+
 
 class ImageAndFlowables(Flowable):
     signature = IImageAndFlowables
@@ -1121,6 +1164,7 @@ class IFixedSize(interfaces.IRMLDirectiveSignature):
         description='The height the flowables are allotted.',
         required=True)
 
+
 class FixedSize(Flowable):
     signature = IFixedSize
     klass = reportlab.platypus.flowables.KeepInFrame
@@ -1181,6 +1225,7 @@ class IBookmarkPage(interfaces.IRMLDirectiveSignature):
         description='The zoom level when clicking on the bookmark.',
         required=False)
 
+
 class BookmarkPage(Flowable):
     signature = IBookmarkPage
     klass = platypus.BookmarkPage
@@ -1209,6 +1254,7 @@ class IBookmark(interfaces.IRMLDirectiveSignature):
         description='The y-position of the bookmark.',
         default=0,
         required=False)
+
 
 class Bookmark(Flowable):
     signature = IBookmark
@@ -1314,6 +1360,7 @@ class IHorizontalRow(interfaces.IRMLDirectiveSignature):
         default=None,
         required=False)
 
+
 class HorizontalRow(Flowable):
     signature = IHorizontalRow
     klass = reportlab.platypus.flowables.HRFlowable
@@ -1382,6 +1429,7 @@ class INamedString(interfaces.IRMLDirectiveSignature):
         description='The text that is displayed if the id is called.',
         required=True)
 
+
 class NamedString(directive.RMLDirective):
     signature = INamedString
 
@@ -1416,6 +1464,7 @@ class IShowIndex(interfaces.IRMLDirectiveSignature):
         description='The table style that is applied to the index layout. ',
         required=False)
 
+
 class ShowIndex(directive.RMLDirective):
     signature = IShowIndex
 
@@ -1436,6 +1485,7 @@ class IBaseLogCall(interfaces.IRMLDirectiveSignature):
         description='The message to be logged.',
         required=True)
 
+
 class LogCallFlowable(reportlab.platypus.flowables.Flowable):
 
     def __init__(self, logger, level, message):
@@ -1449,6 +1499,7 @@ class LogCallFlowable(reportlab.platypus.flowables.Flowable):
     def draw(self):
         self.logger.log(self.level, self.message)
 
+
 class BaseLogCall(directive.RMLDirective):
     signature = IBaseLogCall
     level = None
@@ -1459,6 +1510,7 @@ class BaseLogCall(directive.RMLDirective):
         manager = attr.getManager(self)
         self.parent.flow.append(
             LogCallFlowable(manager.logger, self.level, message))
+
 
 class ILog(IBaseLogCall):
     """Log message at DEBUG level."""
@@ -1471,6 +1523,7 @@ class ILog(IBaseLogCall):
         default=logging.INFO,
         required=True)
 
+
 class Log(BaseLogCall):
     signature = ILog
 
@@ -1478,8 +1531,10 @@ class Log(BaseLogCall):
     def level(self):
         return self.getAttributeValues(select=('level',), valuesOnly=True)[0]
 
+
 class IDebug(IBaseLogCall):
     """Log message at DEBUG level."""
+
 
 class Debug(BaseLogCall):
     signature = IDebug
@@ -1489,6 +1544,7 @@ class Debug(BaseLogCall):
 class IInfo(IBaseLogCall):
     """Log message at INFO level."""
 
+
 class Info(BaseLogCall):
     signature = IInfo
     level = logging.INFO
@@ -1496,6 +1552,7 @@ class Info(BaseLogCall):
 
 class IWarning(IBaseLogCall):
     """Log message at WARNING level."""
+
 
 class Warning(BaseLogCall):
     signature = IWarning
@@ -1505,6 +1562,7 @@ class Warning(BaseLogCall):
 class IError(IBaseLogCall):
     """Log message at ERROR level."""
 
+
 class Error(BaseLogCall):
     signature = IError
     level = logging.ERROR
@@ -1512,6 +1570,7 @@ class Error(BaseLogCall):
 
 class ICritical(IBaseLogCall):
     """Log message at CRITICAL level."""
+
 
 class Critical(BaseLogCall):
     signature = ICritical
@@ -1562,13 +1621,14 @@ class IFlow(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('warning', IWarning),
         occurence.ZeroOrMore('error', IError),
         occurence.ZeroOrMore('critical', ICritical),
-        )
+    )
 
 
 class ITopPadder(interfaces.IRMLDirectiveSignature):
     """
     TopPadder
     """
+
 
 class TopPadder(Flowable):
     signature = ITopPadder
@@ -1633,7 +1693,7 @@ class Flow(directive.RMLDirective):
         'error': Error,
         'critical': Critical,
         'topPadder': TopPadder,
-        }
+    }
 
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
