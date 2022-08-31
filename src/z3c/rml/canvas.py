@@ -16,8 +16,16 @@
 import reportlab.pdfgen.canvas
 import zope.interface
 
-from z3c.rml import attr, chart, directive, flowable, form, interfaces
-from z3c.rml import occurence, page, special, stylesheet
+from z3c.rml import attr
+from z3c.rml import chart
+from z3c.rml import directive
+from z3c.rml import flowable
+from z3c.rml import form
+from z3c.rml import interfaces
+from z3c.rml import occurence
+from z3c.rml import page
+from z3c.rml import special
+from z3c.rml import stylesheet
 
 
 class IShape(interfaces.IRMLDirectiveSignature):

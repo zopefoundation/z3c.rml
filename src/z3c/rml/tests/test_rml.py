@@ -18,17 +18,19 @@ import logging
 import os
 import subprocess
 import sys
-import unittest
 import tempfile
+import unittest
 
 import z3c.rml.tests
 from z3c.rml import rml2pdf
+
 
 try:
     import Image
     import ImageChops
 except ImportError:
-    from PIL import Image, ImageChops
+    from PIL import Image
+    from PIL import ImageChops
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')
 

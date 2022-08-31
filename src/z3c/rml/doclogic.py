@@ -15,7 +15,11 @@
 """
 import reportlab.platypus
 
-from z3c.rml import attr, directive, flowable, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
 
 
 class IDocAssign(interfaces.IRMLDirectiveSignature):

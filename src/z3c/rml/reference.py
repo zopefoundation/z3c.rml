@@ -24,7 +24,12 @@ import zope.schema.interfaces
 from lxml import etree
 from pygments.lexers import XmlLexer
 
-from z3c.rml import __version__, attr, document, interfaces, pagetemplate
+from z3c.rml import __version__
+from z3c.rml import attr
+from z3c.rml import document
+from z3c.rml import interfaces
+from z3c.rml import pagetemplate
+
 
 INPUT_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
              'rml/tests/input/%s')

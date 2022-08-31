@@ -16,6 +16,7 @@
 import doctest
 import unittest
 
+
 bad_rml = '''\
 <document filename="bad.pdf">
   <bad />

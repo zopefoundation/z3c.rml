@@ -17,7 +17,11 @@ import types
 
 import reportlab.pdfbase.pdfform
 
-from z3c.rml import attr, directive, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+from z3c.rml import occurence
+
 
 try:
     import reportlab.graphics.barcode

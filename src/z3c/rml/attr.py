@@ -31,7 +31,9 @@ import zope.interface
 import zope.schema
 from lxml import etree
 
-from z3c.rml import SampleStyleSheet, interfaces
+from z3c.rml import SampleStyleSheet
+from z3c.rml import interfaces
+
 
 MISSING = object()
 logger = logging.getLogger("z3c.rml")

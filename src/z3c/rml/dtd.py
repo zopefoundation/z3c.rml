@@ -16,7 +16,10 @@
 
 import zope.schema
 
-from z3c.rml import attr, document, occurence
+from z3c.rml import attr
+from z3c.rml import document
+from z3c.rml import occurence
+
 
 occurence2Symbol = {
     occurence.ZeroOrMore: '*',
