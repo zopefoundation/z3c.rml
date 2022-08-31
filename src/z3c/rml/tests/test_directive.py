@@ -14,7 +14,6 @@
 """Tests for the Book Documentation Module"""
 
 import doctest
-import unittest
 
 
 bad_rml = '''\
@@ -51,4 +50,4 @@ def test_abort_on_invalid_tag():
 
 def test_suite():
     return doctest.DocTestSuite(
-        optionflags=doctest.NORMALIZE_WHITESPACE|doctest.ELLIPSIS)
+        optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS)

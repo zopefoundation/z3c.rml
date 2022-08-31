@@ -25,7 +25,7 @@ occurence2Symbol = {
     occurence.ZeroOrMore: '*',
     occurence.ZeroOrOne: '?',
     occurence.OneOrMore: '+',
-    }
+}
 
 
 def generateElement(name, signature, seen):
@@ -56,7 +56,7 @@ def generateElement(name, signature, seen):
             subElementList += occurence
     else:
         subElementList = ' EMPTY'
-    text = '\n<!ELEMENT %s%s>' %(name, subElementList)
+    text = '\n<!ELEMENT %s%s>' % (name, subElementList)
     # Create a list of attributes for this element.
     for attrName, field in fields:
         # Ignore text nodes, since they are not attributes.
@@ -73,7 +73,7 @@ def generateElement(name, signature, seen):
         else:
             required = '#IMPLIED'
         # Put it all together
-        text += '\n<!ATTLIST %s %s %s %s>' %(name, attrName, type, required)
+        text += '\n<!ATTLIST %s %s %s %s>' % (name, attrName, type, required)
     text += '\n'
     # DTD does not support redefinition of an element type or have context
     # specific elements.
@@ -91,8 +91,9 @@ def generateElement(name, signature, seen):
 def generate(useWrapper=False):
     text = generateElement('document', document.Document.signature, [])
     if useWrapper:
-        text = '<!DOCTYPE RML [\n%s]>\n' %text
+        text = '<!DOCTYPE RML [\n%s]>\n' % text
     return text
+
 
 def main():
     print(generate())

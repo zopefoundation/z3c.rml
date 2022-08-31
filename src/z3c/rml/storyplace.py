@@ -37,7 +37,6 @@ class StoryPlaceFlowable(flowables.Flowable):
         return (0, 0)
 
     def draw(self):
-        saveState = False
         x, y = self.x, self.y
         self.canv.restoreState()
         if self.origin == 'frame':
@@ -49,7 +48,7 @@ class StoryPlaceFlowable(flowables.Flowable):
         else:
             # origin == 'page'
             pass
-        width, height  = self.width, self.height
+        width, height = self.width, self.height
         y += height
         for flow in self.flows.flow:
             flowWidth, flowHeight = flow.wrap(width, height)
@@ -91,8 +90,9 @@ class IStoryPlace(interfaces.IRMLDirectiveSignature):
         title='Origin',
         description='The origin of the coordinate system for the story.',
         choices=('page', 'frame', 'local'),
-        default = 'page',
+        default='page',
         required=False)
+
 
 class StoryPlace(flowable.Flowable):
     signature = IStoryPlace
@@ -112,4 +112,4 @@ flowable.IFlow.setTaggedValue(
     'directives',
     flowable.IFlow.getTaggedValue('directives') +
     (occurence.ZeroOrMore('storyPlace', IStoryPlace),)
-    )
+)

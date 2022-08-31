@@ -18,9 +18,9 @@ import datetime
 import reportlab.graphics.widgets.markers
 import reportlab.lib.styles
 import reportlab.platypus
-from reportlab.graphics import renderPDF
+from reportlab.graphics import renderPDF  # noqa: F401 imported but unused
 from reportlab.graphics import shapes
-from reportlab.lib import colors
+from reportlab.lib import colors  # noqa: F401 imported but unused
 
 from z3c.rml import SampleStyleSheet
 from z3c.rml import attr
@@ -39,7 +39,7 @@ def myPreformatted(params):
         plugin. Hey, this is a long text from a plugin. Hey, this is a long
         text from a plugin. Hey, this is a long text from a plugin. Hey, this
         is a long text from a plugin.''',
-        SampleStyleSheet['Normal'])
+                                           SampleStyleSheet['Normal'])
 
 
 class LinkURL(reportlab.platypus.flowables.Flowable):
@@ -75,7 +75,7 @@ class IMarker(interfaces.IRMLDirectiveSignature):
 
 
 def symbols(canvas, params):
-    args = eval('dict(%s)' %params)
+    args = eval('dict(%s)' % params)
     name = args.pop('name')
     n = args.pop('n')
     for key, value in args.items():
@@ -85,7 +85,7 @@ def symbols(canvas, params):
     drawing = shapes.Drawing()
     drawing.add(m)
     for idx in range(n):
-        drawing.drawOn(canvas, idx*args['dx'], idx*args['dy'])
+        drawing.drawOn(canvas, idx * args['dx'], idx * args['dy'])
 
 
 def formatDate(val):

@@ -131,7 +131,6 @@ class ComparePDFTestCase(unittest.TestCase):
             self.fail(
                 'Image is not the same: %s' % os.path.basename(baseImage))
 
-
     def runTest(self):
         # Convert the base PDF to image(s)
         status = subprocess.Popen(gs_command(self._basePath)).wait()
@@ -144,8 +143,8 @@ class ComparePDFTestCase(unittest.TestCase):
         # Go through all pages and ensure their equality
         n = 1
         while True:
-            baseImage = self._basePath[:-4] + '[Page-%i].png' %n
-            testImage = self._testPath[:-4] + '[Page-%i].png' %n
+            baseImage = self._basePath[:-4] + '[Page-%i].png' % n
+            testImage = self._testPath[:-4] + '[Page-%i].png' % n
             if os.path.exists(baseImage) and os.path.exists(testImage):
                 self.assertSameImage(baseImage, testImage)
             else:
@@ -200,17 +199,14 @@ def test_suite():
         case = TestCase(inPath, outPath)
         suite.addTest(case)
         # ** Test PDF rendering correctness **
-        TestCase = type('compare-'+filename[:-4], (ComparePDFTestCase,), {})
+        TestCase = type('compare-' + filename[:-4], (ComparePDFTestCase,), {})
         case = TestCase(expectPath, outPath)
         suite.addTest(case)
 
         if filename == 'printScaling.rml':
-            TestCase = type('compare-file-'+filename[:-4],
+            TestCase = type('compare-file-' + filename[:-4],
                             (CompareFileTestCase,), {})
             case = TestCase(outPath, b'/PrintScaling /None')
             suite.addTest(case)
 
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

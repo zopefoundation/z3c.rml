@@ -33,12 +33,13 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         self.maxWidth = maxWidth
         self.maxHeight = maxHeight
         self.mode = mode
-        assert mode in ('error','overflow','shrink','truncate'), \
-               '{} invalid mode value {}'.format(self.identity(),mode)
+        assert mode in ('error', 'overflow', 'shrink', 'truncate'), \
+            '{} invalid mode value {}'.format(self.identity(), mode)
         # This is an unnecessary check, since wrap() handles None just fine!
-        #assert maxHeight>=0,  \
+        # assert maxHeight>=0,  \
         #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)
-        if mergeSpace is None: mergeSpace = overlapAttachedSpace
+        if mergeSpace is None:
+            mergeSpace = overlapAttachedSpace
         self.mergespace = mergeSpace
         self._content = content or []
         self.vAlign = vAlign
@@ -57,6 +58,7 @@ class BaseFlowable(reportlab.platypus.flowables.Flowable):
 
     def draw(self):
         pass
+
 
 class Illustration(reportlab.platypus.flowables.Flowable):
     def __init__(self, processor, width, height):
@@ -77,6 +79,7 @@ class Illustration(reportlab.platypus.flowables.Flowable):
         drawing.canvas = self.canv
         drawing.process()
         self.canv.restoreState()
+
 
 class BookmarkPage(BaseFlowable):
     def draw(self):
@@ -111,11 +114,12 @@ class Link(reportlab.platypus.flowables._Container,
     def drawOn(self, canv, x, y, _sW=0, scale=1.0, content=None, aW=None):
         '''we simulate being added to a frame'''
         pS = 0
-        if aW is None: aW = self.width
-        aW = scale*(aW+_sW)
+        if aW is None:
+            aW = self.width
+        aW = scale * (aW + _sW)
         if content is None:
             content = self._content
-        y += self.height*scale
+        y += self.height * scale
 
         startX = x
         startY = y
@@ -123,19 +127,20 @@ class Link(reportlab.platypus.flowables._Container,
         totalHeight = 0
 
         for c in content:
-            w, h = c.wrapOn(canv,aW,0xfffffff)
+            w, h = c.wrapOn(canv, aW, 0xfffffff)
             if w < reportlab.rl_config._FUZZ or h < reportlab.rl_config._FUZZ:
                 continue
-            if c is not content[0]: h += max(c.getSpaceBefore()-pS,0)
+            if c is not content[0]:
+                h += max(c.getSpaceBefore() - pS, 0)
             y -= h
-            c.drawOn(canv,x,y,_sW=aW-w)
+            c.drawOn(canv, x, y, _sW=aW - w)
             if c is not content[-1]:
                 pS = c.getSpaceAfter()
                 y -= pS
             totalWidth += w
             totalHeight += h
-        rectangle = [startX, startY-totalHeight,
-                startX+totalWidth, startY]
+        rectangle = [startX, startY - totalHeight,
+                     startX + totalWidth, startY]
         if 'url' in self.args:
             canv.linkURL(rect=rectangle, **self.args)
         else:

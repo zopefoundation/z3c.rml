@@ -16,7 +16,7 @@
 import reportlab.lib.formatters
 from reportlab.graphics import shapes
 from reportlab.graphics.charts import barcharts
-from reportlab.graphics.charts import doughnut
+from reportlab.graphics.charts import doughnut  # noqa: F401 unused
 from reportlab.graphics.charts import lineplots
 from reportlab.graphics.charts import piecharts
 from reportlab.graphics.charts import spider
@@ -116,7 +116,7 @@ class Text(directive.RMLDirective):
         for name, value in attrs.items():
             setattr(string, name, value)
         group = shapes.Group(string)
-        group.translate(0,0)
+        group.translate(0, 0)
         group.rotate(angle)
         self.parent.parent.drawing.add(group)
 
@@ -125,7 +125,8 @@ class ITexts(interfaces.IRMLDirectiveSignature):
     """A set of texts drawn on the chart."""
     occurence.containing(
         occurence.ZeroOrMore('text', IText)
-        )
+    )
+
 
 class Texts(directive.RMLDirective):
     signature = ITexts
@@ -158,6 +159,7 @@ class ISeries1D(interfaces.IRMLDirectiveSignature):
         value_type=attr.Float(),
         required=True)
 
+
 class Series1D(Series):
     signature = ISeries1D
 
@@ -166,7 +168,8 @@ class IData1D(interfaces.IRMLDirectiveSignature):
     """A 1-D data set."""
     occurence.containing(
         occurence.OneOrMore('series', ISeries1D)
-        )
+    )
+
 
 class Data1D(Data):
     signature = IData1D
@@ -177,7 +180,8 @@ class ISingleData1D(interfaces.IRMLDirectiveSignature):
     """A 1-D data set."""
     occurence.containing(
         occurence.One('series', ISeries1D)
-        )
+    )
+
 
 class SingleData1D(Data1D):
     signature = ISingleData1D
@@ -199,6 +203,7 @@ class ISeries2D(interfaces.IRMLDirectiveSignature):
         columns=2,
         required=True)
 
+
 class Series2D(Series):
     signature = ISeries2D
 
@@ -207,7 +212,8 @@ class IData2D(interfaces.IRMLDirectiveSignature):
     """A 2-D data set."""
     occurence.containing(
         occurence.OneOrMore('series', ISeries2D)
-        )
+    )
+
 
 class Data2D(Data):
     signature = IData2D
@@ -232,14 +238,17 @@ class IBar(interfaces.IRMLDirectiveSignature):
         description='The color with which the bar is filled.',
         required=False)
 
+
 class Bar(PropertyItem):
     signature = IBar
+
 
 class IBars(IBar):
     """Collection of bar subscriptions."""
     occurence.containing(
         occurence.ZeroOrMore('bar', IBar)
-        )
+    )
+
 
 class Bars(PropertyCollection):
     signature = IBars
@@ -267,7 +276,18 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
     boxAnchor = attr.Choice(
         title='Box Anchor',
         description=('The position relative to the label.'),
-        choices=('nw','n','ne','w','c','e','sw','s','se', 'autox', 'autoy'),
+        choices=(
+            'nw',
+            'n',
+            'ne',
+            'w',
+            'c',
+            'e',
+            'sw',
+            's',
+            'se',
+            'autox',
+            'autoy'),
         required=False)
 
     boxStrokeColor = attr.Color(
@@ -391,14 +411,17 @@ class ILabel(IPositionLabelBase):
         description='The label text to be displayed.',
         required=True)
 
+
 class Label(PropertyItem):
     signature = ILabel
+
 
 class IBarLabels(ILabelBase):
     """A set of labels for a bar chart"""
     occurence.containing(
         occurence.ZeroOrMore('label', ILabel)
-        )
+    )
+
 
 class BarLabels(PropertyCollection):
     signature = IBarLabels
@@ -406,11 +429,13 @@ class BarLabels(PropertyCollection):
     factories = {'label': Label}
     name = 'barLabels'
 
+
 class ILabels(IPositionLabelBase):
     """A set of labels of an axis."""
     occurence.containing(
         occurence.ZeroOrMore('label', ILabel)
-        )
+    )
+
 
 class Labels(PropertyCollection):
     signature = ILabels
@@ -421,7 +446,7 @@ class Labels(PropertyCollection):
 class IAxis(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.ZeroOrMore('labels', ILabels)
-        )
+    )
 
     visible = attr.Boolean(
         title='Visible',
@@ -518,6 +543,7 @@ class IName(interfaces.IRMLDirectiveSignature):
         description='The text value that is the name.',
         required=True)
 
+
 class Name(directive.RMLDirective):
     signature = IName
 
@@ -530,7 +556,8 @@ class ICategoryNames(interfaces.IRMLDirectiveSignature):
     """A list of category names."""
     occurence.containing(
         occurence.OneOrMore('name', IName),
-        )
+    )
+
 
 class CategoryNames(directive.RMLDirective):
     signature = ICategoryNames
@@ -547,7 +574,7 @@ class ICategoryAxis(IAxis):
     occurence.containing(
         occurence.ZeroOrOne('categoryNames', ICategoryNames),
         *IAxis.queryTaggedValue('directives', ())
-        )
+    )
 
     categoryNames = attr.Sequence(
         title='Category Names',
@@ -582,13 +609,14 @@ class ICategoryAxis(IAxis):
                      'category instead the beginning and end.'),
         required=False)
 
+
 class CategoryAxis(Axis):
     signature = ICategoryAxis
     name = 'categoryAxis'
     factories = Axis.factories.copy()
     factories.update({
         'categoryNames': CategoryNames,
-        })
+    })
 
 
 class IXCategoryAxis(ICategoryAxis):
@@ -609,6 +637,7 @@ class IXCategoryAxis(ICategoryAxis):
         description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
+
 
 class XCategoryAxis(CategoryAxis):
     signature = IXCategoryAxis
@@ -632,6 +661,7 @@ class IYCategoryAxis(ICategoryAxis):
         description='Mode for connecting axes.',
         choices=('bottom', 'top', 'value', 'points', 'None'),
         required=False)
+
 
 class YCategoryAxis(CategoryAxis):
     signature = IYCategoryAxis
@@ -695,7 +725,7 @@ class IValueAxis(IAxis):
     valueSteps = attr.Sequence(
         title='Step Sizes',
         description='List of step sizes between ticks.',
-        value_type = attr.Float(),
+        value_type=attr.Float(),
         required=False)
 
     rangeRound = attr.Choice(
@@ -708,6 +738,7 @@ class IValueAxis(IAxis):
         title='Zero Range Preference',
         description='Zero range axis limit preference.',
         required=False)
+
 
 class ValueAxis(Axis):
     signature = IValueAxis
@@ -743,11 +774,14 @@ class IXValueAxis(IValueAxis):
         description='The position in the plot at which to join the axes.',
         required=False)
 
+
 class XValueAxis(ValueAxis):
     signature = IXValueAxis
 
+
 class LineXValueAxis(XValueAxis):
     name = 'xValueAxis'
+
 
 class IYValueAxis(IValueAxis):
     """Y-Value Axis"""
@@ -782,6 +816,7 @@ class IYValueAxis(IValueAxis):
 class YValueAxis(ValueAxis):
     signature = IYValueAxis
 
+
 class LineYValueAxis(YValueAxis):
     name = 'yValueAxis'
 
@@ -790,7 +825,8 @@ class ILineLabels(IPositionLabelBase):
     """A set of labels of an axis."""
     occurence.containing(
         occurence.ZeroOrMore('label', ILabel)
-        )
+    )
+
 
 class LineLabels(PropertyCollection):
     signature = ILineLabels
@@ -813,13 +849,14 @@ class ILineBase(interfaces.IRMLDirectiveSignature):
     strokeDashArray = attr.Sequence(
         title='Stroke Dash Array',
         description='The dash array of the plot line.',
-        value_type = attr.Float(),
+        value_type=attr.Float(),
         required=False)
 
     symbol = attr.Symbol(
         title='Symbol',
         description='The symbol to be used for every data point in the plot.',
         required=False)
+
 
 class ILine(ILineBase):
     """A line description of a series of a line plot."""
@@ -829,14 +866,17 @@ class ILine(ILineBase):
         description='The name of the line.',
         required=False)
 
+
 class Line(PropertyItem):
     signature = ILine
+
 
 class ILines(ILineBase):
     """The set of all line descriptions in the line plot."""
     occurence.containing(
         occurence.OneOrMore('line', ILine),
-        )
+    )
+
 
 class Lines(PropertyCollection):
     signature = ILines
@@ -852,12 +892,13 @@ class ISliceLabel(ILabelBase):
         description='The label text to be displayed.',
         required=True)
 
+
 class SliceLabel(Label):
     signature = ISliceLabel
 
     def process(self):
         for name, value in self.getAttributeValues():
-            self.parent.context['label_'+name] = value
+            self.parent.context['label_' + name] = value
         # Now we do not have simple labels anymore
         self.parent.parent.parent.context.simpleLabels = False
 
@@ -890,12 +931,13 @@ class ISlicePointer(interfaces.IRMLDirectiveSignature):
         description='The padding between between the pointer label and chart.',
         required=False)
 
+
 class SlicePointer(directive.RMLDirective):
     signature = ISlicePointer
 
     def process(self):
         for name, value in self.getAttributeValues():
-            self.parent.context['label_pointer_'+name] = value
+            self.parent.context['label_pointer_' + name] = value
 
 
 class ISliceBase(interfaces.IRMLDirectiveSignature):
@@ -948,10 +990,11 @@ class ISlice(ISliceBase):
     occurence.containing(
         occurence.ZeroOrOne('label', ISliceLabel),
         occurence.ZeroOrOne('pointer', ISlicePointer),
-        )
+    )
 
     swatchMarker = attr.Symbol(
         required=False)
+
 
 class Slice(directive.RMLDirective):
     signature = ISlice
@@ -973,6 +1016,7 @@ class ISlice3D(ISlice):
         description='The shade used for the fill color.',
         required=False)
 
+
 class Slice3D(Slice):
     signature = ISlice3D
     factories = {}
@@ -984,7 +1028,8 @@ class ISlices(ISliceBase):
     """The collection of all 2-D slice descriptions."""
     occurence.containing(
         occurence.OneOrMore('slice', ISlice),
-        )
+    )
+
 
 class Slices(directive.RMLDirective):
     signature = ISlices
@@ -1006,10 +1051,11 @@ class ISlices3D(ISliceBase):
     """The collection of all 3-D slice descriptions."""
     occurence.containing(
         occurence.OneOrMore('slice', ISlice3D),
-        )
+    )
 
     fillColorShaded = attr.Color(
         required=False)
+
 
 class Slices3D(Slices):
     signature = ISlices3D
@@ -1019,14 +1065,17 @@ class Slices3D(Slices):
 class ISimpleLabel(IName):
     """A simple label"""
 
+
 class SimpleLabel(Name):
     signature = ISimpleLabel
+
 
 class ISimpleLabels(interfaces.IRMLDirectiveSignature):
     """A set of simple labels for a chart."""
     occurence.containing(
         occurence.OneOrMore('label', ISimpleLabel),
-        )
+    )
+
 
 class SimpleLabels(directive.RMLDirective):
     signature = ISimpleLabels
@@ -1050,7 +1099,7 @@ class IStrandBase(interfaces.IRMLDirectiveSignature):
         description='The fill color of the strand area.',
         required=False)
 
-    strokeColor= attr.Color(
+    strokeColor = attr.Color(
         title='Stroke Color',
         description='The color of the strand line.',
         required=False)
@@ -1071,6 +1120,7 @@ class IStrandBase(interfaces.IRMLDirectiveSignature):
         description='The size of the strand symbol.',
         required=False)
 
+
 class IStrand(IStrandBase):
     """A strand in the spider diagram"""
 
@@ -1078,6 +1128,7 @@ class IStrand(IStrandBase):
         title='Name',
         description='The name of the strand.',
         required=False)
+
 
 class Strand(PropertyItem):
     signature = IStrand
@@ -1087,7 +1138,8 @@ class IStrands(IStrand):
     """A collection of strands."""
     occurence.containing(
         occurence.OneOrMore('strand', IStrand)
-        )
+    )
+
 
 class Strands(PropertyCollection):
     signature = IStrands
@@ -1113,6 +1165,7 @@ class IStrandLabelBase(ILabelBase):
         description='The format string for the label.',
         required=False)
 
+
 class IStrandLabel(IStrandLabelBase):
     """A label for a strand."""
 
@@ -1126,6 +1179,7 @@ class IStrandLabel(IStrandLabelBase):
         description='The radial shift of the label.',
         required=False)
 
+
 class StrandLabel(Label):
     signature = IStrandLabel
 
@@ -1134,7 +1188,8 @@ class IStrandLabels(IStrandLabelBase):
     """A set of strand labels."""
     occurence.containing(
         occurence.OneOrMore('label', IStrandLabel)
-        )
+    )
+
 
 class StrandLabels(PropertyCollection):
     signature = IStrandLabels
@@ -1167,7 +1222,7 @@ class ISpoke(interfaces.IRMLDirectiveSignature):
         description="The fill color of the spoke's area.",
         required=False)
 
-    strokeColor= attr.Color(
+    strokeColor = attr.Color(
         title='Stroke Color',
         description='The color of the spoke line.',
         required=False)
@@ -1188,6 +1243,7 @@ class ISpoke(interfaces.IRMLDirectiveSignature):
         description='When true, the spoke line is drawn.',
         required=False)
 
+
 class Spoke(PropertyItem):
     signature = ISpoke
 
@@ -1196,7 +1252,8 @@ class ISpokes(ISpoke):
     """A collection of spokes."""
     occurence.containing(
         occurence.OneOrMore('spoke', ISpoke)
-        )
+    )
+
 
 class Spokes(PropertyCollection):
     signature = ISpokes
@@ -1207,12 +1264,14 @@ class Spokes(PropertyCollection):
 class ISpokeLabelBase(ILabelBase):
     pass
 
+
 class ISpokeLabel(ISpokeLabelBase):
     """A label for a spoke."""
     _text = attr.TextNode(
         title='Text',
         description='The text of the spoke (label).',
         required=False)
+
 
 class SpokeLabel(Label):
     signature = ISpokeLabel
@@ -1222,7 +1281,8 @@ class ISpokeLabels(ISpokeLabelBase):
     """A set of spoke labels."""
     occurence.containing(
         occurence.OneOrMore('label', ISpokeLabel)
-        )
+    )
+
 
 class SpokeLabels(PropertyCollection):
     signature = ISpokeLabels
@@ -1233,7 +1293,7 @@ class SpokeLabels(PropertyCollection):
 class IChart(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.ZeroOrOne('texts', ITexts),
-        )
+    )
 
     # Drawing Options
 
@@ -1304,11 +1364,12 @@ class IChart(interfaces.IRMLDirectiveSignature):
         description='A flag that when set to True turns on debug messages.',
         required=False)
 
+
 class Chart(directive.RMLDirective):
     signature = IChart
     factories = {
         'texts': Texts
-        }
+    }
     attrMapping = {}
 
     def createChart(self, attributes):
@@ -1318,11 +1379,12 @@ class Chart(directive.RMLDirective):
         attrs = dict(self.getAttributeValues(attrMapping=self.attrMapping))
         angle = attrs.pop('angle', 0)
         x, y = attrs.pop('dx'), attrs.pop('dy')
-        self.drawing = shapes.Drawing(attrs.pop('dwidth'), attrs.pop('dheight'))
+        self.drawing = shapes.Drawing(
+            attrs.pop('dwidth'), attrs.pop('dheight'))
         self.context = chart = self.createChart(attrs)
         self.processSubDirectives()
         group = shapes.Group(chart)
-        group.translate(0,0)
+        group.translate(0, 0)
         group.rotate(angle)
         self.drawing.add(group)
         manager = attr.getManager(self, interfaces.ICanvasManager)
@@ -1338,7 +1400,7 @@ class IBarChart(IChart):
         occurence.ZeroOrOne('valueAxis', IValueAxis),
         occurence.ZeroOrOne('barLabels', IBarLabels),
         *IChart.queryTaggedValue('directives', ())
-        )
+    )
 
     direction = attr.Choice(
         title='Direction',
@@ -1384,8 +1446,8 @@ class BarChart(Chart):
     factories.update({
         'data': Data1D,
         'bars': Bars,
-	'barLabels': BarLabels,
-        })
+        'barLabels': BarLabels,
+    })
 
     def createChart(self, attrs):
         direction = attrs.pop('direction')
@@ -1398,7 +1460,7 @@ class BarChart(Chart):
             self.factories['valueAxis'] = YValueAxis
         # Generate the chart
         chart = getattr(
-            barcharts, direction.capitalize()+self.nameBase)()
+            barcharts, direction.capitalize() + self.nameBase)()
         for name, value in attrs.items():
             setattr(chart, name, value)
         return chart
@@ -1408,7 +1470,7 @@ class IBarChart3D(IBarChart):
     """Creates a three-dimensional bar chart."""
     occurence.containing(
         *IBarChart.queryTaggedValue('directives', ())
-        )
+    )
 
     thetaX = attr.Float(
         title='Theta-X',
@@ -1430,6 +1492,7 @@ class IBarChart3D(IBarChart):
         description='Z-Gap around a series/bar.',
         required=False)
 
+
 class BarChart3D(BarChart):
     signature = IBarChart3D
     nameBase = 'BarChart3D'
@@ -1445,7 +1508,7 @@ class ILinePlot(IChart):
         occurence.ZeroOrOne('yValueAxis', IYValueAxis),
         occurence.ZeroOrOne('lineLabels', ILineLabels),
         *IChart.queryTaggedValue('directives', ())
-        )
+    )
 
     reversePlotOrder = attr.Boolean(
         title='Reverse Plot Order',
@@ -1474,6 +1537,7 @@ class ILinePlot(IChart):
             'in other words converted to an area chart.'),
         required=False)
 
+
 class LinePlot(Chart):
     signature = ILinePlot
     attrMapping = {'inFill': '_inFill'}
@@ -1485,7 +1549,7 @@ class LinePlot(Chart):
         'xValueAxis': LineXValueAxis,
         'yValueAxis': LineYValueAxis,
         'lineLabels': LineLabels,
-        })
+    })
 
     def createChart(self, attrs):
         # Generate the chart
@@ -1494,11 +1558,12 @@ class LinePlot(Chart):
             setattr(chart, name, value)
         return chart
 
+
 class ILinePlot3D(ILinePlot):
     """Creates a three-dimensional line plot."""
     occurence.containing(
         *ILinePlot.queryTaggedValue('directives', ())
-        )
+    )
 
     thetaX = attr.Float(
         title='Theta-X',
@@ -1520,6 +1585,7 @@ class ILinePlot3D(ILinePlot):
         description='Z-Gap around a series/bar.',
         required=False)
 
+
 class LinePlot3D(LinePlot):
     signature = ILinePlot3D
     nameBase = 'LinePlot3D'
@@ -1529,9 +1595,8 @@ class LinePlot3D(LinePlot):
         # Generate the chart
         chart = lineplots.LinePlot3D()
         for name, value in attrs.items():
-            setattr(chart,name, value)
+            setattr(chart, name, value)
         return chart
-
 
 
 class IPieChart(IChart):
@@ -1541,7 +1606,7 @@ class IPieChart(IChart):
         occurence.ZeroOrOne('slices', ISlices),
         occurence.ZeroOrOne('labels', ISimpleLabels),
         *IChart.queryTaggedValue('directives', ())
-        )
+    )
 
     startAngle = attr.Integer(
         title='Start Angle',
@@ -1601,7 +1666,7 @@ class PieChart(Chart):
         'data': SingleData1D,
         'slices': Slices,
         'labels': SimpleLabels,
-        })
+    })
 
     def createChart(self, attrs):
         # Generate the chart
@@ -1616,7 +1681,7 @@ class IPieChart3D(IPieChart):
     occurence.containing(
         occurence.One('slices', ISlices3D),
         *IChart.queryTaggedValue('directives', ())
-        )
+    )
 
     perspective = attr.Float(
         title='Perspsective',
@@ -1633,6 +1698,7 @@ class IPieChart3D(IPieChart):
         description='The view angle in the Z-coordinate.',
         required=False)
 
+
 class PieChart3D(PieChart):
     signature = IPieChart3D
     chartClass = piecharts.Pie3d
@@ -1640,7 +1706,8 @@ class PieChart3D(PieChart):
     factories = PieChart.factories.copy()
     factories.update({
         'slices': Slices3D,
-        })
+    })
+
 
 class ISpiderChart(IChart):
     """A spider chart."""
@@ -1652,7 +1719,7 @@ class ISpiderChart(IChart):
         occurence.ZeroOrOne('spokeLabels', ISpokeLabels),
         occurence.ZeroOrOne('labels', ISimpleLabels),
         *IChart.queryTaggedValue('directives', ())
-        )
+    )
 
     startAngle = attr.Integer(
         title='Start Angle',
@@ -1666,6 +1733,7 @@ class ISpiderChart(IChart):
         choices=('clockwise', 'anticlockwise'),
         required=False)
 
+
 class SpiderChart(Chart):
     signature = ISpiderChart
     factories = Chart.factories.copy()
@@ -1676,7 +1744,7 @@ class SpiderChart(Chart):
         'spokes': Spokes,
         'spokeLabels': SpokeLabels,
         'labels': SimpleLabels,
-        })
+    })
 
     def createChart(self, attrs):
         # Generate the chart

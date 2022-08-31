@@ -12,7 +12,7 @@ from gzip import GzipFile
 from xml.etree import cElementTree
 
 import reportlab.lib.colors as colors
-from reportlab.graphics import renderPDF
+from reportlab.graphics import renderPDF  # noqa: F401 imported but unused
 from reportlab.graphics.shapes import Circle
 from reportlab.graphics.shapes import Drawing
 from reportlab.graphics.shapes import Ellipse
@@ -25,14 +25,16 @@ from reportlab.graphics.shapes import PolyLine
 from reportlab.graphics.shapes import Rect
 from reportlab.graphics.shapes import String
 from reportlab.graphics.shapes import mmult
-from reportlab.lib.units import pica
+from reportlab.lib.units import pica  # noqa: F401 imported but unused
 from reportlab.lib.units import toLength
 
 
 class SVGError(Exception):
     pass
 
+
 EOF = object()
+
 
 class Lexer:
     """
@@ -52,12 +54,12 @@ class Lexer:
 
         # create internal names for group matches
         groupnames = {
-            f'lexer_{idx}': item[0] for idx,item in enumerate(lexicon)
+            f'lexer_{idx}': item[0] for idx, item in enumerate(lexicon)
         }
         self.groupnames = groupnames
 
         # assemble regex parts to one regex
-        igroupnames = {value:name for name,value in groupnames.items()}
+        igroupnames = {value: name for name, value in groupnames.items()}
 
         regex_parts = (
             f'(?P<{igroupnames[cls]}>{regs})' for cls, regs in lexicon
@@ -83,7 +85,7 @@ class Lexer:
         while position < size:
             match = regex.match(text, position)
             if match is None:
-                raise SVGError('Unknown token at position %d' %  position)
+                raise SVGError('Unknown token at position %d' % position)
 
             position = match.end()
             cls = groupnames[match.lastgroup]
@@ -99,9 +101,10 @@ class Lexer:
 
         yield (EOF, None)
 
+
 # Parse SVG length units
 length_pattern = \
-r"""
+    r"""
     ^                           # match start of line
     \s*                         # ignore whitespace
     (?P<value>[-\+]?\d*\.?\d*([eE][-\+]?\d+)?)  # match float or int value
@@ -111,6 +114,7 @@ r"""
 """
 
 length_match = re.compile(length_pattern, re.X).match
+
 
 def parseLength(length):
     """
@@ -145,9 +149,10 @@ def parseLength(length):
     else:
         raise SVGError(f"Unknown unit '{unit}'")
 
+
 # Parse SVG color definitions
 color_pattern = \
-r"""
+    r"""
 ^(
     (?P<named>
         \w+
@@ -198,154 +203,155 @@ color_match = re.compile(color_pattern, re.X).match
 
 NAMEDCOLOURS = {
     # expanded named colors from SVG spc
-           'aliceblue' : colors.HexColor('#f0f8ff'),
-        'antiquewhite' : colors.HexColor('#faebd7'),
-                'aqua' : colors.HexColor('#00ffff'),
-          'aquamarine' : colors.HexColor('#7fffd4'),
-               'azure' : colors.HexColor('#f0ffff'),
-               'beige' : colors.HexColor('#f5f5dc'),
-              'bisque' : colors.HexColor('#ffe4c4'),
-               'black' : colors.HexColor('#000000'),
-      'blanchedalmond' : colors.HexColor('#ffebcd'),
-                'blue' : colors.HexColor('#0000ff'),
-          'blueviolet' : colors.HexColor('#8a2be2'),
-               'brown' : colors.HexColor('#a52a2a'),
-           'burlywood' : colors.HexColor('#deb887'),
-           'cadetblue' : colors.HexColor('#5f9ea0'),
-          'chartreuse' : colors.HexColor('#7fff00'),
-           'chocolate' : colors.HexColor('#d2691e'),
-               'coral' : colors.HexColor('#ff7f50'),
-      'cornflowerblue' : colors.HexColor('#6495ed'),
-            'cornsilk' : colors.HexColor('#fff8dc'),
-             'crimson' : colors.HexColor('#dc143c'),
-                'cyan' : colors.HexColor('#00ffff'),
-            'darkblue' : colors.HexColor('#00008b'),
-            'darkcyan' : colors.HexColor('#008b8b'),
-       'darkgoldenrod' : colors.HexColor('#b8860b'),
-            'darkgray' : colors.HexColor('#a9a9a9'),
-           'darkgreen' : colors.HexColor('#006400'),
-            'darkgrey' : colors.HexColor('#a9a9a9'),
-           'darkkhaki' : colors.HexColor('#bdb76b'),
-         'darkmagenta' : colors.HexColor('#8b008b'),
-      'darkolivegreen' : colors.HexColor('#556b2f'),
-          'darkorange' : colors.HexColor('#ff8c00'),
-          'darkorchid' : colors.HexColor('#9932cc'),
-             'darkred' : colors.HexColor('#8b0000'),
-          'darksalmon' : colors.HexColor('#e9967a'),
-        'darkseagreen' : colors.HexColor('#8fbc8b'),
-       'darkslateblue' : colors.HexColor('#483d8b'),
-       'darkslategray' : colors.HexColor('#2f4f4f'),
-       'darkslategrey' : colors.HexColor('#2f4f4f'),
-       'darkturquoise' : colors.HexColor('#00ced1'),
-          'darkviolet' : colors.HexColor('#9400d3'),
-            'deeppink' : colors.HexColor('#ff1493'),
-         'deepskyblue' : colors.HexColor('#00bfff'),
-             'dimgray' : colors.HexColor('#696969'),
-             'dimgrey' : colors.HexColor('#696969'),
-          'dodgerblue' : colors.HexColor('#1e90ff'),
-           'firebrick' : colors.HexColor('#b22222'),
-         'floralwhite' : colors.HexColor('#fffaf0'),
-         'forestgreen' : colors.HexColor('#228b22'),
-             'fuchsia' : colors.HexColor('#ff00ff'),
-           'gainsboro' : colors.HexColor('#dcdcdc'),
-          'ghostwhite' : colors.HexColor('#f8f8ff'),
-                'gold' : colors.HexColor('#ffd700'),
-           'goldenrod' : colors.HexColor('#daa520'),
-                'gray' : colors.HexColor('#808080'),
-               'green' : colors.HexColor('#008000'),
-         'greenyellow' : colors.HexColor('#adff2f'),
-                'grey' : colors.HexColor('#808080'),
-            'honeydew' : colors.HexColor('#f0fff0'),
-             'hotpink' : colors.HexColor('#ff69b4'),
-           'indianred' : colors.HexColor('#cd5c5c'),
-              'indigo' : colors.HexColor('#4b0082'),
-               'ivory' : colors.HexColor('#fffff0'),
-               'khaki' : colors.HexColor('#f0e68c'),
-            'lavender' : colors.HexColor('#e6e6fa'),
-       'lavenderblush' : colors.HexColor('#fff0f5'),
-           'lawngreen' : colors.HexColor('#7cfc00'),
-        'lemonchiffon' : colors.HexColor('#fffacd'),
-           'lightblue' : colors.HexColor('#add8e6'),
-          'lightcoral' : colors.HexColor('#f08080'),
-           'lightcyan' : colors.HexColor('#e0ffff'),
-'lightgoldenrodyellow' : colors.HexColor('#fafad2'),
-           'lightgray' : colors.HexColor('#d3d3d3'),
-          'lightgreen' : colors.HexColor('#90ee90'),
-           'lightgrey' : colors.HexColor('#d3d3d3'),
-           'lightpink' : colors.HexColor('#ffb6c1'),
-         'lightsalmon' : colors.HexColor('#ffa07a'),
-       'lightseagreen' : colors.HexColor('#20b2aa'),
-        'lightskyblue' : colors.HexColor('#87cefa'),
-      'lightslategray' : colors.HexColor('#778899'),
-      'lightslategrey' : colors.HexColor('#778899'),
-      'lightsteelblue' : colors.HexColor('#b0c4de'),
-         'lightyellow' : colors.HexColor('#ffffe0'),
-                'lime' : colors.HexColor('#00ff00'),
-           'limegreen' : colors.HexColor('#32cd32'),
-               'linen' : colors.HexColor('#faf0e6'),
-             'magenta' : colors.HexColor('#ff00ff'),
-              'maroon' : colors.HexColor('#800000'),
-    'mediumaquamarine' : colors.HexColor('#66cdaa'),
-          'mediumblue' : colors.HexColor('#0000cd'),
-        'mediumorchid' : colors.HexColor('#ba55d3'),
-        'mediumpurple' : colors.HexColor('#9370db'),
-      'mediumseagreen' : colors.HexColor('#3cb371'),
-     'mediumslateblue' : colors.HexColor('#7b68ee'),
-   'mediumspringgreen' : colors.HexColor('#00fa9a'),
-     'mediumturquoise' : colors.HexColor('#48d1cc'),
-     'mediumvioletred' : colors.HexColor('#c71585'),
-        'midnightblue' : colors.HexColor('#191970'),
-           'mintcream' : colors.HexColor('#f5fffa'),
-           'mistyrose' : colors.HexColor('#ffe4e1'),
-            'moccasin' : colors.HexColor('#ffe4b5'),
-         'navajowhite' : colors.HexColor('#ffdead'),
-                'navy' : colors.HexColor('#000080'),
-             'oldlace' : colors.HexColor('#fdf5e6'),
-               'olive' : colors.HexColor('#808000'),
-           'olivedrab' : colors.HexColor('#6b8e23'),
-              'orange' : colors.HexColor('#ffa500'),
-           'orangered' : colors.HexColor('#ff4500'),
-              'orchid' : colors.HexColor('#da70d6'),
-       'palegoldenrod' : colors.HexColor('#eee8aa'),
-           'palegreen' : colors.HexColor('#98fb98'),
-       'paleturquoise' : colors.HexColor('#afeeee'),
-       'palevioletred' : colors.HexColor('#db7093'),
-          'papayawhip' : colors.HexColor('#ffefd5'),
-           'peachpuff' : colors.HexColor('#ffdab9'),
-                'peru' : colors.HexColor('#cd853f'),
-                'pink' : colors.HexColor('#ffc0cb'),
-                'plum' : colors.HexColor('#dda0dd'),
-          'powderblue' : colors.HexColor('#b0e0e6'),
-              'purple' : colors.HexColor('#800080'),
-                 'red' : colors.HexColor('#ff0000'),
-           'rosybrown' : colors.HexColor('#bc8f8f'),
-           'royalblue' : colors.HexColor('#4169e1'),
-         'saddlebrown' : colors.HexColor('#8b4513'),
-              'salmon' : colors.HexColor('#fa8072'),
-          'sandybrown' : colors.HexColor('#f4a460'),
-            'seagreen' : colors.HexColor('#2e8b57'),
-            'seashell' : colors.HexColor('#fff5ee'),
-              'sienna' : colors.HexColor('#a0522d'),
-              'silver' : colors.HexColor('#c0c0c0'),
-             'skyblue' : colors.HexColor('#87ceeb'),
-           'slateblue' : colors.HexColor('#6a5acd'),
-           'slategray' : colors.HexColor('#708090'),
-           'slategrey' : colors.HexColor('#708090'),
-                'snow' : colors.HexColor('#fffafa'),
-         'springgreen' : colors.HexColor('#00ff7f'),
-           'steelblue' : colors.HexColor('#4682b4'),
-                 'tan' : colors.HexColor('#d2b48c'),
-                'teal' : colors.HexColor('#008080'),
-             'thistle' : colors.HexColor('#d8bfd8'),
-              'tomato' : colors.HexColor('#ff6347'),
-           'turquoise' : colors.HexColor('#40e0d0'),
-              'violet' : colors.HexColor('#ee82ee'),
-               'wheat' : colors.HexColor('#f5deb3'),
-               'white' : colors.HexColor('#ffffff'),
-          'whitesmoke' : colors.HexColor('#f5f5f5'),
-              'yellow' : colors.HexColor('#ffff00'),
-         'yellowgreen' : colors.HexColor('#9acd32'),
+    'aliceblue': colors.HexColor('#f0f8ff'),
+    'antiquewhite': colors.HexColor('#faebd7'),
+    'aqua': colors.HexColor('#00ffff'),
+    'aquamarine': colors.HexColor('#7fffd4'),
+    'azure': colors.HexColor('#f0ffff'),
+    'beige': colors.HexColor('#f5f5dc'),
+    'bisque': colors.HexColor('#ffe4c4'),
+    'black': colors.HexColor('#000000'),
+    'blanchedalmond': colors.HexColor('#ffebcd'),
+    'blue': colors.HexColor('#0000ff'),
+    'blueviolet': colors.HexColor('#8a2be2'),
+    'brown': colors.HexColor('#a52a2a'),
+    'burlywood': colors.HexColor('#deb887'),
+    'cadetblue': colors.HexColor('#5f9ea0'),
+    'chartreuse': colors.HexColor('#7fff00'),
+    'chocolate': colors.HexColor('#d2691e'),
+    'coral': colors.HexColor('#ff7f50'),
+    'cornflowerblue': colors.HexColor('#6495ed'),
+    'cornsilk': colors.HexColor('#fff8dc'),
+    'crimson': colors.HexColor('#dc143c'),
+    'cyan': colors.HexColor('#00ffff'),
+    'darkblue': colors.HexColor('#00008b'),
+    'darkcyan': colors.HexColor('#008b8b'),
+    'darkgoldenrod': colors.HexColor('#b8860b'),
+    'darkgray': colors.HexColor('#a9a9a9'),
+    'darkgreen': colors.HexColor('#006400'),
+    'darkgrey': colors.HexColor('#a9a9a9'),
+    'darkkhaki': colors.HexColor('#bdb76b'),
+    'darkmagenta': colors.HexColor('#8b008b'),
+    'darkolivegreen': colors.HexColor('#556b2f'),
+    'darkorange': colors.HexColor('#ff8c00'),
+    'darkorchid': colors.HexColor('#9932cc'),
+    'darkred': colors.HexColor('#8b0000'),
+    'darksalmon': colors.HexColor('#e9967a'),
+    'darkseagreen': colors.HexColor('#8fbc8b'),
+    'darkslateblue': colors.HexColor('#483d8b'),
+    'darkslategray': colors.HexColor('#2f4f4f'),
+    'darkslategrey': colors.HexColor('#2f4f4f'),
+    'darkturquoise': colors.HexColor('#00ced1'),
+    'darkviolet': colors.HexColor('#9400d3'),
+    'deeppink': colors.HexColor('#ff1493'),
+    'deepskyblue': colors.HexColor('#00bfff'),
+    'dimgray': colors.HexColor('#696969'),
+    'dimgrey': colors.HexColor('#696969'),
+    'dodgerblue': colors.HexColor('#1e90ff'),
+    'firebrick': colors.HexColor('#b22222'),
+    'floralwhite': colors.HexColor('#fffaf0'),
+    'forestgreen': colors.HexColor('#228b22'),
+    'fuchsia': colors.HexColor('#ff00ff'),
+    'gainsboro': colors.HexColor('#dcdcdc'),
+    'ghostwhite': colors.HexColor('#f8f8ff'),
+    'gold': colors.HexColor('#ffd700'),
+    'goldenrod': colors.HexColor('#daa520'),
+    'gray': colors.HexColor('#808080'),
+    'green': colors.HexColor('#008000'),
+    'greenyellow': colors.HexColor('#adff2f'),
+    'grey': colors.HexColor('#808080'),
+    'honeydew': colors.HexColor('#f0fff0'),
+    'hotpink': colors.HexColor('#ff69b4'),
+    'indianred': colors.HexColor('#cd5c5c'),
+    'indigo': colors.HexColor('#4b0082'),
+    'ivory': colors.HexColor('#fffff0'),
+    'khaki': colors.HexColor('#f0e68c'),
+    'lavender': colors.HexColor('#e6e6fa'),
+    'lavenderblush': colors.HexColor('#fff0f5'),
+    'lawngreen': colors.HexColor('#7cfc00'),
+    'lemonchiffon': colors.HexColor('#fffacd'),
+    'lightblue': colors.HexColor('#add8e6'),
+    'lightcoral': colors.HexColor('#f08080'),
+    'lightcyan': colors.HexColor('#e0ffff'),
+    'lightgoldenrodyellow': colors.HexColor('#fafad2'),
+    'lightgray': colors.HexColor('#d3d3d3'),
+    'lightgreen': colors.HexColor('#90ee90'),
+    'lightgrey': colors.HexColor('#d3d3d3'),
+    'lightpink': colors.HexColor('#ffb6c1'),
+    'lightsalmon': colors.HexColor('#ffa07a'),
+    'lightseagreen': colors.HexColor('#20b2aa'),
+    'lightskyblue': colors.HexColor('#87cefa'),
+    'lightslategray': colors.HexColor('#778899'),
+    'lightslategrey': colors.HexColor('#778899'),
+    'lightsteelblue': colors.HexColor('#b0c4de'),
+    'lightyellow': colors.HexColor('#ffffe0'),
+    'lime': colors.HexColor('#00ff00'),
+    'limegreen': colors.HexColor('#32cd32'),
+    'linen': colors.HexColor('#faf0e6'),
+    'magenta': colors.HexColor('#ff00ff'),
+    'maroon': colors.HexColor('#800000'),
+    'mediumaquamarine': colors.HexColor('#66cdaa'),
+    'mediumblue': colors.HexColor('#0000cd'),
+    'mediumorchid': colors.HexColor('#ba55d3'),
+    'mediumpurple': colors.HexColor('#9370db'),
+    'mediumseagreen': colors.HexColor('#3cb371'),
+    'mediumslateblue': colors.HexColor('#7b68ee'),
+    'mediumspringgreen': colors.HexColor('#00fa9a'),
+    'mediumturquoise': colors.HexColor('#48d1cc'),
+    'mediumvioletred': colors.HexColor('#c71585'),
+    'midnightblue': colors.HexColor('#191970'),
+    'mintcream': colors.HexColor('#f5fffa'),
+    'mistyrose': colors.HexColor('#ffe4e1'),
+    'moccasin': colors.HexColor('#ffe4b5'),
+    'navajowhite': colors.HexColor('#ffdead'),
+    'navy': colors.HexColor('#000080'),
+    'oldlace': colors.HexColor('#fdf5e6'),
+    'olive': colors.HexColor('#808000'),
+    'olivedrab': colors.HexColor('#6b8e23'),
+    'orange': colors.HexColor('#ffa500'),
+    'orangered': colors.HexColor('#ff4500'),
+    'orchid': colors.HexColor('#da70d6'),
+    'palegoldenrod': colors.HexColor('#eee8aa'),
+    'palegreen': colors.HexColor('#98fb98'),
+    'paleturquoise': colors.HexColor('#afeeee'),
+    'palevioletred': colors.HexColor('#db7093'),
+    'papayawhip': colors.HexColor('#ffefd5'),
+    'peachpuff': colors.HexColor('#ffdab9'),
+    'peru': colors.HexColor('#cd853f'),
+    'pink': colors.HexColor('#ffc0cb'),
+    'plum': colors.HexColor('#dda0dd'),
+    'powderblue': colors.HexColor('#b0e0e6'),
+    'purple': colors.HexColor('#800080'),
+    'red': colors.HexColor('#ff0000'),
+    'rosybrown': colors.HexColor('#bc8f8f'),
+    'royalblue': colors.HexColor('#4169e1'),
+    'saddlebrown': colors.HexColor('#8b4513'),
+    'salmon': colors.HexColor('#fa8072'),
+    'sandybrown': colors.HexColor('#f4a460'),
+    'seagreen': colors.HexColor('#2e8b57'),
+    'seashell': colors.HexColor('#fff5ee'),
+    'sienna': colors.HexColor('#a0522d'),
+    'silver': colors.HexColor('#c0c0c0'),
+    'skyblue': colors.HexColor('#87ceeb'),
+    'slateblue': colors.HexColor('#6a5acd'),
+    'slategray': colors.HexColor('#708090'),
+    'slategrey': colors.HexColor('#708090'),
+    'snow': colors.HexColor('#fffafa'),
+    'springgreen': colors.HexColor('#00ff7f'),
+    'steelblue': colors.HexColor('#4682b4'),
+    'tan': colors.HexColor('#d2b48c'),
+    'teal': colors.HexColor('#008080'),
+    'thistle': colors.HexColor('#d8bfd8'),
+    'tomato': colors.HexColor('#ff6347'),
+    'turquoise': colors.HexColor('#40e0d0'),
+    'violet': colors.HexColor('#ee82ee'),
+    'wheat': colors.HexColor('#f5deb3'),
+    'white': colors.HexColor('#ffffff'),
+    'whitesmoke': colors.HexColor('#f5f5f5'),
+    'yellow': colors.HexColor('#ffff00'),
+    'yellowgreen': colors.HexColor('#9acd32'),
 }
+
 
 def parseColor(color):
     """
@@ -358,7 +364,7 @@ def parseColor(color):
         return "currentColor"
 
     elif color == 'transparent':
-        return colors.Color(0.,0.,0.,0.)
+        return colors.Color(0., 0., 0., 0.)
 
     match = color_match(color)
     if match is None:
@@ -367,7 +373,7 @@ def parseColor(color):
     info = match.groupdict()
 
     if info['named'] is not None:
-        if not color in NAMEDCOLOURS:
+        if color not in NAMEDCOLOURS:
             raise SVGError(f"Not a valid named color: '{color}'")
 
         return NAMEDCOLOURS[color]
@@ -376,9 +382,9 @@ def parseColor(color):
         return colors.HexColor(color)
 
     elif info['hexshort'] is not None:
-        r = 2*info['hexshort_r']
-        g = 2*info['hexshort_g']
-        b = 2*info['hexshort_b']
+        r = 2 * info['hexshort_r']
+        g = 2 * info['hexshort_g']
+        b = 2 * info['hexshort_b']
 
         return colors.HexColor(f'#{r}{g}{b}')
 
@@ -390,7 +396,7 @@ def parseColor(color):
         if r > 255 or g > 255 or b > 255:
             raise SVGError(f"RGB value outside range: '{color}'")
 
-        return colors.Color(r/255., g/255., b/255.)
+        return colors.Color(r / 255., g / 255., b / 255.)
 
     elif info['rgb'] is not None:
         r = float(info['rgb_r'])
@@ -400,7 +406,8 @@ def parseColor(color):
         if r > 100 or g > 100 or b > 100:
             raise SVGError(f"RGB value outside range: '{color}'")
 
-        return colors.Color(r/100., g/100., b/100.)
+        return colors.Color(r / 100., g / 100., b / 100.)
+
 
 class SVGStyle(Lexer):
     """
@@ -411,14 +418,14 @@ class SVGStyle(Lexer):
     delimiter = object()
     comment = object()
 
-    lexicon = ( \
-        (delimiter   , r'[ :;\n]'),
-        (comment     , r'/\*.+\*/'),
-        (name        , r'[\w\-#]+?(?=:)'),
-        (value       , r'[\w\-#\.\(\)%,][\w \-#\.\(\)%,]*?(?=[;])'),
+    lexicon = (
+        (delimiter, r'[ :;\n]'),
+        (comment, r'/\*.+\*/'),
+        (name, r'[\w\-#]+?(?=:)'),
+        (value, r'[\w\-#\.\(\)%,][\w \-#\.\(\)%,]*?(?=[;])'),
     )
 
-    ignore = frozenset((delimiter,comment))
+    ignore = frozenset((delimiter, comment))
 
     def __init__(self):
         Lexer.__init__(self)
@@ -452,6 +459,7 @@ class SVGStyle(Lexer):
 
 parseStyle = SVGStyle()
 
+
 class SVGTransform(Lexer):
     """
     Break SVG transform into tokens.
@@ -463,24 +471,24 @@ class SVGTransform(Lexer):
 
     numbers = frozenset((numfloat, numint))
 
-    lexicon = ( \
-        (numfloat   , Lexer.Float),
-        (numint     , Lexer.Int),
-        (string     , r'\w+'),
-        (skip       , r'[\(\), \n]'),
+    lexicon = (
+        (numfloat, Lexer.Float),
+        (numint, Lexer.Int),
+        (string, r'\w+'),
+        (skip, r'[\(\), \n]'),
     )
 
     ignore = frozenset((skip,))
 
     callbacks = {
-        numfloat    : lambda self,value: float(value),
-        numint      : lambda self,value: float(value)
+        numfloat: lambda self, value: float(value),
+        numint: lambda self, value: float(value)
     }
 
     def __init__(self):
         Lexer.__init__(self)
 
-    def assertion(self, condition, msg = ''):
+    def assertion(self, condition, msg=''):
         if not condition:
             raise SVGError(msg)
 
@@ -518,7 +526,7 @@ class SVGTransform(Lexer):
                 token, f = next()
                 assertion(token in numbers, 'Expected number')
 
-                yield (transform, (a,b,c,d,e,f))
+                yield (transform, (a, b, c, d, e, f))
 
             elif transform == 'translate':
                 token, tx = next()
@@ -526,12 +534,12 @@ class SVGTransform(Lexer):
 
                 token, value = next()
                 ty = value
-                if not token in numbers:
+                if token not in numbers:
                     ty = 0.
 
                 yield (transform, (tx, ty))
 
-                if not token in numbers:
+                if token not in numbers:
                     continue
 
             elif transform == 'scale':
@@ -540,12 +548,12 @@ class SVGTransform(Lexer):
 
                 token, value = next()
                 sy = value
-                if not token in numbers:
+                if token not in numbers:
                     sy = sx
 
                 yield (transform, (sx, sy))
 
-                if not token in numbers:
+                if token not in numbers:
                     continue
 
             elif transform == 'rotate':
@@ -561,10 +569,10 @@ class SVGTransform(Lexer):
 
                     cy = value
 
-                    yield (transform, (angle,(cx,cy)))
+                    yield (transform, (angle, (cx, cy)))
 
                 else:
-                    yield (transform, (angle,None))
+                    yield (transform, (angle, None))
                     continue
 
             elif transform == 'skewX' or transform == 'skewY':
@@ -580,7 +588,9 @@ class SVGTransform(Lexer):
             # fetch next token
             token, value = next()
 
+
 parseTransform = SVGTransform()
+
 
 class SVGPath(Lexer):
     """
@@ -595,20 +605,20 @@ class SVGPath(Lexer):
     string = object()
     skip = object
 
-    lexicon = ( \
-        (numfloat   , Lexer.Float),
-        (numint     , Lexer.Int),
-        (numexp     , r'(?:[Ee][-\+]?\d+)'),
-        (string     , r'[AaCcHhLlMmQqSsTtVvZz]'),
-        (skip       , r'[, \n]'),
+    lexicon = (
+        (numfloat, Lexer.Float),
+        (numint, Lexer.Int),
+        (numexp, r'(?:[Ee][-\+]?\d+)'),
+        (string, r'[AaCcHhLlMmQqSsTtVvZz]'),
+        (skip, r'[, \n]'),
     )
 
     ignore = frozenset((skip,))
 
     callbacks = {
-        numfloat    : lambda self,value: float(value),
-        numint      : lambda self,value: float(value),
-        numexp      : lambda self,value: float('1.'+value)
+        numfloat: lambda self, value: float(value),
+        numint: lambda self, value: float(value),
+        numexp: lambda self, value: float('1.' + value)
     }
 
     numbers = frozenset((numfloat, numint, numexp))
@@ -616,7 +626,7 @@ class SVGPath(Lexer):
     def __init__(self):
         Lexer.__init__(self)
 
-    def assertion(self, condition, msg = ''):
+    def assertion(self, condition, msg=''):
         if not condition:
             raise SVGError(msg)
 
@@ -641,7 +651,8 @@ class SVGPath(Lexer):
                 token, value = next()
                 yield (cmd, (None,))
 
-            # moveTo, lineTo, curve, smoothQuadraticBezier, quadraticBezier, smoothCurve
+            # moveTo, lineTo, curve, smoothQuadraticBezier, quadraticBezier,
+            # smoothCurve
             elif CMD in 'CMLTQS':
                 coords = []
                 token, value = next()
@@ -651,12 +662,15 @@ class SVGPath(Lexer):
                     token, value = next()
                     assertion(token in numbers, 'Expected number in path data')
 
-                    coords.append((last,value))
+                    coords.append((last, value))
 
                     token, value = next()
 
                 if CMD == 'C':
-                    assertion(len(coords) % 3 == 0, 'Expected coordinate triplets in path data')
+                    assertion(
+                        len(coords) %
+                        3 == 0,
+                        'Expected coordinate triplets in path data')
 
                 yield (cmd, tuple(coords))
 
@@ -675,41 +689,48 @@ class SVGPath(Lexer):
             # ellipticalArc
             elif CMD == 'A':
                 token, rx = next()
-                #assertion(token in numbers and value > 0, 'expected positive number in path data')
+                # assertion(token in numbers and value > 0, 'expected positive
+                # number in path data')
                 rx = value
 
                 token, ry = next()
-                #assertion(token in numbers and ry > 0, 'expected positive number in path data')
+                # assertion(token in numbers and ry > 0, 'expected positive
+                # number in path data')
 
                 token, rotation = next()
-                #assertion(token in numbers, 'expected number in path data')
+                # assertion(token in numbers, 'expected number in path data')
 
                 token, largearc = next()
-                #assertion(token is int and largearc in (0,1), 'expected 0 or 1 in path data')
+                # assertion(token is int and largearc in (0,1), 'expected 0 or
+                # 1 in path data')
 
                 token, sweeparc = next()
-                #assertion(token is int and sweeparc in (0,1), 'expected 0 or 1 in path data')
+                # assertion(token is int and sweeparc in (0,1), 'expected 0 or
+                # 1 in path data')
 
                 token, x = next()
-                #assertion(token in numbers, 'expected number in path data')
+                # assertion(token in numbers, 'expected number in path data')
 
                 token, y = next()
-                #assertion(token in numbers, 'expected number in path data')
+                # assertion(token in numbers, 'expected number in path data')
 
-                yield (cmd, ((rx,ry), rotation, largearc, sweeparc, (x,y)))
+                yield (cmd, ((rx, ry), rotation, largearc, sweeparc, (x, y)))
 
                 token, value = next()
 
             else:
                 raise SVGError(f"cmd '{cmd}' in path data not supported")
 
+
 parsePath = SVGPath()
+
 
 def parseDashArray(array):
     if array == 'none':
         return None
 
     return map(parseLength, re.split('[ ,]+', array))
+
 
 def parseOpacity(value):
     try:
@@ -722,63 +743,84 @@ def parseOpacity(value):
 
     return opacity
 
+
 def parseAnchor(value):
     if not value or value == 'none':
         return 'start'
 
     if value not in ('start', 'middle', 'end'):
-        raise SVGError(f"unknown 'value' alignment")
+        raise SVGError("unknown 'value' alignment")
 
     return value
 
+
 # map svg font names to reportlab names
 FONTMAPPING = {
-    "sans-serif"    : "Helvetica",
-    "serif"         : "Times-Roman",
-    "monospace"     : "Courier"
+    "sans-serif": "Helvetica",
+    "serif": "Times-Roman",
+    "monospace": "Courier"
 }
 
 # map svg style to repotlab attributes and converters
 STYLES = {
-    "fill"              : ("fillColor",         parseColor),
-    "stroke"            : ("strokeColor",       parseColor),
-    "stroke-width"      : ("strokeWidth",       parseLength),
-    "stroke-linejoin"   : ("strokeLineJoin",    lambda style: {"miter":0, "round":1, "bevel":2}[style]),
-    "stroke-linecap"    : ("strokeLineCap",     lambda style: {"butt":0, "round":1, "square":2}[style]),
-    "stroke-dasharray"  : ("strokeDashArray",   parseDashArray),
-    "fill-opacity"      : ('fillOpacity',       parseOpacity),
-    "stroke-opacity"    : ('strokeOpacity',     parseOpacity),
-    "font-family"       : ("fontName",          lambda name: FONTMAPPING.get(name, 'Helvetica')),
-    "font-size"         : ("fontSize",          parseLength),
-    "text-anchor"       : ("textAnchor",        parseAnchor),
+    "fill": ("fillColor", parseColor),
+    "stroke": ("strokeColor", parseColor),
+    "stroke-width": ("strokeWidth", parseLength),
+    "stroke-linejoin": (
+        "strokeLineJoin",
+        lambda style: {"miter": 0, "round": 1, "bevel": 2}[style]),
+    "stroke-linecap": (
+        "strokeLineCap",
+        lambda style: {"butt": 0, "round": 1, "square": 2}[style]),
+    "stroke-dasharray": ("strokeDashArray", parseDashArray),
+    "fill-opacity": ('fillOpacity', parseOpacity),
+    "stroke-opacity": ('strokeOpacity', parseOpacity),
+    "font-family": (
+        "fontName",
+        lambda name: FONTMAPPING.get(name, 'Helvetica')),
+    "font-size": ("fontSize", parseLength),
+    "text-anchor": ("textAnchor", parseAnchor),
 }
 
-STYLE_NAMES = frozenset(list(STYLES.keys()) + ['color',])
-STYLES_FONT = frozenset(('font-family','font-size','text-anchor'))
+STYLE_NAMES = frozenset(list(STYLES.keys()) + ['color', ])
+STYLES_FONT = frozenset(('font-family', 'font-size', 'text-anchor'))
+
 
 class Renderer:
     LINK = '{http://www.w3.org/1999/xlink}href'
 
-    SVG_DEFS        = '{http://www.w3.org/2000/svg}defs'
-    SVG_ROOT        = '{http://www.w3.org/2000/svg}svg'
-    SVG_A           = '{http://www.w3.org/2000/svg}a'
-    SVG_G           = '{http://www.w3.org/2000/svg}g'
-    SVG_SYMBOL      = '{http://www.w3.org/2000/svg}symbol'
-    SVG_USE         = '{http://www.w3.org/2000/svg}use'
-    SVG_RECT        = '{http://www.w3.org/2000/svg}rect'
-    SVG_CIRCLE      = '{http://www.w3.org/2000/svg}circle'
-    SVG_ELLIPSE     = '{http://www.w3.org/2000/svg}ellipse'
-    SVG_LINE        = '{http://www.w3.org/2000/svg}line'
-    SVG_POLYLINE    = '{http://www.w3.org/2000/svg}polyline'
-    SVG_POLYGON     = '{http://www.w3.org/2000/svg}polygon'
-    SVG_PATH        = '{http://www.w3.org/2000/svg}path'
-    SVG_TEXT        = '{http://www.w3.org/2000/svg}text'
-    SVG_TSPAN       = '{http://www.w3.org/2000/svg}tspan'
-    SVG_IMAGE       = '{http://www.w3.org/2000/svg}image'
+    SVG_DEFS = '{http://www.w3.org/2000/svg}defs'
+    SVG_ROOT = '{http://www.w3.org/2000/svg}svg'
+    SVG_A = '{http://www.w3.org/2000/svg}a'
+    SVG_G = '{http://www.w3.org/2000/svg}g'
+    SVG_SYMBOL = '{http://www.w3.org/2000/svg}symbol'
+    SVG_USE = '{http://www.w3.org/2000/svg}use'
+    SVG_RECT = '{http://www.w3.org/2000/svg}rect'
+    SVG_CIRCLE = '{http://www.w3.org/2000/svg}circle'
+    SVG_ELLIPSE = '{http://www.w3.org/2000/svg}ellipse'
+    SVG_LINE = '{http://www.w3.org/2000/svg}line'
+    SVG_POLYLINE = '{http://www.w3.org/2000/svg}polyline'
+    SVG_POLYGON = '{http://www.w3.org/2000/svg}polygon'
+    SVG_PATH = '{http://www.w3.org/2000/svg}path'
+    SVG_TEXT = '{http://www.w3.org/2000/svg}text'
+    SVG_TSPAN = '{http://www.w3.org/2000/svg}tspan'
+    SVG_IMAGE = '{http://www.w3.org/2000/svg}image'
 
-    SVG_NODES = frozenset((SVG_ROOT, SVG_A, SVG_G, SVG_SYMBOL, SVG_USE, SVG_RECT,
-                           SVG_CIRCLE, SVG_ELLIPSE, SVG_LINE, SVG_POLYLINE,
-                           SVG_POLYGON, SVG_PATH, SVG_TEXT, SVG_IMAGE))
+    SVG_NODES = frozenset(
+        (SVG_ROOT,
+         SVG_A,
+         SVG_G,
+         SVG_SYMBOL,
+         SVG_USE,
+         SVG_RECT,
+         SVG_CIRCLE,
+         SVG_ELLIPSE,
+         SVG_LINE,
+         SVG_POLYLINE,
+         SVG_POLYGON,
+         SVG_PATH,
+         SVG_TEXT,
+         SVG_IMAGE))
 
     def __init__(self, filename):
         self.filename = filename
@@ -788,8 +830,8 @@ class Renderer:
         self.drawing = None
         self.root = None
 
-    def render(self, node, parent = None):
-        if parent == None:
+    def render(self, node, parent=None):
+        if parent is None:
             parent = self.mainGroup
 
         # ignore if display = none
@@ -800,18 +842,18 @@ class Renderer:
         if node.tag == self.SVG_ROOT:
             self.level += 1
 
-            if not self.drawing is None:
+            if self.drawing is not None:
                 raise SVGError('drawing already created!')
 
             self.root = node
 
             # default styles
             style = {
-                'color':'black',
-                'fill':'black',
-                'stroke':'none',
-                'font-family':'Helvetica',
-                'font-size':'12'
+                'color': 'black',
+                'fill': 'black',
+                'stroke': 'none',
+                'font-family': 'Helvetica',
+                'font-size': '12'
             }
 
             self.styles[self.level] = style
@@ -836,15 +878,15 @@ class Renderer:
                 wscale = parseLength(width) / 100.
                 hscale = parseLength(height) / 100.
 
-                xL,yL,xH,yH =  self.mainGroup.getBounds()
-                self.drawing = Drawing(xH*wscale + xL, yH*hscale + yL)
+                xL, yL, xH, yH = self.mainGroup.getBounds()
+                self.drawing = Drawing(xH * wscale + xL, yH * hscale + yL)
 
             else:
                 self.drawing = Drawing(parseLength(width), parseLength(height))
 
             height = self.drawing.height
             self.mainGroup.scale(1, -1)
-            self.mainGroup.translate(-float(minx), -height-float(miny))
+            self.mainGroup.translate(-float(minx), -height - float(miny))
             self.drawing.add(self.mainGroup)
 
             self.level -= 1
@@ -910,10 +952,10 @@ class Renderer:
 
             # apply 'x' and 'y' attribute as translation of defs object
             if node.get('x') or node.get('y'):
-                dx = parseLength(node.get('x','0'))
-                dy = parseLength(node.get('y','0'))
+                dx = parseLength(node.get('x', '0'))
+                dy = parseLength(node.get('y', '0'))
 
-                self.applyTransformOnGroup(group, ('translate', (dx,dy)))
+                self.applyTransformOnGroup(group, ('translate', (dx, dy)))
 
             self.level -= 1
 
@@ -1012,17 +1054,17 @@ class Renderer:
             # - baseshift not handled
             # - embedded span node not handled
             #
-            def parsePos(node, subnode, name, default = '0'):
+            def parsePos(node, subnode, name, default='0'):
                 values = subnode.get(name)
                 if values is None:
-                    if not node is None:
+                    if node is not None:
                         values = node.get(name, default)
                     else:
                         values = default
 
                 return map(parseLength, values.split())
 
-            def getPos(values, i, default = None):
+            def getPos(values, i, default=None):
                 if i >= len(values):
                     if default is None:
                         return values[-1]
@@ -1035,10 +1077,10 @@ class Renderer:
                 # get position variables
                 xs = parsePos(node, subnode, 'x')
                 dxs = parsePos(node, subnode, 'dx')
-                ys = parsePos(node, subnode,'y')
-                dys = parsePos(node, subnode,'dy')
+                ys = parsePos(node, subnode, 'y')
+                dys = parsePos(node, subnode, 'dy')
 
-                if sum(map(len, (xs,ys,dxs,dys))) == 4:
+                if sum(map(len, (xs, ys, dxs, dys))) == 4:
                     # single value
                     shape = String(xs[0] + dxs[0], -ys[0] - dys[0], text)
                     self.applyStyleToShape(shape, subnode)
@@ -1046,13 +1088,13 @@ class Renderer:
 
                 else:
                     # multiple values
-                    for i,c in enumerate(text):
+                    for i, c in enumerate(text):
                         x = getPos(xs, i)
                         dx = getPos(dxs, i, 0)
                         y = getPos(ys, i)
                         dy = getPos(dys, i, 0)
 
-                        shape = String(x + dx, -y -dy, c)
+                        shape = String(x + dx, -y - dy, c)
                         self.applyStyleToShape(shape, subnode)
                         group.add(shape)
 
@@ -1084,11 +1126,12 @@ class Renderer:
                 group.scale(1, -1)
                 self.addShape(parent, node, group)
 
-
         elif node.tag == self.SVG_PATH:
             def convertQuadratic(Q0, Q1, Q2):
-                C1 = (Q0[0] + 2./3*(Q1[0] - Q0[0]), Q0[1] + 2./3*(Q1[1] - Q0[1]))
-                C2 = (C1[0] + 1./3*(Q2[0] - Q0[0]), C1[1] + 1./3*(Q2[1] - Q0[1]))
+                C1 = (Q0[0] + 2. / 3 * (Q1[0] - Q0[0]),
+                      Q0[1] + 2. / 3 * (Q1[1] - Q0[1]))
+                C2 = (C1[0] + 1. / 3 * (Q2[0] - Q0[0]),
+                      C1[1] + 1. / 3 * (Q2[1] - Q0[1]))
                 C3 = Q2
                 return C1[0], C1[1], C2[0], C2[1], C3[0], C3[1]
 
@@ -1098,7 +1141,7 @@ class Renderer:
                     x, y = lastArgs[-2]
 
                     # mirror about current point
-                    return currentX + (currentX-x), currentY + (currentY-y)
+                    return currentX + (currentX - x), currentY + (currentY - y)
 
                 else:
                     # defaults to current point
@@ -1108,8 +1151,8 @@ class Renderer:
             shape = Path()
 
             # keep track of current point and path start point
-            startX, startY = 0.,0.
-            currentX, currentY = 0.,0.
+            startX, startY = 0., 0.
+            currentX, currentY = 0., 0.
 
             # keep track of last operation
             lastOp = None
@@ -1130,7 +1173,7 @@ class Renderer:
 
                 elif op == 'M':
                     # moveto absolute
-                    if not lastOp is None and lastOp not in ('z', 'Z'):
+                    if lastOp is not None and lastOp != ('z', 'Z'):
                         # close sub path
                         shape.closePath()
 
@@ -1146,7 +1189,7 @@ class Renderer:
                     currentX, currentY = x, y
 
                 elif op == 'm':
-                    if not lastOp is None and lastOp not in ('z', 'Z'):
+                    if lastOp is not None and lastOp != ('z', 'Z'):
                         # close sub path
                         shape.closePath()
 
@@ -1166,14 +1209,14 @@ class Renderer:
 
                 elif op == 'L':
                     # lineto absolute
-                    for x,y in args:
+                    for x, y in args:
                         shape.lineTo(x, y)
 
                     currentX, currentY = x, y
 
                 elif op == 'l':
                     # lineto relative
-                    for rx,ry in args:
+                    for rx, ry in args:
                         x, y = currentX + rx, currentY + ry
                         shape.lineTo(x, y)
                         currentX, currentY = x, y
@@ -1209,10 +1252,10 @@ class Renderer:
 
                 elif op == 'C':
                     # cubic bezier absolute
-                    for i in range(len(args)//3):
-                        x1, y1 = args[i*3 + 0]
-                        x2, y2 = args[i*3 + 1]
-                        x3, y3 = args[i*3 + 2]
+                    for i in range(len(args) // 3):
+                        x1, y1 = args[i * 3 + 0]
+                        x2, y2 = args[i * 3 + 1]
+                        x3, y3 = args[i * 3 + 2]
 
                         shape.curveTo(x1, y1, x2, y2, x3, y3)
 
@@ -1220,14 +1263,14 @@ class Renderer:
 
                 elif op == 'c':
                     # cubic bezier relative
-                    for i in range(len(args)//3):
-                        x1, y1 = args[i*3 + 0]
+                    for i in range(len(args) // 3):
+                        x1, y1 = args[i * 3 + 0]
                         x1, y1 = x1 + currentX, y1 + currentY
 
-                        x2, y2 = args[i*3 + 1]
+                        x2, y2 = args[i * 3 + 1]
                         x2, y2 = x2 + currentX, y2 + currentY
 
-                        x3, y3 = args[i*3 + 2]
+                        x3, y3 = args[i * 3 + 2]
                         x3, y3 = x3 + currentX, y3 + currentY
 
                         shape.curveTo(x1, y1, x2, y2, x3, y3)
@@ -1240,11 +1283,11 @@ class Renderer:
 
                 elif op == 'S':
                     # shorthand cubic bezier absolute
-                    for i in range(len(args)//2):
+                    for i in range(len(args) // 2):
                         x1, y1 = prevCtrl(lastOp, lastArgs, currentX, currentY)
 
-                        x2, y2 = args[i*2 + 0]
-                        x3, y3 = args[i*2 + 1]
+                        x2, y2 = args[i * 2 + 0]
+                        x3, y3 = args[i * 2 + 1]
 
                         shape.curveTo(x1, y1, x2, y2, x3, y3)
 
@@ -1257,13 +1300,13 @@ class Renderer:
 
                 elif op == 's':
                     # shorthand cubic bezier relative
-                    for i in range(len(args)//2):
+                    for i in range(len(args) // 2):
                         x1, y1 = prevCtrl(lastOp, lastArgs, currentX, currentY)
 
-                        x2, y2 = args[i*2 + 0]
+                        x2, y2 = args[i * 2 + 0]
                         x2, y2 = x2 + currentX, y2 + currentY
 
-                        x3, y3 = args[i*2 + 1]
+                        x3, y3 = args[i * 2 + 1]
                         x3, y3 = x3 + currentX, y3 + currentY
 
                         shape.curveTo(x1, y1, x2, y2, x3, y3)
@@ -1277,10 +1320,10 @@ class Renderer:
 
                 elif op == 'Q':
                     # quadratic bezier absolute
-                    for i in range(len(args)//2):
+                    for i in range(len(args) // 2):
                         x1, y1 = currentX, currentY
-                        x2, y2 = args[i*2 + 0]
-                        x3, y3 = args[i*2 + 1]
+                        x2, y2 = args[i * 2 + 0]
+                        x3, y3 = args[i * 2 + 1]
 
                         ctrls = convertQuadratic((x1, y1), (x2, y2), (x3, y3))
 
@@ -1294,13 +1337,13 @@ class Renderer:
 
                 elif op == 'q':
                     # quadratic bezier relative
-                    for i in range(len(args)//2):
+                    for i in range(len(args) // 2):
                         x1, y1 = currentX, currentY
 
-                        x2, y2 = args[i*2 + 0]
+                        x2, y2 = args[i * 2 + 0]
                         x2, y2 = x2 + currentX, y2 + currentY
 
-                        x3, y3 = args[i*2 + 1]
+                        x3, y3 = args[i * 2 + 1]
                         x3, y3 = x3 + currentX, y3 + currentY
 
                         ctrls = convertQuadratic((x1, y1), (x2, y2), (x3, y3))
@@ -1328,7 +1371,6 @@ class Renderer:
                         lastArgs = (x2, y2), (x3, y3)
 
                     continue
-
 
                 elif op == 't':
                     # shorthand quadratic bezier relative
@@ -1386,13 +1428,12 @@ class Renderer:
                 group = Group()
 
                 strokeshape = shape.copy()
-                self.addShape(group, node, strokeshape, fill = 'none')
+                self.addShape(group, node, strokeshape, fill='none')
 
                 shape.closePath()
-                self.addShape(group, node, shape, stroke = 'none')
+                self.addShape(group, node, shape, stroke='none')
 
                 self.addShape(parent, node, group)
-
 
     def addShape(self, parent, node, shape, **kwargs):
 
@@ -1419,7 +1460,7 @@ class Renderer:
 
         return shape
 
-    def nodeStyle(self, node, style = None):
+    def nodeStyle(self, node, style=None):
         if style is None:
             style = {}
 
@@ -1517,6 +1558,7 @@ class Renderer:
         elif op == "matrix":
             group.transform = mmult(group.transform, args)
 
+
 def readFile(filename):
     """
     Open svg file and return root xml object
@@ -1544,6 +1586,7 @@ def readFile(filename):
 
     return root
 
+
 def svg2rlg(filename):
     """
     Open svg file and return reportlab drawing object
@@ -1553,17 +1596,17 @@ def svg2rlg(filename):
 
     return renderer.render(xml)
 
+
 if __name__ == "__main__":
-    import os
     import sys
 
-    #sys.argv.append('compliance/paths-data-15-t.svg')
+    # sys.argv.append('compliance/paths-data-15-t.svg')
 
     source = sys.argv[1]
     path, filename = os.path.split(source)
     name, ext = os.path.splitext(filename)
 
     drawing = svg2rlg(source)
-    drawing.save(formats=['pdf'],outDir='.',fnRoot=name)
+    drawing.save(formats=['pdf'], outDir='.', fnRoot=name)
 
     os.startfile(name + '.pdf')

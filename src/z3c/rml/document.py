@@ -29,13 +29,13 @@ from reportlab.platypus.doctemplate import IndexingFlowable
 from z3c.rml import attr
 from z3c.rml import canvas
 from z3c.rml import directive
-from z3c.rml import doclogic
+from z3c.rml import doclogic  # noqa: F401 imported but unused
 from z3c.rml import interfaces
-from z3c.rml import list
+from z3c.rml import list  # noqa: F401 imported but unused
 from z3c.rml import occurence
-from z3c.rml import pdfinclude
+from z3c.rml import pdfinclude  # noqa: F401 imported but unused
 from z3c.rml import special
-from z3c.rml import storyplace
+from z3c.rml import storyplace  # noqa: F401 imported but unused
 from z3c.rml import stylesheet
 from z3c.rml import template
 
@@ -295,7 +295,7 @@ stylesheet.IInitialize.setTaggedValue(
     'directives',
     stylesheet.IInitialize.getTaggedValue('directives') +
     (occurence.ZeroOrMore('color', IColorDefinition),)
-    )
+)
 
 
 class IStartIndex(interfaces.IRMLDirectiveSignature):
@@ -452,7 +452,7 @@ class IDocInit(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('logConfig', ILogConfig),
         occurence.ZeroOrMore('cropMarks', ICropMarks),
         occurence.ZeroOrMore('startIndex', IStartIndex),
-        )
+    )
 
     pageMode = attr.Choice(
         title='Page Mode',
@@ -566,12 +566,12 @@ class DocInit(directive.RMLDirective):
         'logConfig': LogConfig,
         'cropMarks': CropMarks,
         'startIndex': StartIndex,
-        }
+    }
 
     viewerOptions = {
-        option[0].lower()+option[1:]: option
-        for option in ['HideToolbar', 'HideMenubar', 'HideWindowUI', 'FitWindow',
-                       'CenterWindow', 'DisplayDocTitle',
+        option[0].lower() + option[1:]: option
+        for option in ['HideToolbar', 'HideMenubar', 'HideWindowUI',
+                       'FitWindow', 'CenterWindow', 'DisplayDocTitle',
                        'NonFullScreenPageMode', 'Direction', 'ViewArea',
                        'ViewClip', 'PrintArea', 'PrintClip', 'PrintScaling']}
 
@@ -593,7 +593,7 @@ class IDocument(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrOne('story', template.IStory),
         occurence.ZeroOrOne('pageInfo', canvas.IPageInfo),
         occurence.ZeroOrMore('pageDrawing', canvas.IPageDrawing),
-        )
+    )
 
     filename = attr.Text(
         title='File Name',
@@ -654,9 +654,9 @@ class Document(directive.RMLDirective):
         'story': template.Story,
         'pageInfo': canvas.PageInfo,
         'pageDrawing': canvas.PageDrawing,
-        }
+    }
 
-    def __init__(self, element, canvasClass = None):
+    def __init__(self, element, canvasClass=None):
         super().__init__(element, None)
         self.names = {}
         self.styles = {}
@@ -673,7 +673,7 @@ class Document(directive.RMLDirective):
         for name in DocInit.viewerOptions:
             setattr(self, name, None)
         if not canvasClass:
-            canvasClass =  reportlab.pdfgen.canvas.Canvas
+            canvasClass = reportlab.pdfgen.canvas.Canvas
         self.canvasClass = canvasClass
 
     def _indexAdd(self, canvas, name, label):
@@ -695,7 +695,7 @@ class Document(directive.RMLDirective):
                 canvas.setViewerPreference(option, getattr(self, name))
         # Setting annotations.
         data = dict(self.getAttributeValues(
-                select=('title', 'subject', 'author', 'creator')))
+            select=('title', 'subject', 'author', 'creator')))
         canvas.setTitle(data.get('title'))
         canvas.setSubject(data.get('subject'))
         canvas.setAuthor(data.get('author'))
@@ -731,7 +731,7 @@ class Document(directive.RMLDirective):
                 select=('compression', 'debug'),
                 attrMapping={'compression': 'pageCompression',
                              'debug': 'verbosity'}
-                ))
+            ))
             kwargs['cropMarks'] = self.cropMarks
 
             self.canvas = self.canvasClass(tempOutput, **kwargs)
