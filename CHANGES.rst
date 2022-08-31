@@ -5,6 +5,8 @@ CHANGES
 4.2.1 (unreleased)
 ------------------
 
+- Add back support for Python 3.6.
+
 - Fix name clash in repository on file systems which are not case sensitive but
   just case preserving.
 
