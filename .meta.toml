@@ -16,3 +16,18 @@ use-flake8 = true
 
 [coverage]
 fail-under = 82
+
+[manifest]
+additional-rules = [
+    "recursive-include src *.dtd",
+    "recursive-include src *.eps",
+    "recursive-include src *.gif",
+    "recursive-include src *.pdf",
+    "recursive-include src *.png",
+    "recursive-include src *.pt",
+    "recursive-include src *.rml",
+    "recursive-include src *.svg",
+    "recursive-include src *.svgz",
+    "recursive-include src *.ttf",
+    "recursive-include src *.txt",
+    ]
