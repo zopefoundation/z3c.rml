@@ -19,6 +19,7 @@ import os
 import subprocess
 import sys
 import unittest
+import tempfile
 
 import z3c.rml.tests
 from z3c.rml import rml2pdf
@@ -180,7 +181,8 @@ def test_suite():
     suite = unittest.TestSuite()
     here = os.path.dirname(z3c.rml.tests.__file__)
     inputDir = os.path.join(here, 'input')
-    outputDir = os.path.join(here, 'output')
+    outputDir = tempfile.mkdtemp('z3c.rml-output')
+    print('output dir: {}'.format(outputDir))
     expectDir = os.path.join(here, 'expected')
     for filename in os.listdir(inputDir):
         if not filename.endswith(".rml"):

@@ -10,6 +10,8 @@ CHANGES
 - Fix name clash in repository on file systems which are not case sensitive but
   just case preserving.
 
+- Move output directory of tests to a temporary directory.
+
 
 4.2.0 (2021-10-14)
 ------------------
