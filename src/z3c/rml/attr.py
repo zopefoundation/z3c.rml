@@ -31,7 +31,9 @@ import zope.interface
 import zope.schema
 from lxml import etree
 
-from z3c.rml import SampleStyleSheet, interfaces
+from z3c.rml import SampleStyleSheet
+from z3c.rml import interfaces
+
 
 MISSING = object()
 logger = logging.getLogger("z3c.rml")
@@ -55,10 +57,11 @@ def getManager(context, interface=None):
         from z3c.rml import interfaces
         interface = interfaces.IManager
     # Walk up the path until the manager is found
-    # Using interface.providedBy is much slower because it does many more checks
+    # Using interface.providedBy is much slower because it does many more
+    # checks
     while (
         context is not None and
-        not interface in context.__class__.__dict__.get('__implemented__', {})
+        interface not in context.__class__.__dict__.get('__implemented__', {})
     ):
         context = context.parent
     # If no manager was found, raise an error
@@ -251,7 +254,7 @@ class IntegerSequence(Sequence):
             # The piece is just a number
             value = int(piece)
             value -= self.numberingStartsAt
-            numbers.append((value, value+1))
+            numbers.append((value, value + 1))
         return numbers
 
 
@@ -310,6 +313,7 @@ class Measurement(RMLAttribute):
     The units "in" (inch), "cm", "mm", and "pt" are allowed. If no units are
     specified, the value is given in points/pixels.
     '''
+
     def __init__(self, allowPercentage=False, allowStar=False, *args, **kw):
         super().__init__(*args, **kw)
         self.allowPercentage = allowPercentage
@@ -336,7 +340,7 @@ class Measurement(RMLAttribute):
         for unit in self.units:
             res = unit[0].search(value, 0)
             if res:
-                return unit[1]*float(res.group(1))
+                return unit[1] * float(res.group(1))
         raise ValueError(
             'The value {!r} is not a valid measurement. {}'.format(
                 value, getFileInfo(self.context)
@@ -361,10 +365,8 @@ class FontSizeRelativeMeasurement(RMLAttribute):
         match = self._format.match(value)
         if match is None:
             raise ValueError(
-                'The value {!r} is not a valid text line measurement. {}'.format(
-                    value, getFileInfo(self.context)
-                )
-            )
+                'The value {!r} is not a valid text line measurement.'
+                ' {}'.format(value, getFileInfo(self.context)))
         number, unit = match.groups()
         normalized = number
         if unit is not None:
@@ -703,8 +705,8 @@ class TextNodeGrid(TextNodeSequence):
                     self.columns, getFileInfo(self.context)
                 )
             )
-        return [result[i*self.columns:(i+1)*self.columns]
-                for i in range(len(result)//self.columns)]
+        return [result[i * self.columns:(i + 1) * self.columns]
+                for i in range(len(result) // self.columns)]
 
 
 class RawXMLContent(RMLAttribute):
@@ -720,7 +722,7 @@ class RawXMLContent(RMLAttribute):
         # ReportLab's paragraph parser does not like attributes from other
         # namespaces; sigh. So we have to improvize.
         text = etree.tounicode(self.context.element, pretty_print=False)
-        text = text[text.find('>')+1:text.rfind('<')]
+        text = text[text.find('>') + 1:text.rfind('<')]
         return text
 
 

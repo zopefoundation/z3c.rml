@@ -22,14 +22,19 @@ import subprocess
 
 from backports import tempfile
 
+
 try:
     import pikepdf
-    from pikepdf import Dictionary
+    from pikepdf import Dictionary  # noqa: F401 imported but unused
 except ImportError:
     pikepdf = None
 from reportlab.platypus import flowables
 
-from z3c.rml import attr, flowable, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
+
 
 log = logging.getLogger(__name__)
 
@@ -85,18 +90,30 @@ class ConcatenationPostProcessor:
 
     def process(self, inputFile1):
         input1 = pikepdf.open(inputFile1)
-
-        for start_page, inputFile2, page_ranges, num_pages in self.operations:
-            curr_page = start_page
+        offset = 0
+        for (
+                start_page, inputFile2, page_ranges, num_pages, on_first_page
+        ) in self.operations:
+            sp = start_page + offset
             for page_range in page_ranges:
                 prs, pre = page_range
                 input2 = pikepdf.open(inputFile2)
                 for i in range(num_pages):
-                    # Doing this copy will preserve references to the original
-                    # pages if there is a TOC/Bookmarks.
-                    input1.pages.append(input2.pages[prs + i])
-                    input1.pages[start_page + i].emplace(input1.pages[-1])
-                    del input1.pages[-1]
+                    if on_first_page and i > 0:
+                        # The platypus pipeline doesn't insert blank pages if
+                        # we are including on the first page. So we need to
+                        # insert our additional pages between start_page and
+                        # the next.
+                        input1.pages.insert(sp + i, input2.pages[prs + i])
+                        offset += 1
+                    else:
+                        # Here, Platypus has added more blank pages, so we'll
+                        # emplace our pages. Doing this copy will preserve
+                        # references to the original pages if there is a
+                        # TOC/Bookmarks.
+                        input1.pages.append(input2.pages[prs + i])
+                        input1.pages[sp + i].emplace(input1.pages[-1])
+                        del input1.pages[-1]
 
         outputFile = io.BytesIO()
         input1.save(outputFile)
@@ -121,17 +138,19 @@ class PdfTkConcatenationPostProcessor:
         merges = []
 
         curr_page = 0
-        for start_page, inputFile2, page_ranges, num_pages in self.operations:
+        for (
+                start_page, inputFile2, page_ranges, num_pages, on_first_page
+        ) in self.operations:
             # Catch up with the main file.
             if curr_page < start_page:
                 # Convert curr_page to human counting, start_page is okay,
                 # since pdftk is upper-bound inclusive.
-                merges.append('A%i-%i' % (curr_page+1, start_page))
+                merges.append('A%i-%i' % (curr_page + 1, start_page))
             curr_page = start_page + num_pages
 
             # Store file.
             file_letter = _letter(file_id)
-            file_path = os.path.join(dir, file_letter+'.pdf')
+            file_path = os.path.join(dir, file_letter + '.pdf')
             inputFile2.seek(0)
             with open(file_path, 'wb') as file:
                 file.write(inputFile2.read())
@@ -140,12 +159,12 @@ class PdfTkConcatenationPostProcessor:
 
             for (prs, pre) in page_ranges:
                 # pdftk uses lower and upper bound inclusive.
-                merges.append('%s%i-%i' % (file_letter, prs+1, pre))
+                merges.append('%s%i-%i' % (file_letter, prs + 1, pre))
 
         mergedFile = os.path.join(dir, 'merged.pdf')
         do('{} {} cat {} output {}'.format(
             self.EXECUTABLE,
-            ' '.join('{}="{}"'.format(l, p) for l, p in file_map.items()),
+            ' '.join('{}="{}"'.format(l_, p) for l_, p in file_map.items()),
             ' '.join(merges),
             mergedFile))
 
@@ -194,13 +213,14 @@ class IncludePdfPagesFlowable(flowables.Flowable):
             pdf = pikepdf.open(self.pdf_file)
             pages = [(0, len(pdf.pages))]
 
-        num_pages = sum(pr[1]-pr[0] for pr in pages)
+        num_pages = sum(pr[1] - pr[0] for pr in pages)
 
         start_page = self.canv.getPageNumber()
         if self.included_on_first_page:
             start_page -= 1
         self.proc.operations.append(
-            (start_page, self.pdf_file, pages, num_pages))
+            (start_page, self.pdf_file, pages,
+             num_pages, self.included_on_first_page))
 
         # Insert blank pages instead of pdf for now, to correctly number the
         # pages. We will replace these blank pages with included PDF in
@@ -267,4 +287,4 @@ flowable.IFlow.setTaggedValue(
     'directives',
     flowable.IFlow.getTaggedValue('directives') +
     (occurence.ZeroOrMore('includePdfPages', IIncludePdfPages),)
-    )
+)

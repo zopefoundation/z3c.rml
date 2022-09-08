@@ -15,11 +15,14 @@
 """
 import io
 
-from z3c.rml import attr, directive, interfaces
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+
 
 try:
     import pikepdf
-    from pikepdf import Object
+    from pikepdf import Object  # noqa: F401 imported but unused
 except ImportError:
     # We don't want to require pikepdf, if you do not want to use the features
     # in this module.
@@ -36,7 +39,7 @@ def mergePage(layerPage, mainPage, pdf, name) -> None:
     mainPage.Resources["/XObject"][name] = contentsForName
     # Use the MediaBox from the merged page
     mainPage.MediaBox = layerPage.MediaBox
-    mainPage.page_contents_add(
+    mainPage.contents_add(
         contents=pikepdf.Stream(pdf, newContents),
         prepend=True
     )
@@ -95,7 +98,7 @@ class MergePage(directive.RMLDirective):
                 'pikepdf is not installed, so this feature is not available.')
         inputFile, inPage = self.getAttributeValues(valuesOnly=True)
         manager = attr.getManager(self, interfaces.ICanvasManager)
-        outPage = manager.canvas.getPageNumber()-1
+        outPage = manager.canvas.getPageNumber() - 1
 
         proc = self.getProcessor()
         pageOperations = proc.operations.setdefault(outPage, [])
@@ -114,7 +117,7 @@ class MergePageInPageTemplate(MergePage):
 
         def drawOnCanvas(canvas, doc):
             onPage(canvas, doc)
-            outPage = canvas.getPageNumber()-1
+            outPage = canvas.getPageNumber() - 1
             proc = self.getProcessor()
             pageOperations = proc.operations.setdefault(outPage, [])
             pageOperations.append((inputFile, inPage))

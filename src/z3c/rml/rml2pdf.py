@@ -21,7 +21,9 @@ import sys
 import zope.interface
 from lxml import etree
 
-from z3c.rml import document, interfaces
+from z3c.rml import document
+from z3c.rml import interfaces
+
 
 zope.interface.moduleProvides(interfaces.IRML2PDF)
 
@@ -87,11 +89,21 @@ def main(args=None):
             epilog='Copyright (c) 2007 Zope Foundation and Contributors.'
         )
         parser.add_argument('xmlInputName', help='RML file to be processed')
-        parser.add_argument('outputFileName', nargs='?', help='output PDF file name')
+        parser.add_argument(
+            'outputFileName',
+            nargs='?',
+            help='output PDF file name')
         parser.add_argument('outDir', nargs='?', help='output directory')
-        parser.add_argument('dtdDir', nargs='?', help='directory with XML DTD (not yet supported)')
+        parser.add_argument(
+            'dtdDir',
+            nargs='?',
+            help='directory with XML DTD (not yet supported)')
         pargs = parser.parse_args()
-        args = (pargs.xmlInputName, pargs.outputFileName, pargs.outDir, pargs.dtdDir)
+        args = (
+            pargs.xmlInputName,
+            pargs.outputFileName,
+            pargs.outDir,
+            pargs.dtdDir)
 
     go(*args)
 

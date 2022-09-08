@@ -17,13 +17,12 @@ __docformat__ = "reStructuredText"
 
 import math
 
-import six
-
 
 def toOrdinal(num):
     str_num = str(num)
-    str_num += "tsnrhtdd"[(num/10%10 != 1) * (num % 10<4) * num%10::4]
+    str_num += "tsnrhtdd"[(num / 10 % 10 != 1) * (num % 10 < 4) * num % 10::4]
     return str_num
+
 
 class Number2Words:
 
@@ -31,14 +30,14 @@ class Number2Words:
         "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
         "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
         "sixteen", "seventeen", "eighteen", "nineteen",
-        ]
+    ]
 
     units_ordinal = [
         "zeroth", "first", "second", "third", "fourth", "fifth", "sixth",
         "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth",
         "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth",
         "eighteenth", "nineteenth",
-        ]
+    ]
 
     tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
             "eighty", "ninety"]
@@ -62,14 +61,14 @@ class Number2Words:
                 words.append(self.tens[int(num_left[0])])
                 num_left = num_left[1:]
             elif int(num_left) < 1000:
-                scale = self.scales[len(num_left)-1]
+                scale = self.scales[len(num_left) - 1]
                 digit = int(num_left[0])
                 if digit != 0:
                     words.append(self.units[digit])
                 words.append(scale)
                 num_left = num_left[1:]
             else:
-                mag = int(math.log10(int(num_left))/3)*3
+                mag = int(math.log10(int(num_left)) / 3) * 3
                 words += self(num_left[:-mag], True) + [self.scales[mag]]
                 num_left = num_left[-mag:]
 
@@ -98,5 +97,6 @@ class Number2Words:
             words = result
 
         return ' '.join(words)
+
 
 num2words = Number2Words()

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-pdfInclude.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+  </stylesheet>
+
+  <story>
+    <includePdfPages
+        filename="[z3c.rml.tests]/input/data/include2.pdf"/>
+    <nextPage />
+    <para>
+      Hello. I am some text.
+    </para>
+    <includePdfPages filename="[z3c.rml.tests]/input/data/include-bookmarks1.pdf"
+                     doc:example="" />
+    <nextPage />
+    <para>
+      You say hello, I say goodbye.
+    </para>
+  </story>
+</document>

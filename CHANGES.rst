@@ -2,10 +2,29 @@
 CHANGES
 =======
 
-4.1.2 (unreleased)
+4.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for Python 3.10.
+
+- Add back support for Python 3.6.
+
+- Fix name clash in repository on file systems which are not case sensitive but
+  just case preserving.
+
+- Move output directory of tests to a temporary directory.
+
+
+4.2.0 (2021-10-14)
+------------------
+
+- Upgrade to using `pikepdf` 3.0+.
+
+
+4.1.2 (2020-12-14)
+------------------
+
+- Fix include on first page. (PR #84)
 
 
 4.1.1 (2020-12-08)

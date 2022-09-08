@@ -1,0 +1,38 @@
+# Generated from:
+# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+[meta]
+template = "pure-python"
+commit-id = "d5b6c610d0ec7f0b8f6bbba49353eb89288f62b1"
+
+[python]
+with-windows = false
+with-pypy = false
+with-future-python = false
+with-legacy-python = false
+with-sphinx-doctests = false
+
+[tox]
+use-flake8 = true
+
+[coverage]
+fail-under = 82
+
+[manifest]
+additional-rules = [
+    "recursive-include src *.dtd",
+    "recursive-include src *.eps",
+    "recursive-include src *.gif",
+    "recursive-include src *.pdf",
+    "recursive-include src *.png",
+    "recursive-include src *.pt",
+    "recursive-include src *.rml",
+    "recursive-include src *.svg",
+    "recursive-include src *.svgz",
+    "recursive-include src *.ttf",
+    "recursive-include src *.txt",
+    ]
+
+[github-actions]
+additional-install = [
+    "sudo apt-get update && sudo apt-get install -y ghostscript",
+    ]

@@ -19,8 +19,13 @@ import reportlab.lib.enums
 import reportlab.lib.styles
 import reportlab.platypus
 
-from z3c.rml import SampleStyleSheet, attr, directive, interfaces, occurence
-from z3c.rml import paraparser, special
+from z3c.rml import SampleStyleSheet
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import interfaces
+from z3c.rml import occurence
+from z3c.rml import paraparser
+from z3c.rml import special
 
 
 class IInitialize(interfaces.IRMLDirectiveSignature):
@@ -28,14 +33,15 @@ class IInitialize(interfaces.IRMLDirectiveSignature):
     occurence.containing(
         occurence.ZeroOrMore('name', special.IName),
         occurence.ZeroOrMore('alias', special.IAlias),
-        )
+    )
+
 
 class Initialize(directive.RMLDirective):
     signature = IInitialize
     factories = {
         'name': special.Name,
         'alias': special.Alias,
-        }
+    }
 
 
 class ISpanStyle(interfaces.IRMLDirectiveSignature):
@@ -96,7 +102,7 @@ class ISpanStyle(interfaces.IRMLDirectiveSignature):
 
     underlineGap = attr.FontSizeRelativeMeasurement(
         title='Underline Gap',
-        description=('The gap between lines for double and triple underlines.'),
+        description='The gap between lines for double and triple underlines.',
         required=False)
 
     underlineKind = attr.Choice(
@@ -357,6 +363,7 @@ class IParagraphStyle(IBaseParagraphStyle):
                      'this one.'),
         required=False)
 
+
 class ParagraphStyle(directive.RMLDirective):
     signature = IParagraphStyle
 
@@ -383,7 +390,7 @@ class ITableStyleCommand(interfaces.IRMLDirectiveSignature):
         value_type=attr.Combination(
             value_types=(attr.Integer(),
                          attr.Choice(choices=interfaces.SPLIT_CHOICES))
-            ),
+        ),
         default=[0, 0],
         min_length=2,
         max_length=2,
@@ -395,11 +402,12 @@ class ITableStyleCommand(interfaces.IRMLDirectiveSignature):
         value_type=attr.Combination(
             value_types=(attr.Integer(),
                          attr.Choice(choices=interfaces.SPLIT_CHOICES))
-            ),
+        ),
         default=[-1, -1],
         min_length=2,
         max_length=2,
         required=True)
+
 
 class TableStyleCommand(directive.RMLDirective):
     name = None
@@ -429,9 +437,11 @@ class IBlockFont(ITableStyleCommand):
                      'character height.'),
         required=False)
 
+
 class BlockFont(TableStyleCommand):
     signature = IBlockFont
     name = 'FONT'
+
 
 class IBlockLeading(ITableStyleCommand):
     """Set the text leading."""
@@ -442,9 +452,11 @@ class IBlockLeading(ITableStyleCommand):
                      'character height.'),
         required=True)
 
+
 class BlockLeading(TableStyleCommand):
     signature = IBlockLeading
     name = 'LEADING'
+
 
 class IBlockTextColor(ITableStyleCommand):
     """Set the text color."""
@@ -454,9 +466,11 @@ class IBlockTextColor(ITableStyleCommand):
         description='The color in which the text will appear.',
         required=True)
 
+
 class BlockTextColor(TableStyleCommand):
     signature = IBlockTextColor
     name = 'TEXTCOLOR'
+
 
 class IBlockAlignment(ITableStyleCommand):
     """Set the text alignment."""
@@ -467,9 +481,11 @@ class IBlockAlignment(ITableStyleCommand):
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=True)
 
+
 class BlockAlignment(TableStyleCommand):
     signature = IBlockAlignment
     name = 'ALIGNMENT'
+
 
 class IBlockLeftPadding(ITableStyleCommand):
     """Set the left padding of the cells."""
@@ -479,9 +495,11 @@ class IBlockLeftPadding(ITableStyleCommand):
         description='The size of the padding.',
         required=True)
 
+
 class BlockLeftPadding(TableStyleCommand):
     signature = IBlockLeftPadding
     name = 'LEFTPADDING'
+
 
 class IBlockRightPadding(ITableStyleCommand):
     """Set the right padding of the cells."""
@@ -491,9 +509,11 @@ class IBlockRightPadding(ITableStyleCommand):
         description='The size of the padding.',
         required=True)
 
+
 class BlockRightPadding(TableStyleCommand):
     signature = IBlockRightPadding
     name = 'RIGHTPADDING'
+
 
 class IBlockBottomPadding(ITableStyleCommand):
     """Set the bottom padding of the cells."""
@@ -503,9 +523,11 @@ class IBlockBottomPadding(ITableStyleCommand):
         description='The size of the padding.',
         required=True)
 
+
 class BlockBottomPadding(TableStyleCommand):
     signature = IBlockBottomPadding
     name = 'BOTTOMPADDING'
+
 
 class IBlockTopPadding(ITableStyleCommand):
     """Set the top padding of the cells."""
@@ -515,9 +537,11 @@ class IBlockTopPadding(ITableStyleCommand):
         description='The size of the padding.',
         required=True)
 
+
 class BlockTopPadding(TableStyleCommand):
     signature = IBlockTopPadding
     name = 'TOPPADDING'
+
 
 class IBlockBackground(ITableStyleCommand):
     """Define the background color of the cells.
@@ -542,6 +566,7 @@ class IBlockBackground(ITableStyleCommand):
         value_type=attr.Color(acceptNone=True),
         required=False)
 
+
 class BlockBackground(TableStyleCommand):
     signature = IBlockBackground
     name = 'BACKGROUND'
@@ -556,6 +581,7 @@ class BlockBackground(TableStyleCommand):
         args += self.getAttributeValues(valuesOnly=True)
         self.parent.style.add(*args)
 
+
 class IBlockRowBackground(ITableStyleCommand):
     """Define the background colors for rows."""
 
@@ -565,9 +591,11 @@ class IBlockRowBackground(ITableStyleCommand):
         value_type=attr.Color(),
         required=True)
 
+
 class BlockRowBackground(TableStyleCommand):
     signature = IBlockRowBackground
     name = 'ROWBACKGROUNDS'
+
 
 class IBlockColBackground(ITableStyleCommand):
     """Define the background colors for columns."""
@@ -578,9 +606,11 @@ class IBlockColBackground(ITableStyleCommand):
         value_type=attr.Color(),
         required=True)
 
+
 class BlockColBackground(TableStyleCommand):
     signature = IBlockColBackground
     name = 'COLBACKGROUNDS'
+
 
 class IBlockValign(ITableStyleCommand):
     """Define the vertical alignment of the cells."""
@@ -591,23 +621,29 @@ class IBlockValign(ITableStyleCommand):
         choices=interfaces.VALIGN_TEXT_CHOICES,
         required=True)
 
+
 class BlockValign(TableStyleCommand):
     signature = IBlockValign
     name = 'VALIGN'
 
+
 class IBlockSpan(ITableStyleCommand):
     """Define a span over multiple cells (rows and columns)."""
+
 
 class BlockSpan(TableStyleCommand):
     signature = IBlockSpan
     name = 'SPAN'
 
+
 class IBlockNosplit(ITableStyleCommand):
     """Define a nosplit over multiple cells (rows and columns)."""
+
 
 class BlockNosplit(TableStyleCommand):
     signature = IBlockNosplit
     name = 'NOSPLIT'
+
 
 class ILineStyle(ITableStyleCommand):
     """Define the border line style of each cell."""
@@ -659,6 +695,7 @@ class ILineStyle(ITableStyleCommand):
         default=1,
         required=False)
 
+
 class LineStyle(TableStyleCommand):
     signature = ILineStyle
 
@@ -669,6 +706,7 @@ class LineStyle(TableStyleCommand):
                                         includeMissing=True)
         args = [val if val is not attr.MISSING else None for val in args]
         self.parent.style.add(*args)
+
 
 class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
     """A style defining the look of a table."""
@@ -688,7 +726,7 @@ class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('blockSpan', IBlockSpan),
         occurence.ZeroOrMore('blockNosplit', IBlockNosplit),
         occurence.ZeroOrMore('lineStyle', ILineStyle)
-        )
+    )
 
     id = attr.Text(
         title='Id',
@@ -700,6 +738,7 @@ class IBlockTableStyle(interfaces.IRMLDirectiveSignature):
         description=('When set, this paragraph will always be in the same '
                      'frame as the following flowable.'),
         required=False)
+
 
 class BlockTableStyle(directive.RMLDirective):
     signature = IBlockTableStyle
@@ -720,11 +759,11 @@ class BlockTableStyle(directive.RMLDirective):
         'blockSpan': BlockSpan,
         'blockNosplit': BlockNosplit,
         'lineStyle': LineStyle,
-        }
+    }
 
     def process(self):
         kw = dict(self.getAttributeValues())
-        id  = kw.pop('id')
+        id = kw.pop('id')
         # Create Style
         self.style = reportlab.platypus.tables.TableStyle()
         for name, value in kw.items():
@@ -787,10 +826,11 @@ class IMinimalListStyle(interfaces.IRMLDirectiveSignature):
     bulletType = attr.Choice(
         title='Bullet Type',
         description='The type of number to display.',
-        choices=interfaces.ORDERED_LIST_TYPES + \
-                interfaces.UNORDERED_BULLET_VALUES,
+        choices=interfaces.ORDERED_LIST_TYPES +
+        interfaces.UNORDERED_BULLET_VALUES,
         doLower=False,
         required=False)
+
 
 class IBaseListStyle(IMinimalListStyle):
 
@@ -804,7 +844,7 @@ class IBaseListStyle(IMinimalListStyle):
             attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES),
             # Arbitrary text.
             attr.Text(),
-            ),
+        ),
         required=False)
 
 
@@ -850,8 +890,9 @@ class IStylesheet(interfaces.IRMLDirectiveSignature):
         occurence.ZeroOrMore('blockTableStyle', IBlockTableStyle),
         occurence.ZeroOrMore('listStyle', IListStyle),
         # TODO:
-        #occurence.ZeroOrMore('boxStyle', IBoxStyle),
-        )
+        # occurence.ZeroOrMore('boxStyle', IBoxStyle),
+    )
+
 
 class Stylesheet(directive.RMLDirective):
     signature = IStylesheet
@@ -862,4 +903,4 @@ class Stylesheet(directive.RMLDirective):
         'paraStyle': ParagraphStyle,
         'blockTableStyle': BlockTableStyle,
         'listStyle': ListStyle,
-        }
+    }

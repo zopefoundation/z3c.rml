@@ -13,7 +13,6 @@
 ##############################################################################
 """RML Reference Generator
 """
-import copy
 import os
 import re
 from xml.sax import saxutils
@@ -24,12 +23,18 @@ import zope.schema.interfaces
 from lxml import etree
 from pygments.lexers import XmlLexer
 
-from z3c.rml import __version__, attr, document, interfaces, pagetemplate
+from z3c.rml import __version__
+from z3c.rml import attr
+from z3c.rml import document
+from z3c.rml import interfaces
+from z3c.rml import pagetemplate
+
 
 INPUT_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
              'rml/tests/input/%s')
-EXPECTED_URL = ('https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
-                'rml/tests/expected/%s?raw=true')
+EXPECTED_URL = (
+    'https://github.com/zopefoundation/z3c.rml/blob/master/src/z3c/'
+    'rml/tests/expected/%s?raw=true')
 
 EXAMPLES_DIRECTORY = os.path.join(os.path.dirname(__file__), 'tests', 'input')
 IGNORE_ATTRIBUTES = ('RMLAttribute', 'BaseChoice')
@@ -37,11 +42,11 @@ CONTENT_FIELD_TYPES = (
     attr.TextNode, attr.TextNodeSequence, attr.TextNodeGrid,
     attr.RawXMLContent, attr.XMLContent)
 STYLES_FORMATTING = {
-     pygments.token.Name.Tag : ('<font textColor="red">', '</font>'),
-     pygments.token.Literal.String : ('<font textColor="blue">', '</font>'),
-    }
+    pygments.token.Name.Tag: ('<font textColor="red">', '</font>'),
+    pygments.token.Literal.String: ('<font textColor="blue">', '</font>'),
+}
 EXAMPLE_NS = 'http://namespaces.zope.org/rml/doc'
-EXAMPLE_ATTR_NAME = '{%s}example' %EXAMPLE_NS
+EXAMPLE_ATTR_NAME = '{%s}example' % EXAMPLE_NS
 
 
 def dedent(rml):
@@ -49,7 +54,7 @@ def dedent(rml):
     if not spaces:
         return rml
     least = min([len(s) for s in spaces if s != ''])
-    return rml.replace('\n'+' '*least, '\n')
+    return rml.replace('\n' + ' ' * least, '\n')
 
 
 def enforceColumns(rml, columns=80):
@@ -67,10 +72,11 @@ def enforceColumns(rml, columns=80):
         while len(line) > columns:
             end = line[:columns].rfind(' ')
             result.append(line[:end])
-            line = ' '*lineIndent + line[end+1:]
+            line = ' ' * lineIndent + line[end + 1:]
         result.append(line)
 
     return '\n'.join(result)
+
 
 def highlightRML(rml):
     lexer = XmlLexer()
@@ -83,7 +89,7 @@ def highlightRML(rml):
 
 def removeDocAttributes(elem):
     for name in elem.attrib.keys():
-        if name.startswith('{'+EXAMPLE_NS+'}'):
+        if name.startswith('{' + EXAMPLE_NS + '}'):
             del elem.attrib[name]
     for child in elem.getchildren():
         removeDocAttributes(child)
@@ -100,30 +106,36 @@ def getAttributeTypes():
         types.append({
             'name': name,
             'description': candidate.__doc__
-            })
+        })
     return types
 
 
 def formatField(field):
     return field.__class__.__name__
 
+
 def formatChoice(field):
     choices = ', '.join([repr(choice) for choice in field.choices.keys()])
-    return '%s of (%s)' %(field.__class__.__name__, choices)
+    return '%s of (%s)' % (field.__class__.__name__, choices)
+
 
 def formatSequence(field):
     vtFormatter = typeFormatters.get(field.value_type.__class__, formatField)
-    return '%s of %s' %(field.__class__.__name__, vtFormatter(field.value_type))
+    return '%s of %s' % (field.__class__.__name__,
+                         vtFormatter(field.value_type))
+
 
 def formatGrid(field):
     vtFormatter = typeFormatters.get(field.value_type.__class__, formatField)
-    return '%s with %i cols of %s' %(
+    return '%s with %i cols of %s' % (
         field.__class__.__name__, field.columns, vtFormatter(field.value_type))
+
 
 def formatCombination(field):
     vts = [typeFormatters.get(vt.__class__, formatField)(vt)
            for vt in field.value_types]
-    return '%s of %s' %(field.__class__.__name__, ', '.join(vts))
+    return '%s of %s' % (field.__class__.__name__, ', '.join(vts))
+
 
 typeFormatters = {
     attr.Choice: formatChoice,
@@ -131,6 +143,7 @@ typeFormatters = {
     attr.Combination: formatCombination,
     attr.TextNodeSequence: formatSequence,
     attr.TextNodeGrid: formatGrid}
+
 
 def processSignature(name, signature, queue, examples, directives=None):
     if directives is None:
@@ -155,7 +168,7 @@ def processSignature(name, signature, queue, examples, directives=None):
                 'description': field.description,
                 'required': field.required,
                 'deprecated': False,
-                }
+            }
             if field.__class__ in CONTENT_FIELD_TYPES:
                 content = fieldInfo
             else:
@@ -184,9 +197,9 @@ def processSignature(name, signature, queue, examples, directives=None):
                 'name': occurence.tag,
                 'occurence': occurence.__class__.__name__,
                 'deprecated': interfaces.IDeprecatedDirective.providedBy(
-                                 occurence.signature),
+                    occurence.signature),
                 'id': str(hash(occurence.signature))
-                })
+            })
         info['sub-directives'] = subs
         directives[signature] = info
 
@@ -212,16 +225,17 @@ def extractExamples(directory):
                 'filename': filename,
                 'line': elem.sourceline,
                 'element': elem,
-                'rmlurl': INPUT_URL %filename,
-                'pdfurl': EXPECTED_URL %(filename[:-4]+'.pdf')
-                })
+                'rmlurl': INPUT_URL % filename,
+                'pdfurl': EXPECTED_URL % (filename[:-4] + '.pdf')
+            })
         # Phase 2: Render all elements
         removeDocAttributes(root)
         for dirExamples in examples.values():
             for example in dirExamples:
                 xml = etree.tounicode(example['element']).strip()
                 xml = re.sub(
-                    ' ?xmlns:doc="http://namespaces.zope.org/rml/doc"', '', xml)
+                    ' ?xmlns:doc="http://namespaces.zope.org/rml/doc"', '', xml
+                )
                 xml = dedent(xml)
                 xml = enforceColumns(xml, 80)
                 xml = highlightRML(xml)

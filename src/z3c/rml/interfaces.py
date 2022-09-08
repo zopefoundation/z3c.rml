@@ -21,7 +21,10 @@ import reportlab.lib.enums
 import zope.interface
 import zope.schema
 
-from z3c.rml.occurence import OneOrMore, ZeroOrMore, ZeroOrOne
+from z3c.rml.occurence import OneOrMore  # noqa: F401 imported but unused
+from z3c.rml.occurence import ZeroOrMore  # noqa: F401 imported but unused
+from z3c.rml.occurence import ZeroOrOne  # noqa: F401 imported but unused
+
 
 JOIN_CHOICES = collections.OrderedDict([
     ('round', 1), ('mitered', 0), ('bevelled', 2)
@@ -61,7 +64,7 @@ STRIKE_KIND_CHOICES = ('single', 'double', 'triple')
 
 BULLET_ANCHOR_CHOICES = ('start', 'middle', 'end', 'numeric')
 
-LIST_FORMATS = ('I', 'i', '123',  'ABC', 'abc')
+LIST_FORMATS = ('I', 'i', '123', 'ABC', 'abc')
 
 ORDERED_LIST_TYPES = ('I', 'i', '1', 'A', 'a', 'l', 'L', 'O', 'o', 'R', 'r')
 
@@ -94,11 +97,13 @@ class IRML2PDF(zope.interface.Interface):
         ``outputFileName``.
         """
 
+
 class IManager(zope.interface.Interface):
     """A manager of all document-global variables."""
     names = zope.interface.Attribute("Names dict")
     styles = zope.interface.Attribute("Styles dict")
     colors = zope.interface.Attribute("Colors dict")
+
 
 class IPostProcessorManager(zope.interface.Interface):
     """Manages all post processors"""
@@ -106,9 +111,11 @@ class IPostProcessorManager(zope.interface.Interface):
     postProcessors = zope.interface.Attribute(
         "List of tuples of the form: (name, processor)")
 
+
 class ICanvasManager(zope.interface.Interface):
     """A manager for the canvas."""
     canvas = zope.interface.Attribute("Canvas")
+
 
 class IRMLDirectiveSignature(zope.interface.Interface):
     """The attribute and sub-directives signature of the current

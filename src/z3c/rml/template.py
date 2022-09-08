@@ -17,8 +17,14 @@
 import zope.interface
 from reportlab import platypus
 
-from z3c.rml import attr, canvas, directive, flowable, interfaces, occurence
-from z3c.rml import page, stylesheet
+from z3c.rml import attr
+from z3c.rml import canvas
+from z3c.rml import directive
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
+from z3c.rml import page
+from z3c.rml import stylesheet  # noqa: F401 imported but unused
 
 
 class IStory(flowable.IFlow):
@@ -54,7 +60,7 @@ class Story(flowable.Flow):
         for idx, pageTemplate in enumerate(self.parent.doc.pageTemplates):
             if pageTemplate.id == fpt:
                 return idx
-        raise ValueError('%r is not a correct page template id.' %fpt)
+        raise ValueError('%r is not a correct page template id.' % fpt)
 
 
 class IFrame(interfaces.IRMLDirectiveSignature):
@@ -133,13 +139,14 @@ class Frame(directive.RMLDirective):
         for name, dir in (('x1', 0), ('y1', 1), ('width', 0), ('height', 1)):
             if (isinstance(args[name], str) and
                     args[name].endswith('%')):
-                args[name] = float(args[name][:-1])/100*size[dir]
+                args[name] = float(args[name][:-1]) / 100 * size[dir]
         frame = platypus.Frame(**args)
         self.parent.frames.append(frame)
 
 
 class IPageGraphics(canvas.IDrawing):
     """Define the page graphics for the page template."""
+
 
 @zope.interface.implementer(interfaces.ICanvasManager)
 class PageGraphics(directive.RMLDirective):
@@ -185,7 +192,7 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
         occurence.OneOrMore('frame', IFrame),
         occurence.ZeroOrOne('pageGraphics', IPageGraphics),
         occurence.ZeroOrOne('mergePage', page.IMergePage),
-        )
+    )
 
     id = attr.Text(
         title='Id',
@@ -199,7 +206,8 @@ class IPageTemplate(interfaces.IRMLDirectiveSignature):
 
     autoNextTemplate = attr.Text(
         title='Auto Next Page Template',
-        description='The page template to use automatically for the next page.',
+        description='The page template to use automatically for the next'
+                    ' page.',
         required=False)
 
 
@@ -212,7 +220,7 @@ class PageTemplate(directive.RMLDirective):
         'mergePage': page.MergePageInPageTemplate,
         'header': Header,
         'footer': Footer,
-        }
+    }
 
     def process(self):
         args = dict(self.getAttributeValues(attrMapping=self.attrMapping))
@@ -234,7 +242,7 @@ class ITemplate(interfaces.IRMLDirectiveSignature):
     """Define a page template."""
     occurence.containing(
         occurence.OneOrMore('pageTemplate', IPageTemplate),
-        )
+    )
 
     pagesize = attr.PageSize(
         title='Page Size',
@@ -295,7 +303,7 @@ class Template(directive.RMLDirective):
     signature = ITemplate
     factories = {
         'pageTemplate': PageTemplate,
-        }
+    }
 
     def process(self):
         args = self.getAttributeValues()
