@@ -19,9 +19,13 @@ import copy
 import reportlab.lib.styles
 import reportlab.platypus
 import zope.schema
-from reportlab.platypus import flowables
+from reportlab.platypus import flowables  # noqa: F401 imported but unused
 
-from z3c.rml import attr, directive, flowable, interfaces, occurence
+from z3c.rml import attr
+from z3c.rml import directive
+from z3c.rml import flowable
+from z3c.rml import interfaces
+from z3c.rml import occurence
 from z3c.rml import stylesheet
 
 
@@ -32,6 +36,7 @@ class IListItem(stylesheet.IMinimalListStyle, flowable.IFlow):
         title='Style',
         description='The list style that is applied to the list.',
         required=False)
+
 
 class ListItem(flowable.Flow):
     signature = IListItem
@@ -68,6 +73,7 @@ class IOrderedListItem(IListItem):
         description='The counter value.',
         required=False)
 
+
 class OrderedListItem(ListItem):
     signature = IOrderedListItem
 
@@ -81,6 +87,7 @@ class IUnorderedListItem(IListItem):
         choices=interfaces.UNORDERED_BULLET_VALUES,
         required=False)
 
+
 class UnorderedListItem(ListItem):
     signature = IUnorderedListItem
 
@@ -93,6 +100,7 @@ class IListBase(stylesheet.IBaseListStyle):
         title='Style',
         description='The list style that is applied to the list.',
         required=False)
+
 
 class ListBase(directive.RMLDirective):
     klass = reportlab.platypus.ListFlowable
@@ -116,7 +124,7 @@ class ListBase(directive.RMLDirective):
 
     def process(self):
         args = dict(self.getAttributeValues(
-                ignore=self.styleAttributes, attrMapping=self.attrMapping))
+            ignore=self.styleAttributes, attrMapping=self.attrMapping))
         if 'style' not in args:
             args['style'] = reportlab.lib.styles.ListStyle('List')
         args['style'] = self.baseStyle = self.processStyle(args['style'])
@@ -129,7 +137,7 @@ class IOrderedList(IListBase):
     """An ordered list."""
     occurence.containing(
         occurence.ZeroOrMore('li', IOrderedListItem),
-        )
+    )
 
     bulletType = attr.Choice(
         title='Bullet Type',
@@ -137,6 +145,7 @@ class IOrderedList(IListBase):
         choices=interfaces.ORDERED_LIST_TYPES,
         doLower=False,
         required=False)
+
 
 class OrderedList(ListBase):
     signature = IOrderedList
@@ -149,7 +158,7 @@ class IUnorderedList(IListBase):
     """And unordered list."""
     occurence.containing(
         occurence.ZeroOrMore('li', IUnorderedListItem),
-        )
+    )
 
     value = attr.Choice(
         title='Bullet Value',
@@ -157,6 +166,7 @@ class IUnorderedList(IListBase):
         choices=interfaces.UNORDERED_BULLET_VALUES,
         default='circle',
         required=False)
+
 
 class UnorderedList(ListBase):
     signature = IUnorderedList
@@ -168,16 +178,17 @@ class UnorderedList(ListBase):
         res.append(('bulletType', 'bullet'))
         return res
 
+
 flowable.Flow.factories['ol'] = OrderedList
 flowable.IFlow.setTaggedValue(
     'directives',
     flowable.IFlow.getTaggedValue('directives') +
     (occurence.ZeroOrMore('ol', IOrderedList),)
-    )
+)
 
 flowable.Flow.factories['ul'] = UnorderedList
 flowable.IFlow.setTaggedValue(
     'directives',
     flowable.IFlow.getTaggedValue('directives') +
     (occurence.ZeroOrMore('ul', IUnorderedList),)
-    )
+)

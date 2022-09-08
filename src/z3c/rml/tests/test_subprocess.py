@@ -18,7 +18,8 @@ import unittest
 
 import z3c.rml.tests
 from z3c.rml import rml2pdfscript
-from z3c.rml.tests.test_rml import ComparePDFTestCase, RMLRenderingTestCase
+from z3c.rml.tests.test_rml import ComparePDFTestCase
+from z3c.rml.tests.test_rml import RMLRenderingTestCase
 
 
 class RMLRenderingTestCase(RMLRenderingTestCase):
@@ -30,9 +31,18 @@ class RMLRenderingTestCase(RMLRenderingTestCase):
 def test_suite():
     suite = unittest.TestSuite()
     if False:
-        inputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'input')
-        outputDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'output')
-        expectDir = os.path.join(os.path.dirname(z3c.rml.tests.__file__), 'expected')
+        inputDir = os.path.join(
+            os.path.dirname(
+                z3c.rml.tests.__file__),
+            'input')
+        outputDir = os.path.join(
+            os.path.dirname(
+                z3c.rml.tests.__file__),
+            'output')
+        expectDir = os.path.join(
+            os.path.dirname(
+                z3c.rml.tests.__file__),
+            'expected')
         for filename in os.listdir(inputDir):
             if not filename.endswith(".rml"):
                 continue
@@ -47,11 +57,9 @@ def test_suite():
             suite.addTest(case)
 
             # ** Test PDF rendering correctness **
-            TestCase = type('compare-'+filename[:-4], (ComparePDFTestCase,), {})
+            TestCase = type(
+                'compare-' + filename[:-4], (ComparePDFTestCase,), {})
             case = TestCase(expectPath, outPath)
             suite.addTest(case)
 
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

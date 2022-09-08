@@ -22,15 +22,18 @@ from lxml import etree
 from z3c.rml import interfaces
 from z3c.rml.attr import getManager
 
+
 logging.raiseExceptions = False
 logger = logging.getLogger("z3c.rml")
 
 ABORT_ON_INVALID_DIRECTIVE = False
 
+
 def DeprecatedDirective(iface, reason):
     zope.interface.directlyProvides(iface, interfaces.IDeprecatedDirective)
     iface.setTaggedValue('deprecatedReason', reason)
     return iface
+
 
 def getFileInfo(directive, element=None):
     root = directive
@@ -38,7 +41,8 @@ def getFileInfo(directive, element=None):
         root = root.parent
     if element is None:
         element = directive.element
-    return '(file %s, line %i)' %(root.filename, element.sourceline)
+    return '(file %s, line %i)' % (root.filename, element.sourceline)
+
 
 @zope.interface.implementer(interfaces.IRMLDirective)
 class RMLDirective:
@@ -53,7 +57,9 @@ class RMLDirective:
                            includeMissing=False, valuesOnly=False):
         """See interfaces.IRMLDirective"""
         manager = getManager(self)
-        cache = '{}.{}'.format(self.signature.__module__, self.signature.__name__)
+        cache = '{}.{}'.format(
+            self.signature.__module__,
+            self.signature.__name__)
         if cache in manager.attributesCache:
             fields = manager.attributesCache[cache]
         else:
@@ -66,7 +72,7 @@ class RMLDirective:
         for name, attr in fields:
             # Only add the attribute to the list, if it is supposed there
             if ((ignore is None or name not in ignore) and
-                (select is None or name in select)):
+                    (select is None or name in select)):
                 # Get the value.
                 value = attr.bind(self).get()
                 # If no value was found for a required field, raise a value
@@ -75,7 +81,7 @@ class RMLDirective:
                     raise ValueError(
                         'No value for required attribute "%s" '
                         'in directive "%s" %s.' % (
-                        name, self.element.tag, getFileInfo(self)))
+                            name, self.element.tag, getFileInfo(self)))
                 # Only add the entry if the value is not the missing value or
                 # missing values are requested to be included.
                 if value is not attr.missing_value or includeMissing:
@@ -107,7 +113,7 @@ class RMLDirective:
             # Raise an error/log any unknown directive.
             if element.tag not in self.factories:
                 msg = "Directive %r could not be processed and was " \
-                      "ignored. %s" %(element.tag, getFileInfo(self, element))
+                      "ignored. %s" % (element.tag, getFileInfo(self, element))
                 # Record any tags/elements that could not be processed.
                 logger.warning(msg)
                 if ABORT_ON_INVALID_DIRECTIVE:

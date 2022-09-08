@@ -32,11 +32,6 @@ class DTDTestCase(unittest.TestCase):
             file.write(dtd.generate())
         # Ensure we produced a processable DTD.
         try:
-            edtd = lxml.etree.DTD(path)
-        except:
+            lxml.etree.DTD(path)
+        except BaseException:
             raise
-            import pdb; pdb.set_trace()
-
-
-def test_suite():
-    return unittest.TestSuite([DTDTestCase()])
