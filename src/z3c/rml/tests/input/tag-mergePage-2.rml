@@ -1,0 +1,43 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="tag-mergePage-2.pdf" invariant="1">
+
+<template pagesize="letter" leftMargin="72" showBoundary="1">
+        <pageTemplate id="main" pagesize="letter portrait">
+        <mergePage filename="[z3c.rml.tests]/input/data/include1.pdf" page="0" />
+        <pageGraphics>
+                <setFont name="Helvetica-BoldOblique" size="18"/>
+                <drawRightString x="323" y="30">RML2PDF Test Suite</drawRightString>
+                <textAnnotation><param name="Rect">0,0,1,1</param><param name="F">3</param><param name="escape">6</param>X::PDF
+PX(S)
+MT(PINK)
+</textAnnotation>
+        </pageGraphics>
+        <frame id="first" x1="1.25in" y1="1.25in" width="5.75in" height="9.25in"/>
+        </pageTemplate>
+</template>
+
+<stylesheet>
+        <initialize>
+        <alias id="style.normal" value="style.Normal"/>
+        </initialize>
+        <paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
+        <paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+        <paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12"
+                spaceBefore="12" spaceAfter="12"/>
+</stylesheet>
+
+<story>
+  <h1 alignment="center">mergePage directive test</h1>
+  <br />
+  <br />
+  <para style="normal">
+    In this test, we use mergePage in the template directive,
+    setting a page from another pdf as a background for each page.
+  </para>
+
+  <nextPage />
+  <para style="normal">This is page 2, featuring same background.</para>
+
+</story>
+
+</document>
