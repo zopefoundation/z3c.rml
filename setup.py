@@ -23,6 +23,7 @@ def read(*rnames):
 
 
 TESTS_REQUIRE = [
+    'mock',
     'Pillow',
     'coverage',
     'zope.pagetemplate',
