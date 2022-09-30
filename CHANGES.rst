@@ -14,6 +14,8 @@ CHANGES
 
 - Move output directory of tests to a temporary directory.
 
+- Support `pikepdf` 6.0+.
+
 
 4.2.0 (2021-10-14)
 ------------------

@@ -1,5 +1,5 @@
 <!DOCTYPE document SYSTEM "rml.dtd">
-<document filename="rml-guide-example-01.pdf">
+<document filename="tag-mergePage.pdf">
   <docinit>
     <registerFont name="ZapfDingbats" faceName="ZapfDingbats"
                   encName="StandardEncoding"/>

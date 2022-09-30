@@ -38,7 +38,7 @@ def mergePage(layerPage, mainPage, pdf, name) -> None:
         mainPage.Resources["/XObject"] = pikepdf.Dictionary({})
     mainPage.Resources["/XObject"][name] = contentsForName
     # Use the MediaBox from the merged page
-    mainPage.MediaBox = layerPage.MediaBox
+    mainPage.MediaBox = pikepdf.Array(layerPage.MediaBox)
     mainPage.contents_add(
         contents=pikepdf.Stream(pdf, newContents),
         prepend=True
