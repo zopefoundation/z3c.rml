@@ -13,6 +13,7 @@
 ##############################################################################
 """Test generating DTD
 """
+import io
 import os
 import unittest
 
@@ -21,7 +22,15 @@ import lxml.etree
 from z3c.rml import dtd
 
 
-class DTDTestCase(unittest.TestCase):
+class DTDUnitTestCase(unittest.TestCase):
+
+    def runTest(self):
+        text = dtd.generate()
+        et = lxml.etree.DTD(io.StringIO(text))
+        self.assertIsNotNone(next(et.iterelements()))
+
+
+class UpdateDTDTestCase(unittest.TestCase):
 
     level = 2
 
