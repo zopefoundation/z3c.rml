@@ -53,8 +53,10 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
         # it is already a file-like object
         xmlFile = xmlInputName
         xmlInputName = 'input.pdf'
+        should_close_xml = False
     else:
         xmlFile = open(xmlInputName, 'rb')
+        should_close_xml = True
     root = etree.parse(xmlFile).getroot()
     doc = document.Document(root)
     doc.filename = xmlInputName
@@ -67,18 +69,21 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
             # it is already a file-like object
             outputFile = outputFileName
             outputFileName = 'output.pdf'
+            should_close_output = False
         else:
             if outDir is not None:
                 outputFileName = os.path.join(outDir, outputFileName)
             outputFile = open(outputFileName, 'wb')
+            should_close_output = True
 
     # Create a Reportlab canvas by processing the document
     try:
         doc.process(outputFile)
     finally:
-        if outputFile:
+        if outputFile and should_close_output:
             outputFile.close()
-        xmlFile.close()
+        if should_close_xml:
+            xmlFile.close()
 
 
 def main(args=None):
