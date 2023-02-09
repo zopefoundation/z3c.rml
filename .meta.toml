@@ -32,6 +32,11 @@ additional-rules = [
     "recursive-include src *.txt",
     ]
 
+[check-manifest]
+additional-ignores = [
+    "test.pdf",
+    ]
+
 [github-actions]
 additional-install = [
     "sudo apt-get update && sudo apt-get install -y ghostscript",
