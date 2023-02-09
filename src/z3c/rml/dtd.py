@@ -56,7 +56,7 @@ def generateElement(name, signature, seen):
             subElementList += occurence
     else:
         subElementList = ' EMPTY'
-    text = '\n<!ELEMENT %s%s>' % (name, subElementList)
+    text = '\n<!ELEMENT {}{}>'.format(name, subElementList)
     # Create a list of attributes for this element.
     for attrName, field in fields:
         # Ignore text nodes, since they are not attributes.
@@ -73,12 +73,12 @@ def generateElement(name, signature, seen):
         else:
             required = '#IMPLIED'
         # Put it all together
-        text += '\n<!ATTLIST %s %s %s %s>' % (name, attrName, type, required)
+        text += f'\n<!ATTLIST {name} {attrName} {type} {required}>'
     text += '\n'
     # DTD does not support redefinition of an element type or have context
     # specific elements.
     if (name, signature) in seen:
-        text = '\n<!--' + text + '-->\n'
+        text = f'\n<!--{text}-->\n'
     seen.append((name, signature))
     # Walk through all sub-elements, creating the DTD entries for them.
     for occurence in signature.queryTaggedValue('directives', ()):
