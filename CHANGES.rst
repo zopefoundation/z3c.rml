@@ -9,8 +9,6 @@ CHANGES
 
 - Drop support for Python 2.7, 3.5, 3.6.
 
-- No changes yet.
-
 
 4.2.1 (2022-09-30)
 ------------------
