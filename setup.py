@@ -33,9 +33,9 @@ TESTS_REQUIRE = [
 
 setup(
     name="z3c.rml",
-    version='4.2.2.dev0',
+    version='5.0.dev0',
     author="Stephan Richter and the Zope Community",
-    author_email="zope-dev@zope.org",
+    author_email="zope-dev@zope.dev",
     description="An alternative implementation of RML",
     long_description=(
         read('README.rst')
@@ -43,7 +43,7 @@ setup(
         read('CHANGES.rst')
     ),
     license="ZPL 2.1",
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     keywords="rml reportlab pdf pagetemplate",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -51,11 +51,11 @@ setup(
         'License :: OSI Approved :: Zope Public License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: Implementation :: CPython',
         'Natural Language :: English',
         'Operating System :: OS Independent',

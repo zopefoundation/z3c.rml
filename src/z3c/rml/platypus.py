@@ -34,7 +34,7 @@ class KeepInFrame(reportlab.platypus.flowables.KeepInFrame):
         self.maxHeight = maxHeight
         self.mode = mode
         assert mode in ('error', 'overflow', 'shrink', 'truncate'), \
-            '{} invalid mode value {}'.format(self.identity(), mode)
+            f'{self.identity()} invalid mode value {mode}'
         # This is an unnecessary check, since wrap() handles None just fine!
         # assert maxHeight>=0,  \
         #       '%s invalid maxHeight value %s' % (self.identity(),maxHeight)

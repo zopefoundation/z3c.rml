@@ -456,9 +456,6 @@ class File(Text):
         if self.doNotOpen:
             return value
         # Open/Download the file
-        # We can't use urlopen directly because it has problems with data URIs
-        # in 2.7 and 3.3 which are resolved in 3.4. Fortunately Reportlab
-        # already has a utility function to help us work around this issue.
         fileObj = reportlab.lib.utils.open_for_read(value)
         sio = io.BytesIO(fileObj.read())
         fileObj.close()
