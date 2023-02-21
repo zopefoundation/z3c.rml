@@ -2,14 +2,14 @@
 # https://github.com/zopefoundation/meta/tree/master/config/pure-python
 [meta]
 template = "pure-python"
-commit-id = "d5b6c610d0ec7f0b8f6bbba49353eb89288f62b1"
+commit-id = "20a50c67"
 
 [python]
 with-windows = false
 with-pypy = false
 with-future-python = false
-with-legacy-python = false
 with-sphinx-doctests = false
+with-macos = false
 
 [tox]
 use-flake8 = true
@@ -30,6 +30,11 @@ additional-rules = [
     "recursive-include src *.svgz",
     "recursive-include src *.ttf",
     "recursive-include src *.txt",
+    ]
+
+[check-manifest]
+additional-ignores = [
+    "test.pdf",
     ]
 
 [github-actions]

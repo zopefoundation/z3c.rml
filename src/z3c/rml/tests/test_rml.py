@@ -21,16 +21,12 @@ import sys
 import tempfile
 import unittest
 
+from PIL import Image
+from PIL import ImageChops
+
 import z3c.rml.tests
 from z3c.rml import rml2pdf
 
-
-try:
-    import Image
-    import ImageChops
-except ImportError:
-    from PIL import Image
-    from PIL import ImageChops
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'render.log')
 
@@ -183,7 +179,7 @@ def test_suite():
     here = os.path.dirname(z3c.rml.tests.__file__)
     inputDir = os.path.join(here, 'input')
     outputDir = tempfile.mkdtemp('z3c.rml-output')
-    print('output dir: {}'.format(outputDir))
+    print(f'output dir: {outputDir}')
     expectDir = os.path.join(here, 'expected')
     for filename in os.listdir(inputDir):
         if not filename.endswith(".rml"):
