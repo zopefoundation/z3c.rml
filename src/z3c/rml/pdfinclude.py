@@ -164,7 +164,7 @@ class PdfTkConcatenationPostProcessor:
         mergedFile = os.path.join(dir, 'merged.pdf')
         do('{} {} cat {} output {}'.format(
             self.EXECUTABLE,
-            ' '.join('{}="{}"'.format(l_, p) for l_, p in file_map.items()),
+            ' '.join(f'{l_}="{p}"' for l_, p in file_map.items()),
             ' '.join(merges),
             mergedFile))
 

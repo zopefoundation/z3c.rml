@@ -308,7 +308,6 @@ class Z3CParagraph(reportlab.platypus.paragraph.Paragraph):
 
         unprocessed_frags = self.frags
         bust_cache = any(isinstance(f, ParaFragWrapper) for f in self.frags)
-        # Paragraph is an old-style class in Python 2 so we can't use super()
         result = super().breakLines(*args, **kwargs)
         if bust_cache:
             self.frags = unprocessed_frags

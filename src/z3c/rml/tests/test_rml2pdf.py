@@ -16,8 +16,7 @@
 
 import io
 import unittest
-
-import mock
+from unittest import mock
 
 from z3c.rml import rml2pdf
 

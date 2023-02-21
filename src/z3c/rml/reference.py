@@ -116,13 +116,13 @@ def formatField(field):
 
 def formatChoice(field):
     choices = ', '.join([repr(choice) for choice in field.choices.keys()])
-    return '%s of (%s)' % (field.__class__.__name__, choices)
+    return '{} of ({})'.format(field.__class__.__name__, choices)
 
 
 def formatSequence(field):
     vtFormatter = typeFormatters.get(field.value_type.__class__, formatField)
-    return '%s of %s' % (field.__class__.__name__,
-                         vtFormatter(field.value_type))
+    return '{} of {}'.format(
+        field.__class__.__name__, vtFormatter(field.value_type))
 
 
 def formatGrid(field):
@@ -134,7 +134,7 @@ def formatGrid(field):
 def formatCombination(field):
     vts = [typeFormatters.get(vt.__class__, formatField)(vt)
            for vt in field.value_types]
-    return '%s of %s' % (field.__class__.__name__, ', '.join(vts))
+    return '{} of {}'.format(field.__class__.__name__, ', '.join(vts))
 
 
 typeFormatters = {
