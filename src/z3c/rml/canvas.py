@@ -377,8 +377,8 @@ class IImage(interfaces.IRMLDirectiveSignature):
         acceptAuto=True)
 
     anchor = attr.Choice(
-        title=u'Text Anchor',
-        description=u'The position in the text to which the coordinates refer.',
+        title='Text Anchor',
+        description='The position in the text to which the coordinates refer.',
         choices='''nw   n   ne
                 w    c    e
                 sw   s   se'''.split(),
