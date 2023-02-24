@@ -1,4 +1,4 @@
-# Generated from:
+ # Generated from:
 # https://github.com/zopefoundation/meta/tree/master/config/pure-python
 name: tests
 
@@ -19,7 +19,6 @@ jobs:
         os:
         - ["ubuntu", "ubuntu-20.04"]
         config:
-        # [Python version, tox env]
         - ["3.9",   "lint"]
         - ["3.7",   "py37"]
         - ["3.8",   "py38"]
