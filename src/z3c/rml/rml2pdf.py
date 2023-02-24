@@ -46,22 +46,16 @@ def parseString(xml, removeEncodingLine=True, filename=None):
 
 
 def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
-    if dtdDir is not None:
-        sys.stderr.write('The ``dtdDir`` option is not yet supported.\n')
-
     if hasattr(xmlInputName, 'read'):
         # it is already a file-like object
         xmlFile = xmlInputName
         xmlInputName = 'input.pdf'
     else:
-        xmlFile = open(xmlInputName, 'rb')
-    root = etree.parse(xmlFile).getroot()
-    doc = document.Document(root)
-    doc.filename = xmlInputName
+        with open(xmlInputName, 'rb') as xmlFile:
+            return go(xmlFile, outputFileName, outDir, dtdDir)
 
+    # If an output filename is specified, create an output file for it
     outputFile = None
-
-    # If an output filename is specified, create an output filepointer for it
     if outputFileName is not None:
         if hasattr(outputFileName, 'write'):
             # it is already a file-like object
@@ -70,15 +64,18 @@ def go(xmlInputName, outputFileName=None, outDir=None, dtdDir=None):
         else:
             if outDir is not None:
                 outputFileName = os.path.join(outDir, outputFileName)
-            outputFile = open(outputFileName, 'wb')
+            with open(outputFileName, 'wb') as outputFile:
+                return go(xmlFile, outputFile, outDir, dtdDir)
+
+    if dtdDir is not None:
+        sys.stderr.write('The ``dtdDir`` option is not yet supported.\n')
+
+    root = etree.parse(xmlFile).getroot()
+    doc = document.Document(root)
+    doc.filename = xmlInputName
 
     # Create a Reportlab canvas by processing the document
-    try:
-        doc.process(outputFile)
-    finally:
-        if outputFile:
-            outputFile.close()
-        xmlFile.close()
+    doc.process(outputFile)
 
 
 def main(args=None):
