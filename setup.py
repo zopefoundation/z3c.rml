@@ -76,6 +76,7 @@ setup(
         'pikepdf>=3.0',
         'reportlab>=3.5.0',
         'setuptools',
+        'svglib',
         'zope.interface',
         'zope.schema',
     ],

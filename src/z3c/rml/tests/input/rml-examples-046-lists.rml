@@ -155,6 +155,10 @@ symbol.</para>
 		<li><para style="normal">para 1</para></li>
 		<li><para style="normal">para 2</para><para style="normal">another paragraph</para></li>
 		<li value="circle" bulletColor="green"><para style="normal">para 3</para></li>
+		<li value="&#x274d;"><para style="normal">Disc</para></li>
+		<li value="rarrowhead"><para style="normal">Right arrow head</para></li>
+		<li value="&#x2022;"><para style="normal">Bullet, defined by unicode code point</para></li>
 	</ul>
+
 </story>
 </document>

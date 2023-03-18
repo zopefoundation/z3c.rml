@@ -81,10 +81,13 @@ class OrderedListItem(ListItem):
 class IUnorderedListItem(IListItem):
     """An ordered list item."""
 
-    value = attr.Choice(
+    value = attr.Combination(
         title='Bullet Value',
         description='The type of bullet character.',
-        choices=interfaces.UNORDERED_BULLET_VALUES,
+        value_types=(
+            attr.Choice(choices=interfaces.UNORDERED_BULLET_VALUES),
+            attr.Text(max_length=1)
+        ),
         required=False)
 
 
