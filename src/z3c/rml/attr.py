@@ -500,15 +500,20 @@ class Image(File):
         from xml.etree import cElementTree
 
         from reportlab.graphics import renderPM
-
-        from z3c.rml.svg2rlg import Renderer
+        from svglib.svglib import SvgRenderer
 
         fileObj = super().fromUnicode(value)
         svg = fileObj.getvalue()
         if svg[:2] == b'\037\213':
-            svg = GzipFile(fileobj=fileObj).read()
-        svg = cElementTree.fromstring(svg)
-        svg = Renderer(value).render(svg)
+            fileObj = GzipFile(fileobj=fileObj)
+        parser = etree.XMLParser(
+            remove_comments=True,
+            recover=True,
+            resolve_entities=False)
+        svg = cElementTree.parse(fileObj, parser=parser).getroot()
+
+        renderer = SvgRenderer(value)
+        svg = renderer.render(svg)
 
         if preserve:
             if width is not None or height is not None:
