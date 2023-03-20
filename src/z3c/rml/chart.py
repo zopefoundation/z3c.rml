@@ -293,6 +293,7 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
     boxStrokeColor = attr.Color(
         title='Box Stroke Color',
         description=('The color of the box border line.'),
+        acceptNone=True,
         required=False)
 
     boxStrokeWidth = attr.Measurement(
@@ -303,6 +304,7 @@ class ILabelBase(interfaces.IRMLDirectiveSignature):
     boxFillColor = attr.Color(
         title='Box Fill Color',
         description=('The color in which the box is filled.'),
+        acceptNone=True,
         required=False)
 
     boxTarget = attr.Text(
