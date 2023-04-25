@@ -2,14 +2,30 @@
 CHANGES
 =======
 
-5.0 (unreleased)
-----------------
+4.3.1 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+4.3.0 (2023-04-25)
+------------------
 
 - Add support for Python 3.11.
 
 - Drop support for Python 2.7, 3.5, 3.6.
 
 - Added support for text anchor points on images.
+
+- Make sure we only close input files if we opened them.
+
+- Delegate image ratio to drawImage. (PR #105)
+
+- Accepts "None" for label box colors.
+
+- Use svglib for the svg to rml conversion instead of maintaining our own.
+
+- Allow unicode characters as bullets.
 
 
 4.2.1 (2022-09-30)
