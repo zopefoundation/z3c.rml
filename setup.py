@@ -75,6 +75,7 @@ setup(
         'lxml',
         'pikepdf>=3.0',
         'reportlab>=3.5.0',
+        'rlPyCairo',
         'setuptools',
         'svglib',
         'zope.interface',

@@ -5,7 +5,7 @@ CHANGES
 4.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix (#117), add rlPyCairo a install requirement. reportlab>=4.0 need the library
 
 
 4.3.0 (2023-04-25)
