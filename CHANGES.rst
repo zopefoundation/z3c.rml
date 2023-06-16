@@ -5,7 +5,8 @@ CHANGES
 4.3.1 (unreleased)
 ------------------
 
-- Fix (#117), add rlPyCairo as install requirement. reportlab>=4.0 need the library
+- Add ``rlPyCairo`` as install requirement as ``reportlab >= 4.0`` needs that library.
+  (`#117 <https://github.com/zopefoundation/z3c.rml/issues/117>_`)
 
 
 4.3.0 (2023-04-25)
