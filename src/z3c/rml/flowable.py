@@ -770,6 +770,18 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
         choices=interfaces.ALIGN_TEXT_CHOICES,
         required=False)
 
+    splitByRow = attr.Boolean(
+        title='Split table between rows',
+        description='Allow tables to span multiple pages',
+        default=True,
+        required=False)
+
+    splitInRow = attr.Boolean(
+        title='Split table in rows',
+        description='Allow table rows to span multiple pages',
+        default=False,
+        required=False)
+
 
 class BlockTable(Flowable):
     signature = IBlockTable

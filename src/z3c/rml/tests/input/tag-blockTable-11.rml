@@ -1,0 +1,198 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-blockTable-11.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+ <stylesheet>
+    <blockTableStyle id="tablestyle">
+        <lineStyle kind="GRID" colorName="darkblue"/>
+    </blockTableStyle>
+</stylesheet>
+ 
+  <story>
+
+    <title>
+      <font face="Courier">&lt;blockTable&gt;</font> Tag Demo with Links
+    </title>
+
+    <bookmarkPage
+        name="top" fitType="fitv" zoom="2"
+        left="2cm" right="10cm" top="20cm"
+        />
+    <h1>Table that splits between rows</h1>
+
+    <blockTable style="tablestyle" colWidths="50% 50%" splitByRow="1" splitInRow="0">
+      <tr>
+        <td>
+            <para>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+            do eiusmod tempor incididunt ut labore et dolore magna aliqua. In
+            ante metus dictum at tempor commodo. Condimentum id venenatis a
+            condimentum vitae sapien. Et odio pellentesque diam volutpat commodo
+            sed egestas. Nibh venenatis cras sed felis. Pulvinar mattis nunc sed
+            blandit libero volutpat sed. Odio euismod lacinia at quis. Quis
+            blandit turpis cursus in hac. Condimentum id venenatis a condimentum
+            vitae sapien. Elementum facilisis leo vel fringilla.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Mi eget mauris pharetra et ultrices neque. Arcu cursus vitae
+            congue mauris rhoncus. Hac habitasse platea dictumst vestibulum
+            rhoncus. Ultrices neque ornare aenean euismod elementum nisi quis.
+            At tempor commodo ullamcorper a lacus vestibulum sed arcu. Dolor sit
+            amet consectetur adipiscing elit pellentesque. Tellus mauris a diam
+            maecenas sed. In dictum non consectetur a erat. Molestie a iaculis
+            at erat pellentesque adipiscing commodo elit. Amet venenatis urna
+            cursus eget nunc scelerisque. Mattis molestie a iaculis at erat
+            pellentesque adipiscing. At auctor urna nunc id cursus metus aliquam
+            eleifend mi. Amet mauris commodo quis imperdiet. Sed viverra ipsum
+            nunc aliquet bibendum enim facilisis gravida. Aliquam ultrices
+            sagittis orci a scelerisque purus semper eget. Amet volutpat
+            consequat mauris nunc congue nisi vitae suscipit tellus. Habitasse
+            platea dictumst quisque sagittis purus sit amet. Venenatis tellus in
+            metus vulputate eu scelerisque felis imperdiet proin. Pharetra magna
+            ac placerat vestibulum.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Neque viverra justo nec ultrices dui sapien eget. At varius
+            vel pharetra vel turpis nunc eget lorem. Massa ultricies mi quis
+            hendrerit dolor magna eget. Volutpat maecenas volutpat blandit
+            aliquam etiam erat velit. Nulla pharetra diam sit amet nisl suscipit
+            adipiscing bibendum est. Sagittis id consectetur purus ut faucibus
+            pulvinar elementum. Pellentesque habitant morbi tristique senectus.
+            Egestas sed tempus urna et pharetra pharetra. Vel elit scelerisque
+            mauris pellentesque pulvinar. Suspendisse interdum consectetur
+            libero id. Ipsum faucibus vitae aliquet nec ullamcorper sit amet
+            risus nullam. Id nibh tortor id aliquet lectus proin nibh nisl. Amet
+            tellus cras adipiscing enim. Lacus luctus accumsan tortor posuere ac
+            ut.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Facilisis sed odio morbi quis commodo odio aenean. Venenatis
+            urna cursus eget nunc scelerisque. Nullam non nisi est sit. Ac odio
+            tempor orci dapibus ultrices in iaculis nunc. Consectetur lorem
+            donec massa sapien faucibus et molestie. Ut sem nulla pharetra diam.
+            Elit duis tristique sollicitudin nibh sit amet commodo nulla
+            facilisi. Convallis tellus id interdum velit. Neque ornare aenean
+            euismod elementum nisi. Viverra aliquet eget sit amet tellus. Id
+            ornare arcu odio ut sem nulla pharetra. Semper quis lectus nulla at.
+            Id leo in vitae turpis massa sed elementum. Enim diam vulputate ut
+            pharetra.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </blockTable>
+
+    <h1>Table that splits in a row</h1>
+
+    <blockTable style="tablestyle" colWidths="50% 50%" splitByRow="0" splitInRow="1">
+      <tr>
+        <td>
+            <para>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+            do eiusmod tempor incididunt ut labore et dolore magna aliqua. In
+            ante metus dictum at tempor commodo. Condimentum id venenatis a
+            condimentum vitae sapien. Et odio pellentesque diam volutpat commodo
+            sed egestas. Nibh venenatis cras sed felis. Pulvinar mattis nunc sed
+            blandit libero volutpat sed. Odio euismod lacinia at quis. Quis
+            blandit turpis cursus in hac. Condimentum id venenatis a condimentum
+            vitae sapien. Elementum facilisis leo vel fringilla.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Mi eget mauris pharetra et ultrices neque. Arcu cursus vitae
+            congue mauris rhoncus. Hac habitasse platea dictumst vestibulum
+            rhoncus. Ultrices neque ornare aenean euismod elementum nisi quis.
+            At tempor commodo ullamcorper a lacus vestibulum sed arcu. Dolor sit
+            amet consectetur adipiscing elit pellentesque. Tellus mauris a diam
+            maecenas sed. In dictum non consectetur a erat. Molestie a iaculis
+            at erat pellentesque adipiscing commodo elit. Amet venenatis urna
+            cursus eget nunc scelerisque. Mattis molestie a iaculis at erat
+            pellentesque adipiscing. At auctor urna nunc id cursus metus aliquam
+            eleifend mi. Amet mauris commodo quis imperdiet. Sed viverra ipsum
+            nunc aliquet bibendum enim facilisis gravida. Aliquam ultrices
+            sagittis orci a scelerisque purus semper eget. Amet volutpat
+            consequat mauris nunc congue nisi vitae suscipit tellus. Habitasse
+            platea dictumst quisque sagittis purus sit amet. Venenatis tellus in
+            metus vulputate eu scelerisque felis imperdiet proin. Pharetra magna
+            ac placerat vestibulum.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Neque viverra justo nec ultrices dui sapien eget. At varius
+            vel pharetra vel turpis nunc eget lorem. Massa ultricies mi quis
+            hendrerit dolor magna eget. Volutpat maecenas volutpat blandit
+            aliquam etiam erat velit. Nulla pharetra diam sit amet nisl suscipit
+            adipiscing bibendum est. Sagittis id consectetur purus ut faucibus
+            pulvinar elementum. Pellentesque habitant morbi tristique senectus.
+            Egestas sed tempus urna et pharetra pharetra. Vel elit scelerisque
+            mauris pellentesque pulvinar. Suspendisse interdum consectetur
+            libero id. Ipsum faucibus vitae aliquet nec ullamcorper sit amet
+            risus nullam. Id nibh tortor id aliquet lectus proin nibh nisl. Amet
+            tellus cras adipiscing enim. Lacus luctus accumsan tortor posuere ac
+            ut.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Facilisis sed odio morbi quis commodo odio aenean. Venenatis
+            urna cursus eget nunc scelerisque. Nullam non nisi est sit. Ac odio
+            tempor orci dapibus ultrices in iaculis nunc. Consectetur lorem
+            donec massa sapien faucibus et molestie. Ut sem nulla pharetra diam.
+            Elit duis tristique sollicitudin nibh sit amet commodo nulla
+            facilisi. Convallis tellus id interdum velit. Neque ornare aenean
+            euismod elementum nisi. Viverra aliquet eget sit amet tellus. Id
+            ornare arcu odio ut sem nulla pharetra. Semper quis lectus nulla at.
+            Id leo in vitae turpis massa sed elementum. Enim diam vulputate ut
+            pharetra.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <para>Sapien nec sagittis aliquam malesuada bibendum arcu. Nibh
+            tortor id aliquet lectus proin nibh nisl. Tellus cras adipiscing
+            enim eu turpis. Arcu risus quis varius quam quisque id diam.
+            Habitant morbi tristique senectus et netus. Ullamcorper sit amet
+            risus nullam eget felis eget. Nunc pulvinar sapien et ligula. Enim
+            nunc faucibus a pellentesque sit. In hac habitasse platea dictumst
+            quisque. Amet purus gravida quis blandit turpis cursus in. Dignissim
+            diam quis enim lobortis scelerisque fermentum dui faucibus. Sapien
+            et ligula ullamcorper malesuada proin libero. Lectus arcu bibendum
+            at varius. Sed augue lacus viverra vitae congue eu. Urna duis
+            convallis convallis tellus id. Magna eget est lorem ipsum
+            dolor.</para>
+        </td>
+        <td>
+        </td>
+      </tr>
+    </blockTable>
+
+
+  </story>
+</document>
