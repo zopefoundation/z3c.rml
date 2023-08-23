@@ -773,13 +773,11 @@ class IBlockTable(interfaces.IRMLDirectiveSignature):
     splitByRow = attr.Boolean(
         title='Split table between rows',
         description='Allow tables to span multiple pages',
-        default=True,
         required=False)
 
     splitInRow = attr.Boolean(
         title='Split table in rows',
         description='Allow table rows to span multiple pages',
-        default=False,
         required=False)
 
 
