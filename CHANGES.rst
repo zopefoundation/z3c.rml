@@ -2,7 +2,13 @@
 CHANGES
 =======
 
-4.3.1 (unreleased)
+4.4.1 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+4.4.0 (2023-08-23)
 ------------------
 
 - Add support for the splitByRow and splitInRow arguments to BlockTable.
