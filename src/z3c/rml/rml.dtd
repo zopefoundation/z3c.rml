@@ -379,6 +379,7 @@
 <!ATTLIST image showBoundary CDATA #IMPLIED>
 <!ATTLIST image preserveAspectRatio CDATA #IMPLIED>
 <!ATTLIST image mask CDATA #IMPLIED>
+<!ATTLIST image anchor (nw | n | ne | w | c | e | sw | s | se) #IMPLIED>
 
 <!ELEMENT place EMPTY>
 <!ATTLIST place x CDATA #REQUIRED>
@@ -1683,6 +1684,8 @@
 <!ATTLIST blockTable colWidths CDATA #IMPLIED>
 <!ATTLIST blockTable repeatRows CDATA #IMPLIED>
 <!ATTLIST blockTable alignment (left | right | center | centre | decimal) #IMPLIED>
+<!ATTLIST blockTable splitByRow CDATA #IMPLIED>
+<!ATTLIST blockTable splitInRow CDATA #IMPLIED>
 
 <!ELEMENT tr (td+)>
 
@@ -1918,7 +1921,7 @@
 <!ATTLIST li bulletFormat CDATA #IMPLIED>
 <!ATTLIST li bulletType (I | i | 1 | A | a | l | L | O | o | R | r | bulletchar | bullet | circle | square | disc | diamond | rarrowhead | diamondwx | sparkle | squarelrs | blackstar) #IMPLIED>
 <!ATTLIST li style CDATA #IMPLIED>
-<!ATTLIST li value (bulletchar | bullet | circle | square | disc | diamond | rarrowhead | diamondwx | sparkle | squarelrs | blackstar) #IMPLIED>
+<!ATTLIST li value CDATA #IMPLIED>
 
 <!ELEMENT includePdfPages EMPTY>
 <!ATTLIST includePdfPages filename CDATA #REQUIRED>

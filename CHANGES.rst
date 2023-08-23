@@ -5,6 +5,8 @@ CHANGES
 4.3.1 (unreleased)
 ------------------
 
+- Add support for the splitByRow and splitInRow arguments to BlockTable.
+
 - Add ``rlPyCairo`` as install requirement as ``reportlab >= 4.0`` needs that library.
   (`#117 <https://github.com/zopefoundation/z3c.rml/issues/117>_`)
 
