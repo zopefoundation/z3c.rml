@@ -5,7 +5,9 @@ CHANGES
 4.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- As tests break with ``pillow >= 11``, for now force the tests to use an older
+  version.
+  (`#125 <https://github.com/zopefoundation/z3c.rml/issues/125>_`)
 
 
 4.4.0 (2023-08-23)
