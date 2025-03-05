@@ -9,6 +9,10 @@ CHANGES
   version.
   (`#125 <https://github.com/zopefoundation/z3c.rml/issues/125>_`)
 
+- As tests break with ``reportlab >= 4.3``, for now force the tests to use an
+  older version.
+  (`#127 <https://github.com/zopefoundation/z3c.rml/issues/127>_`)
+
 
 4.4.0 (2023-08-23)
 ------------------
