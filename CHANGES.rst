@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-4.4.1 (unreleased)
-------------------
+4.5 (unreleased)
+----------------
+
+- Add support for Python 3.12, 3.13.
+
+- Drop support for Python 3.7, 3.8.
 
 - As tests break with ``pillow >= 11``, for now force the tests to use an older
   version.

@@ -116,7 +116,7 @@ def formatField(field):
 
 def formatChoice(field):
     choices = ', '.join([repr(choice) for choice in field.choices.keys()])
-    return '{} of ({})'.format(field.__class__.__name__, choices)
+    return f'{field.__class__.__name__} of ({choices})'
 
 
 def formatSequence(field):

@@ -56,7 +56,7 @@ def generateElement(name, signature, seen):
             subElementList += occurence
     else:
         subElementList = ' EMPTY'
-    text = '\n<!ELEMENT {}{}>'.format(name, subElementList)
+    text = f'\n<!ELEMENT {name}{subElementList}>'
     # Create a list of attributes for this element.
     for attrName, field in fields:
         # Ignore text nodes, since they are not attributes.

@@ -2,7 +2,7 @@
 # https://github.com/zopefoundation/meta/tree/master/config/pure-python
 [meta]
 template = "pure-python"
-commit-id = "20a50c67"
+commit-id = "e1995c20"
 
 [python]
 with-windows = false
@@ -10,9 +10,13 @@ with-pypy = false
 with-future-python = false
 with-sphinx-doctests = false
 with-macos = false
+with-docs = false
 
 [tox]
-use-flake8 = true
+testenv-deps = [
+    "pillow < 11",
+    "reportlab < 4.3",
+]
 
 [coverage]
 fail-under = 82
@@ -39,5 +43,6 @@ additional-ignores = [
 
 [github-actions]
 additional-install = [
-    "sudo apt-get update && sudo apt-get install -y ghostscript",
+    "sudo apt-get update && sudo apt-get install -y ghostscript libcairo2-dev",
+
     ]
