@@ -43,5 +43,5 @@ additional-ignores = [
 
 [github-actions]
 additional-install = [
-    "sudo apt-get update && sudo apt-get install -y ghostscript",
+    "sudo apt-get update && sudo apt-get install -y ghostscript cairo",
     ]

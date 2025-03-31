@@ -40,7 +40,7 @@ jobs:
         persist-credentials: false
     - name: Install additional dependencies
       run: |
-        sudo apt-get update && sudo apt-get install -y ghostscript
+        sudo apt-get update && sudo apt-get install -y ghostscript cairo
     - name: Install uv + caching
       uses: astral-sh/setup-uv@v5
       with:
