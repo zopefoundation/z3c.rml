@@ -5,6 +5,8 @@ CHANGES
 4.5 (unreleased)
 ----------------
 
+- Drop support for Python 3.7, 3.8.
+
 - As tests break with ``pillow >= 11``, for now force the tests to use an older
   version.
   (`#125 <https://github.com/zopefoundation/z3c.rml/issues/125>_`)
