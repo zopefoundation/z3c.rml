@@ -13,7 +13,10 @@ with-macos = false
 with-docs = false
 
 [tox]
-use-flake8 = true
+testenv-deps = [
+    "pillow < 11",
+    "reportlab < 4.3",
+]
 
 [coverage]
 fail-under = 82
