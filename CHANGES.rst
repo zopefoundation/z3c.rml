@@ -2,8 +2,8 @@
 CHANGES
 =======
 
-4.4.1 (unreleased)
-------------------
+4.5 (unreleased)
+----------------
 
 - As tests break with ``pillow >= 11``, for now force the tests to use an older
   version.
