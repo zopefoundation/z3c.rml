@@ -14,7 +14,6 @@
 """Setup"""
 import os
 
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -27,7 +26,7 @@ TESTS_REQUIRE = [
     'Pillow',
     'coverage',
     'zope.pagetemplate',
-    'zope.testrunner',
+    'zope.testrunner >= 6.4',
 ]
 
 
@@ -61,9 +60,6 @@ setup(
         'Operating System :: OS Independent',
     ],
     url='https://github.com/zopefoundation/z3c.rml',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
-    namespace_packages=['z3c'],
     extras_require=dict(
         test=TESTS_REQUIRE,
         pagetemplate=[
