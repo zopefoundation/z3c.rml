@@ -1,13 +1,15 @@
 # Hook up our custom paragraph parser.
-import pkg_resources
+import importlib.metadata
+
+from reportlab.lib.styles import getSampleStyleSheet
 
 import z3c.rml.paraparser
 import z3c.rml.rlfix  # noqa: F401 imported but unused
 
 
-__version__ = pkg_resources.require('z3c.rml')[0].version
+__version__ = importlib.metadata.version("z3c.rml")
 
-from reportlab.lib.styles import getSampleStyleSheet
+del importlib.metadata
 
 
 SampleStyleSheet = getSampleStyleSheet()
