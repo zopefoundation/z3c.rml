@@ -6,7 +6,7 @@ CHANGES
 ----------------
 
 - Do not delete ``importlib.metadata`` as it might break other packages.
-  (`#135 <https://github.com/zopefoundation/z3c.rml/issues/135>_`
+  (`#135 <https://github.com/zopefoundation/z3c.rml/issues/135>_`)
 
 
 5.0 (2025-04-14)
