@@ -2,8 +2,8 @@
 CHANGES
 =======
 
-5.1 (unreleased)
-----------------
+5.0.1 (2025-10-08)
+------------------
 
 - Do not delete ``importlib.metadata`` as it might break other packages.
   (`#135 <https://github.com/zopefoundation/z3c.rml/issues/135>_`)
