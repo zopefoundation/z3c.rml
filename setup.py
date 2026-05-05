@@ -67,7 +67,6 @@ setup(
     ),
     install_requires=[
         'Pygments',
-        'backports.tempfile',
         'lxml',
         'pikepdf>=3.0',
         'reportlab>=3.5.0',
