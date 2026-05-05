@@ -684,7 +684,7 @@ class Document(directive.RMLDirective):
         self.canvas = self.doc.canv
 
     def _initCanvas(self, canvas):
-        canvas._indexAdd = self._indexAdd
+        canvas.setNamedCB('_indexAdd', self._indexAdd)
         canvas.manager = self
         if self.pageLayout:
             canvas._doc._catalog.setPageLayout(self.pageLayout)
