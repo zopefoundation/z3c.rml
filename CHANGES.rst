@@ -5,8 +5,6 @@ CHANGES
 5.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
 - Fix compatibility with ``reportlab >= 4.3`` by using the proper PostScript
   font name ``Times-Roman`` instead of the informal ``Times`` shorthand.
   (`#127 <https://github.com/zopefoundation/z3c.rml/issues/127>`_)
