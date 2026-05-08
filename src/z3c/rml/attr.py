@@ -477,7 +477,22 @@ class Image(File):
         fileObj = super().fromUnicode(value)
         if self.onlyOpen:
             return fileObj
-        return reportlab.lib.utils.ImageReader(fileObj)
+        return self._create_image_reader(fileObj)
+
+    @staticmethod
+    def _create_image_reader(fileObj):
+        from PIL import Image as PILImage
+        img = PILImage.open(fileObj)
+        initial_mode = img.mode
+        img.load()
+        if img.mode != initial_mode:
+            # Pillow >= 11 may change the image mode after load(), e.g. EPS
+            # images switch from RGB to 1-bit mode after rasterization. This
+            # confuses reportlab's ImageReader.getRGBData() which checks the
+            # mode before loading. Convert back to the initial mode so
+            # reportlab can process the image correctly.
+            img = img.convert(initial_mode)
+        return reportlab.lib.utils.ImageReader(img)
 
     def _load_svg(self, value):
         manager = getManager(self.context)
