@@ -1,8 +1,8 @@
-# Generated from:
-# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+# Generated with zope.meta (https://zopemeta.readthedocs.io/) from:
+# https://github.com/zopefoundation/meta/tree/master/src/zope/meta/pure-python
 [meta]
 template = "pure-python"
-commit-id = "e1995c20"
+commit-id = "4a3c19b7"
 
 [python]
 with-windows = false
@@ -11,12 +11,10 @@ with-future-python = false
 with-sphinx-doctests = false
 with-macos = false
 with-docs = false
+with-free-threaded-python = false
 
 [tox]
-testenv-deps = [
-    "pillow < 11",
-    "reportlab < 4.3",
-]
+testenv-deps = ["pillow < 11"]
 
 [coverage]
 fail-under = 82
@@ -34,15 +32,13 @@ additional-rules = [
     "recursive-include src *.svgz",
     "recursive-include src *.ttf",
     "recursive-include src *.txt",
-    ]
+]
 
 [check-manifest]
-additional-ignores = [
-    "test.pdf",
-    ]
+additional-ignores = ["test.pdf"]
 
 [github-actions]
 additional-install = [
     "sudo apt-get update && sudo apt-get install -y ghostscript libcairo2-dev",
 
-    ]
+]
