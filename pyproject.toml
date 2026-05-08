@@ -1,14 +1,72 @@
 # Generated with zope.meta (https://zopemeta.readthedocs.io/) from:
 # https://github.com/zopefoundation/meta/tree/master/src/zope/meta/pure-python
-# Generated from:
-# https://github.com/zopefoundation/meta/tree/master/config/pure-python
-
 [build-system]
 requires = [
     "setuptools >= 78.1.1,< 82",
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "z3c.rml"
+version = "5.1.dev0"
+description = "An alternative implementation of RML"
+license = "ZPL-2.1"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+]
+dynamic = ["readme"]
+requires-python = ">=3.10"
+authors = [
+    {name = "Stephan Richter and the Zope Community",email = "zope-dev@zope.dev"},
+]
+maintainers = [
+    {name = "Plone Foundation and contributors",email = "zope-dev@zope.dev"},
+]
+dependencies = [
+    "Pygments",
+    "backports.tempfile",
+    "lxml",
+    "pikepdf>=3.0",
+    "reportlab>=3.5.0",
+    "rlPyCairo",
+    "svglib",
+    "zope.interface",
+    "zope.schema",
+]
+keywords = ["rml", "reportlab", "pdf", "pagetemplate"]
+
+[project.scripts]
+rml2pdf = "z3c.rml.rml2pdf:main"
+dtd = "z3c.rml.dtd:main"
+reference = "z3c.rml.reference:main"
+
+[project.optional-dependencies]
+test = [
+    "mock",
+    "Pillow",
+    "coverage",
+    "zope.pagetemplate",
+    "zope.testrunner >= 6.4",
+]
+pagetemplate = ["zope.pagetemplate"]
+
+[project.urls]
+Source = "https://github.com/zopefoundation/z3c.rml"
+Issues = "https://github.com/zopefoundation/z3c.rml/issues"
+Changelog = "https://raw.githubusercontent.com/zopefoundation/z3c.rml/master/CHANGES.rst"
 
 [tool.coverage.run]
 branch = true
@@ -32,3 +90,7 @@ exclude_lines = [
 
 [tool.coverage.html]
 directory = "parts/htmlcov"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst", "CHANGES.rst"]}
+

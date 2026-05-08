@@ -11,78 +11,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Setup"""
-import os
-
 from setuptools import setup
 
 
-def read(*rnames):
-    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
-
-
-TESTS_REQUIRE = [
-    'mock',
-    'Pillow',
-    'coverage',
-    'zope.pagetemplate',
-    'zope.testrunner >= 6.4',
-]
-
-
-setup(
-    name="z3c.rml",
-    version='5.1.dev0',
-    author="Stephan Richter and the Zope Community",
-    author_email="zope-dev@zope.dev",
-    description="An alternative implementation of RML",
-    long_description=(
-        read('README.rst')
-        + '\n\n' +
-        read('CHANGES.rst')
-    ),
-    license="ZPL-2.1",
-    python_requires='>=3.10',
-    keywords="rml reportlab pdf pagetemplate",
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Zope Public License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',
-        'Programming Language :: Python :: 3.13',
-        'Programming Language :: Python :: 3.14',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Natural Language :: English',
-        'Operating System :: OS Independent',
-    ],
-    url='https://github.com/zopefoundation/z3c.rml',
-    extras_require={
-        'test': TESTS_REQUIRE,
-        'pagetemplate': [
-            'zope.pagetemplate']
-    },
-    install_requires=[
-        'Pygments',
-        'backports.tempfile',
-        'lxml',
-        'pikepdf>=3.0',
-        'reportlab>=3.5.0',
-        'rlPyCairo',
-        'setuptools',
-        'svglib',
-        'zope.interface',
-        'zope.schema',
-    ],
-    entry_points={
-        'console_scripts': [
-            'rml2pdf = z3c.rml.rml2pdf:main',
-            'dtd = z3c.rml.dtd:main',
-            'reference = z3c.rml.reference:main'],
-    },
-    include_package_data=True,
-    zip_safe=False,
-)
+# See pyproject.toml for package metadata
+setup()
