@@ -26,7 +26,7 @@ from backports import tempfile
 try:
     import pikepdf
     from pikepdf import Dictionary  # noqa: F401 imported but unused
-except ImportError:
+except ModuleNotFoundError:
     pikepdf = None
 from reportlab.platypus import flowables
 
