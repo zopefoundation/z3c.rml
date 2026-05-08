@@ -18,6 +18,14 @@ CHANGES
 - Fix index callback registration to use ``setNamedCB`` API, required by
   ``reportlab >= 4.5``.
 
+- Remove the ``Pillow < 11`` upper version bound. Pillow >= 11 changed how
+  EPS images are loaded: the image mode can change after rasterization (e.g.
+  from RGB to 1-bit), which caused ``ValueError: No packer found from 1 to
+  RGB`` in reportlab's ``ImageReader``. Fix by pre-loading images and
+  converting them back to their initial mode when Pillow changes it during
+  load.
+  (`#125 <https://github.com/zopefoundation/z3c.rml/issues/125>`_)
+
 
 5.0.1 (2025-10-08)
 ------------------
