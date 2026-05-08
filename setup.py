@@ -60,11 +60,11 @@ setup(
         'Operating System :: OS Independent',
     ],
     url='https://github.com/zopefoundation/z3c.rml',
-    extras_require=dict(
-        test=TESTS_REQUIRE,
-        pagetemplate=[
+    extras_require={
+        'test': TESTS_REQUIRE,
+        'pagetemplate': [
             'zope.pagetemplate']
-    ),
+    },
     install_requires=[
         'Pygments',
         'backports.tempfile',
