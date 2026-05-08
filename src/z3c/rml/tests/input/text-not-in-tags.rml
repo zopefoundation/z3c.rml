@@ -16,7 +16,7 @@
   <stylesheet>
     <paraStyle
        name="Custom"
-       fontName="Times"
+       fontName="Times-Roman"
        fontSize="16pt"
        leading="18pt"
        textColor="red"
