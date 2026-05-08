@@ -18,7 +18,7 @@ import io
 import logging
 import os
 import re
-import urllib
+import urllib.parse
 from importlib import import_module
 
 import reportlab.graphics.widgets.markers
@@ -399,7 +399,7 @@ class ObjectRef(Text):
         modulePath, objectName = result.groups()
         try:
             module = import_module(modulePath)
-        except ImportError:
+        except ImportError:  # has to stay ImportError
             raise ValueError(
                 'The module you specified was not found: %s' % modulePath)
         try:
@@ -449,7 +449,7 @@ class File(Text):
         # module resolution.
         if self.doNotModify:
             return value
-        # Under Python 3 all platforms need a protocol for local files
+        # All platforms need a protocol for local files:
         if not urllib.parse.urlparse(value).scheme:
             value = 'file:///' + os.path.abspath(value)
         # If the file is not to be opened, simply return the path.

@@ -25,7 +25,7 @@ from z3c.rml import occurence
 
 try:
     import reportlab.graphics.barcode
-except ImportError:
+except ModuleNotFoundError:
     # barcode package has not been installed
 
     import reportlab.graphics

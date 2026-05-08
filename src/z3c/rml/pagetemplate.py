@@ -20,7 +20,7 @@ from z3c.rml import rml2pdf
 
 try:
     import zope.pagetemplate.pagetemplatefile
-except ImportError:
+except ModuleNotFoundError:
     raise
     # zope.pagetemplate package has not been installed, uncomment this to mock
     # import types

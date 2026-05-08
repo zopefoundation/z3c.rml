@@ -1,5 +1,5 @@
-# Generated from:
-# https://github.com/zopefoundation/meta/tree/master/config/pure-python
+# Generated with zope.meta (https://zopemeta.readthedocs.io/) from:
+# https://github.com/zopefoundation/meta/tree/master/src/zope/meta/pure-python
 name: tests
 
 on:
@@ -24,38 +24,35 @@ jobs:
         config:
         # [Python version, tox env]
         - ["3.11", "release-check"]
-        - ["3.9", "py39"]
         - ["3.10", "py310"]
         - ["3.11", "py311"]
         - ["3.12", "py312"]
         - ["3.13", "py313"]
+        - ["3.14", "py314"]
         - ["3.11", "coverage"]
 
     runs-on: ${{ matrix.os[1] }}
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
     name: ${{ matrix.config[1] }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         persist-credentials: false
     - name: Install additional dependencies
       run: |
         sudo apt-get update && sudo apt-get install -y ghostscript libcairo2-dev
     - name: Install uv + caching
-      uses: astral-sh/setup-uv@v5
+      # astral/setup-uv@8.1.0
+      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
       with:
         enable-cache: true
         cache-dependency-glob: |
           setup.*
           tox.ini
-        python-version: ${{ matrix.matrix.config[0] }}
+        python-version: ${{ matrix.config[0] }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Test
-      if: ${{ !startsWith(runner.os, 'Mac') }}
       run: uvx --with tox-uv tox -e ${{ matrix.config[1] }}
-    - name: Test (macOS)
-      if: ${{ startsWith(runner.os, 'Mac') }}
-      run: uvx --with tox-uv tox -e ${{ matrix.config[1] }}-universal2
     - name: Coverage
       if: matrix.config[1] == 'coverage'
       run: |
