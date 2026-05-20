@@ -13,9 +13,6 @@ with-macos = false
 with-docs = false
 with-free-threaded-python = false
 
-[tox]
-testenv-deps = ["pillow < 11"]
-
 [coverage]
 fail-under = 82
 
