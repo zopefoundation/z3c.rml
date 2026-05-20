@@ -19,8 +19,7 @@ import io
 import logging
 import os
 import subprocess
-
-from backports import tempfile
+import tempfile
 
 
 try:

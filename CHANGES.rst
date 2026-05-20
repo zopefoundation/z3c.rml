@@ -5,12 +5,10 @@ CHANGES
 5.1 (unreleased)
 ----------------
 
-- Move package metadata from setup.py to pyproject.toml.
-
-- Add support for Python 3.14.
-
-- Drop support for Python 3.9.
-
+- Drop deprecated ``backports.tempfile`` dependency in favor of the standard
+  library ``tempfile`` module (requires Python 3.4+, project requires 3.9+).
+  (`#136 <https://github.com/zopefoundation/z3c.rml/issues/136>`_)
+  
 - Fix compatibility with ``reportlab >= 4.3`` by using the proper PostScript
   font name ``Times-Roman`` instead of the informal ``Times`` shorthand.
   (`#127 <https://github.com/zopefoundation/z3c.rml/issues/127>`_)
@@ -25,6 +23,12 @@ CHANGES
   converting them back to their initial mode when Pillow changes it during
   load.
   (`#125 <https://github.com/zopefoundation/z3c.rml/issues/125>`_)
+
+- Move package metadata from setup.py to pyproject.toml.
+
+- Add support for Python 3.14.
+
+- Drop support for Python 3.9.
 
 
 5.0.1 (2025-10-08)
