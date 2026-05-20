@@ -684,7 +684,13 @@ class Document(directive.RMLDirective):
         self.canvas = self.doc.canv
 
     def _initCanvas(self, canvas):
-        canvas._indexAdd = self._indexAdd
+        # TODO: Remove the conditional once support for reportlab < 4.4.8
+        # is dropped. setNamedCB was introduced in reportlab 4.4.8 as a
+        # security fix replacing direct canvas attribute assignment.
+        if hasattr(canvas, 'setNamedCB'):
+            canvas.setNamedCB('_indexAdd', self._indexAdd)
+        else:
+            canvas._indexAdd = self._indexAdd
         canvas.manager = self
         if self.pageLayout:
             canvas._doc._catalog.setPageLayout(self.pageLayout)

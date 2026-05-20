@@ -8,6 +8,13 @@ CHANGES
 - Drop deprecated ``backports.tempfile`` dependency in favor of the standard
   library ``tempfile`` module (requires Python 3.4+, project requires 3.9+).
   (`#136 <https://github.com/zopefoundation/z3c.rml/issues/136>`_)
+  
+- Fix compatibility with ``reportlab >= 4.3`` by using the proper PostScript
+  font name ``Times-Roman`` instead of the informal ``Times`` shorthand.
+  (`#127 <https://github.com/zopefoundation/z3c.rml/issues/127>`_)
+
+- Fix index callback registration to use ``setNamedCB`` API, required by
+  ``reportlab >= 4.5``.
 
 
 5.0.1 (2025-10-08)
