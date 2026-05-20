@@ -18,7 +18,7 @@ import io
 import logging
 import os
 import re
-import urllib
+import urllib.parse
 from importlib import import_module
 
 import reportlab.graphics.widgets.markers
@@ -399,7 +399,7 @@ class ObjectRef(Text):
         modulePath, objectName = result.groups()
         try:
             module = import_module(modulePath)
-        except ImportError:
+        except ImportError:  # has to stay ImportError
             raise ValueError(
                 'The module you specified was not found: %s' % modulePath)
         try:
@@ -449,7 +449,7 @@ class File(Text):
         # module resolution.
         if self.doNotModify:
             return value
-        # Under Python 3 all platforms need a protocol for local files
+        # All platforms need a protocol for local files:
         if not urllib.parse.urlparse(value).scheme:
             value = 'file:///' + os.path.abspath(value)
         # If the file is not to be opened, simply return the path.
@@ -477,7 +477,22 @@ class Image(File):
         fileObj = super().fromUnicode(value)
         if self.onlyOpen:
             return fileObj
-        return reportlab.lib.utils.ImageReader(fileObj)
+        return self._create_image_reader(fileObj)
+
+    @staticmethod
+    def _create_image_reader(fileObj):
+        from PIL import Image as PILImage
+        img = PILImage.open(fileObj)
+        initial_mode = img.mode
+        img.load()
+        if img.mode != initial_mode:
+            # Pillow >= 11 may change the image mode after load(), e.g. EPS
+            # images switch from RGB to 1-bit mode after rasterization. This
+            # confuses reportlab's ImageReader.getRGBData() which checks the
+            # mode before loading. Convert back to the initial mode so
+            # reportlab can process the image correctly.
+            img = img.convert(initial_mode)
+        return reportlab.lib.utils.ImageReader(img)
 
     def _load_svg(self, value):
         manager = getManager(self.context)
