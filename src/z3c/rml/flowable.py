@@ -41,7 +41,7 @@ from z3c.rml import stylesheet
 
 try:
     import reportlab.graphics.barcode
-except ImportError:
+except ModuleNotFoundError:
     # barcode package has not been installed
     import types
 
@@ -57,7 +57,7 @@ def pygments2xpre(s, language="python"):
     try:
         from pygments import highlight
         from pygments.formatters import HtmlFormatter
-    except ImportError:
+    except ModuleNotFoundError:
         return s
 
     from pygments.lexers import get_lexer_by_name
