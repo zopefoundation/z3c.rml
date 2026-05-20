@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-5.1 (unreleased)
+5.1 (2026-05-20)
 ----------------
 
 - Drop deprecated ``backports.tempfile`` dependency in favor of the standard
