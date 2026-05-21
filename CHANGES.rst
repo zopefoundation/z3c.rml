@@ -5,7 +5,9 @@ CHANGES
 5.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Make ``rlPyCairo`` an optional test dependency instead of a required install
+  dependency, matching its optional status in ``reportlab >= 4``.
+  (`#135 <https://github.com/zopefoundation/z3c.rml/issues/135>`_)
 
 
 5.1 (2026-05-20)
