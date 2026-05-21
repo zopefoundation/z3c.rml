@@ -2,8 +2,8 @@
 CHANGES
 =======
 
-5.2 (unreleased)
-----------------
+5.1.1 (2026-05-21)
+------------------
 
 - Make ``rlPyCairo`` an optional test dependency instead of a required install
   dependency, matching its optional status in ``reportlab >= 4``.
