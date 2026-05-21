@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "z3c.rml"
-version = "5.1.1"
+version = "5.2.dev0"
 description = "An alternative implementation of RML"
 license = "ZPL-2.1"
 classifiers = [
