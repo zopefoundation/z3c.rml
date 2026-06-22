@@ -429,7 +429,7 @@ class LogConfig(directive.RMLDirective):
     def process(self):
         args = dict(self.getAttributeValues())
         logger = logging.getLogger(LOGGER_NAME)
-        handler = logging.FileHandler(args['filename'][8:], args['filemode'])
+        handler = logging.FileHandler(args['filename'], args['filemode'])
         formatter = logging.Formatter(
             args.get('format'), args.get('datefmt'))
         handler.setFormatter(formatter)

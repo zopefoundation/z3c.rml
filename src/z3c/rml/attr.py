@@ -19,6 +19,7 @@ import logging
 import os
 import re
 import urllib.parse
+import urllib.request
 from importlib import import_module
 
 import reportlab.graphics.widgets.markers
@@ -449,14 +450,23 @@ class File(Text):
         # module resolution.
         if self.doNotModify:
             return value
-        # All platforms need a protocol for local files:
-        if not urllib.parse.urlparse(value).scheme:
-            value = 'file:///' + os.path.abspath(value)
+        # Local files are passed as a plain absolute filesystem path.
+        # Historically a ``file://`` URL was used here, but reportlab >= 5
+        # refuses to open ``file://`` URLs unless their host is listed in
+        # ``reportlab.rl_config.trustedHosts`` (empty by default), so we hand
+        # reportlab the bare path, which it opens directly via ``open()``.
+        scheme = urllib.parse.urlparse(value).scheme
+        if not scheme:
+            value = os.path.abspath(value)
         # If the file is not to be opened, simply return the path.
         if self.doNotOpen:
             return value
-        # Open/Download the file
-        fileObj = reportlab.lib.utils.open_for_read(value)
+        # Open/Download the file. reportlab >= 5 also refuses to open ``data:``
+        # URIs unless a trusted host is configured, so decode those ourselves.
+        if scheme == 'data':
+            fileObj = urllib.request.urlopen(value)
+        else:
+            fileObj = reportlab.lib.utils.open_for_read(value)
         sio = io.BytesIO(fileObj.read())
         fileObj.close()
         sio.seek(0)

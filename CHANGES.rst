@@ -5,7 +5,10 @@ CHANGES
 5.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix compatibility with ``reportlab >= 5`` which refuses to open ``file://``
+  and ``data:`` URLs unless a trusted host is configured. Local files are now
+  passed to reportlab as a plain absolute path, and ``data:`` URIs are decoded
+  directly. The fix remains compatible with ``reportlab 4.x``.
 
 
 5.1.1 (2026-05-21)
