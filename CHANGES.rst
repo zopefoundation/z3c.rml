@@ -2,7 +2,7 @@
 CHANGES
 =======
 
-5.2 (unreleased)
+5.2 (2026-06-23)
 ----------------
 
 - Fix compatibility with ``reportlab >= 5`` which refuses to open ``file://``
