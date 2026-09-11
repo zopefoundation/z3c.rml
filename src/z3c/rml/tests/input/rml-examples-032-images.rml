@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_032_images.pdf" invariant="1">
 
 <template pagesize="letter" leftMargin="72" showBoundary="1">
@@ -43,7 +43,7 @@ PDF is 1296x1296, so the rubbish at top right of the page is the unscaled one be
 
 <spacer length="12"/>
 
-<illustration height="100" width="432">	
+<illustration height="100" width="432">
 	<rect x="0" y="0" width="432" height="100" fill="0" stroke="1"/>
 	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="0" y="0"/>
 	<image file="[z3c.rml.tests]/input/images/cylinder.eps" x="0" y="0" width="50" height="50" showBoundary="yes"/>
@@ -78,18 +78,18 @@ You can choose an anchor from the standard compass points.</para>
 
 
 <nextPage/>
-<para style="normal">First attempt to place an image which has an artbox.  We have created a PDF with MediaBox (the usual size measure) approx 300x400 points, 
+<para style="normal">First attempt to place an image which has an artbox.  We have created a PDF with MediaBox (the usual size measure) approx 300x400 points,
 and a 100x100 circle in top right corner, and instructed RML to draw it in a box of half size.  This seems to work.</para>
 <!--
-<illustration height="200" width="150">	
+<illustration height="200" width="150">
   <image file="art_box_test.eps" x="0" y="0" width="150" height="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="MediaBox"/>
 </illustration>
 -->
 <para style="normal">Now we try to place it with the art box.  The blue should leak out horribly to left and below, but the red circle should
-end up elliptical within the box.  (In real life, the art box defines the 'area of interest' and there would be no stuff outside it).  This isn't working yet.  Also, 
+end up elliptical within the box.  (In real life, the art box defines the 'area of interest' and there would be no stuff outside it).  This isn't working yet.  Also,
 we get an extraneous boundary box from drawPdfImage appearing at top right - shifted the wrong way.</para>
 <!--
-<illustration height="200" width="150">	
+<illustration height="200" width="150">
   <image file="art_box_test.eps" x="0" y="0" width="150" height="200" showBoundary="yes" preserveAspectRatio="yes" pdfBoxType="ArtBox"/>
 </illustration>
 -->

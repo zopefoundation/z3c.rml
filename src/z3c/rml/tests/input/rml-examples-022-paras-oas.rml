@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
 <!DOCTYPE document SYSTEM "rml_1_0.dtd" [
   <!ENTITY pound   "&#xA3;">
 ]>
-<document filename="test_022_paras_oas.pdf"> 
+<document filename="test_022_paras_oas.pdf">
 
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -25,7 +25,7 @@
 	fontSize="12"
 	spaceBefore = "0.5 cm"
 	/>
-	
+
 	<paraStyle name="style1"
 	fontName="Courier"
 	fontSize="10"
@@ -133,7 +133,7 @@
 	spaceBefore="1cm"
 	spaceAfter="2cm"
 	/>
-	
+
 	<paraStyle name="style21"
 	parent="style1"
 	textColor = "green"
@@ -155,7 +155,7 @@
 	parent="style1"
 	textColor = "#FF0000"
 	/>
-	
+
 	<paraStyle name="style24"
 	parent="style1"
 	textColor = "#00FF00"
@@ -173,7 +173,7 @@
 	parent="style1"
 	textColor = "1,0,0"
 	/>
-	
+
 	<paraStyle name="style27"
 	parent="style1"
 	textColor = "0,1,0"
@@ -189,7 +189,7 @@
 	spaceBefore = "0"
 	textColor = "red"
 	/>
-		
+
 </stylesheet>
 
 
@@ -201,8 +201,8 @@ It should be a normal paragraph, set in Courier (not bold).
 It should be a normal paragraph, set in Courier 12 pt.</para>
 
 <para style="h1">Paragraph 2: Indent Left</para>
-<para style="style2">This paragraph is in a style we have called "style2". It should be indented on the left. 
-It should be indented on the left by 1 inch. 
+<para style="style2">This paragraph is in a style we have called "style2". It should be indented on the left.
+It should be indented on the left by 1 inch.
 It should be indented on the left. </para>
 
 <para style="h1">Paragraph 3: Indent Right</para>
@@ -302,8 +302,8 @@ by all the means available to reportlab.lib.colors. Currently, you
 
 <para style="h1">Quoting and escaping</para>
 <para style="style1">
-    This checks for all the possible quotes: &amp;amp; = &amp;, 
-    &amp;lt; = &lt;, &amp;gt; = &gt;, &amp;apos; = &apos;, &amp;quot; = &quot;, 
+    This checks for all the possible quotes: &amp;amp; = &amp;,
+    &amp;lt; = &lt;, &amp;gt; = &gt;, &amp;apos; = &apos;, &amp;quot; = &quot;,
     &amp;pound; = &pound;.
 </para>
 <para style="style1">

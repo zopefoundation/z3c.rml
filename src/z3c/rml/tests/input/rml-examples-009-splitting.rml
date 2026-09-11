@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
-<document filename="test_009_splitting.pdf"> 
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_009_splitting.pdf">
 
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -22,7 +22,7 @@
 	fontSize="12"
 	spaceBefore = "0.5 cm"
 	/>
-	
+
 	<paraStyle name="style1"
 	fontName="Courier"
 	fontSize="10"
@@ -51,14 +51,14 @@
 	spaceBefore = "24"
 	keepWithNext="0"
 	/>
-	
+
 	<paraStyle name="body"
 	fontName="Helvetica"
 	fontSize="12"
 	leading="14"
 	spaceBefore = "3"
 	/>
-	
+
 
     <blockTableStyle id="myStyle">
         <blockAlignment value="center"/>

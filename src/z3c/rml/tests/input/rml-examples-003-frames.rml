@@ -1,4 +1,4 @@
-<document filename="test_003_frames.pdf"> 
+<document filename="test_003_frames.pdf">
 
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -25,7 +25,7 @@
 	fontSize="20"
 	leading="36"
 	/>
-	
+
 	<paraStyle
 	name="normal"
 	fontName="Helvetica"
@@ -46,7 +46,7 @@
 	spaceBefore = "0"
 	textColor = "red"
 	/>
-		
+
 </stylesheet>
 
 

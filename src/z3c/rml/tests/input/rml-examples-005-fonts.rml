@@ -18,16 +18,16 @@
 	</stylesheet>
 	<story>
 		<para>
-		This paragraph is an ordinary font style, but switches font. 
+		This paragraph is an ordinary font style, but switches font.
 		<font face="DarkGardenMK">This is in a custom font</font>
 		and <font face="Vera">this is in a custom TTF font</font>.
 			<!-- doesn't work <font face="DarkGardenMK"> -->
-<!--        Yahoo! Rooms 
-  Asian Markets - Discuss the latest market activity. 
-  Biotechnology - Discuss the latest research and advances in this field. 
-  Bond Market - Come here to chat live about the bond market! 
-  Career Corner - Find career tips and advice at http://careers.yahoo.com/ 
-  Small Business - Where professionals meet. Visit http://smallbusiness.yahoo.com/ 
+<!--        Yahoo! Rooms
+  Asian Markets - Discuss the latest market activity.
+  Biotechnology - Discuss the latest research and advances in this field.
+  Bond Market - Come here to chat live about the bond market!
+  Career Corner - Find career tips and advice at http://careers.yahoo.com/
+  Small Business - Where professionals meet. Visit http://smallbusiness.yahoo.com/
   StockWatch - Discuss the latest on Wall St. Visit http://finance.yahoo.com/  -->
 <!-- </font> -->
 		</para>
@@ -42,7 +42,7 @@
 			<drawString x="25" y="75">This is drawn directly in an illustration</drawString>
 		</illustration>
     <para>
-	
+
         <font face="Helvetica" size="9">This is Helvetica (plain).</font>
         <font face="Helvetica" size="9"><i>This is Helvetica + italics.</i></font>
 		<font face="Helvetica-Oblique" size="9">This is Helvetica-Oblique.</font>
@@ -53,6 +53,6 @@
         <i>This is plain text (no font face given) + italic.</i>
     </para>
 
-		
+
 	</story>
 </document>

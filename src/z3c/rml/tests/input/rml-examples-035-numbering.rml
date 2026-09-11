@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_035_numbering.pdf" invariant="1">
 
 <template showBoundary="1">
@@ -10,7 +10,7 @@
 			<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
     		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
 		</pageGraphics>
-		
+
            <frame id="second" x1="35" y1="45" width="525" height="590"/>
         </pageTemplate>
 
@@ -46,14 +46,14 @@
 
 <para style="normal"> This initial paragraph doesn't have any numbers, but I've hidden in it a command to
 "chain" together three level identifiers, so that whenever the level_1 number is ncremented,
-the ones below it reset to 1.   This needs to be done early and should really be allowed in 
+the ones below it reset to 1.   This needs to be done early and should really be allowed in
 the docinit tag, but isn't yet.  The tag looks like <b>&lt;seqChain order= "level1 level2 level_3"/&gt;</b>
 <seqChain order= "level_1 level_2 level_3"/>
 
 </para>
 
 <para style="normal_indent">
-   <b><seq id="level_1"/></b> <b><u>Heading</u></b>.  Lorem ipsum dolor sit amet....  This contains a tag to "get" the current 
+   <b><seq id="level_1"/></b> <b><u>Heading</u></b>.  Lorem ipsum dolor sit amet....  This contains a tag to "get" the current
    value of the <b>level_1</b> counter, and increments it after display.  The tag looks like <b>&lt;seq id="level_1"&gt;</b>.
 </para>
 
@@ -63,29 +63,29 @@ the docinit tag, but isn't yet.  The tag looks like <b>&lt;seqChain order= "leve
 </para>
 
 <para style="normal_indent">
-   <b><seq id="level_1"/>.</b> <b><u>Another heading</u></b>.  Duis bibendum  
-urna ac....  In the paragraphs below we use two <b>seq</b> tags; the level 2 one is as you would expect and increments, bt the level 1 tag has 
-<b>&lt;seq id="level_1" inc="no"&gt;</b>, meaning "do not increment".  You can also pass in an integer, to increment by 0, 1 or something else entirely; you could count 
-down if you wanted to.  
+   <b><seq id="level_1"/>.</b> <b><u>Another heading</u></b>.  Duis bibendum
+urna ac....  In the paragraphs below we use two <b>seq</b> tags; the level 2 one is as you would expect and increments, bt the level 1 tag has
+<b>&lt;seq id="level_1" inc="no"&gt;</b>, meaning "do not increment".  You can also pass in an integer, to increment by 0, 1 or something else entirely; you could count
+down if you wanted to.
 </para>
 
 
 <para style="normal_indent_lv_2">
-   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another
 heading</u></b>.  Morbi laoreet magna sit amet...
 </para>
 <para style="normal_indent_lv_2">
-   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another
 heading</u></b>.  Morbi laoreet magna sit amet...
 </para>
 <para style="normal_indent_lv_2">
-   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another
 heading</u></b>.  Morbi laoreet magna sit amet...
 </para>
 
 
 <para style="normal_indent">
-   <b><seq id="level_1"/>.</b> <b><u>Back to outer level</u></b>.  Duis bibendum  
+   <b><seq id="level_1"/>.</b> <b><u>Back to outer level</u></b>.  Duis bibendum
 urna ac...
 </para>
 
@@ -94,7 +94,7 @@ urna ac...
    jump ahead 5 at the inner level using inc="5"...</u></b>.  Morbi laoreet magna sit amet...
 </para>
 <para style="normal_indent_lv_2">
-   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another  
+   <b><seq id="level_1" inc="no"/>.<seq id="level_2"/></b> <b><u>Yet another
 heading</u></b>.  Morbi laoreet magna sit amet...
 </para>
 

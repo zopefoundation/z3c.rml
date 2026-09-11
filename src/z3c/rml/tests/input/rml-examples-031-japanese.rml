@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_031_japanese.pdf" invariant="1">
   <docinit>
     <registerCidFont faceName="HeiseiMin-W3" />
@@ -106,7 +106,7 @@ the table below:</para>
 
 <para style="jbody">
 ガトウィック空港と連絡通路で直結されている唯一のホテルである当ホテルは、街の中心部から30分の場所にございます。全客室に高速インターネット環境を完備しております。ファミリールームは5名様までお泊りいただけます。また、エグゼクティブルームのお客様は、エグゼクティブラウンジをご利用いただけます。事前にご予約いただけるタイムトゥフライ・パッケージには、空港の駐車料金が含まれております。
-</para> 
+</para>
 <para style="normal">Text After</para>
 
 

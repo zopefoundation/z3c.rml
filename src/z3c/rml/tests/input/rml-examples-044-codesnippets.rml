@@ -29,7 +29,7 @@
 				   parent="style.Heading1"
 				   textColor="red"
 				   />
-				   <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>		
+				   <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
 
 	</stylesheet>
 	<story>
@@ -44,15 +44,15 @@
 </storyPlace>
 		<title>Code snippets test</title>
 		<para>Python has a code-highlighting package named 'Pygments'.   Pygments is installed, you can generate colorized code snippets.  If the sample below is in colour, you have it installed; otherwise, you can obtain it from pypi.python.org, or from the <font face="Courier">python-pygments</font> package in Ubuntu.  Pygments supports many, many different lexers.</para>
-		
+
 		<para>Here is the code to insert a Python snippet...</para>
 		<spacer length="6"/>
 		<para><font face="Courier"><![CDATA[<codesnippet language="python">...</codesnippet>]]></font></para>
 		<spacer length="6"/>
 		<para>...and here is some sample outout...</para>
 		<spacer length="6"/>
-		
-		
+
+
         <codesnippet language="python">
 class code(MapNode):
     def evaluate(self, tagname, sdict, pcontent, extra, context):
@@ -64,11 +64,11 @@ class code(MapNode):
 
 
         #clean up the block of code prior to display.
-        
-        src = ''.join(map(str, pcontent))   
+
+        src = ''.join(map(str, pcontent))
         #split line ends, strip trailing space
-        
-        
+
+
         lines = map(lambda x: x.rstrip(), src.split('\n'))
         #generally we trim off up to one leading and trailing blank lines
         #that's probably from indenting the XML
@@ -78,7 +78,7 @@ class code(MapNode):
             lines = lines[:-1]
         </codesnippet>
 
-<para>Now we'll show colourised XML:</para>        
+<para>Now we'll show colourised XML:</para>
 <codesnippet language="xml"><![CDATA[
     <tag attr="value">
         <content>Foo bar!</content>
@@ -86,7 +86,7 @@ class code(MapNode):
 ]]></codesnippet>
 
 
-<para>If you don't specify a language parameter (or if pygments cannot be imported), it won't get colourised.</para>        
+<para>If you don't specify a language parameter (or if pygments cannot be imported), it won't get colourised.</para>
 <codesnippet><![CDATA[
     <tag attr="value">
         <content>Foo bar!</content>

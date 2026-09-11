@@ -16,8 +16,8 @@
 	</pageTemplate>
 	</template>
 	<stylesheet>
-	
-	
+
+
 	<paraStyle name="heading"
 	fontName="Helvetica-Bold"
 	fontSize="24"
@@ -40,14 +40,14 @@
 	spaceBefore = "24"
 	keepWithNext="0"
 	/>
-	
+
 	<paraStyle name="body"
 	fontName="Helvetica"
 	fontSize="12"
 	leading="14"
 	spaceBefore = "3"
 	/>
-	
+
 	</stylesheet>
 	<story>
 		<para>There should be a table on this page</para>
@@ -184,7 +184,7 @@
 
 <nextPage/>
 
-			
-			
+
+
 	</story>
 </document>
