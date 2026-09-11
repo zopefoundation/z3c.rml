@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_008_tables.pdf">
 	<template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -169,11 +169,11 @@
 		<nextPage/>
 		<bookmark name="PAGE_TWO"/>
 		<para>This shows some pointers on doing financial tables.  It demonstrates the decimal alignment and
-        multiple lines.  We also used a local &lt;td color="red"&gt; attribute for the negative cell; ideally one wants to make the data drive the colour, 
+        multiple lines.  We also used a local &lt;td color="red"&gt; attribute for the negative cell; ideally one wants to make the data drive the colour,
         so that generator apps don't need to make para tags in every cell if they want red negatives.
         If we move to dynamic RML, then a number-and-cell-formatting function is possible, but static RML
         sees everything as text.
-        
+
         Note that when the value does not contain the decimal character but there are non-digit characters at the
         end, it tries to align the rightmost digits with other rows.
         </para>
@@ -237,7 +237,7 @@
 		</blockTable>
 		<nextFrame/>
 		<para>Individual &lt;td&gt; tags that contain pure strings can override the following attributes:
-        <font face="Courier-Bold" size="9">fontName, fontSize, fontColor, leading, leftPadding, rightPadding, 
+        <font face="Courier-Bold" size="9">fontName, fontSize, fontColor, leading, leftPadding, rightPadding,
 			topPadding, bottomPadding, background, align, vAlign,
 			lineBelowThickness, lineBelowColor, lineBelowCap, lineBelowCount, lineBelowSpace,
 			lineAboveThickness, lineAboveColor, lineAboveCap, lineAboveCount, lineAboveSpace,
@@ -540,10 +540,10 @@ Total,277
 		</blockTable>
 		<spacer length="24"/>
 		<para>You can specify a tab with <b>fieldDelim="\t"</b>, but we generally advise against using any
-        whitespace character as a delimiter if you have a choice.  You can also specify fine-grained 
+        whitespace character as a delimiter if you have a choice.  You can also specify fine-grained
         "stripping" control; the default behaviour
         is to strip whitespace off the top and bottom of the overall data block, so blank lines are
-        excluded, and off the ends of each row so line endings and indentation don't matter, but not off each 
+        excluded, and off the ends of each row so line endings and indentation don't matter, but not off each
         cell.  Note that the strings in the cells may contain spaces
         and these spaces will be respected in formatting.  You are also advised to use a CDATA
         escape sequence around your data so that "&amp;","&lt;" and "&gt;",  characters don't
@@ -925,11 +925,11 @@ plus magnum of champagne</td>
 				<blockTopPadding length="1" start="0,1" stop="-1,-1"/>
 				<blockBackground colorsByRow="0xD0FFD0;None" start="0,1" stop="-1,-1"/>
 				<blockAlignment value="right" start="1,1" stop="-1,-1"/>
-				
+
 				<!-- ensure the bottom of the table is 'closed off' during the split.  I've used an ugly red dashed line -->
 				<lineStyle kind="LINEBELOW" colorName="purple" start="0,splitlast" stop="-1,splitlast" thickness="3"/>
-				
-				
+
+
 			</blockTableStyle>
 			<tr>	<td>Date</td><td>Item</td><td>Debit</td><td>Credit</td></tr>
 			<tr>	<td>28-09-2004</td><td>Expensive lunch with clients</td><td>100</td><td>-</td></tr>

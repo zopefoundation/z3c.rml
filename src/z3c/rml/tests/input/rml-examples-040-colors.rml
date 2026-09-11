@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_040_colors.pdf" invariant="1">
 
 <template pagesize="letter" leftMargin="72" showBoundary="1">
@@ -19,7 +19,7 @@
 	</initialize>
 	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
 	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
-	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12" 
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12"
 		spaceBefore="12" spaceAfter="12"/>
 		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
 </stylesheet>
@@ -38,7 +38,7 @@
 	<para style="normal">This text should be <font color="red">red</font>, declared with &lt;font color="red"&gt;</para>
 	<para style="normal">This text should be <font color="#00ff00">green</font>, declared with &lt;font color="#00ff00"&gt;</para>
 	<para style="normal">This text should be <font color="(0,0,1.0)">blue</font>, declared with &lt;font color="(0.0,0.0,1.0)"&gt;</para>
-	
+
 </story>
 
 </document>

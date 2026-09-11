@@ -21,7 +21,7 @@
 			</blockTableStyle>
 			<tr><td>Name</td><td>Email</td></tr>
 			<tr>
-				<td>Robin</td>	
+				<td>Robin</td>
 				<td><plugInFlowable module="mymodule" function="linkURL">("mailto:robin@reportlab.com",)</plugInFlowable></td>
 			</tr>
 		</blockTable>

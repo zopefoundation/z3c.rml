@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
-<document filename="test_049_pre.pdf"> 
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_049_pre.pdf">
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="0">
 	<pageTemplate id="main">
@@ -11,7 +11,7 @@
     		<image file="[z3c.rml.tests]/input/logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
     		<image file="[z3c.rml.tests]/input/strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
 		<setFont name="Helvetica-BoldOblique" size="18"/>
-		
+
 		<setFont name="Helvetica" size="10"/>
 		<drawCenteredString x="297" y="36"><pageNumber countingFrom="2"/></drawCenteredString>
 	</pageGraphics>
@@ -27,7 +27,7 @@
 	fontSize="12"
 	spaceBefore = "0.5 cm"
 	/>
-	
+
 	<paraStyle name="style1"
 	fontSize="10"
 	/>
@@ -38,7 +38,7 @@
 	firstLineIndent = "0.25in"
 	/>
 	<paraStyle name="rstyle1" parent="style1" textColor="red"/>
-	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>		
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
 
 </stylesheet>
 
@@ -55,10 +55,10 @@
     </storyPlace>
     <title>Preformatted text test</title>
     <para>Our pre tag can be used for printing simple blocks
-of code. It respects whitespace and newlines, and will not normally attempt 
-to wrap your code.  However, if your individual lines are too long, this can 
-overflow the width of the column and even run off the page. Three optional 
-attributes - maximumLineLength, splitCharacters and newLineCharacter - 
+of code. It respects whitespace and newlines, and will not normally attempt
+to wrap your code.  However, if your individual lines are too long, this can
+overflow the width of the column and even run off the page. Three optional
+attributes - maximumLineLength, splitCharacters and newLineCharacter -
 can be used to do simple wrapping. maximumLineLength will force the text to
 wrap.</para>
     <para>

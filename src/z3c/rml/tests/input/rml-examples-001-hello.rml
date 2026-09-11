@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_001_hello.pdf" invariant="1">
 
 <template pagesize="letter" leftMargin="72" showBoundary="1">
@@ -21,7 +21,7 @@ MT(PINK)
 	</initialize>
 	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="32" leading="36"/>
 	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
-	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12" 
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="10" leading="12"
 		spaceBefore="12" spaceAfter="12"/>
 </stylesheet>
 
@@ -31,7 +31,7 @@ blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah p
 blah blah blah blah blah IPO.Blah blah blah blah blah blah blah reengineering blah growth blah blah blah
 proactive direction strategic blah blah blah forward-thinking blah.Blah blah doubletalk blah blah blah blah
 blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
-blah blah forward-thinking blah. Here are some common characters &amp;#x92; = &#x92; 
+blah blah forward-thinking blah. Here are some common characters &amp;#x92; = &#x92;
 	</para>
 	<para style="normal">This is another normal paragraph. Blah IPO blah blah blah blah growth forecast blah
 blah blah forecast blah.Blah blah blah blah blah blah blah blah blah blah blah profit blah blah blah blah blah
@@ -51,7 +51,7 @@ proactive direction strategic blah blah blah forward-thinking blah.Blah blah dou
 blah profit blah blah growth blah blah blah blah blah profit.Blah blah blah blah venture capital blah blah blah
 blah blah forward-thinking blah.
 	</para>
-	
+
 </story>
 
 </document>

@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_006_barcodes.pdf">
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -32,7 +32,7 @@
 	<illustration width="10cm" height="1cm">
 		<barCode x="1cm" y="0" code="Code11">01234545634563</barCode>
 	</illustration>
-	
+
 	<spacer length="1cm"/>
 	<para style="normal">Code128</para>
 	<illustration width="10cm" height="1cm">

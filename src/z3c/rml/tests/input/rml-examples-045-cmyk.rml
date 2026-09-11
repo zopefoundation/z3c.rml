@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_045_cmyk.pdf" invariant="1" colorSpace="CMYK">
 <docinit>
 	<color id="BLUE" CMYK="[1,0.67,0,0.23]" spotName="PANTONE 288 CV"/>
@@ -98,7 +98,7 @@
 
     <para style="normal">We can now <font color="BLUE75">pass colours</font> through into <font color="BLUE50">substrings</font> in paragraphs even
     though that's handled by a different parser.</para>
-    
+
 
 </story>
 

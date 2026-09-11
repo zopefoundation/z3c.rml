@@ -16,7 +16,7 @@
 		<frame id="2" x1="35" y1="247.5" width="525" height="185"/>
 		<frame id="3" x1="35" y1="45" width="525" height="185"/>
 	</pageTemplate>
-   
+
 <pageTemplate id="continued" pagesize="a4 portrait">
 		<pageGraphics>
             <setFont name="Helvetica-Bold" size="18"/>
@@ -35,92 +35,92 @@
 </template>
 
 <stylesheet>
-		<paraStyle 
-        name="intro" 
-        fontName="Helvetica" 
-        fontSize="12" 
+		<paraStyle
+        name="intro"
+        fontName="Helvetica"
+        fontSize="12"
         leading="12"
 
         spaceAfter="12"/>
-	<paraStyle 
+	<paraStyle
         name="heading"
     	fontName="Helvetica-Bold"
     	fontSize="24"
     	leading="12"
     	spaceBefore = "24"
 	/>
-    <paraStyle 
-        name="h1" 
-        fontName="Helvetica-Bold" 
-        fontSize="16" 
-        spaceBefore = "0.5 cm" 
+    <paraStyle
+        name="h1"
+        fontName="Helvetica-Bold"
+        fontSize="16"
+        spaceBefore = "0.5 cm"
         spaceAfter="24"/>
-    <paraStyle 
-        name="h2" 
-        fontName="Helvetica-Bold" 
-        fontSize="14"  
-        spaceBefore = "12" 
+    <paraStyle
+        name="h2"
+        fontName="Helvetica-Bold"
+        fontSize="14"
+        spaceBefore = "12"
         spaceAfter="12"/>
-    <paraStyle 
+    <paraStyle
         name="heading-normal"
-        fontName="Helvetica-Bold" 
-        fontSize="12" 
+        fontName="Helvetica-Bold"
+        fontSize="12"
         keepWithNext="0"
         spaceBefore = "12"
         spaceAfter = "12"
     />
-    <paraStyle 
+    <paraStyle
         name="heading-keep-with-next"
-        fontName="Helvetica-Bold" 
-        fontSize="12" 
+        fontName="Helvetica-Bold"
+        fontSize="12"
         keepWithNext="1"
         spaceBefore = "12"
         spaceAfter = "12"
     />
-    <paraStyle 
+    <paraStyle
         name="heading-page-break"
-        fontName="Helvetica-Bold" 
-        fontSize="12" 
+        fontName="Helvetica-Bold"
+        fontSize="12"
         pageBreakBefore="1"
         spaceBefore = "12"
         spaceAfter = "12"
     />
-    <paraStyle 
+    <paraStyle
         name="heading-frame-break"
-        fontName="Helvetica-Bold" 
-        fontSize="12" 
+        fontName="Helvetica-Bold"
+        fontSize="12"
         frameBreakBefore="1"
         spaceBefore = "12"
         spaceAfter = "12"
     />
-    <paraStyle 
-        name="sample-no-widows" 
-        fontName="Helvetica-Oblique" 
-        fontSize="10" 
-        leading="12" 
+    <paraStyle
+        name="sample-no-widows"
+        fontName="Helvetica-Oblique"
+        fontSize="10"
+        leading="12"
         allowWidows="0"
         textColor="green"/>
-    <paraStyle 
-        name="sample-yes-orphans" 
-        fontName="Helvetica-Oblique" 
-        fontSize="10" 
-        leading="12" 
+    <paraStyle
+        name="sample-yes-orphans"
+        fontName="Helvetica-Oblique"
+        fontSize="10"
+        leading="12"
         allowOrphans="1"
         textColor="green"/>
-    <paraStyle 
-        name="normal" 
-        fontName="Helvetica" 
-        fontSize="10" 
-        leading="12" 
-        spaceBefore="6" 
+    <paraStyle
+        name="normal"
+        fontName="Helvetica"
+        fontSize="10"
+        leading="12"
+        spaceBefore="6"
         spaceAfter="6"/>
-    <paraStyle 
-        name="sample" 
-        fontName="Helvetica-Oblique" 
-        fontSize="10" 
-        leading="12" 
-        spaceBefore="6" 
-        spaceAfter="6" 
+    <paraStyle
+        name="sample"
+        fontName="Helvetica-Oblique"
+        fontSize="10"
+        leading="12"
+        spaceBefore="6"
+        spaceAfter="6"
         textColor="green"/>
 </stylesheet>
 
@@ -153,10 +153,10 @@
 <para style="intro">The keepWithNext attribute is assigned to paragraph styles and tells them to stay in the same frame as the following content. If subsequent content overflows, keepWithNext will cause the preceding paragraph to overflow as well.</para>
 <para style="normal">Below is a paragraph heading that does NOT have keepWithNext turned on. It's styles are defined as below:</para>
 <codesnippet language="xml"><![CDATA[
-    <paraStyle 
+    <paraStyle
         name="heading-no-keep"
-        fontName="Helvetica-Bold" 
-        fontSize="12" 
+        fontName="Helvetica-Bold"
+        fontSize="12"
         keepWithNext="0"
     />
     ]]>

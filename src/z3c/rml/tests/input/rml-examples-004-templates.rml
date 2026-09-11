@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
-<document filename="test_004_templates.pdf"> 
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_004_templates.pdf">
 
 
 <template pagesize="(595, 842)" leftMargin="72" showBoundary="1">
@@ -63,7 +63,7 @@
 	spaceBefore = "0"
 	textColor = "red"
 	/>
-		
+
 </stylesheet>
 
 

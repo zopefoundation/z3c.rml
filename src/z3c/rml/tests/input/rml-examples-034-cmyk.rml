@@ -1,4 +1,4 @@
-<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="test_034_cmyk.pdf" invariant="1">
 <docinit>
 	<color id="CMYK_WHITE" RGB="PCMYKColor(100, 100, 100, 0)"/>
