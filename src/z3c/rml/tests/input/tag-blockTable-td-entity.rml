@@ -1,0 +1,24 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document
+    filename="tag-blockTable-td-entity.pdf"
+    xmlns:doc="http://namespaces.zope.org/rml/doc">
+
+  <template>
+    <pageTemplate id="main">
+      <frame id="first" x1="72" y1="72" width="451" height="698"/>
+    </pageTemplate>
+  </template>
+
+  <story>
+
+    <title><font face="Courier">&lt;blockTable&gt;</font> Entity Demo</title>
+    <blockTable
+        colWidths="100%" rowHeights="1cm"
+        doc:example="">
+      <tr>
+       <td>Reiser &amp; Rumple</td>
+      </tr>
+    </blockTable>
+
+  </story>
+</document>

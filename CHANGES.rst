@@ -5,7 +5,13 @@ CHANGES
 5.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix ``<td>`` cells whose text is used as-is (no ``para`` or other
+  sub-flowable inside) showing literal ``&amp;``, ``&lt;`` or ``&gt;``
+  instead of the actual ``&``, ``<`` or ``>`` character. The escaping was
+  a side effect of serializing the cell back to XML text internally and
+  was never undone before handing the string to ReportLab's table, which
+  draws such plain strings without interpreting any markup.
+  (`#131 <https://github.com/zopefoundation/z3c.rml/issues/131>`_)
 
 
 5.2 (2026-06-23)

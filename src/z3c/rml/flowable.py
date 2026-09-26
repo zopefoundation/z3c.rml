@@ -684,6 +684,15 @@ class TableCell(directive.RMLDirective):
         if len(content) == 0:
             content = self.getAttributeValues(
                 select=('content',), valuesOnly=True)[0]
+            # Without any recognized sub-flowable (such as `para`),
+            # the content is used as a plain string and handed
+            # directly to ReportLab's Table, which draws it literally
+            # instead of interpreting it as markup. So the XML
+            # entities that RawXMLContent re-introduced while
+            # serializing the element back to text need to be
+            # resolved again, or e.g. a literal "&" in the source
+            # would show up as the text "&amp;" in the cell.
+            content = unescape(content)
         self.parent.cols.append(content)
 
 
