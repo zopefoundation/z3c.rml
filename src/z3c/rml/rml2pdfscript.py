@@ -40,8 +40,7 @@ def excecuteSubProcess(xmlInputName, outputFileName, testing=None):
             # cleanup win paths like:
             # ....\\input\\file:///D:\\trunk\\...
             if sys.platform[:3].lower() == "win":
-                if filename.startswith('file:///'):
-                    filename = filename[len('file:///'):]
+                filename = filename.removeprefix('file:///')
             path = os.path.join(os.path.dirname(xmlInputName), filename)
             return open(path, 'rb')
         # override some testing stuff for our tests
